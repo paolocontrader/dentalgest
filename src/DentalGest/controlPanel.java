@@ -294,7 +294,6 @@ String value=oper.userN;
             trail.getObj().setVisible(false);
             modifica_adesione.getObj().setVisible(false);
             Prestazioni.getObj().setVisible(false);
-            services_s.getObj().setVisible(false);
             Clients.getObj().setVisible(false);
             report.getObj().setVisible(false);
             dispose();

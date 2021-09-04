@@ -88,16 +88,15 @@ public class Prestazioni extends javax.swing.JFrame {
 }
     void Refresh(){
         combo_ser.removeAllItems();
-        combo_ser.setSelectedItem("");
         try {
-        String sql = "SELECT * FROM  servizi";
+        String sql = "SELECT * FROM  prestazioni";
        pstd = connel.prepareStatement(sql);
         rscd = pstd.executeQuery();
        
         while(rscd.next())
 
 {      
-combo_ser.addItem(rscd.getString("nome_s"));
+combo_ser.addItem(rscd.getString("nome"));
 
 
 }
@@ -131,15 +130,15 @@ combo_ser.addItem(rscd.getString("nome_s"));
 
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        btn_mod = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         combo_ser = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         txt_prezzo = new javax.swing.JTextField();
-        bnt_agg = new javax.swing.JButton();
         txt_nome = new javax.swing.JTextField();
-        bt_elim1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        bnt_agg = new javax.swing.JButton();
+        btn_mod = new javax.swing.JButton();
+        bt_elim1 = new javax.swing.JButton();
         bnt_agg1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -161,19 +160,6 @@ combo_ser.addItem(rscd.getString("nome_s"));
             }
         });
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 20, 20));
-
-        btn_mod.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btn_mod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/modifica.png"))); // NOI18N
-        btn_mod.setToolTipText("");
-        btn_mod.setBorder(null);
-        btn_mod.setBorderPainted(false);
-        btn_mod.setContentAreaFilled(false);
-        btn_mod.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_modActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 75, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Servizio:");
@@ -207,6 +193,19 @@ combo_ser.addItem(rscd.getString("nome_s"));
         });
         getContentPane().add(txt_prezzo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 260, 25));
 
+        txt_nome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_nome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
+        txt_nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_nomeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txt_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 260, 25));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Nome");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
+
         bnt_agg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/aggiungi.png"))); // NOI18N
         bnt_agg.setBorder(null);
         bnt_agg.setBorderPainted(false);
@@ -220,14 +219,19 @@ combo_ser.addItem(rscd.getString("nome_s"));
         });
         getContentPane().add(bnt_agg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, 30));
 
-        txt_nome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_nome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        txt_nome.addActionListener(new java.awt.event.ActionListener() {
+        btn_mod.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btn_mod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/modifica.png"))); // NOI18N
+        btn_mod.setToolTipText("");
+        btn_mod.setBorder(null);
+        btn_mod.setBorderPainted(false);
+        btn_mod.setContentAreaFilled(false);
+        btn_mod.setFocusable(false);
+        btn_mod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_nomeActionPerformed(evt);
+                btn_modActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 260, 25));
+        getContentPane().add(btn_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 75, 30));
 
         bt_elim1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_elim1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/elimina.png"))); // NOI18N
@@ -239,10 +243,6 @@ combo_ser.addItem(rscd.getString("nome_s"));
             }
         });
         getContentPane().add(bt_elim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, -1, 30));
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Nome");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         bnt_agg1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/cancella.png"))); // NOI18N
         bnt_agg1.setBorder(null);
@@ -277,131 +277,14 @@ combo_ser.addItem(rscd.getString("nome_s"));
         
     }//GEN-LAST:event_txt_prezzoActionPerformed
 
-    private void bnt_aggActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_aggActionPerformed
-        // TODO add your handling code here:
-        int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler creare il seguente servizio","Crea Servizio",JOptionPane.YES_NO_OPTION);
-        if(x==0){
-            try{
-                String servizio = txt_nome.getText();
-
-                pstcheck = conn.createStatement();
-                rsc = pstcheck.executeQuery("select nome_s from servizi where nome_s='"+servizio+"'");
-                if(rsc.next()){
-                    JOptionPane.showMessageDialog(null,"Servizio già esistente");
-                    
-                }
-                else{ String sql="insert into servizi (nome_s,prezzo) values (?,?)";
-                    pst=conn.prepareStatement(sql);
-                    pst.setString(1,txt_nome.getText().toLowerCase());
-                    pst.setString(2,txt_prezzo.getText());
-                    pst.execute();
-                    JOptionPane.showMessageDialog(null,"Servizio creato correttamente" );
-                 
-               combo_ser.removeAllItems();
-          txt_nome.setText("");
-        txt_prezzo.setText("");
-            }
-            }
-
-                
-
-            catch(SQLException | HeadlessException e)
-            {
-                JOptionPane.showMessageDialog(null,"Errore Creazione Servizio");
-            }
-
-            finally{
-                try{
-                    rs.close();
-                    pst.close();
-                   
-                }
-                catch(SQLException e)
-                {
-
-                }
-            }    }
-        }
-
-        private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-             
-            
-    }//GEN-LAST:event_bnt_aggActionPerformed
-
     private void txt_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_nomeActionPerformed
 
-    private void bt_elim1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_elim1ActionPerformed
-        // TODO add your handling code here:
-      
-        String servizio =combo_ser.getSelectedItem().toString();
-        int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler rimuovere la seguente prestazione?","Elimina Prestazione",JOptionPane.YES_NO_OPTION);
-        if(x==0){
-
-            try{
-                String sql = "delete from prestazioni where nome_s='"+servizio+"'";
-
-                pst=conn.prepareStatement(sql);
-                pst.execute();
-                Refresh();
-                JOptionPane.showMessageDialog(null,"Prestazione eliminata correttamente" );
-               
-                 
-                combo_ser.setSelectedItem("");
-                txt_prezzo.setText("");
-                txt_nome.setText("");
-               
-            }catch(SQLException | HeadlessException e)
-            {
-                JOptionPane.showMessageDialog(null,"Errore eliminazione Prestazione " );
-            }}
-    }//GEN-LAST:event_bt_elim1ActionPerformed
-
-    private void btn_modActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modActionPerformed
-        // TODO add your handling code here:
-        
-        int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiornare la seguente prestazione?","Aggiorna Prestazione",JOptionPane.YES_NO_OPTION);
-        if(x==0){
-            
-           
-            try{
-        String val1 = combo_ser.getSelectedItem().toString();
-        String nome = txt_nome.getText().toLowerCase();
-        String prezzo = txt_prezzo.getText();
-               
-                  String sql="update servizi set nome_s='"+nome+"',prezzo='"+prezzo+"' where nome_s='"+val1+"'"; 
-            pst=connd.prepareStatement(sql);                 
-            pst.execute();
-                
-            JOptionPane.showMessageDialog(null,"Servizio aggiornato Correttamente" );
-            combo_ser.removeAllItems();
-          txt_nome.setText("");
-        txt_prezzo.setText("");
-              
-            
-        }
-    catch(SQLException | HeadlessException e)
-        {
-            JOptionPane.showMessageDialog(null,"Errore modifica servizio");
-      }
-       
-        finally{
-            try{
-                rs.close();
-                pst.close();
-            }
-            catch(SQLException e)
-        {
-            
-      }
-        } }   
-    }//GEN-LAST:event_btn_modActionPerformed
-
     private void combo_serPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_combo_serPopupMenuWillBecomeVisible
         // TODO add your handling code here:
        combo_ser.removeAllItems();
-        String sql="select * from prestazioni ORDER BY nome_s  ASC ";
+        String sql="select * from prestazioni ORDER BY nome  ASC ";
         try {
             pst=conn.prepareStatement(sql);
             rs=pst.executeQuery();
@@ -410,7 +293,7 @@ combo_ser.addItem(rscd.getString("nome_s"));
             combo_ser.removeAllItems();        }
         else{
             while(rs.next()){
-            combo_ser.addItem(rs.getString("nome_s"));
+            combo_ser.addItem(rs.getString("nome"));
             
         }
         }} catch (SQLException ex) {
@@ -424,11 +307,11 @@ combo_ser.addItem(rscd.getString("nome_s"));
         
         String scelta=combo_ser.getSelectedItem().toString();
         try{
-            String sql = "select * from servizi where nome_s='"+scelta+"'";
+            String sql = "select * from prestazioni where nome='"+scelta+"'";
         pst=conn.prepareStatement(sql);
         rs=pst.executeQuery();
         while(rs.next()){
-        txt_nome.setText(rs.getString("nome_s"));
+        txt_nome.setText(rs.getString("nome"));
         txt_prezzo.setText(rs.getString("prezzo"));
         }
         
@@ -439,13 +322,117 @@ combo_ser.addItem(rscd.getString("nome_s"));
         
     }//GEN-LAST:event_combo_serPopupMenuWillBecomeInvisible
 
+    private void bnt_aggActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_aggActionPerformed
+        // TODO add your handling code here:
+        int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler creare il seguente servizio","Crea Servizio",JOptionPane.YES_NO_OPTION);
+        if(x==0){
+            try{
+                String servizio = txt_nome.getText();
+
+                pstcheck = conn.createStatement();
+                rsc = pstcheck.executeQuery("select nome from prestazioni where nome='"+servizio+"'");
+                if(rsc.next()){
+                    JOptionPane.showMessageDialog(null,"Servizio già esistente");
+                    combo_ser.removeAllItems();
+                txt_prezzo.setText("");
+                txt_nome.setText("");
+
+                }
+                else{
+                    String sql="insert into prestazioni (nome,prezzo) values (?,?)";
+                    pst=conn.prepareStatement(sql);
+                    pst.setString(1,txt_nome.getText().toLowerCase());
+                    pst.setString(2,txt_prezzo.getText());
+                    pst.execute();
+                    JOptionPane.showMessageDialog(null,"Servizio creato correttamente" );
+
+                   combo_ser.removeAllItems();
+                txt_prezzo.setText("");
+                txt_nome.setText("");
+                    Refresh();
+                }
+            }
+
+            catch(SQLException | HeadlessException e)
+            {
+                JOptionPane.showMessageDialog(null,"Errore Creazione Servizio");
+            }
+
+        }
+        }
+
+        private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+
+    }//GEN-LAST:event_bnt_aggActionPerformed
+
+    private void btn_modActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modActionPerformed
+        // TODO add your handling code here:
+
+        int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiornare li seguente servizio?","Aggiorna Servizio",JOptionPane.YES_NO_OPTION);
+        if(x==0){
+
+            try{
+                String val1 = combo_ser.getSelectedItem().toString();
+                String nome = txt_nome.getText().toLowerCase();
+                String prezzo = txt_prezzo.getText();
+
+                String sql="update prestazioni set nome='"+nome+"',prezzo='"+prezzo+"' where nome='"+val1+"'";
+                pst=connd.prepareStatement(sql);
+                pst.execute();
+
+                JOptionPane.showMessageDialog(null,"Servizio aggiornato Correttamente" );
+                combo_ser.removeAllItems();
+                txt_nome.setText("");
+                txt_prezzo.setText("");
+
+            }
+            catch(SQLException | HeadlessException e)
+            {
+                JOptionPane.showMessageDialog(null,"Errore modifica servizio");
+            }
+
+            finally{
+                try{
+                    rs.close();
+                    pst.close();
+                }
+                catch(SQLException e)
+                {
+
+                }
+            } }
+    }//GEN-LAST:event_btn_modActionPerformed
+
+    private void bt_elim1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_elim1ActionPerformed
+        // TODO add your handling code here:
+
+        String servizio =combo_ser.getSelectedItem().toString();
+        int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler rimuovere il seguente servizio?","Elimina Servizio",JOptionPane.YES_NO_OPTION);
+        if(x==0){
+
+            try{
+                String sql = "delete from prestazioni where nome='"+servizio+"'";
+
+                pst=conn.prepareStatement(sql);
+                pst.execute();
+                Refresh();
+                JOptionPane.showMessageDialog(null,"Servizio eliminato correttamente" );
+
+                combo_ser.removeAllItems();
+                txt_prezzo.setText("");
+                txt_nome.setText("");
+
+            }catch(SQLException | HeadlessException e)
+            {
+                JOptionPane.showMessageDialog(null,"Errore eliminazione Servizio " );
+            }}
+    }//GEN-LAST:event_bt_elim1ActionPerformed
+
     private void bnt_agg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_agg1ActionPerformed
         // TODO add your handling code here:
-        
         combo_ser.removeAllItems();
         txt_nome.setText("");
         txt_prezzo.setText("");
-        
     }//GEN-LAST:event_bnt_agg1ActionPerformed
 
     /**

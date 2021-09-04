@@ -51,6 +51,7 @@ public final class Clients extends javax.swing.JFrame {
     Connection conns=null;
     Connection coni=null;
     Connection repo=null;
+    Connection connInsTot=null;
     ResultSet rs=null;
     ResultSet rsc=null;
     ResultSet rscv=null;
@@ -67,6 +68,8 @@ public final class Clients extends javax.swing.JFrame {
      ResultSet rscd=null;
      ResultSet rep=null;
     PreparedStatement psts=null;
+    PreparedStatement pstIns = null;
+     ResultSet rsInsTot = null;
     
     /**
      * Creates new form Clients
@@ -83,6 +86,7 @@ public final class Clients extends javax.swing.JFrame {
          coni=Db.db();
          repo=Db.db();
          connv=Db.db();
+         connInsTot = Db.db();
         
     AnimationStation();
     
@@ -164,9 +168,9 @@ public final class Clients extends javax.swing.JFrame {
             }
            
            
-            txt_ant.setText("acconto");
-            txt_resto.setText("resto");
-            txt_tt.setText("totale");
+            txt_ant.setText("accu");
+            txt_resto.setText("resu");
+            txt_tt.setText("ttt");
 
        
     }
@@ -508,11 +512,12 @@ dispose();
     private void bnt_agg_sekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_agg_sekActionPerformed
         // TODO add your handling code here:
         try{
-                
+                String costoIns = null;
                 String cliente = combo_cliente.getSelectedItem().toString();
+                String servizio = combo_ser_sek.getSelectedItem().toString();
                 if(cliente.isEmpty()){JOptionPane.showMessageDialog(null, "Selezionare un'azienda a menu a tendina");}
                 else{
-                    String servizio = combo_ser_sek.getSelectedItem().toString();
+                    
                     int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiungere il seguente servizio","Aggiungi Servizio",JOptionPane.YES_NO_OPTION);
 
                     if(x==0){    
@@ -520,26 +525,29 @@ dispose();
                 pstcheck = conn.createStatement();
                 rsc = pstcheck.executeQuery("select nome from prestazione_cliente where cliente='"+cliente+"'and nome='"+servizio+"'");
                 if(rsc.next()){
-                    JOptionPane.showMessageDialog(null,"Servizio già esistente per l'azienda "+cliente );
+                    JOptionPane.showMessageDialog(null,"Servizio già esistente per il cliente "+cliente );
                 }
                 else {
                     
-                    Double accs,ress,tot;
-                    accs=0.00;
-                    ress=0.00;
-                    tot=0.00;
-                    
-                    String accontos=Double.toString(accs);
-                    String totales=Double.toString(tot);
-                    String resos=Double.toString(ress);
-                    String sql="insert into prestazione_cliente (nome,cliente,acconto,reso,totale) values (?,?,?,?,?)";
+                   
+                    String costo_insert = "select prezzo from prestazioni where nome = ?";
+                    pstIns = connInsTot.prepareStatement(costo_insert);
+                    pstIns.setString(1,servizio);
+                    rsInsTot = pstIns.executeQuery();
+                    while(rsInsTot.next())
+                    {
+                    costoIns = Double.toString(rsInsTot.getDouble("prezzo"));
+                    }
+                    System.out.println("costo: "+costoIns);
+                    String sql="insert into prestazione_cliente (nome,cliente,acconto,reso,totale,costo) values (?,?,?,?,?,?)";
                     pst=conn.prepareStatement(sql);
 
                     pst.setString(1,servizio);
                     pst.setString(2,cliente);
-                    pst.setString(3,accontos);
-                    pst.setString(4,resos);
-                    pst.setString(5,totales);
+                    pst.setString(3,"0.0");
+                    pst.setString(4,costoIns);
+                    pst.setString(5,costoIns);
+                    pst.setString(6,costoIns);
 
                     pst.execute();
                     JOptionPane.showMessageDialog(null,"Prestazione salvata correttamente" );
@@ -717,21 +725,23 @@ dispose();
         txt_servizio.setText(model.getValueAt(selectedRowIndex, 0).toString());
         txt_costo.setText(model.getValueAt(selectedRowIndex, 5).toString());
         txt_anticipo.setText(model.getValueAt(selectedRowIndex, 2).toString());
-            Double res=0.0;
-            Double imp=0.0;
-            Double acc=0.0;
+            Double resto=0.0;
+            Double costo=0.0;
+            Double acconto=0.0;
             Double ttt=0.0;
             for(int i=0;i < tb1.getRowCount();i++){
-                imp =  imp + Double.parseDouble(tb1.getValueAt(i,4 ).toString());
-                acc =  acc + Double.parseDouble(tb1.getValueAt(i, 2).toString());
+                costo =  costo + Double.parseDouble(tb1.getValueAt(i,1).toString());
+                acconto =  acconto + Double.parseDouble(tb1.getValueAt(i, 2).toString());
                 
                 ttt=ttt+Double.parseDouble(tb1.getValueAt(i,4).toString());
-                res = ttt - acc;
+                resto = ttt - acconto;
+                txt_ant.setText(decimalFormat.format(acconto));
+            txt_resto.setText(decimalFormat.format(resto));
+            txt_tt.setText(decimalFormat.format(ttt));
+                
             }
 
-            txt_ant.setText(decimalFormat.format(acc));
-            txt_resto.setText(decimalFormat.format(res));
-            txt_tt.setText(decimalFormat.format(ttt));
+            
 
         
     }//GEN-LAST:event_tb1MouseClicked
@@ -747,10 +757,10 @@ dispose();
 
             {
                 String serv1 = rscv.getString("nome");
-                String serv2 = rscv.getString("prezzo");
                 combo_ser_sek.addItem(serv1);
 
             }
+           
 
         }
         catch (SQLException e){
@@ -786,28 +796,25 @@ dispose();
 
                    
                     String var_anticipo = txt_anticipo.getText();
-                    Double senza_iva,il_totale;
+                    Double il_totale;
                     
                     
                     il_totale=(Double.parseDouble(prezzo));
                     il_totale=il_totale*100;
                     double tot=Math.ceil(il_totale);
-                    tot=tot/100;
-                    String ptot=Double.toString(tot);
+                   
                     Double resto=0.00;
                     Double sum=0.00;
                     Double anti=0.00;
-                    Double nett=0.00;
                     Double ttot=0.00;
                     for(int i=0;i < tb1.getRowCount();i++){
-                        sum =  sum + Double.parseDouble(tb1.getValueAt(i,4 ).toString());
-                        anti =  anti + Double.parseDouble(tb1.getValueAt(i,3 ).toString());
+                        anti =  anti + Double.parseDouble(tb1.getValueAt(i,2 ).toString());
                         ttot=ttot + Double.parseDouble(tb1.getValueAt(i, 4).toString());
                         resto = (ttot - anti);
                         resto=Math.ceil(resto);
                         }
                     
-                    String sql="update prestazione_cliente set nome='"+servizio+"',cliente='"+val1+"',costo='"+prezzo+"',reso='"+resto+"',acconto='"+var_anticipo+"',totale='"+ptot+"' where cliente='"+val1+"' and nome='"+servizio+"'";
+                    String sql="update prestazione_cliente set nome='"+servizio+"',cliente='"+val1+"',reso='"+resto+"',acconto='"+var_anticipo+"' where cliente='"+val1+"' and nome='"+servizio+"'";
                     pst=conn.prepareStatement(sql);
                    pst.execute();
                            
@@ -825,9 +832,10 @@ dispose();
                     
                     JOptionPane.showMessageDialog(null,"Servizio modificato correttamente per l'azienda "+val1 );
                    Update_table(); 
-                    txt_costo.setText("");
-                    txt_servizio.setText("");
-                    txt_anticipo.setText("");
+                 
+            txt_ant.setText(decimalFormat.format(anti));
+            txt_resto.setText(decimalFormat.format(resto));
+            txt_tot.setText(decimalFormat.format(sum));
                   
 
 
@@ -940,13 +948,12 @@ dispose();
             Double acc=0.0;
            
             Double ttt=0.0;
-            for(int i=0;i < tb1.getRowCount();i++){
-                acc =  acc + Double.parseDouble(tb1.getValueAt(i, 2).toString());
-                ttt=ttt+Double.parseDouble(tb1.getValueAt(i, 4).toString());
-                res = ttt - acc;
-            }
+//            for(int i=0;i < tb1.getRowCount();i++){
+//                acc =  acc + Double.parseDouble(tb1.getValueAt(i, 2).toString());
+//                ttt=ttt+Double.parseDouble(tb1.getValueAt(i, 4).toString());
+//                res = ttt - acc;
+//            }
             
-            ric_serv.setText(cliente);
             txt_ant.setText(decimalFormat.format(acc));
             txt_resto.setText(decimalFormat.format(res));
             txt_tot.setText(decimalFormat.format(ttt));
@@ -954,18 +961,6 @@ dispose();
      
         catch(SQLException | NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
-        }
-        finally{
-            try {
-                rs.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                pst.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         
     }//GEN-LAST:event_combo_clientePopupMenuWillBecomeInvisible
