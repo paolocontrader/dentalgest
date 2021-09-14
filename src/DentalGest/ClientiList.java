@@ -13,8 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,60 +24,49 @@ import net.proteanit.sql.DbUtils;
  * @author Paolo
  */
 public final  class ClientiList extends javax.swing.JFrame {
-    Connection connd=null;
-    Connection conna=null;
-    Connection conne=null;
+  
+    String msg1 = null;
+    String msg2 = null;
     Connection conn=null;
-    Connection conn1=null;
-    Connection conn2=null;
-    Connection conn3=null;
-    Connection conns=null;
-        Connection connel=null;
-         Connection connect = null;
-         Connection connClick = null;
-       Statement s = null;
-    Connection coni=null;
-    Connection repo=null;
-    ResultSet rs=null;
-    ResultSet rsc=null;
-    ResultSet rscv=null;
-    ResultSet rscs=null;
-    PreparedStatement pstv=null;
-    PreparedStatement psti=null;
-    PreparedStatement pstz=null;
-    PreparedStatement pstcc=null;
+    Connection connUpd=null;
+    Connection connDel=null;
+    Connection connSearch=null;
+    Connection connRef=null;
+    Connection connClick = null;
+    Connection connCheck = null;
+    Connection connPop = null;
+    Connection connIns = null;
+    ResultSet rsUpd=null;
+    ResultSet rsDel=null;
+    ResultSet rsSearch=null;
+    ResultSet rs = null;
+    Statement pstd=null;
     PreparedStatement pst=null;
-    PreparedStatement pstr=null;
+    PreparedStatement pstUpd=null;
     PreparedStatement psclick = null;
-        Statement pstd=null;
-
-    PreparedStatement prep=null;
+        Statement pstDel=null;
+        PreparedStatement pstPop = null;
+    PreparedStatement pstSearch=null;
     PreparedStatement pstcheck=null;
-    ResultSet rss=null;
-     ResultSet rscd=null;
-     ResultSet rep=null;
+    PreparedStatement pstIns = null;
      ResultSet rsclick = null;
-    PreparedStatement psts=null;
-    PreparedStatement pss = null;
+     ResultSet rsd = null;
+     ResultSet rsPop = null;
+     ResultSet rscheck = null;
     /**
      * Creates new form Clients
      */
     ClientiList() {
         initComponents();
           
-       connect=Db.db();
         conn=Db.db();
-         conne= Db.db();
-         conna=Db.db();
-         conn2= Db.db();
-         conn3=Db.db();
-         conn1=Db.db();
-         conns=Db.db();
-         coni=Db.db();
-         repo=Db.db();
-         connd=Db.db();
-         connel=Db.db();
-         connClick=Db.db();
+         connDel= Db.db();
+         connUpd=Db.db();
+         connSearch= Db.db();
+         connRef = Db.db();
+         connClick = Db.db();
+         connIns = Db.db();
+         connCheck = Db.db();
     PopulateData();
     AnimationStation();
             
@@ -130,9 +117,9 @@ public final  class ClientiList extends javax.swing.JFrame {
                
 
        try{
-            pstd = connel.createStatement();
-            rscd = pstd.executeQuery(sql);
-            tb1.setModel(DbUtils.resultSetToTableModel(rscd));
+            pstd = connRef.createStatement();
+            rsd = pstd.executeQuery(sql);
+            tb1.setModel(DbUtils.resultSetToTableModel(rsd));
            
             i =tb1.getRowCount();
           
@@ -159,22 +146,14 @@ public final  class ClientiList extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDateChooserBeanInfo1 = new com.toedter.calendar.JDateChooserBeanInfo();
         bnt_agg_sek = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tb1 = new javax.swing.JTable();
         bt_cerca = new javax.swing.JButton();
-        app = new javax.swing.JLabel();
-        txt_tt = new javax.swing.JLabel();
         txt_cerca = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         bt_elim2 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         bnt_mod = new javax.swing.JButton();
-        bnt_agg_sek2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         lab_mail = new javax.swing.JLabel();
         txt_nome = new javax.swing.JTextField();
         lab_pec = new javax.swing.JLabel();
@@ -182,16 +161,11 @@ public final  class ClientiList extends javax.swing.JFrame {
         lab_codfisc = new javax.swing.JLabel();
         txt_codfisc = new javax.swing.JTextField();
         lab_formagiur = new javax.swing.JLabel();
-        txtproxapp = new javax.swing.JTextField();
-        lab_comune = new javax.swing.JLabel();
-        lab_partiva = new javax.swing.JLabel();
-        txt_totprest = new javax.swing.JTextField();
-        lab_cell = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txt_descrinter = new javax.swing.JTextArea();
         txt_recapito = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        txt_nominativo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
@@ -200,7 +174,7 @@ public final  class ClientiList extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         bnt_agg_sek.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        bnt_agg_sek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dentalgest/images/pulsanti/aggiungi.png"))); // NOI18N
+        bnt_agg_sek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/aggiungi_150x40.png"))); // NOI18N
         bnt_agg_sek.setAlignmentY(2.0F);
         bnt_agg_sek.setBorder(null);
         bnt_agg_sek.setBorderPainted(false);
@@ -211,7 +185,7 @@ public final  class ClientiList extends javax.swing.JFrame {
                 bnt_agg_sekActionPerformed(evt);
             }
         });
-        getContentPane().add(bnt_agg_sek, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, 75, 47));
+        getContentPane().add(bnt_agg_sek, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, 100, 47));
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -238,7 +212,7 @@ public final  class ClientiList extends javax.swing.JFrame {
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 780, 240));
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        bt_cerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dentalgest/images/pulsanti/ricarica.png"))); // NOI18N
+        bt_cerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_lente_ingrandimento_cerca_40x40.png"))); // NOI18N
         bt_cerca.setBorder(null);
         bt_cerca.setBorderPainted(false);
         bt_cerca.setContentAreaFilled(false);
@@ -247,9 +221,7 @@ public final  class ClientiList extends javax.swing.JFrame {
                 bt_cercaActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 75, 47));
-        getContentPane().add(app, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
-        getContentPane().add(txt_tt, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 510, -1, -1));
+        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 75, 47));
 
         txt_cerca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         txt_cerca.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -257,15 +229,10 @@ public final  class ClientiList extends javax.swing.JFrame {
                 txt_cercaMouseClicked(evt);
             }
         });
-        getContentPane().add(txt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 200, 20));
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel6.setText("Ricerca:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
+        getContentPane().add(txt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 200, 20));
 
         bt_elim2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        bt_elim2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dentalgest/images/pulsanti/elimina.png"))); // NOI18N
+        bt_elim2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/elimina_150x40.png"))); // NOI18N
         bt_elim2.setBorder(null);
         bt_elim2.setBorderPainted(false);
         bt_elim2.setContentAreaFilled(false);
@@ -274,18 +241,10 @@ public final  class ClientiList extends javax.swing.JFrame {
                 bt_elim2ActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_elim2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, 75, 47));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dentalgest/images/pulsanti/chiudi.png"))); // NOI18N
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 0, -1, -1));
+        getContentPane().add(bt_elim2, new org.netbeans.lib.awtextra.AbsoluteConstraints(465, 40, 90, 47));
 
         bnt_mod.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        bnt_mod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dentalgest/images/pulsanti/modifica.png"))); // NOI18N
+        bnt_mod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/modifica_150x40.png"))); // NOI18N
         bnt_mod.setAlignmentY(2.0F);
         bnt_mod.setBorder(null);
         bnt_mod.setBorderPainted(false);
@@ -296,38 +255,7 @@ public final  class ClientiList extends javax.swing.JFrame {
                 bnt_modActionPerformed(evt);
             }
         });
-        getContentPane().add(bnt_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, 75, 47));
-
-        bnt_agg_sek2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        bnt_agg_sek2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dentalgest/images/pulsanti/aggiungi.png"))); // NOI18N
-        bnt_agg_sek2.setAlignmentY(2.0F);
-        bnt_agg_sek2.setBorder(null);
-        bnt_agg_sek2.setBorderPainted(false);
-        bnt_agg_sek2.setContentAreaFilled(false);
-        bnt_agg_sek2.setFocusPainted(false);
-        bnt_agg_sek2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bnt_agg_sek2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(bnt_agg_sek2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, 75, 47));
-
-        jButton1.setText("Prestazioni");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 610, -1, -1));
-
-        jButton2.setText("Cartella Clinica");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 610, -1, -1));
-
-        jButton3.setText("Appuntamenti");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 610, -1, -1));
-
-        jButton4.setText("Pagamenti");
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 610, -1, -1));
+        getContentPane().add(bnt_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 100, 47));
 
         lab_mail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lab_mail.setText("Nome:");
@@ -367,38 +295,11 @@ public final  class ClientiList extends javax.swing.JFrame {
         lab_formagiur.setText("Recapito:");
         getContentPane().add(lab_formagiur, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 380, -1, -1));
 
-        txtproxapp.setEditable(false);
-        txtproxapp.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtproxapp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
-        getContentPane().add(txtproxapp, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, 140, -1));
-
-        lab_comune.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lab_comune.setText("Prossimo appuntamento:");
-        getContentPane().add(lab_comune, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 410, -1, -1));
-
-        lab_partiva.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lab_partiva.setText("Totale Prestazioni:");
-        getContentPane().add(lab_partiva, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 410, -1, -1));
-
-        txt_totprest.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_totprest.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
-        getContentPane().add(txt_totprest, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 410, 80, -1));
-
-        lab_cell.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lab_cell.setText("Descrizione Intervento:");
-        getContentPane().add(lab_cell, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 440, -1, -1));
-
-        txt_descrinter.setColumns(20);
-        txt_descrinter.setRows(5);
-        jScrollPane1.setViewportView(txt_descrinter);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, 780, -1));
-
         txt_recapito.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_recapito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         getContentPane().add(txt_recapito, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 380, 140, -1));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/chiudi.png"))); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel11MouseClicked(evt);
@@ -406,7 +307,7 @@ public final  class ClientiList extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 0, -1, -1));
 
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/minimizza.png"))); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel12MouseClicked(evt);
@@ -414,7 +315,26 @@ public final  class ClientiList extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 0, -1, -1));
 
-        setSize(new java.awt.Dimension(848, 648));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setFocusPainted(false);
+        jButton1.setFocusable(false);
+        jButton1.setRequestFocusEnabled(false);
+        jButton1.setRolloverEnabled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 130, 40));
+
+        txt_nominativo.setEditable(false);
+        txt_nominativo.setBorder(null);
+        getContentPane().add(txt_nominativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        setSize(new java.awt.Dimension(848, 488));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -437,13 +357,13 @@ public final  class ClientiList extends javax.swing.JFrame {
                     String add3 = rsclick.getString("codice_fiscale");
                     txt_codfisc.setText(add3);
                     String add4 = rsclick.getString("cell");
-                    txtproxapp.setText(add4);
-                    String add5 = rsclick.getString("prox_app");
-                    txtproxapp.setText(add5);
-                    String add6 = rsclick.getString("tot_prest");
-                    txt_totprest.setText(add6);
-                    String add7 = rsclick.getString("descrizione_int");
-                    txt_descrinter.setText(add7);
+                    txt_recapito.setText(add4);
+                    
+                   msg1 = txt_nome.getText();
+                   msg2 = txt_cognome.getText();
+                   System.out.println("Nome da passare: "+msg1);
+                   System.out.println("Cognome da passare: "+msg2);
+                    
                     
                 }
                 
@@ -465,9 +385,54 @@ public final  class ClientiList extends javax.swing.JFrame {
 
     private void bnt_agg_sekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_agg_sekActionPerformed
         // TODO add your handling code here:
-         AddCliente.getObj().setVisible(true);
-        AddCliente.getObj().setExtendedState( JFrame.NORMAL );
-        dispose();
+        String query_check = "select * from pazienti where codice_fiscale=?";
+        String val1 = txt_nome.getText().toLowerCase();
+        String val2 = txt_cognome.getText().toLowerCase();
+        String val3 = txt_codfisc.getText().toLowerCase();
+        String val4 = txt_recapito.getText().toLowerCase();
+        int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiugere il seguente paziente?", "Aggiungi Paziente", JOptionPane.YES_NO_OPTION);
+        if (x == 0) {
+            try {
+                System.out.println("Arrivo 1");
+                pstcheck = connCheck.prepareStatement(query_check);
+                pstcheck.setString(1, val3);
+                rscheck = pstcheck.executeQuery();
+                if (rscheck.next()) {
+                    JOptionPane.showMessageDialog(null, "Paziente già esistente");
+                } else {
+                    System.out.println("Arrivo 2");
+                    String sql = "insert into pazienti (nome,cognome,codice_fiscale,cell) values (?,?,?,?)";
+                    pstIns = connIns.prepareStatement(sql);
+                    System.out.println("Query: "+sql);
+                    pstIns.setString(1, val1);
+                    pstIns.setString(2, val2);
+                    pstIns.setString(3, val3);
+                    pstIns.setString(4, val4);
+                    System.out.println("VALORI INSERIMENT PAZIENTE: " + val1 + " | " + val2 + " | " + val3 + " | " + val4 + " ");
+                    System.out.println("Arrivo 3");
+                   
+                        
+                        System.out.println("VALORI INSERIMENT PAZIENTE: " + val1 + " | " + val2 + " | " + val3 + " | " + val4 + " ");
+ System.out.println("Arrivo 4");
+                        JOptionPane.showMessageDialog(null, "paziente aggiunto correttamente");
+
+                    
+
+                }
+                pstIns.execute();
+ System.out.println("Arrivo 5");
+                txt_cognome.setText("");
+                txt_codfisc.setText("");
+                
+                txt_nome.setText("");
+                txt_recapito.setText("");
+                PopulateData();
+               
+            } catch (SQLException | HeadlessException e) {
+                JOptionPane.showMessageDialog(null, "Errore aggiunta record");
+            
+            }
+        }
         
     }//GEN-LAST:event_bnt_agg_sekActionPerformed
 
@@ -506,11 +471,9 @@ public final  class ClientiList extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Paziente/i concallati correttamente");
             txt_cognome.setText("");
                 txt_codfisc.setText("");
-                txt_totprest.setText("");
-                txtproxapp.setText("");
+                txt_recapito.setText("");
                 txt_nome.setText("");
-                txtproxapp.setText("");
-                txt_descrinter.setText("");
+               
             PopulateData(); // Reload Table
 
         }
@@ -524,11 +487,6 @@ PopulateData();
 
     }//GEN-LAST:event_bt_elim2ActionPerformed
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_jLabel3MouseClicked
-
     private void bnt_modActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_modActionPerformed
         // TODO add your handling code here:
        int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiornare l'anagrafica del seguente paziente?", "Aggiorna Anagrafica Paziente", JOptionPane.YES_NO_OPTION);
@@ -537,30 +495,24 @@ PopulateData();
                 String val1 = txt_nome.getText().toLowerCase();
                 String val2 = txt_cognome.getText().toLowerCase();
                 String val3 = txt_codfisc.getText().toLowerCase();
-                String val4 = txtproxapp.getText().toLowerCase();
-                String val5 = txtproxapp.getText().toLowerCase();
-                String val6 = txt_totprest.getText().toLowerCase();
-                String val7 = txt_descrinter.getText();
+                String val4 = txt_recapito.getText().toLowerCase();
+                
 
-                String sql = "update pazienti set nome=?,cognome=?,codice_fiscale=?,cell=?,prox_app=?,tot_prest=?,descrizione_int=? where codice_fiscale=?";
-                pst = conn.prepareStatement(sql);
-                pst.setString(1, val1);
-                pst.setString(2, val2);
-                pst.setString(3, val3);
-                pst.setString(4, val4);
-                pst.setString(5, val5);
-                pst.setString(6, val6);
-                pst.setString(7, val7);
-                pst.setString(8, val3);
-                pst.execute();
+                String sql = "update pazienti set nome=?,cognome=?,codice_fiscale=?,cell=? where codice_fiscale=?";
+                pstUpd = connUpd.prepareStatement(sql);
+                pstUpd.setString(1, val1);
+                pstUpd.setString(2, val2);
+                pstUpd.setString(3, val3);
+                pstUpd.setString(4, val4);
+                pstUpd.setString(5, val3);
+              
+                pstUpd.execute();
                 JOptionPane.showMessageDialog(null, "Anagrafica paziente " + val1 + " " + val2 + " modificata correttamente");
                 txt_nome.setText("");
                 txt_cognome.setText("");
                 txt_codfisc.setText("");
-                txt_totprest.setText("");
-                txtproxapp.setText("");
-                txtproxapp.setText("");
-                txt_descrinter.setText("");
+                txt_recapito.setText("");
+                
                 PopulateData();
 
             } catch (SQLException | HeadlessException e) {
@@ -570,17 +522,6 @@ PopulateData();
         PopulateData();
         
     }//GEN-LAST:event_bnt_modActionPerformed
-
-    private void bnt_agg_sek2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_agg_sek2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bnt_agg_sek2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-         Prestazioni.getObj().setVisible(true);
-        Prestazioni.getObj().setExtendedState( JFrame.NORMAL );
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txt_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomeActionPerformed
         // TODO add your handling code here:
@@ -608,6 +549,20 @@ PopulateData();
         // TODO add your handling code here:
         setExtendedState(JFrame.ICONIFIED );
     }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+      String msg = txt_nominativo.getText();
+      
+      
+      Clients.getObj().txt_n.setText(msg1);
+      Clients.getObj().txt_c.setText(msg2);
+      System.out.println("passaggio nome: "+msg1);
+      System.out.println("passaggio cognome: "+msg2);
+      Clients.getObj().Update_table();
+      Clients.getObj().PopulateData();
+      Clients.getObj().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     
     public  void PopulateData() {
@@ -676,9 +631,6 @@ PopulateData();
 
         model.addColumn("Recapito");
 
-        model.addColumn("Prox App.");
-
-        model.addColumn("Descrizione");
         
       
 
@@ -686,29 +638,25 @@ PopulateData();
     String sql = "SELECT * FROM  pazienti ORDER BY cognome ASC";
         try {
 
-            psts = conn.prepareStatement(sql);
+            pstPop = conn.prepareStatement(sql);
 
             
 
-            ResultSet rec = psts.executeQuery();
+             rsPop = pstPop.executeQuery();
 
             int row = 0;
             
-                while ((rec != null) && (rec.next())) {
+                while ((rsPop != null) && (rsPop.next())) {
                    
                 model.addRow(new Object[0]);
 
                 model.setValueAt(false, row, 0); // Checkbox
 
-                model.setValueAt(rec.getString("nome"), row, 1);
+                model.setValueAt(rsPop.getString("nome"), row, 1);
 
-                model.setValueAt(rec.getString("cognome"), row, 2);
+                model.setValueAt(rsPop.getString("cognome"), row, 2);
 
-                model.setValueAt(rec.getString("cell"), row, 3);
-
-                model.setValueAt(rec.getString("prox_app"), row, 4);
-                
-                model.setValueAt(rec.getString("descrizione_int"), row, 5);
+                model.setValueAt(rsPop.getString("cell"), row, 3);
                 
                 row++;
 
@@ -720,11 +668,10 @@ PopulateData();
             
             
            tb1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tb1.getColumnModel().getColumn(1).setPreferredWidth(160);
-            tb1.getColumnModel().getColumn(2).setPreferredWidth(160);
-            tb1.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(5).setPreferredWidth(280);
+            tb1.getColumnModel().getColumn(1).setPreferredWidth(310);
+            tb1.getColumnModel().getColumn(2).setPreferredWidth(310);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(160);
+            
             
 
         } catch (SQLException e) {
@@ -805,11 +752,7 @@ PopulateData();
 
         model.addColumn("Recapito");
 
-        model.addColumn("Prox App.");
-
-        model.addColumn("Descrizione");
-        
-      
+       
 
      String cerca = txt_cerca.getText();
      if(cerca.equals(""))
@@ -819,30 +762,28 @@ PopulateData();
     String sql = "SELECT * FROM  pazienti WHERE nome = ? or cognome = ? ORDER BY nome ASC";
         try {
 
-            psts = conn.prepareStatement(sql);
-            psts.setString(1, cerca);
-             psts.setString(2, cerca);
+            pstSearch = connSearch.prepareStatement(sql);
+            pstSearch.setString(1, cerca);
+             pstSearch.setString(2, cerca);
             
 
-            ResultSet rec = psts.executeQuery();
+             rsSearch = pstSearch.executeQuery();
 
             int row = 0;
             
-                while ((rec != null) && (rec.next())) {
+                while ((rsSearch != null) && (rsSearch.next())) {
                    
                 model.addRow(new Object[0]);
 
                 model.setValueAt(false, row, 0); // Checkbox
 
-                model.setValueAt(rec.getString("nome"), row, 1);
+                model.setValueAt(rsSearch.getString("nome"), row, 1);
 
-                model.setValueAt(rec.getString("cognome"), row, 2);
+                model.setValueAt(rsSearch.getString("cognome"), row, 2);
 
-                model.setValueAt(rec.getString("cell"), row, 3);
+                model.setValueAt(rsSearch.getString("cell"), row, 3);
 
-                model.setValueAt(rec.getString("prox_app"), row, 4);
-                
-                model.setValueAt(rec.getString("descrizione_int"), row, 5);
+               
                 
                 row++;
 
@@ -855,12 +796,11 @@ PopulateData();
                 }
                 
             
-          tb1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tb1.getColumnModel().getColumn(1).setPreferredWidth(160);
-            tb1.getColumnModel().getColumn(2).setPreferredWidth(160);
-            tb1.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(5).setPreferredWidth(280);
+         tb1.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tb1.getColumnModel().getColumn(1).setPreferredWidth(310);
+            tb1.getColumnModel().getColumn(2).setPreferredWidth(310);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(160);
+            
 
         } catch (SQLException e) {
 
@@ -880,9 +820,9 @@ PopulateData();
 
         String sql = "DELETE FROM pazienti  WHERE nome = '" + strNome + "' AND cognome = '" + strCognome + "'";
         try {
-            s = connect.createStatement();
+            pstDel = connDel.createStatement();
             System.out.println("QUERY DI ELIMINAZIONE: "+strNome+" "+strCognome);
-            s.execute(sql);
+            pstDel.execute(sql);
 
         } catch (SQLException e) {
 
@@ -1950,38 +1890,25 @@ PopulateData();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel app;
     private javax.swing.JButton bnt_agg_sek;
-    private javax.swing.JButton bnt_agg_sek2;
     private javax.swing.JButton bnt_mod;
     private javax.swing.JButton bt_cerca;
     private javax.swing.JButton bt_elim2;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private com.toedter.calendar.JDateChooserBeanInfo jDateChooserBeanInfo1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lab_cell;
     private javax.swing.JLabel lab_codfisc;
-    private javax.swing.JLabel lab_comune;
     private javax.swing.JLabel lab_formagiur;
     private javax.swing.JLabel lab_mail;
-    private javax.swing.JLabel lab_partiva;
     private javax.swing.JLabel lab_pec;
     private javax.swing.JTable tb1;
     private javax.swing.JTextField txt_cerca;
     private javax.swing.JTextField txt_codfisc;
     private javax.swing.JTextField txt_cognome;
-    private javax.swing.JTextArea txt_descrinter;
     public javax.swing.JTextField txt_nome;
+    public javax.swing.JTextField txt_nominativo;
     private javax.swing.JTextField txt_recapito;
-    private javax.swing.JTextField txt_totprest;
-    private javax.swing.JLabel txt_tt;
-    private javax.swing.JTextField txtproxapp;
     // End of variables declaration//GEN-END:variables
 }

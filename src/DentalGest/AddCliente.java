@@ -12,11 +12,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  *
@@ -24,91 +22,29 @@ import javax.swing.JTextField;
  */
 public final class AddCliente extends javax.swing.JFrame {
 
+    
+
     Connection conn = null;
     Connection connCheck = null;
     ResultSet rs = null;
     PreparedStatement pst = null;
     PreparedStatement pstcheck = null;
     ResultSet rscheck = null;
-    private javax.swing.JTable tb1;
     /**
      * Creates new form adesione_servizi
      */
 
-    String[] valori;
-    String nome;
-    String cognome;
-    String cell;
-    String prox_app;
-    String descrizione_int;
-
-    public AddCliente(String nome, String cognome, String cell, String prox_app, String descrizione_int) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.cell = cell;
-        this.prox_app = prox_app;
-        this.descrizione_int = descrizione_int;
+    
+     private static AddCliente obj=null;
+    
+    public static AddCliente getObj(){
+        if(obj==null){
+            obj=new AddCliente();
+        }return obj;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
-    }
-
-    public String getCell() {
-        return cell;
-    }
-
-    public void setCell(String cell) {
-        this.cell = cell;
-    }
-
-    public String getProx_app() {
-        return prox_app;
-    }
-
-    public void setProx_app(String prox_app) {
-        this.prox_app = prox_app;
-    }
-
-    public String getDescrizione_int() {
-        return descrizione_int;
-    }
-
-    public void setDescrizione_int(String descrizione_int) {
-        this.descrizione_int = descrizione_int;
-    }
-
-    public AddCliente(ArrayList<String> list) {
-        valori = (String[]) list.toArray(new String[list.size()]);
-        nome = valori[1];
-        cognome = valori[2];
-        cell = valori[3];
-        prox_app = valori[4];
-        descrizione_int = valori[5];
+    
       
-       System.out.println("VALORI PASSATI: " + nome + " - " + cognome + " - " + cell + " - " + prox_app + " - " + descrizione_int);
-        
-    }
-    private static AddCliente obj = null;
-
-    public static AddCliente getObj() {
-        if (obj == null) {
-            obj = new AddCliente();
-        }
-        return obj;
-    }
 
     private AddCliente() {
         initComponents();
@@ -155,21 +91,14 @@ public final class AddCliente extends javax.swing.JFrame {
         lab_pec = new javax.swing.JLabel();
         lab_mail = new javax.swing.JLabel();
         lab_codfisc = new javax.swing.JLabel();
-        lab_cell = new javax.swing.JLabel();
         txt_nome = new javax.swing.JTextField();
-        lab_comune = new javax.swing.JLabel();
-        txt_totprest = new javax.swing.JTextField();
-        txt_proxapp = new javax.swing.JTextField();
         txt_cognome = new javax.swing.JTextField();
         txt_recapito = new javax.swing.JTextField();
         txt_codfisc = new javax.swing.JTextField();
         lab_formagiur = new javax.swing.JLabel();
-        lab_partiva = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txt_descrinter = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("dentalsoft");
@@ -192,30 +121,10 @@ public final class AddCliente extends javax.swing.JFrame {
         getContentPane().add(lab_codfisc);
         lab_codfisc.setBounds(40, 120, 100, 17);
 
-        lab_cell.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lab_cell.setText("Descrizione Intervento:");
-        getContentPane().add(lab_cell);
-        lab_cell.setBounds(40, 190, 150, 17);
-
         txt_nome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_nome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         getContentPane().add(txt_nome);
         txt_nome.setBounds(110, 80, 180, 19);
-
-        lab_comune.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lab_comune.setText("Prossimo appuntamento:");
-        getContentPane().add(lab_comune);
-        lab_comune.setBounds(40, 160, 170, 17);
-
-        txt_totprest.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_totprest.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
-        getContentPane().add(txt_totprest);
-        txt_totprest.setBounds(520, 160, 90, 19);
-
-        txt_proxapp.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_proxapp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
-        getContentPane().add(txt_proxapp);
-        txt_proxapp.setBounds(210, 160, 160, 20);
 
         txt_cognome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_cognome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
@@ -236,11 +145,6 @@ public final class AddCliente extends javax.swing.JFrame {
         lab_formagiur.setText("Recapito:");
         getContentPane().add(lab_formagiur);
         lab_formagiur.setBounds(370, 120, 70, 17);
-
-        lab_partiva.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lab_partiva.setText("Totale Prestazioni:");
-        getContentPane().add(lab_partiva);
-        lab_partiva.setBounds(400, 160, 120, 17);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dentalgest/images/pulsanti/chiudi.png"))); // NOI18N
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -272,16 +176,9 @@ public final class AddCliente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(40, 460, 70, 25);
+        jButton1.setBounds(40, 170, 70, 25);
 
-        txt_descrinter.setColumns(20);
-        txt_descrinter.setRows(5);
-        jScrollPane1.setViewportView(txt_descrinter);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(40, 230, 630, 210);
-
-        setSize(new java.awt.Dimension(710, 518));
+        setSize(new java.awt.Dimension(710, 216));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -300,55 +197,46 @@ public final class AddCliente extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         ClientiList cl = new ClientiList();
-        String query_check = "select * from pazienti where cognome=?";
+        String query_check = "select * from pazienti where codice_fiscale=?";
         String val1 = txt_nome.getText().toLowerCase();
         String val2 = txt_cognome.getText().toLowerCase();
         String val3 = txt_codfisc.getText().toLowerCase();
         String val4 = txt_recapito.getText().toLowerCase();
-        String val5 = txt_proxapp.getText().toLowerCase();
-        String val6 = txt_totprest.getText().toLowerCase();
-        String val7 = txt_descrinter.getText();
-        String check = txt_codfisc.getText();
         int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiugere il seguente paziente?", "Aggiungi Paziente", JOptionPane.YES_NO_OPTION);
         if (x == 0) {
             try {
-
-                pstcheck = conn.prepareStatement(query_check);
-                pstcheck.setString(1, check);
+                System.out.println("Arrivo 1");
+                pstcheck = connCheck.prepareStatement(query_check);
+                pstcheck.setString(1, val3);
                 rscheck = pstcheck.executeQuery();
                 if (rscheck.next()) {
                     JOptionPane.showMessageDialog(null, "Paziente già esistente");
                 } else {
-
-                    String sql = "insert into pazienti (nome,cognome,codice_fiscale,cell,prox_app,tot_prest,descrizione_int) values (?,?,?,?,?,?,?)";
+                    System.out.println("Arrivo 2");
+                    String sql = "insert into pazienti (nome,cognome,codice_fiscale,cell) values (?,?,?,?)";
                     pst = conn.prepareStatement(sql);
-
+                    System.out.println("Query: "+sql);
                     pst.setString(1, val1);
                     pst.setString(2, val2);
                     pst.setString(3, val3);
                     pst.setString(4, val4);
-                    pst.setString(5, val5);
-                    pst.setString(6, val6);
-                    pst.setString(7, val7);
-                    if (val1.isEmpty() && val2.isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "Inserire tutti i dati del paziente");
-                    } else {
+                    System.out.println("VALORI INSERIMENT PAZIENTE: " + val1 + " | " + val2 + " | " + val3 + " | " + val4 + " ");
+                    System.out.println("Arrivo 3");
+                   
                         pst.execute();
-                        System.out.println("VALORI INSERIMENT PAZIENTE: " + val1 + " | " + val2 + " | " + val3 + " | " + val4 + " | " + val5 + " | " + val6 + " | " + val7 + " | ");
-
+                        System.out.println("VALORI INSERIMENT PAZIENTE: " + val1 + " | " + val2 + " | " + val3 + " | " + val4 + " ");
+ System.out.println("Arrivo 4");
                         JOptionPane.showMessageDialog(null, "paziente aggiunto correttamente");
 
-                    }
+                    
 
                 }
-
+ System.out.println("Arrivo 5");
                 txt_cognome.setText("");
                 txt_codfisc.setText("");
-                txt_totprest.setText("");
-                txt_proxapp.setText("");
+                
                 txt_nome.setText("");
                 txt_recapito.setText("");
-                txt_descrinter.setText("");
                 cl.PopulateData();
                 dispose();
                 cl.setVisible(true);
@@ -468,20 +356,13 @@ public final class AddCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lab_cell;
     private javax.swing.JLabel lab_codfisc;
-    private javax.swing.JLabel lab_comune;
     private javax.swing.JLabel lab_formagiur;
     private javax.swing.JLabel lab_mail;
-    private javax.swing.JLabel lab_partiva;
     private javax.swing.JLabel lab_pec;
     private javax.swing.JTextField txt_codfisc;
     private javax.swing.JTextField txt_cognome;
-    private javax.swing.JTextArea txt_descrinter;
     public javax.swing.JTextField txt_nome;
-    private javax.swing.JTextField txt_proxapp;
     private javax.swing.JTextField txt_recapito;
-    private javax.swing.JTextField txt_totprest;
     // End of variables declaration//GEN-END:variables
 }

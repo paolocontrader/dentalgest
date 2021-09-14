@@ -18,18 +18,26 @@ import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -41,7 +49,10 @@ import net.proteanit.sql.DbUtils;
  * @author Paolo
  */
 public final class Clients extends javax.swing.JFrame {
+
+   
     Connection connv=null;
+    Connection connva=null;
     Connection conna=null;
     Connection conne=null;
     Connection conn=null;
@@ -52,30 +63,46 @@ public final class Clients extends javax.swing.JFrame {
     Connection coni=null;
     Connection repo=null;
     Connection connInsTot=null;
+    Connection connUpd=null;
+    Connection connUpdStato=null;
+    Connection connApp = null;
+    Connection connAppDel = null;
     ResultSet rs=null;
     ResultSet rsc=null;
     ResultSet rscv=null;
+    ResultSet rscva=null;
     ResultSet rscs=null;
     PreparedStatement pstv=null;
+    PreparedStatement pstva=null;
     PreparedStatement psti=null;
     PreparedStatement pstz=null;
     PreparedStatement pstcc=null;
     PreparedStatement pst=null;
+    PreparedStatement pstUpd=null;
+    PreparedStatement pstUpdStato=null;
     PreparedStatement pstr=null;
     PreparedStatement prep=null;
+    PreparedStatement pstApp = null;
     Statement pstcheck=null;
     ResultSet rss=null;
      ResultSet rscd=null;
      ResultSet rep=null;
     PreparedStatement psts=null;
+    Statement pstsDel=null;
     PreparedStatement pstIns = null;
      ResultSet rsInsTot = null;
-    
+    String msg1 = null;
+    String msg2 = null;
+     String comb = null;
     /**
      * Creates new form Clients
      */
     Clients() {
+      
         initComponents();
+         String msg1 = txt_n.getText();
+    String msg2 = txt_c.getText();;
+         connUpd = Db.db();
         conn=Db.db();
          conne= Db.db();
          conna=Db.db();
@@ -86,8 +113,14 @@ public final class Clients extends javax.swing.JFrame {
          coni=Db.db();
          repo=Db.db();
          connv=Db.db();
+         connva=Db.db();
          connInsTot = Db.db();
         
+         connUpdStato = Db.db();
+         connApp = Db.db();
+         connAppDel = Db.db();
+         combo_cliente.setText(comb);
+        Update_table();
     AnimationStation();
     
     }
@@ -122,18 +155,43 @@ public final class Clients extends javax.swing.JFrame {
     public static Clients getObj(){
         if(obj==null){
             obj=new Clients();
+            
+          
         }return obj;
     }
-        
     
+    
+    
+    void DeleteData(String data,String ora,String cliente) {
+
+        String sql = "DELETE FROM appuntamenti  WHERE data = '" + data + "' AND ora = '" + ora + "' AND cliente = '" + cliente + "'";
+        try {
+            pstsDel = connAppDel.createStatement();
+            System.out.println("QUERY DI ELIMINAZIONE: "+data+" "+ora);
+            pstsDel.execute(sql);
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+        }
+
+                   
+        
+
+    }
     
      void Update_table() {
-    try{
+    
         
-        String cerca= ric_serv.getText();
-        String cliente= combo_cliente.getSelectedItem().toString();
-        String sql ="select * from prestazione_cliente where cliente='"+cerca+"' OR cliente='"+cliente+"'";
-        
+         try{
+        String n = txt_n.getText().toUpperCase();
+         String c = txt_c.getText().toUpperCase();
+          comb = n+" "+c;
+        System.out.println("Nome da List: "+n+" "+c);
+        combo_cliente.setText(comb);
+        String sql ="select * from prestazione_cliente where cliente='"+comb+"'";
+       
         pst=conn.prepareStatement(sql);
         rs=pst.executeQuery();
         
@@ -161,16 +219,16 @@ public final class Clients extends javax.swing.JFrame {
        
             for(int i=0;i < tb1.getRowCount();i++){
                 
-                accu =  accu + Double.parseDouble(tb1.getValueAt(i, 2).toString());
+                accu =  accu + Double.parseDouble(tb1.getValueAt(i, 1).toString());
                
-                ttt=ttt+Double.parseDouble(tb1.getValueAt(i,4).toString());
+                ttt=ttt+Double.parseDouble(tb1.getValueAt(i,3).toString());
                 resu = ttt - accu;
             }
            
            
-            txt_ant.setText("accu");
-            txt_resto.setText("resu");
-            txt_tt.setText("ttt");
+            txt_resto.setText(decimalFormat.format(resu));
+            txt_tot.setText(decimalFormat.format(ttt));
+        txt_ant.setText(decimalFormat.format(accu));
 
        
     }
@@ -188,6 +246,121 @@ public final class Clients extends javax.swing.JFrame {
                 
             }
         }
+    }
+     
+      public  void PopulateData() {
+          String cliente = combo_cliente.getText();
+// Clear table
+        tb2.setModel(new DefaultTableModel());
+// Model for Table
+        DefaultTableModel model2 = new DefaultTableModel() {
+
+            @Override
+            public Class<?> getColumnClass(int column) {
+
+                switch (column) {
+
+                    case 0:
+
+                        return Boolean.class;
+
+                    case 1:
+
+                        return String.class;
+
+                    case 2:
+
+                        return String.class;
+
+                    case 3:
+
+                        return String.class;
+
+                    case 4:
+
+                        return String.class;
+                        case 5:
+
+                        return String.class;
+
+                    default:
+
+                        return String.class;
+
+                }
+
+            }
+
+        };
+
+        tb2.setModel(model2);
+        
+// Add Column
+        model2.addColumn("Seleziona");
+
+        model2.addColumn("Data");
+
+        model2.addColumn("Ora");
+
+        model2.addColumn("Descrizionev");
+
+        model2.addColumn("Stato.");
+        
+       // tb2.getColumnModel().removeColumn(tb2.getColumnModel().getColumn(4));
+
+        
+    String sql = "SELECT * FROM  appuntamenti where cliente ='"+cliente+"' ORDER BY data DESC";
+        try {
+
+            pstApp = connApp.prepareStatement(sql);
+
+            
+
+            ResultSet recApp = pstApp.executeQuery();
+
+            int row = 0;
+            
+                while ((recApp != null) && (recApp.next())) {
+                   
+                model2.addRow(new Object[0]);
+
+                model2.setValueAt(false, row, 0); // Checkbox
+
+                model2.setValueAt(recApp.getString("data"), row, 1);
+
+                model2.setValueAt(recApp.getString("ora"), row, 2);
+
+                model2.setValueAt(recApp.getString("descrizionev"), row, 3);
+
+                model2.setValueAt(recApp.getString("stato"), row, 4);
+                                
+                row++;
+
+            }
+                   System.out.println("Numero righe tabella appuntamenti: "+row);
+                if(row==0){
+                JOptionPane.showMessageDialog(null, "Nessun appuntamento disponibile");
+                }
+            
+            
+           tb2.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tb2.getColumnModel().getColumn(1).setPreferredWidth(10);
+            tb2.getColumnModel().getColumn(2).setPreferredWidth(10);
+            tb2.getColumnModel().getColumn(3).setPreferredWidth(10);
+
+tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
+            
+
+        } catch (SQLException e) {
+
+// TODO Auto-generated catch block
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+
+// TODO Auto-generated catch block
+
+        }
+
     }
 
     
@@ -207,7 +380,6 @@ public final class Clients extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        ric_serv = new javax.swing.JTextField();
         txt_resto = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -218,88 +390,82 @@ public final class Clients extends javax.swing.JFrame {
         bnt_agg_sek = new javax.swing.JButton();
         txt_ant = new javax.swing.JLabel();
         txt_servizio = new javax.swing.JLabel();
-        combo_ser_sek = new javax.swing.JComboBox();
+        txt_descr = new javax.swing.JComboBox();
         btn8 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tb1 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         bt_elim1 = new javax.swing.JButton();
-        app = new javax.swing.JLabel();
         txt_costo = new javax.swing.JTextField();
         txt_anticipo = new javax.swing.JTextField();
         txt_tt = new javax.swing.JLabel();
-        combo_cliente = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tb2 = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        combo_stato = new javax.swing.JComboBox<>();
+        time_txt = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        txt_c = new javax.swing.JTextField();
+        combo_cliente = new javax.swing.JTextField();
+        txt_n = new javax.swing.JTextField();
+        calendar = new com.toedter.calendar.JDateChooser();
+        jLabel6 = new javax.swing.JLabel();
+        combo_ser_sek = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("MascGest - Gestione Clienti");
+        setTitle("DentalGest - Gestione Clienti");
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         setUndecorated(true);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Azienda:");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(40, 100, 70, 14);
+        jLabel1.setText("Cliente");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 70, -1));
 
         jLabel2.setText("Servizio:");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(40, 130, 60, 14);
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 60, -1));
 
         jLabel4.setText("Costo:");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(40, 160, 70, 14);
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 70, -1));
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/minimizza.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel9MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(970, 0, 20, 20);
-
-        ric_serv.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        ric_serv.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                ric_servKeyReleased(evt);
-            }
-        });
-        getContentPane().add(ric_serv);
-        ric_serv.setBounds(753, 120, 230, 25);
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1540, 0, 20, 20));
 
         txt_resto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        getContentPane().add(txt_resto);
-        txt_resto.setBounds(840, 570, 90, 25);
+        getContentPane().add(txt_resto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 860, 90, 25));
 
         jLabel5.setText("Saldo:  €");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(780, 570, 50, 14);
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 860, 60, -1));
 
         jLabel8.setText("   Acconto:  €");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(570, 570, 80, 14);
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 860, 80, -1));
 
-        jLabel7.setText("Totale:");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(580, 540, 80, 14);
+        jLabel7.setText("Totale: €");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 860, 80, -1));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/chiudi.png"))); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
         jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel10MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel10);
-        jLabel10.setBounds(990, 0, 20, 20);
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1560, 0, 20, 20));
 
         jLabel11.setText("Anticipo:");
-        getContentPane().add(jLabel11);
-        jLabel11.setBounds(260, 160, 50, 14);
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, -1, -1));
 
         txt_tot.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        getContentPane().add(txt_tot);
-        txt_tot.setBounds(660, 540, 80, 25);
+        getContentPane().add(txt_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 860, 80, 25));
 
-        bnt_agg_sek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/aggiungi.png"))); // NOI18N
+        bnt_agg_sek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/aggiungi_150x40.png"))); // NOI18N
         bnt_agg_sek.setBorder(null);
         bnt_agg_sek.setBorderPainted(false);
         bnt_agg_sek.setContentAreaFilled(false);
@@ -310,44 +476,37 @@ public final class Clients extends javax.swing.JFrame {
                 bnt_agg_sekActionPerformed(evt);
             }
         });
-        getContentPane().add(bnt_agg_sek);
-        bnt_agg_sek.setBounds(50, 490, 70, 40);
+        getContentPane().add(bnt_agg_sek, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 400, 100, 40));
 
         txt_ant.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        getContentPane().add(txt_ant);
-        txt_ant.setBounds(660, 570, 80, 25);
+        getContentPane().add(txt_ant, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 860, 80, 25));
 
         txt_servizio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        getContentPane().add(txt_servizio);
-        txt_servizio.setBounds(130, 130, 220, 25);
+        getContentPane().add(txt_servizio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, 220, 25));
 
-        combo_ser_sek.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        combo_ser_sek.setToolTipText("Seleziona servizio Se'Koma Servizi SRL");
-        combo_ser_sek.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        combo_ser_sek.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+        txt_descr.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_descr.setToolTipText("Seleziona servizio Se'Koma Servizi SRL");
+        txt_descr.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
+        txt_descr.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                combo_ser_sekPopupMenuWillBecomeVisible(evt);
+                txt_descrPopupMenuWillBecomeVisible(evt);
             }
         });
-        getContentPane().add(combo_ser_sek);
-        combo_ser_sek.setBounds(150, 500, 320, 25);
+        getContentPane().add(txt_descr, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 750, 320, 25));
 
-        btn8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/report_off.png"))); // NOI18N
         btn8.setToolTipText("Seleziona azienda da menu a tendina");
         btn8.setBorder(null);
         btn8.setContentAreaFilled(false);
-        btn8.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/report_on.png"))); // NOI18N
         btn8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn8ActionPerformed(evt);
             }
         });
-        getContentPane().add(btn8);
-        btn8.setBounds(440, 120, 71, 71);
+        getContentPane().add(btn8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 60, 50));
 
         tb1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
         tb1.setModel(new javax.swing.table.DefaultTableModel(
@@ -372,11 +531,10 @@ public final class Clients extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tb1);
 
-        getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(42, 220, 930, 240);
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 930, 240));
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/modifica.png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/aggiorna_150x40.png"))); // NOI18N
         jButton3.setBorderPainted(false);
         jButton3.setContentAreaFilled(false);
         jButton3.setFocusPainted(false);
@@ -385,11 +543,10 @@ public final class Clients extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(370, 70, 75, 47);
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 300, 100, 47));
 
         bt_elim1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        bt_elim1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/elimina.png"))); // NOI18N
+        bt_elim1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/cancella_150x40.png"))); // NOI18N
         bt_elim1.setBorderPainted(false);
         bt_elim1.setContentAreaFilled(false);
         bt_elim1.addActionListener(new java.awt.event.ActionListener() {
@@ -397,10 +554,7 @@ public final class Clients extends javax.swing.JFrame {
                 bt_elim1ActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_elim1);
-        bt_elim1.setBounds(460, 70, 75, 47);
-        getContentPane().add(app);
-        app.setBounds(10, 170, 0, 0);
+        getContentPane().add(bt_elim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, 100, 47));
 
         txt_costo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
         txt_costo.addActionListener(new java.awt.event.ActionListener() {
@@ -408,8 +562,7 @@ public final class Clients extends javax.swing.JFrame {
                 txt_costoActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_costo);
-        txt_costo.setBounds(130, 160, 60, 25);
+        getContentPane().add(txt_costo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 60, 25));
 
         txt_anticipo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
         txt_anticipo.addActionListener(new java.awt.event.ActionListener() {
@@ -417,86 +570,125 @@ public final class Clients extends javax.swing.JFrame {
                 txt_anticipoActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_anticipo);
-        txt_anticipo.setBounds(320, 160, 72, 25);
-        getContentPane().add(txt_tt);
-        txt_tt.setBounds(960, 510, 0, 0);
+        getContentPane().add(txt_anticipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 72, 25));
+        getContentPane().add(txt_tt, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 510, -1, -1));
 
-        combo_cliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        combo_cliente.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
+        jButton1.setText("Allegato");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 310, -1, -1));
+
+        tb2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tb2);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 810, 700, 130));
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
+        jButton2.setToolTipText("Selezionare gli appuntamenti da eliminare");
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setFocusPainted(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 810, -1, -1));
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/nuovo_150x40.png"))); // NOI18N
+        jButton5.setText("Nuovo appuntamento");
+        jButton5.setBorder(null);
+        jButton5.setBorderPainted(false);
+        jButton5.setContentAreaFilled(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 720, 90, -1));
+
+        jButton6.setText("Modifica stato");
+        jButton6.setToolTipText("Selezionare gli appuntamenti da modificare");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 780, 160, -1));
+
+        combo_stato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In essere", "Sospeso", "Annullato", "Terminato" }));
+        combo_stato.setSelectedIndex(-1);
+        combo_stato.setToolTipText("");
+        getContentPane().add(combo_stato, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 780, 130, -1));
+        getContentPane().add(time_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 720, 100, -1));
+
+        jLabel3.setText("Data: ");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 720, -1, -1));
+
+        jLabel12.setText("Ora: HH:MM");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 720, 100, -1));
+
+        txt_c.setEditable(false);
+        txt_c.setAutoscrolls(false);
+        txt_c.setBorder(null);
+        txt_c.setEnabled(false);
+        txt_c.setFocusable(false);
+        txt_c.setOpaque(false);
+        txt_c.setPreferredSize(new java.awt.Dimension(0, 0));
+        txt_c.setRequestFocusEnabled(false);
+        txt_c.setVerifyInputWhenFocusTarget(false);
+        getContentPane().add(txt_c, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
+
+        combo_cliente.setEditable(false);
+        combo_cliente.setEnabled(false);
+        getContentPane().add(combo_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, 220, -1));
+
+        txt_n.setEditable(false);
+        txt_n.setAutoscrolls(false);
+        txt_n.setBorder(null);
+        txt_n.setEnabled(false);
+        txt_n.setFocusable(false);
+        txt_n.setOpaque(false);
+        txt_n.setPreferredSize(new java.awt.Dimension(0, 0));
+        txt_n.setRequestFocusEnabled(false);
+        txt_n.setVerifyInputWhenFocusTarget(false);
+        getContentPane().add(txt_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 720, 130, -1));
+
+        jLabel6.setText("Descrizione:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 750, -1, -1));
+
+        combo_ser_sek.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        combo_ser_sek.setToolTipText("Seleziona servizio Se'Koma Servizi SRL");
+        combo_ser_sek.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
+        combo_ser_sek.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-                combo_clientePopupMenuWillBecomeInvisible(evt);
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                combo_clientePopupMenuWillBecomeVisible(evt);
+                combo_ser_sekPopupMenuWillBecomeVisible(evt);
             }
         });
-        getContentPane().add(combo_cliente);
-        combo_cliente.setBounds(130, 100, 220, 23);
+        getContentPane().add(combo_ser_sek, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 320, 25));
 
-        setSize(new java.awt.Dimension(1010, 633));
+        setSize(new java.awt.Dimension(1581, 958));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ric_servKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ric_servKeyReleased
-        // TODO add your handling code here:
-        
-        try{
-            
-            txt_servizio.setText("");
-            txt_costo.setText("");
-            txt_anticipo.setText("");
-            txt_tot.setText("");
-            txt_ant.setText("");
-            txt_resto.setText("");
-            String contain=ric_serv.getText().toLowerCase();
-            String sql="select * from servizi_erogati where azienda = '"+contain+"'";
-            pst=conn.prepareStatement(sql);
-            rs=pst.executeQuery();
-            tb1.setModel(DbUtils.resultSetToTableModel(rs));
-             tb1.removeColumn(tb1.getColumnModel().getColumn(1));
-             tb1.removeColumn(tb1.getColumnModel().getColumn(4));
-           tb1.removeColumn(tb1.getColumnModel().getColumn(4));
-            DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
-            Double res=0.0;
-            Double imp=0.0;
-            Double acc=0.0;
-            Double scorp=0.0;
-            Double ttt=0.0;
-            for(int i=0;i < tb1.getRowCount();i++){
-                imp =  imp + Double.parseDouble(tb1.getValueAt(i,1 ).toString());
-                acc =  acc + Double.parseDouble(tb1.getValueAt(i, 3).toString());
-                scorp= scorp + Double.parseDouble(tb1.getValueAt(i, 2).toString());
-                ttt=ttt+Double.parseDouble(tb1.getValueAt(i,4).toString());
-               res = ttt - acc;
-            }
-            txt_tot.setText(decimalFormat.format(imp));
-            txt_ant.setText(decimalFormat.format(acc));
-            txt_resto.setText(decimalFormat.format(res));
-            txt_tt.setText(decimalFormat.format(ttt));
-
-            
-           
-        }
-        catch(SQLException | NumberFormatException e){
-            JOptionPane.showMessageDialog(null, e);
-        }
-        finally {
-
-            try{
-
-                rs.close();
-                pst.close();
-                
-
-            }
-            catch(SQLException e){
-
-            }
-        }
-    }//GEN-LAST:event_ric_servKeyReleased
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // TODO add your handling code here:
@@ -513,21 +705,14 @@ dispose();
         // TODO add your handling code here:
         try{
                 String costoIns = null;
-                String cliente = combo_cliente.getSelectedItem().toString();
-                String servizio = combo_ser_sek.getSelectedItem().toString();
-                if(cliente.isEmpty()){JOptionPane.showMessageDialog(null, "Selezionare un'azienda a menu a tendina");}
-                else{
+                String cliente = combo_cliente.getText();
+                String servizio = txt_descr.getSelectedItem().toString();
+               
                     
-                    int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiungere il seguente servizio","Aggiungi Servizio",JOptionPane.YES_NO_OPTION);
+                    int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiungere la seguente prestazione","Aggiungi Prestazione",JOptionPane.YES_NO_OPTION);
 
                     if(x==0){    
    
-                pstcheck = conn.createStatement();
-                rsc = pstcheck.executeQuery("select nome from prestazione_cliente where cliente='"+cliente+"'and nome='"+servizio+"'");
-                if(rsc.next()){
-                    JOptionPane.showMessageDialog(null,"Servizio già esistente per il cliente "+cliente );
-                }
-                else {
                     
                    
                     String costo_insert = "select prezzo from prestazioni where nome = ?";
@@ -539,7 +724,7 @@ dispose();
                     costoIns = Double.toString(rsInsTot.getDouble("prezzo"));
                     }
                     System.out.println("costo: "+costoIns);
-                    String sql="insert into prestazione_cliente (nome,cliente,acconto,reso,totale,costo) values (?,?,?,?,?,?)";
+                    String sql="insert into prestazione_cliente (nome,cliente,acconto,resto,prezzo) values (?,?,?,?,?)";
                     pst=conn.prepareStatement(sql);
 
                     pst.setString(1,servizio);
@@ -547,8 +732,6 @@ dispose();
                     pst.setString(3,"0.0");
                     pst.setString(4,costoIns);
                     pst.setString(5,costoIns);
-                    pst.setString(6,costoIns);
-
                     pst.execute();
                     JOptionPane.showMessageDialog(null,"Prestazione salvata correttamente" );
                     
@@ -558,7 +741,7 @@ dispose();
                 
                 txt_costo.setText("");
                 txt_anticipo.setText("");
-                } }  
+                  
             }catch(SQLException | HeadlessException e)
             {
                 JOptionPane.showMessageDialog(null,"Errore Salvataggio Prestazione");
@@ -586,16 +769,16 @@ dispose();
          Update_table();
         try{
             
-            String scelta= ric_serv.getText();
+            String scelta= combo_cliente.getText();
             
-            String sql = "select * from servizi_erogati where azienda='"+scelta+"'";
+            String sql = "select * from servizi_erogati where cliente='"+scelta+"'";
             prep=repo.prepareStatement(sql);
             rep=prep.executeQuery();
             Document d=new Document();
-            PdfWriter.getInstance(d, new FileOutputStream("c:/mascgest/reports/saldo-"+scelta+".pdf"));
+            PdfWriter.getInstance(d, new FileOutputStream("c:/dentalgest/reports/saldo-"+scelta+".pdf"));
             d.open();
             
-            Image image = Image.getInstance("c:/mascgest/testata.png");
+            Image image = Image.getInstance("c:/dentalgest/testata.png");
             PdfPCell cell=new PdfPCell();
             d.add(image);
             Paragraph n=new Paragraph("\n");
@@ -690,7 +873,7 @@ dispose();
             
             JOptionPane.showMessageDialog(null,"Report creato correttamente");
          try{
-        Process exec = Runtime.getRuntime().exec("cmd.exe /C c:/mascgest/utility/open.exe");       }
+        Process exec = Runtime.getRuntime().exec("cmd.exe /C c:/dentalgest/utility/open.exe");       }
          catch (IOException e){}}
         catch(HeadlessException e){
             JOptionPane.showMessageDialog(null,"Errore creazione report");
@@ -723,30 +906,29 @@ dispose();
 
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
         txt_servizio.setText(model.getValueAt(selectedRowIndex, 0).toString());
-        txt_costo.setText(model.getValueAt(selectedRowIndex, 5).toString());
+        txt_costo.setText(model.getValueAt(selectedRowIndex, 4).toString());
         txt_anticipo.setText(model.getValueAt(selectedRowIndex, 2).toString());
             Double resto=0.0;
             Double costo=0.0;
             Double acconto=0.0;
             Double ttt=0.0;
             for(int i=0;i < tb1.getRowCount();i++){
-                costo =  costo + Double.parseDouble(tb1.getValueAt(i,1).toString());
-                acconto =  acconto + Double.parseDouble(tb1.getValueAt(i, 2).toString());
+                costo =  costo + Double.parseDouble(tb1.getValueAt(i,3).toString());
+                acconto =  acconto + Double.parseDouble(tb1.getValueAt(i, 1).toString());
                 
-                ttt=ttt+Double.parseDouble(tb1.getValueAt(i,4).toString());
-                resto = ttt - acconto;
-                txt_ant.setText(decimalFormat.format(acconto));
-            txt_resto.setText(decimalFormat.format(resto));
-            txt_tt.setText(decimalFormat.format(ttt));
+                resto = costo-acconto;
+                
+           
                 
             }
 
-            
-
+             txt_resto.setText(decimalFormat.format(resto));
+            txt_tot.setText(decimalFormat.format(costo));
+        txt_ant.setText(decimalFormat.format(acconto));
         
     }//GEN-LAST:event_tb1MouseClicked
 
-    private void combo_ser_sekPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_combo_ser_sekPopupMenuWillBecomeVisible
+    private void txt_descrPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_txt_descrPopupMenuWillBecomeVisible
         // TODO add your handling code here:
          try {
             String sql = "SELECT * FROM  prestazioni ORDER BY nome ASC";
@@ -757,7 +939,7 @@ dispose();
 
             {
                 String serv1 = rscv.getString("nome");
-                combo_ser_sek.addItem(serv1);
+                txt_descr.addItem(serv1);
 
             }
            
@@ -776,48 +958,48 @@ dispose();
 
             }
         }
-    }//GEN-LAST:event_combo_ser_sekPopupMenuWillBecomeVisible
+    }//GEN-LAST:event_txt_descrPopupMenuWillBecomeVisible
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
 
-        try{
+       try{
             DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
             decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
-
-            String val1 = combo_cliente.getSelectedItem().toString();
-            if(val1.isEmpty()){JOptionPane.showMessageDialog(null, "Nessuna Azienda/Servizio selezionato");}
+            String val1 = combo_cliente.getText();
+            if(val1.isEmpty()){JOptionPane.showMessageDialog(null, "Nessuna Cliente selezionato");}
             else{
-                int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiornare il seguente servizio?","Aggiorna Servizio",JOptionPane.YES_NO_OPTION);
+                int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiornare la seguente prestazione?","Aggiorna Prestazione",JOptionPane.YES_NO_OPTION);
                 if(x==0){
                     String servizio = txt_servizio.getText();
-
-                    String prezzo = txt_costo.getText();
-
-                   
-                    String var_anticipo = txt_anticipo.getText();
-                    Double il_totale;
-                    
-                    
-                    il_totale=(Double.parseDouble(prezzo));
-                    il_totale=il_totale*100;
-                    double tot=Math.ceil(il_totale);
-                   
+                    Double var_anticipo = Double.valueOf(txt_anticipo.getText());
+                    Double costo = Double.valueOf(txt_costo.getText());
+                    int row = tb1.getSelectedRow();
                     Double resto=0.00;
                     Double sum=0.00;
                     Double anti=0.00;
+                    Double nett=0.00;
                     Double ttot=0.00;
                     for(int i=0;i < tb1.getRowCount();i++){
-                        anti =  anti + Double.parseDouble(tb1.getValueAt(i,2 ).toString());
-                        ttot=ttot + Double.parseDouble(tb1.getValueAt(i, 4).toString());
+                        sum =  sum + Double.parseDouble(tb1.getValueAt(i,3 ).toString());
+                        anti =  anti + Double.parseDouble(tb1.getValueAt(i,1 ).toString());
+                        ttot=ttot + Double.parseDouble(tb1.getValueAt(i, 3).toString());
                         resto = (ttot - anti);
-                        resto=Math.ceil(resto);
+                        //resto=Math.ceil(resto);
                         }
+                    Double resto1 = Double.parseDouble(tb1.getValueAt(row, 3).toString()) - var_anticipo;
+                    String sql="update prestazione_cliente set prezzo=?,acconto=?,resto=? where cliente=? and nome=?";
+                    System.out.println("Query update: "+sql);
+                    pstUpd=connUpd.prepareStatement(sql);
+                    var_anticipo = Double.valueOf(txt_anticipo.getText());
+                    pstUpd.setDouble(1, costo);
+                    pstUpd.setDouble(2, var_anticipo);
+                    pstUpd.setDouble(3, resto1);
+                    pstUpd.setString(4, val1);
+                    pstUpd.setString(5, servizio);
                     
-                    String sql="update prestazione_cliente set nome='"+servizio+"',cliente='"+val1+"',reso='"+resto+"',acconto='"+var_anticipo+"' where cliente='"+val1+"' and nome='"+servizio+"'";
-                    pst=conn.prepareStatement(sql);
-                   pst.execute();
-                           
+                   pstUpd.execute();
+                   Update_table();
                      //tb1.removeColumn(tb1.getColumnModel().getColumn(1));
                     //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
                     
@@ -826,35 +1008,25 @@ dispose();
                     resto=ttot-anti;
                     txt_resto.setText(decimalFormat.format(resto));
                     txt_tt.setText(decimalFormat.format(ttot));
-                                                    //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
+                  
 
-
+Update_table();
                     
-                    JOptionPane.showMessageDialog(null,"Servizio modificato correttamente per l'azienda "+val1 );
+                    JOptionPane.showMessageDialog(null,"Prestazione modificata correttamente" );
                    Update_table(); 
-                 
-            txt_ant.setText(decimalFormat.format(anti));
-            txt_resto.setText(decimalFormat.format(resto));
-            txt_tot.setText(decimalFormat.format(sum));
+                    txt_costo.setText("");
+                    txt_servizio.setText("");
+                    txt_anticipo.setText("");
                   
 
 
                 }}}
                 catch(SQLException | HeadlessException e)
                 {
-                    JOptionPane.showMessageDialog(null,"Errore modifica servizio");
+                    JOptionPane.showMessageDialog(null,"Errore modifica prestazione");
                 }
 
-                finally{
-                    try{
-                        rs.close();
-                        pst.close();
-                    }
-                    catch(SQLException e)
-                    {
 
-                    }
-                }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void bt_elim1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_elim1ActionPerformed
@@ -862,12 +1034,12 @@ dispose();
 
         try{
 
-            String cliente = combo_cliente.getSelectedItem().toString();
-            if(cliente.isEmpty()){JOptionPane.showMessageDialog(null, "Nessuna Azienda/Servizio selezionato");}
+            String cliente = combo_cliente.getText();
+            if(cliente.isEmpty()){JOptionPane.showMessageDialog(null, "Nessuna Prestazione selezionato");}
             else{
 
                 String servizio = txt_servizio.getText();
-                int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler rimuovere il seguente servizio?","Elimina Servizio",JOptionPane.YES_NO_OPTION);
+                int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler rimuovere la seguente prestazione?","Elimina Prestazione",JOptionPane.YES_NO_OPTION);
                 if(x==0){
                     String sql = "delete from prestazione_cliente where nome='"+servizio+"' and cliente='"+cliente+"'";
 
@@ -875,7 +1047,7 @@ dispose();
                     psti.execute();
                     Update_table();
                     
-                    JOptionPane.showMessageDialog(null,"Servizio eliminato correttamente" );
+                    JOptionPane.showMessageDialog(null,"Prestazione eliminata correttamente" );
 
                     txt_costo.setText("");
                     txt_servizio.setText("");
@@ -884,90 +1056,226 @@ dispose();
                 }}}
                 catch(SQLException | HeadlessException e)
                 {
-                    JOptionPane.showMessageDialog(null,"Errore eliminazione Servizio " );
+                    JOptionPane.showMessageDialog(null,"Errore eliminazione Prestazione " );
                 }
     }//GEN-LAST:event_bt_elim1ActionPerformed
 
     private void txt_anticipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_anticipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_anticipoActionPerformed
-
-    private void combo_clientePopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_combo_clientePopupMenuWillBecomeVisible
-        // TODO add your handling code here:
-       txt_servizio.setText("");
-       txt_costo.setText("");
-       txt_anticipo.setText("");
-       try {
-        String sql = "SELECT nome,cognome FROM  pazienti ORDER BY cognome ASC";
-        psts = conne.prepareStatement(sql);
-        rss = psts.executeQuery();
-     
-        while(rss.next())
-
-{ 
-    String nome = rss.getString("nome");
-    String cognome = rss.getString("cognome");
-    String nominativo = nome.toUpperCase()+" "+cognome.toUpperCase();
-    combo_cliente.addItem(nominativo);
-
-}
-      
-        }
-        catch (SQLException e){
-                
-        } 
-       finally{
-           try {
-               rss.close();
-               psts.close();
-               
-               //conne.close();
-           } catch (SQLException ex) {
-               Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
-           }
-
-       }  
-    }//GEN-LAST:event_combo_clientePopupMenuWillBecomeVisible
     
-    private void combo_clientePopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_combo_clientePopupMenuWillBecomeInvisible
-        // TODO add your handling code here:
-        try{
-            String cliente = combo_cliente.getSelectedItem().toString();
-             System.out.println("recupero cliente: "+cliente);
-           String sql="select * from prestazione_cliente where cliente = ? ";
-            pst=conn.prepareStatement(sql);
-           
-            pst.setString(1,cliente);
-            rs=pst.executeQuery();
-           
-            tb1.setModel(DbUtils.resultSetToTableModel(rs));
-            tb1.removeColumn(tb1.getColumnModel().getColumn(1));
-            DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
-            Double res=0.0;
-            
-            Double acc=0.0;
-           
-            Double ttt=0.0;
-//            for(int i=0;i < tb1.getRowCount();i++){
-//                acc =  acc + Double.parseDouble(tb1.getValueAt(i, 2).toString());
-//                ttt=ttt+Double.parseDouble(tb1.getValueAt(i, 4).toString());
-//                res = ttt - acc;
-//            }
-            
-            txt_ant.setText(decimalFormat.format(acc));
-            txt_resto.setText(decimalFormat.format(res));
-            txt_tot.setText(decimalFormat.format(ttt));
-        }
-     
-        catch(SQLException | NumberFormatException e){
-            JOptionPane.showMessageDialog(null, e);
-        }
-        
-    }//GEN-LAST:event_combo_clientePopupMenuWillBecomeInvisible
-
     private void txt_costoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_costoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_costoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        JFrame parentFrame = new JFrame();
+ String servizio = txt_servizio.getText();
+JFileChooser fileChooser = new JFileChooser();
+fileChooser.setDialogTitle("Specify a file to save");   
+int userSelection = fileChooser.showSaveDialog(parentFrame);
+ InputStream inputStream =  null;
+if (userSelection == JFileChooser.APPROVE_OPTION) {
+    
+    File fileToSave = fileChooser.getSelectedFile();
+            try {
+                inputStream = new FileInputStream(new File(fileToSave.getName()));
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+    System.out.println("Save as file: " + fileToSave.getName());
+    System.out.println("Servizio: " + servizio);
+    try {
+    String sql = "insert into cartella_clinica (fk_servizio, file) values (,?)";
+    Connection connFile = Db.db();
+    Statement psFile = connFile.createStatement();
+    
+    psFile.execute(sql);
+    JOptionPane.showMessageDialog(null,"Allegato inserito correttamente" );
+    }
+    catch (HeadlessException | SQLException e)
+    {
+    JOptionPane.showMessageDialog(null,"Errore inserimento allegato" );}
+}
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         Object[] options = {"Si", "No"};
+
+        int n = JOptionPane
+                .showOptionDialog(null, "Sei sicuro di voler cancellare gli appuntamenti selezionati?",
+                        "Conferma cancellazione?",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, options,
+                        options[1]);
+
+        if (n == 0) // Confirm Delete = Yes
+        {
+
+            for (int i = 0; i < tb1.getRowCount(); i++) {
+
+                Boolean chkDel = Boolean.valueOf(tb2.getValueAt(i, 0).toString()); // Checked
+
+                if(chkDel) // Checked to Delete
+                {
+                    
+                    
+
+                    String data = tb2.getValueAt(i, 1).toString();
+                             
+                     String cliente = combo_cliente.getText();
+                    String ora = tb2.getValueAt(i, 2).toString();
+
+                    DeleteData(data,ora,cliente); 
+
+                }
+
+            }
+
+            JOptionPane.showMessageDialog(null, "Appuntamento/i concallati correttamente");
+            
+            PopulateData(); // Reload Table
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+ try{
+
+            String val1 = combo_cliente.getText();
+            if(val1.isEmpty()){JOptionPane.showMessageDialog(null, "Nessuno Stato selezionato");}
+            else{
+                int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiornare il seguente stato?","Aggiorna Stato",JOptionPane.YES_NO_OPTION);
+                if(x==0){
+                     for(int i=0;i < tb2.getRowCount();i++){
+                    Boolean chkDel = Boolean.valueOf(tb2.getValueAt(i, 0).toString()); // Checked
+                    
+                if(chkDel) // Checked to Delete
+                {
+                                       
+                       String data = tb2.getValueAt(i, 1).toString();
+                       String stato = combo_stato.getSelectedItem().toString();
+ 
+                    
+                    String ora =tb2.getValueAt(i, 2).toString();
+                   
+                     System.out.println("data "+data);
+                      System.out.println("ora "+ora);
+                       System.out.println("stato "+stato);
+                    System.out.print("qui arrivo");
+                    String sql="update appuntamenti set stato='"+stato+"' where cliente='"+val1+"' and data='"+data+"' and ora='"+ora+"'";
+                    pstUpdStato=connUpdStato.prepareStatement(sql);
+                   pstUpdStato.execute();
+                           System.out.print("anche qui arrivo");
+                     //tb1.removeColumn(tb1.getColumnModel().getColumn(1));
+                    //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
+                    
+                   
+                                                    //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
+
+
+                    
+                    JOptionPane.showMessageDialog(null,"Stato modificato correttamente per l'appuntamento del "+data+" delle ore "+ora );
+                  
+                   
+                 
+           
+                                       } 
+
+
+                }}
+            }
+             PopulateData(); // Reload Table
+             combo_stato.setSelectedIndex(-1);
+ }
+                catch(SQLException | HeadlessException e)
+                {
+                    JOptionPane.showMessageDialog(null,"Errore modifica stato");
+                }
+   // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        
+       DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date newDate = calendar.getDate();
+  String data = dateFormat.format(newDate);
+     //String cerca = calendar.getDate().toString();
+     System.out.println("Data da cercare: "+data);
+        String ora = time_txt.getText();
+        String cliente = combo_cliente.getText();
+        String stato = "in essere";
+        String descrizionev = txt_descr.getSelectedItem().toString();
+        
+        int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiugere il seguente appuntamento?", "Aggiungi appuntamento", JOptionPane.YES_NO_OPTION);
+        if (x == 0) {
+            try {
+
+                    String sql = "insert into appuntamenti (data,ora,descrizionev,cliente,stato) values (?,?,?,?,?)";
+                    pst = conn.prepareStatement(sql);
+
+                    pst.setString(1, data);
+                    pst.setString(2, ora);
+                    pst.setString(3,  descrizionev);
+                    pst.setString(4, cliente);
+                    pst.setString(5, stato);
+              
+                   
+                        pst.execute();
+                        System.out.println("VALORI INSERIMENT PAZIENTE: " + data + " | " + ora + " | " + cliente + " | " + descrizionev + " | " + stato + " ");
+
+                        JOptionPane.showMessageDialog(null, "Appuntamento aggiunto correttamente");
+
+                    
+
+                } catch (SQLException ex) {
+                Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+                
+               
+                
+               PopulateData();
+                
+            }
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void combo_ser_sekPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_combo_ser_sekPopupMenuWillBecomeVisible
+        // TODO add your handling code here:
+         try {
+            String sql = "SELECT * FROM  prestazioni ORDER BY nome ASC";
+            pstva= connva.prepareStatement(sql);
+            rscva = pstva.executeQuery();
+
+            while(rscva.next())
+
+            {
+                String serv1 = rscva.getString("nome");
+                combo_ser_sek.addItem(serv1);
+
+            }
+           
+
+        }
+        catch (SQLException e){
+
+        } finally{
+            try{
+                rscva.close();
+                pstva.close();
+                connva.close();
+            }
+            catch(SQLException e)
+            {
+
+            }
+        }
+    }//GEN-LAST:event_combo_ser_sekPopupMenuWillBecomeVisible
 
     /**
      * @param args the command line arguments
@@ -1013,33 +1321,49 @@ dispose();
             @Override
             public void run() {
                 new Clients().setVisible(true);
+                
             }
+            
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel app;
     private javax.swing.JButton bnt_agg_sek;
     private javax.swing.JButton bt_elim1;
     private javax.swing.JButton btn8;
-    private javax.swing.JComboBox<String> combo_cliente;
+    private com.toedter.calendar.JDateChooser calendar;
+    public javax.swing.JTextField combo_cliente;
     private javax.swing.JComboBox combo_ser_sek;
+    private javax.swing.JComboBox<String> combo_stato;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField ric_serv;
     private javax.swing.JTable tb1;
+    private javax.swing.JTable tb2;
+    private javax.swing.JTextField time_txt;
     private javax.swing.JLabel txt_ant;
     private javax.swing.JTextField txt_anticipo;
+    public javax.swing.JTextField txt_c;
     private javax.swing.JTextField txt_costo;
+    private javax.swing.JComboBox txt_descr;
+    public javax.swing.JTextField txt_n;
     private javax.swing.JLabel txt_resto;
     private javax.swing.JLabel txt_servizio;
     private javax.swing.JLabel txt_tot;

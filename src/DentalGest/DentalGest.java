@@ -26,10 +26,9 @@ public class DentalGest {
 		} catch (Exception ex) {
 		}
        
-        Loading loa = new Loading();
+         controlPanel loa = new controlPanel();
         loa.setVisible(true);
-        loa.update();
-        loa.dispose();
+        
         
         
        

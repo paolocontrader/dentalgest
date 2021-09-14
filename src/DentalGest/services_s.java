@@ -140,31 +140,29 @@ combo_ser.addItem(rscd.getString("nome_s"));
         txt_nome = new javax.swing.JTextField();
         bt_elim1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        bnt_agg1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/chiudi.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel5MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 10, 20, 20));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 20, 20));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/minimizza.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel6MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 20, 20));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 20, 20));
 
         btn_mod.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btn_mod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/modifica.png"))); // NOI18N
+        btn_mod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/modifica_150x40.png"))); // NOI18N
         btn_mod.setToolTipText("");
         btn_mod.setBorder(null);
         btn_mod.setBorderPainted(false);
@@ -175,7 +173,7 @@ combo_ser.addItem(rscd.getString("nome_s"));
                 btn_modActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 75, 30));
+        getContentPane().add(btn_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 90, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Servizio:");
@@ -209,7 +207,7 @@ combo_ser.addItem(rscd.getString("nome_s"));
         });
         getContentPane().add(txt_prezzo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 260, 25));
 
-        bnt_agg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/aggiungi.png"))); // NOI18N
+        bnt_agg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/aggiungi_150x40.png"))); // NOI18N
         bnt_agg.setBorder(null);
         bnt_agg.setBorderPainted(false);
         bnt_agg.setContentAreaFilled(false);
@@ -220,7 +218,7 @@ combo_ser.addItem(rscd.getString("nome_s"));
                 bnt_aggActionPerformed(evt);
             }
         });
-        getContentPane().add(bnt_agg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, 30));
+        getContentPane().add(bnt_agg, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 90, 30));
 
         txt_nome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_nome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
@@ -232,7 +230,7 @@ combo_ser.addItem(rscd.getString("nome_s"));
         getContentPane().add(txt_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 260, 25));
 
         bt_elim1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        bt_elim1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/elimina.png"))); // NOI18N
+        bt_elim1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/elimina_150x40.png"))); // NOI18N
         bt_elim1.setBorderPainted(false);
         bt_elim1.setContentAreaFilled(false);
         bt_elim1.addActionListener(new java.awt.event.ActionListener() {
@@ -240,27 +238,11 @@ combo_ser.addItem(rscd.getString("nome_s"));
                 bt_elim1ActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_elim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, -1, 30));
+        getContentPane().add(bt_elim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 80, 30));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Nome");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
-
-        bnt_agg1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/cancella.png"))); // NOI18N
-        bnt_agg1.setBorder(null);
-        bnt_agg1.setBorderPainted(false);
-        bnt_agg1.setContentAreaFilled(false);
-        bnt_agg1.setFocusPainted(false);
-        bnt_agg1.setFocusable(false);
-        bnt_agg1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bnt_agg1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(bnt_agg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, 30));
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/servizi-sekoma.png"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -444,14 +426,6 @@ combo_ser.addItem(rscd.getString("nome_s"));
         
     }//GEN-LAST:event_combo_serPopupMenuWillBecomeInvisible
 
-    private void bnt_agg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_agg1ActionPerformed
-        // TODO add your handling code here:
-                combo_ser.removeAllItems();
-          txt_nome.setText("");
-        txt_prezzo.setText("");
-
-    }//GEN-LAST:event_bnt_agg1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -497,13 +471,11 @@ combo_ser.addItem(rscd.getString("nome_s"));
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bnt_agg;
-    private javax.swing.JButton bnt_agg1;
     private javax.swing.JButton bt_elim1;
     private javax.swing.JButton btn_mod;
     private javax.swing.JComboBox combo_ser;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

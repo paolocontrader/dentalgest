@@ -82,16 +82,12 @@ String value=oper.userN;
     private void initComponents() {
 
         jLabel5 = new javax.swing.JLabel();
-        btn2 = new javax.swing.JButton();
-        btn4 = new javax.swing.JButton();
-        btn5 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        btn6 = new javax.swing.JButton();
-        btn7 = new javax.swing.JButton();
-        btn8 = new javax.swing.JButton();
         btn9 = new javax.swing.JButton();
-        btn10 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MascGest - Pannello di Controllo");
@@ -102,7 +98,7 @@ String value=oper.userN;
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/chiudi.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
         jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel5.setAlignmentY(1.0F);
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -110,119 +106,64 @@ String value=oper.userN;
                 jLabel5MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(463, 6, 20, 20));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, 20, 20));
 
-        btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/aziende-off.png"))); // NOI18N
-        btn2.setBorder(null);
-        btn2.setContentAreaFilled(false);
-        btn2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/aziende-on.png"))); // NOI18N
-        btn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, -1, -1));
-
-        btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/audit-off.png"))); // NOI18N
-        btn4.setBorder(null);
-        btn4.setContentAreaFilled(false);
-        btn4.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/audit-on.png"))); // NOI18N
-        btn4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, -1, -1));
-
-        btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/adesioni-off.png"))); // NOI18N
-        btn5.setBorder(null);
-        btn5.setContentAreaFilled(false);
-        btn5.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/adesioni-on.png"))); // NOI18N
-        btn5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn5ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, -1));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/minimizza.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel3MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 6, 20, 20));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 20, 20));
 
-        btn6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/backup_off.png"))); // NOI18N
-        btn6.setBorder(null);
-        btn6.setContentAreaFilled(false);
-        btn6.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/backup_on.png"))); // NOI18N
-        btn6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn6ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
-
-        btn7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/restore_off.png"))); // NOI18N
-        btn7.setBorder(null);
-        btn7.setContentAreaFilled(false);
-        btn7.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/restore_on.png"))); // NOI18N
-        btn7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn7ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, -1, -1));
-
-        btn8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/report_off.png"))); // NOI18N
-        btn8.setBorder(null);
-        btn8.setContentAreaFilled(false);
-        btn8.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/report_on.png"))); // NOI18N
-        btn8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn8ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn8, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, -1, -1));
-
-        btn9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/logout_off.png"))); // NOI18N
+        btn9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_exit_130x130.png"))); // NOI18N
         btn9.setBorder(null);
         btn9.setContentAreaFilled(false);
-        btn9.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/logout_on.png"))); // NOI18N
         btn9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn9ActionPerformed(evt);
             }
         });
-        getContentPane().add(btn9, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 200, -1, -1));
+        getContentPane().add(btn9, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 240, -1, -1));
 
-        btn10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/sekoma-off.png"))); // NOI18N
-        btn10.setBorder(null);
-        btn10.setContentAreaFilled(false);
-        btn10.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/sekoma-on.png"))); // NOI18N
-        btn10.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_prestazioni_130x130.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn10ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(btn10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, -1, -1));
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/intro.png"))); // NOI18N
-        jLabel1.setOpaque(true);
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 487, 360));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_appuntamenti_130x130.png"))); // NOI18N
+        jButton2.setBorder(null);
+        jButton2.setContentAreaFilled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, -1, -1));
 
-        setSize(new java.awt.Dimension(487, 359));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_anagrafica_130x130.png"))); // NOI18N
+        jButton5.setBorder(null);
+        jButton5.setContentAreaFilled(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, -1, -1));
+
+        sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/main_700x400.png"))); // NOI18N
+        sfondo.setText("jLabel1");
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 700, 410));
+
+        setSize(new java.awt.Dimension(699, 402));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
-        // TODO add your handling code here:
-        Clients.getObj().setVisible(true);
-         Clients.getObj().setExtendedState( JFrame.NORMAL );
-    }//GEN-LAST:event_btn2ActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
@@ -241,57 +182,12 @@ String value=oper.userN;
 
     }//GEN-LAST:event_jLabel5MouseClicked
 
-    private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
-        // TODO add your handling code here:
-       trail.getObj().setVisible(true);
-       trail.getObj().setExtendedState( JFrame.NORMAL );
-    }//GEN-LAST:event_btn4ActionPerformed
-
-    private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
-        // TODO add your handling code here:
-       ClientiList.getObj().setVisible(true);
-         ClientiList.getObj().setExtendedState( JFrame.NORMAL );
-    }//GEN-LAST:event_btn5ActionPerformed
-
-    private void btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6ActionPerformed
-        // TODO add your handling code here:
-         try {
-            // TODO add your handling code here:
-            Process exec = Runtime.getRuntime().exec("cmd.exe /C c:/mascgest//utility/backup_db.exe");
-            JOptionPane.showMessageDialog(null,"Backup effettuato con successo");
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null,"Inpossibile effettuare il Backup");
-        }
-    }//GEN-LAST:event_btn6ActionPerformed
-
-    private void btn7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7ActionPerformed
-        // TODO add your handling code here:
-        try {
-            // TODO add your handling code here:
-             int input = JOptionPane.showConfirmDialog(null,"Il vecchio database verrà sovrascritto. Sei sicuro di voler ripristinare il backup del database? ",null,JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-            if(input == 0){
-             Process exec = Runtime.getRuntime().exec("cmd.exe /C c:/mascgest/utility/restore_db.exe");
-            JOptionPane.showMessageDialog(null,"Ripristino effettuato con successo");
-            }
-            } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null,"Inpossibile effettuare il Ripristino");
-        }
-    }//GEN-LAST:event_btn7ActionPerformed
-
-    private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
-        // TODO add your handling code here:
-     
-           report.getObj().setVisible(true);
-         report.getObj().setExtendedState( JFrame.NORMAL );
-    }//GEN-LAST:event_btn8ActionPerformed
-
     private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
         // TODO add your handling code here:
          int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler uscire dal programma?","Esci da DentalGest",JOptionPane.YES_NO_OPTION);
         if(x==0){
             
             System.exit(0);
-            trail.getObj().setVisible(false);
             modifica_adesione.getObj().setVisible(false);
             Prestazioni.getObj().setVisible(false);
             Clients.getObj().setVisible(false);
@@ -302,11 +198,22 @@ String value=oper.userN;
         
     }//GEN-LAST:event_btn9ActionPerformed
 
-    private void btn10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
          Prestazioni.getObj().setVisible(true);
-         Prestazioni.getObj().setExtendedState( JFrame.NORMAL );
-    }//GEN-LAST:event_btn10ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         AppList.getObj().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+      
+       ClientiList.getObj().setVisible(true);
+       
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -347,16 +254,12 @@ String value=oper.userN;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn10;
-    private javax.swing.JButton btn2;
-    private javax.swing.JButton btn4;
-    private javax.swing.JButton btn5;
-    private javax.swing.JButton btn6;
-    private javax.swing.JButton btn7;
-    private javax.swing.JButton btn8;
     private javax.swing.JButton btn9;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel sfondo;
     // End of variables declaration//GEN-END:variables
 }
