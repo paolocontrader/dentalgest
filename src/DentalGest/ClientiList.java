@@ -166,6 +166,7 @@ public final  class ClientiList extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         txt_nominativo = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
@@ -185,7 +186,7 @@ public final  class ClientiList extends javax.swing.JFrame {
                 bnt_agg_sekActionPerformed(evt);
             }
         });
-        getContentPane().add(bnt_agg_sek, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, 100, 47));
+        getContentPane().add(bnt_agg_sek, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 120, 100, 47));
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -209,7 +210,7 @@ public final  class ClientiList extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tb1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 780, 240));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 780, 210));
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_cerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_lente_ingrandimento_cerca_40x40.png"))); // NOI18N
@@ -221,7 +222,7 @@ public final  class ClientiList extends javax.swing.JFrame {
                 bt_cercaActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 75, 47));
+        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 75, 47));
 
         txt_cerca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         txt_cerca.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -229,7 +230,7 @@ public final  class ClientiList extends javax.swing.JFrame {
                 txt_cercaMouseClicked(evt);
             }
         });
-        getContentPane().add(txt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 200, 20));
+        getContentPane().add(txt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 200, 20));
 
         bt_elim2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_elim2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/elimina_150x40.png"))); // NOI18N
@@ -241,7 +242,7 @@ public final  class ClientiList extends javax.swing.JFrame {
                 bt_elim2ActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_elim2, new org.netbeans.lib.awtextra.AbsoluteConstraints(465, 40, 90, 47));
+        getContentPane().add(bt_elim2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 90, 47));
 
         bnt_mod.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bnt_mod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/modifica_150x40.png"))); // NOI18N
@@ -255,11 +256,11 @@ public final  class ClientiList extends javax.swing.JFrame {
                 bnt_modActionPerformed(evt);
             }
         });
-        getContentPane().add(bnt_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 100, 47));
+        getContentPane().add(bnt_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 100, 47));
 
         lab_mail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lab_mail.setText("Nome:");
-        getContentPane().add(lab_mail, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, -1, -1));
+        getContentPane().add(lab_mail, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, -1, -1));
 
         txt_nome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_nome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
@@ -268,11 +269,11 @@ public final  class ClientiList extends javax.swing.JFrame {
                 txt_nomeActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 160, -1));
+        getContentPane().add(txt_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, 160, -1));
 
         lab_pec.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lab_pec.setText("Cognome:");
-        getContentPane().add(lab_pec, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, -1, -1));
+        getContentPane().add(lab_pec, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 390, -1, -1));
 
         txt_cognome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_cognome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
@@ -281,23 +282,23 @@ public final  class ClientiList extends javax.swing.JFrame {
                 txt_cognomeActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_cognome, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, 160, -1));
+        getContentPane().add(txt_cognome, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 390, 160, -1));
 
         lab_codfisc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lab_codfisc.setText("Codice Fiscale:");
-        getContentPane().add(lab_codfisc, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, -1, -1));
+        getContentPane().add(lab_codfisc, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, -1, -1));
 
         txt_codfisc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_codfisc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
-        getContentPane().add(txt_codfisc, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 380, 160, -1));
+        getContentPane().add(txt_codfisc, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, 160, -1));
 
         lab_formagiur.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lab_formagiur.setText("Recapito:");
-        getContentPane().add(lab_formagiur, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 380, -1, -1));
+        getContentPane().add(lab_formagiur, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 420, -1, -1));
 
         txt_recapito.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_recapito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
-        getContentPane().add(txt_recapito, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 380, 140, -1));
+        getContentPane().add(txt_recapito, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 420, 140, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -328,13 +329,16 @@ public final  class ClientiList extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 130, 40));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 400, 130, 40));
 
         txt_nominativo.setEditable(false);
         txt_nominativo.setBorder(null);
         getContentPane().add(txt_nominativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        setSize(new java.awt.Dimension(848, 488));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/window_anagraficapazienti_850x480.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 850, 500));
+
+        setSize(new java.awt.Dimension(848, 483));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -759,12 +763,12 @@ PopulateData();
      {
          PopulateData();
      }
-    String sql = "SELECT * FROM  pazienti WHERE nome = ? or cognome = ? ORDER BY nome ASC";
+    String sql = "SELECT * FROM  pazienti WHERE nome LIKE ? or cognome LIKE ? ORDER BY nome ASC";
         try {
 
             pstSearch = connSearch.prepareStatement(sql);
-            pstSearch.setString(1, cerca);
-             pstSearch.setString(2, cerca);
+            pstSearch.setString(1, cerca + "%");
+             pstSearch.setString(2, cerca + "%");
             
 
              rsSearch = pstSearch.executeQuery();
@@ -1896,6 +1900,7 @@ PopulateData();
     private javax.swing.JButton bt_elim2;
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooserBeanInfo jDateChooserBeanInfo1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JScrollPane jScrollPane2;

@@ -145,6 +145,7 @@ combo_ser.addItem(rscd.getString("nome"));
         bnt_agg = new javax.swing.JButton();
         btn_mod = new javax.swing.JButton();
         bt_elim1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -156,7 +157,7 @@ combo_ser.addItem(rscd.getString("nome"));
                 jLabel5MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 10, 20, 20));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 20, 20));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -164,11 +165,11 @@ combo_ser.addItem(rscd.getString("nome"));
                 jLabel6MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 20, 20));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 20, 20));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Servizio:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
 
         combo_ser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         combo_ser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " " }));
@@ -185,11 +186,11 @@ combo_ser.addItem(rscd.getString("nome"));
                 combo_serPopupMenuWillBecomeVisible(evt);
             }
         });
-        getContentPane().add(combo_ser, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 260, 25));
+        getContentPane().add(combo_ser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 260, 25));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Prezzo:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
         txt_prezzo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_prezzo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
@@ -198,7 +199,7 @@ combo_ser.addItem(rscd.getString("nome"));
                 txt_prezzoActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_prezzo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 260, 25));
+        getContentPane().add(txt_prezzo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 260, 25));
 
         txt_nome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_nome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
@@ -207,11 +208,11 @@ combo_ser.addItem(rscd.getString("nome"));
                 txt_nomeActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 260, 25));
+        getContentPane().add(txt_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 260, 25));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Nome");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
         bnt_agg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/aggiungi_150x40.png"))); // NOI18N
         bnt_agg.setBorder(null);
@@ -224,7 +225,7 @@ combo_ser.addItem(rscd.getString("nome"));
                 bnt_aggActionPerformed(evt);
             }
         });
-        getContentPane().add(bnt_agg, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 100, 30));
+        getContentPane().add(bnt_agg, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 100, 30));
 
         btn_mod.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btn_mod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/modifica_150x40.png"))); // NOI18N
@@ -238,7 +239,7 @@ combo_ser.addItem(rscd.getString("nome"));
                 btn_modActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 90, 30));
+        getContentPane().add(btn_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 90, 30));
 
         bt_elim1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_elim1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/elimina_150x40.png"))); // NOI18N
@@ -249,9 +250,12 @@ combo_ser.addItem(rscd.getString("nome"));
                 bt_elim1ActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_elim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 90, 30));
+        getContentPane().add(bt_elim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 90, 30));
 
-        setSize(new java.awt.Dimension(410, 267));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/prestazioni_400x300.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 400, 380));
+
+        setSize(new java.awt.Dimension(400, 300));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -475,6 +479,7 @@ combo_ser.addItem(rscd.getString("nome"));
     private javax.swing.JButton bt_elim1;
     private javax.swing.JButton btn_mod;
     private javax.swing.JComboBox combo_ser;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;

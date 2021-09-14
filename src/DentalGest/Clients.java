@@ -338,9 +338,7 @@ public final class Clients extends javax.swing.JFrame {
 
             }
                    System.out.println("Numero righe tabella appuntamenti: "+row);
-                if(row==0){
-                JOptionPane.showMessageDialog(null, "Nessun appuntamento disponibile");
-                }
+               
             
             
            tb2.getColumnModel().getColumn(0).setPreferredWidth(5);
@@ -376,15 +374,14 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         txt_resto = new javax.swing.JLabel();
+        minimizza = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        chiudi = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txt_tot = new javax.swing.JLabel();
         bnt_agg_sek = new javax.swing.JButton();
@@ -415,6 +412,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
         calendar = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         combo_ser_sek = new javax.swing.JComboBox();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest - Gestione Clienti");
@@ -422,48 +420,45 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Cliente");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 70, -1));
-
         jLabel2.setText("Servizio:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 60, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 60, -1));
 
         jLabel4.setText("Costo:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 70, -1));
-
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel9MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1540, 0, 20, 20));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 70, -1));
 
         txt_resto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        getContentPane().add(txt_resto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 860, 90, 25));
+        getContentPane().add(txt_resto, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 750, 80, 25));
 
-        jLabel5.setText("Saldo:  €");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 860, 60, -1));
-
-        jLabel8.setText("   Acconto:  €");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 860, 80, -1));
-
-        jLabel7.setText("Totale: €");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 860, 80, -1));
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+        minimizza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
+        minimizza.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
+                minimizzaMouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1560, 0, 20, 20));
+        getContentPane().add(minimizza, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 0, 20, 20));
 
-        jLabel11.setText("Anticipo:");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, -1, -1));
+        jLabel5.setText("Saldo:  €");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 750, 50, -1));
+
+        jLabel8.setText("   Acconto:  €");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 710, 80, -1));
+
+        jLabel7.setText("Totale: €");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 670, 80, -1));
+
+        chiudi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
+        chiudi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                chiudiMouseClicked(evt);
+            }
+        });
+        getContentPane().add(chiudi, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 20, 20));
+
+        jLabel11.setText("Acconto:");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, -1));
 
         txt_tot.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        getContentPane().add(txt_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 860, 80, 25));
+        getContentPane().add(txt_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 670, 80, 25));
 
         bnt_agg_sek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/aggiungi_150x40.png"))); // NOI18N
         bnt_agg_sek.setBorder(null);
@@ -476,13 +471,13 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
                 bnt_agg_sekActionPerformed(evt);
             }
         });
-        getContentPane().add(bnt_agg_sek, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 400, 100, 40));
+        getContentPane().add(bnt_agg_sek, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 250, 100, 40));
 
         txt_ant.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        getContentPane().add(txt_ant, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 860, 80, 25));
+        getContentPane().add(txt_ant, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 710, 80, 25));
 
         txt_servizio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        getContentPane().add(txt_servizio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, 220, 25));
+        getContentPane().add(txt_servizio, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 220, 25));
 
         txt_descr.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_descr.setToolTipText("Seleziona servizio Se'Koma Servizi SRL");
@@ -496,8 +491,9 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
                 txt_descrPopupMenuWillBecomeVisible(evt);
             }
         });
-        getContentPane().add(txt_descr, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 750, 320, 25));
+        getContentPane().add(txt_descr, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 600, 310, 25));
 
+        btn8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_add_file_40_40.png"))); // NOI18N
         btn8.setToolTipText("Seleziona azienda da menu a tendina");
         btn8.setBorder(null);
         btn8.setContentAreaFilled(false);
@@ -506,7 +502,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
                 btn8ActionPerformed(evt);
             }
         });
-        getContentPane().add(btn8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 60, 50));
+        getContentPane().add(btn8, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 168, 50, 50));
 
         tb1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
         tb1.setModel(new javax.swing.table.DefaultTableModel(
@@ -531,7 +527,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
         });
         jScrollPane2.setViewportView(tb1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 930, 240));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 930, 240));
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/aggiorna_150x40.png"))); // NOI18N
@@ -543,7 +539,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 300, 100, 47));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 100, 47));
 
         bt_elim1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_elim1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/cancella_150x40.png"))); // NOI18N
@@ -554,7 +550,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
                 bt_elim1ActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_elim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, 100, 47));
+        getContentPane().add(bt_elim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 100, 47));
 
         txt_costo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
         txt_costo.addActionListener(new java.awt.event.ActionListener() {
@@ -562,7 +558,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
                 txt_costoActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_costo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 60, 25));
+        getContentPane().add(txt_costo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 70, 25));
 
         txt_anticipo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
         txt_anticipo.addActionListener(new java.awt.event.ActionListener() {
@@ -570,17 +566,19 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
                 txt_anticipoActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_anticipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 72, 25));
-        getContentPane().add(txt_tt, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 510, -1, -1));
+        getContentPane().add(txt_anticipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 72, 25));
+        getContentPane().add(txt_tt, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 400, 80, 40));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
-        jButton1.setText("Allegato");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_upload_file_40_40.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 310, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 168, -1, 50));
 
         tb2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -595,7 +593,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
         ));
         jScrollPane1.setViewportView(tb2);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 810, 700, 130));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 660, 700, 130));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
         jButton2.setToolTipText("Selezionare gli appuntamenti da eliminare");
@@ -607,7 +605,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 810, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 660, -1, -1));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/nuovo_150x40.png"))); // NOI18N
         jButton5.setText("Nuovo appuntamento");
@@ -619,7 +617,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 720, 90, -1));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 570, 90, -1));
 
         jButton6.setText("Modifica stato");
         jButton6.setToolTipText("Selezionare gli appuntamenti da modificare");
@@ -628,19 +626,19 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
                 jButton6ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 780, 160, -1));
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 630, 160, -1));
 
         combo_stato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In essere", "Sospeso", "Annullato", "Terminato" }));
         combo_stato.setSelectedIndex(-1);
         combo_stato.setToolTipText("");
-        getContentPane().add(combo_stato, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 780, 130, -1));
-        getContentPane().add(time_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 720, 100, -1));
+        getContentPane().add(combo_stato, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 630, 130, -1));
+        getContentPane().add(time_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 570, 100, -1));
 
         jLabel3.setText("Data: ");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 720, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, -1, -1));
 
-        jLabel12.setText("Ora: HH:MM");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 720, 100, -1));
+        jLabel12.setText("Ora: (HH:MM)");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 570, 100, -1));
 
         txt_c.setEditable(false);
         txt_c.setAutoscrolls(false);
@@ -651,11 +649,11 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
         txt_c.setPreferredSize(new java.awt.Dimension(0, 0));
         txt_c.setRequestFocusEnabled(false);
         txt_c.setVerifyInputWhenFocusTarget(false);
-        getContentPane().add(txt_c, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
+        getContentPane().add(txt_c, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, -130, -1, -1));
 
         combo_cliente.setEditable(false);
-        combo_cliente.setEnabled(false);
-        getContentPane().add(combo_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, 220, -1));
+        combo_cliente.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        getContentPane().add(combo_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 340, -1));
 
         txt_n.setEditable(false);
         txt_n.setAutoscrolls(false);
@@ -666,11 +664,11 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
         txt_n.setPreferredSize(new java.awt.Dimension(0, 0));
         txt_n.setRequestFocusEnabled(false);
         txt_n.setVerifyInputWhenFocusTarget(false);
-        getContentPane().add(txt_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 720, 130, -1));
+        getContentPane().add(txt_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -130, -1, -1));
+        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 570, 140, -1));
 
         jLabel6.setText("Descrizione:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 750, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, -1, -1));
 
         combo_ser_sek.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         combo_ser_sek.setToolTipText("Seleziona servizio Se'Koma Servizi SRL");
@@ -684,29 +682,32 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
                 combo_ser_sekPopupMenuWillBecomeVisible(evt);
             }
         });
-        getContentPane().add(combo_ser_sek, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 320, 25));
+        getContentPane().add(combo_ser_sek, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 320, 25));
 
-        setSize(new java.awt.Dimension(1581, 958));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/window_schedapazientesingolo_1000x820.png"))); // NOI18N
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 820));
+
+        setSize(new java.awt.Dimension(991, 819));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+    private void minimizzaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizzaMouseClicked
         // TODO add your handling code here:
         setExtendedState(JFrame.ICONIFIED );
-    }//GEN-LAST:event_jLabel9MouseClicked
+    }//GEN-LAST:event_minimizzaMouseClicked
 
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+    private void chiudiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chiudiMouseClicked
         // TODO add your handling code here:
 
 dispose();
-    }//GEN-LAST:event_jLabel10MouseClicked
+    }//GEN-LAST:event_chiudiMouseClicked
 
     private void bnt_agg_sekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_agg_sekActionPerformed
         // TODO add your handling code here:
         try{
                 String costoIns = null;
                 String cliente = combo_cliente.getText();
-                String servizio = txt_descr.getSelectedItem().toString();
+                String servizio = combo_ser_sek.getSelectedItem().toString();
                
                     
                     int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiungere la seguente prestazione","Aggiungi Prestazione",JOptionPane.YES_NO_OPTION);
@@ -771,16 +772,16 @@ dispose();
             
             String scelta= combo_cliente.getText();
             
-            String sql = "select * from servizi_erogati where cliente='"+scelta+"'";
+            String sql = "select * from prestazione_cliente where cliente='"+scelta+"'";
             prep=repo.prepareStatement(sql);
             rep=prep.executeQuery();
             Document d=new Document();
             PdfWriter.getInstance(d, new FileOutputStream("c:/dentalgest/reports/saldo-"+scelta+".pdf"));
             d.open();
             
-            Image image = Image.getInstance("c:/dentalgest/testata.png");
+            //Image image = Image.getInstance("c:/dentalgest/testata.png");
             PdfPCell cell=new PdfPCell();
-            d.add(image);
+           // d.add(image);
             Paragraph n=new Paragraph("\n");
             cell.setColspan(2);
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -797,9 +798,9 @@ dispose();
             d.add(n);
             PdfPTable ptableh = new PdfPTable(4);
                String nomeh="Servizio";
-               String prezzoh="Imponibile";
+               String prezzoh="Acconto";
                //String ivah="Iva Applicata";
-               String nettoh="Iva Calcolata";
+               String nettoh="Resto";
                String ivatoh="Totale";  
                PdfPCell cell1h=new PdfPCell(new Paragraph(nomeh));
                cell1h.setBorderColor(new Color(52,147,81));
@@ -830,10 +831,10 @@ dispose();
             while(rep.next()){
                PdfPTable ptable = new PdfPTable(4);
                String nome=rep.getString("nome");
-               String impon=rep.getString("imponibile");
-               String iva_calc=rep.getString("scorporo");
+               String impon=rep.getString("acconto");
+               String iva_calc=rep.getString("resto");
                //String iva_app=rep.getString("iva");
-               String total=rep.getString("totale");
+               String total=rep.getString("prezzo");
                PdfPCell cell1=new PdfPCell(new Paragraph(nome));
                cell1.setBorderColor(new Color(52,147,81));
                cell1.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -861,7 +862,7 @@ dispose();
             PdfPTable table1=new PdfPTable(1);
             String resor=txt_resto.getText();
             String t=txt_tot.getText();
-            String totaler=txt_tt.getText();
+            String totaler=txt_tot.getText();
             String accontor=txt_ant.getText();
             PdfPCell cell3=new PdfPCell(new Paragraph("Totale: €"+totaler+ "\nAcconto: €"+accontor+"\nSaldo: €"+resor));
             cell3.setBorder(0);
@@ -1070,35 +1071,9 @@ Update_table();
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        JFrame parentFrame = new JFrame();
- String servizio = txt_servizio.getText();
-JFileChooser fileChooser = new JFileChooser();
-fileChooser.setDialogTitle("Specify a file to save");   
-int userSelection = fileChooser.showSaveDialog(parentFrame);
- InputStream inputStream =  null;
-if (userSelection == JFileChooser.APPROVE_OPTION) {
-    
-    File fileToSave = fileChooser.getSelectedFile();
-            try {
-                inputStream = new FileInputStream(new File(fileToSave.getName()));
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-    System.out.println("Save as file: " + fileToSave.getName());
-    System.out.println("Servizio: " + servizio);
-    try {
-    String sql = "insert into cartella_clinica (fk_servizio, file) values (,?)";
-    Connection connFile = Db.db();
-    Statement psFile = connFile.createStatement();
-    
-    psFile.execute(sql);
-    JOptionPane.showMessageDialog(null,"Allegato inserito correttamente" );
-    }
-    catch (HeadlessException | SQLException e)
-    {
-    JOptionPane.showMessageDialog(null,"Errore inserimento allegato" );}
-}
+        CartellaClinica.getObj().paziente.setText(comb);
+        CartellaClinica.getObj().PopulateData();
+      CartellaClinica.getObj().setVisible(true);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -1333,6 +1308,7 @@ if (userSelection == JFileChooser.APPROVE_OPTION) {
     private javax.swing.JButton bt_elim1;
     private javax.swing.JButton btn8;
     private com.toedter.calendar.JDateChooser calendar;
+    private javax.swing.JLabel chiudi;
     public javax.swing.JTextField combo_cliente;
     private javax.swing.JComboBox combo_ser_sek;
     private javax.swing.JComboBox<String> combo_stato;
@@ -1341,10 +1317,9 @@ if (userSelection == JFileChooser.APPROVE_OPTION) {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1352,9 +1327,9 @@ if (userSelection == JFileChooser.APPROVE_OPTION) {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel minimizza;
     private javax.swing.JTable tb1;
     private javax.swing.JTable tb2;
     private javax.swing.JTextField time_txt;
