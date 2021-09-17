@@ -49,6 +49,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
     PreparedStatement pstPop = null;
      Connection connCerca= null;
     PreparedStatement psCerca = null;
+    Connection connAppDel = null;
     
     /**
      * Creates new form Clients
@@ -60,7 +61,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         connAll = Db.db();
         connPop = Db.db();
         connCerca = Db.db();
-          
+          connAppDel = Db.db();
       
     PopulateData();
     AnimationStation();
@@ -121,7 +122,9 @@ public final  class CartellaClinica extends javax.swing.JFrame {
           
             System.out.println("Numero righe tabella cartella_clinica: "+(i));
             
-           
+            tb1.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tb1.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tb1.getColumnModel().getColumn(2).setPreferredWidth(600);
             
        }
           catch(HeadlessException | SQLException e){
@@ -153,6 +156,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         nome = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
@@ -184,7 +188,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tb1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 780, 150));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 760, 150));
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_cerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_lente_ingrandimento_cerca_40x40.png"))); // NOI18N
@@ -205,7 +209,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 jLabel11MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 0, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 6, -1, -1));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -213,20 +217,21 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 jLabel12MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 0, -1, -1));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 6, -1, -1));
 
         paziente.setEditable(false);
         paziente.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        paziente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         paziente.setBorder(null);
         paziente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pazienteActionPerformed(evt);
             }
         });
-        getContentPane().add(paziente, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 230, -1));
+        getContentPane().add(paziente, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 450, -1));
         getContentPane().add(txt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 250, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_add_file_40_40.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/Scegli-file_40x100.png"))); // NOI18N
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
@@ -235,7 +240,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 50, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 110, -1));
 
         doc_n.setEditable(false);
         getContentPane().add(doc_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 400, -1));
@@ -250,7 +255,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         });
         getContentPane().add(nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 400, -1));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_upload_file_40_40.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/Carica-file_40x100.png"))); // NOI18N
         jButton2.setBorder(null);
         jButton2.setBorderPainted(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -258,10 +263,19 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 210, 110, -1));
 
         jLabel2.setText("Path:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
+        jButton3.setBorder(null);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 270, -1, -1));
 
         setSize(new java.awt.Dimension(848, 445));
         setLocationRelativeTo(null);
@@ -348,6 +362,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
             psAll.execute();
             
             JOptionPane.showMessageDialog(null, "Documento caricato correttamente");
+             PopulateData();
          }   
          catch(SQLException e) {
              JOptionPane.showMessageDialog(null, "Errore caricamento documento");
@@ -358,6 +373,65 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_pazienteActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+         Object[] options = {"Si", "No"};
+
+        int n = JOptionPane
+                .showOptionDialog(null, "Sei sicuro di voler cancellare gli allegati selezionati?",
+                        "Conferma cancellazione?",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, options,
+                        options[1]);
+
+        if (n == 0) // Confirm Delete = Yes
+        {
+
+            for (int i = 0; i < tb1.getRowCount(); i++) {
+
+                Boolean chkDel = Boolean.valueOf(tb1.getValueAt(i, 0).toString()); // Checked
+
+                if(chkDel) // Checked to Delete
+                {
+                    
+                    
+
+                    String path = tb1.getValueAt(i, 2).toString();
+                     String cliente = paziente.getText();
+                    String nome = tb1.getValueAt(i, 1).toString();
+
+                    DeleteData(cliente,path,nome); 
+
+                }
+
+            }
+
+            JOptionPane.showMessageDialog(null, "allegato/i concallati correttamente");
+            
+            PopulateData(); // Reload Table
+             PopulateData(); // Reload Table
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    
+    void DeleteData(String paziente,String path,String nome) {
+
+        String sql = "DELETE FROM cartella  WHERE paziente = '" + paziente + "' AND path = '" + path + "' AND nome = '" + nome + "'";
+        try {
+            Statement pstsDel = connAppDel.createStatement();
+            System.out.println("QUERY DI ELIMINAZIONE: "+paziente+" "+path+" "+nome);
+            pstsDel.execute(sql);
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+        }
+
+                   
+        
+
+    }
     
     public  void PopulateData() {
 
@@ -534,9 +608,9 @@ public final  class CartellaClinica extends javax.swing.JFrame {
             
                  // tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
            
-             tb1.getColumnModel().getColumn(0).setPreferredWidth(50);
-            tb1.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tb1.getColumnModel().getColumn(2).setPreferredWidth(200);
+            tb1.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tb1.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tb1.getColumnModel().getColumn(2).setPreferredWidth(600);
 
         } catch (SQLException e) {
 
@@ -4684,6 +4758,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
     private javax.swing.JTextField doc_n;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

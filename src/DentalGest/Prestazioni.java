@@ -30,6 +30,7 @@ public class Prestazioni extends javax.swing.JFrame {
     Connection conne=null;
     Connection connel=null;
     Connection connPrest=null;
+    Connection connPrestI=null;
 Connection connUpd=null;
     Connection connf=null;
         Connection conng=null;
@@ -37,12 +38,15 @@ Connection connUpd=null;
     ResultSet rs=null;
     PreparedStatement pst=null;
      PreparedStatement psPrest=null;
+      PreparedStatement psPrestI=null;
     PreparedStatement pstc=null;
    Statement pstcheck=null;
    PreparedStatement pstd=null;
    PreparedStatement pstUpd=null;
     ResultSet rsc=null;
     ResultSet rsPrest=null;
+        ResultSet rsPrestI=null;
+
     /**
      * Creates new form services
      */
@@ -57,6 +61,7 @@ Connection connUpd=null;
         connel=Db.db();
          connUpd=Db.db();
          connPrest = Db.db();
+         connPrestI = Db.db();
         AnimationStation();
         
     }
@@ -157,7 +162,7 @@ combo_ser.addItem(rscd.getString("nome"));
                 jLabel5MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 20, 20));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 20, 20));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -165,7 +170,7 @@ combo_ser.addItem(rscd.getString("nome"));
                 jLabel6MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 20, 20));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 20, 20));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Servizio:");
@@ -281,21 +286,16 @@ combo_ser.addItem(rscd.getString("nome"));
 
     private void combo_serPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_combo_serPopupMenuWillBecomeVisible
         // TODO add your handling code here:
-      combo_ser.removeAllItems();
+         combo_ser.removeAllItems();
         String sql="select * from prestazioni ORDER BY nome  ASC ";
         try {
             psPrest=connPrest.prepareStatement(sql);
             rsPrest=psPrest.executeQuery();
-        if(!rsPrest.next()){
-             combo_ser.removeAllItems();
-             JOptionPane.showMessageDialog(null,"Nessun servizio inserito");
-                   }
-        else{
             while(rsPrest.next()){
             combo_ser.addItem(rsPrest.getString("nome"));
             
         }
-        }} catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(Prestazioni.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
@@ -305,11 +305,7 @@ combo_ser.addItem(rscd.getString("nome"));
             } catch (SQLException ex) {
                 Logger.getLogger(Prestazioni.class.getName()).log(Level.SEVERE, null, ex);
             }
-            try {
-                rsPrest.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Prestazioni.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
         }
        
     }//GEN-LAST:event_combo_serPopupMenuWillBecomeVisible
@@ -320,11 +316,11 @@ combo_ser.addItem(rscd.getString("nome"));
         String scelta=combo_ser.getSelectedItem().toString();
         try{
             String sql = "select * from prestazioni where nome='"+scelta+"'";
-        psPrest=connPrest.prepareStatement(sql);
-        rsPrest=psPrest.executeQuery();
-        while(rsPrest.next()){
-        txt_nome.setText(rsPrest.getString("nome"));
-        txt_prezzo.setText(rsPrest.getString("prezzo"));
+        psPrestI=connPrestI.prepareStatement(sql);
+        rsPrestI=psPrestI.executeQuery();
+        while(rsPrestI.next()){
+        txt_nome.setText(rsPrestI.getString("nome"));
+        txt_prezzo.setText(rsPrestI.getString("prezzo"));
         }
         
         }catch(SQLException e){
@@ -362,7 +358,10 @@ combo_ser.addItem(rscd.getString("nome"));
                 txt_prezzo.setText("");
                 txt_nome.setText("");
                     Refresh();
+                    Clients.getObj().PopulatePrest();
                 }
+                 Clients.getObj().PopulatePrest();
+                  Clients.getObj().PopulatePrest();
             }
 
             catch(SQLException | HeadlessException e)
@@ -396,7 +395,8 @@ combo_ser.addItem(rscd.getString("nome"));
                 combo_ser.removeAllItems();
                 txt_nome.setText("");
                 txt_prezzo.setText("");
-
+                Clients.getObj().PopulatePrest();
+ Clients.getObj().PopulatePrest();
             }
             catch(SQLException | HeadlessException e)
             {
@@ -424,6 +424,7 @@ combo_ser.addItem(rscd.getString("nome"));
                 combo_ser.removeAllItems();
                 txt_prezzo.setText("");
                 txt_nome.setText("");
+                Clients.getObj().PopulatePrest();
 
             }catch(SQLException | HeadlessException e)
             {

@@ -166,6 +166,8 @@ public final  class ClientiList extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         txt_nominativo = new javax.swing.JTextField();
+        nom = new javax.swing.JTextField();
+        cogn = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -306,7 +308,7 @@ public final  class ClientiList extends javax.swing.JFrame {
                 jLabel11MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 0, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 6, -1, -1));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -314,7 +316,7 @@ public final  class ClientiList extends javax.swing.JFrame {
                 jLabel12MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 0, -1, -1));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(796, 6, -1, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
         jButton1.setBorder(null);
@@ -334,6 +336,22 @@ public final  class ClientiList extends javax.swing.JFrame {
         txt_nominativo.setEditable(false);
         txt_nominativo.setBorder(null);
         getContentPane().add(txt_nominativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        nom.setEditable(false);
+        nom.setBorder(null);
+        nom.setEnabled(false);
+        nom.setFocusable(false);
+        nom.setOpaque(false);
+        nom.setRequestFocusEnabled(false);
+        getContentPane().add(nom, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, -1, -1));
+
+        cogn.setEditable(false);
+        cogn.setBorder(null);
+        cogn.setEnabled(false);
+        cogn.setFocusable(false);
+        cogn.setOpaque(false);
+        cogn.setRequestFocusEnabled(false);
+        getContentPane().add(cogn, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 200, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/window_anagraficapazienti_850x480.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 850, 500));
@@ -356,8 +374,10 @@ public final  class ClientiList extends javax.swing.JFrame {
                 {
                     String add1 = rsclick.getString("nome");
                     txt_nome.setText(add1);
+                    nom.setText(add1);
                     String add2 = rsclick.getString("cognome");
                     txt_cognome.setText(add2);
+                    cogn.setText(add2);
                     String add3 = rsclick.getString("codice_fiscale");
                     txt_codfisc.setText(add3);
                     String add4 = rsclick.getString("cell");
@@ -465,8 +485,11 @@ public final  class ClientiList extends javax.swing.JFrame {
                             .toString(); 
                     String strCognome = tb1.getValueAt(i, 2)
                             .toString(); 
-
+                    String cliente = strNome+" "+strCognome;
+                    System.out.println("Il cliente che viene terminato "+cliente);
                     DeleteData(strNome,strCognome); 
+                    DeleteDataPrest(cliente); 
+                    DeleteDataApp(cliente);
 
                 }
 
@@ -500,15 +523,18 @@ PopulateData();
                 String val2 = txt_cognome.getText().toLowerCase();
                 String val3 = txt_codfisc.getText().toLowerCase();
                 String val4 = txt_recapito.getText().toLowerCase();
+                String val5 = nom.getText().toLowerCase();
+                String val6 = cogn.getText().toLowerCase();
                 
 
-                String sql = "update pazienti set nome=?,cognome=?,codice_fiscale=?,cell=? where codice_fiscale=?";
+                String sql = "update pazienti set nome=?,cognome=?,codice_fiscale=?,cell=? where nome=? and cognome=?";
                 pstUpd = connUpd.prepareStatement(sql);
                 pstUpd.setString(1, val1);
                 pstUpd.setString(2, val2);
                 pstUpd.setString(3, val3);
                 pstUpd.setString(4, val4);
-                pstUpd.setString(5, val3);
+                pstUpd.setString(5, val5);
+                pstUpd.setString(6, val6);
               
                 pstUpd.execute();
                 JOptionPane.showMessageDialog(null, "Anagrafica paziente " + val1 + " " + val2 + " modificata correttamente");
@@ -565,6 +591,7 @@ PopulateData();
       System.out.println("passaggio cognome: "+msg2);
       Clients.getObj().Update_table();
       Clients.getObj().PopulateData();
+      Clients.getObj().PopulatePrest();
       Clients.getObj().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -627,7 +654,7 @@ PopulateData();
         tb1.setModel(model);
         
 // Add Column
-        model.addColumn("Seleziona");
+        model.addColumn("");
 
         model.addColumn("Nome");
 
@@ -748,7 +775,7 @@ PopulateData();
         tb1.setModel(model);
         
 // Add Column
-        model.addColumn("Seleziona");
+        model.addColumn("");
 
         model.addColumn("Nome");
 
@@ -758,7 +785,7 @@ PopulateData();
 
        
 
-     String cerca = txt_cerca.getText();
+     String cerca = txt_cerca.getText().toLowerCase();
      if(cerca.equals(""))
      {
          PopulateData();
@@ -826,6 +853,44 @@ PopulateData();
         try {
             pstDel = connDel.createStatement();
             System.out.println("QUERY DI ELIMINAZIONE: "+strNome+" "+strCognome);
+            pstDel.execute(sql);
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+        }
+
+                   
+        
+
+    }
+    
+    void DeleteDataPrest(String cliente) {
+
+        String sql = "DELETE FROM prestazione_cliente  WHERE cliente = '" + cliente + "'";
+        try {
+            pstDel = connDel.createStatement();
+            System.out.println("QUERY DI ELIMINAZIONE: "+cliente);
+            pstDel.execute(sql);
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+        }
+
+                   
+        
+
+    }
+    
+    void DeleteDataApp(String cliente) {
+
+        String sql = "DELETE FROM appuntamenti  WHERE cliente = '" + cliente + "'";
+        try {
+            pstDel = connDel.createStatement();
+            System.out.println("QUERY DI ELIMINAZIONE: "+cliente);
             pstDel.execute(sql);
 
         } catch (SQLException e) {
@@ -1898,6 +1963,7 @@ PopulateData();
     private javax.swing.JButton bnt_mod;
     private javax.swing.JButton bt_cerca;
     private javax.swing.JButton bt_elim2;
+    private javax.swing.JTextField cogn;
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooserBeanInfo jDateChooserBeanInfo1;
     private javax.swing.JLabel jLabel1;
@@ -1908,6 +1974,7 @@ PopulateData();
     private javax.swing.JLabel lab_formagiur;
     private javax.swing.JLabel lab_mail;
     private javax.swing.JLabel lab_pec;
+    private javax.swing.JTextField nom;
     private javax.swing.JTable tb1;
     private javax.swing.JTextField txt_cerca;
     private javax.swing.JTextField txt_codfisc;

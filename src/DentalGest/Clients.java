@@ -34,7 +34,10 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -67,6 +70,7 @@ public final class Clients extends javax.swing.JFrame {
     Connection connUpdStato=null;
     Connection connApp = null;
     Connection connAppDel = null;
+    Connection connAppDelPrest = null;
     ResultSet rs=null;
     ResultSet rsc=null;
     ResultSet rscv=null;
@@ -89,6 +93,7 @@ public final class Clients extends javax.swing.JFrame {
      ResultSet rep=null;
     PreparedStatement psts=null;
     Statement pstsDel=null;
+    Statement pstsDelPrest=null;
     PreparedStatement pstIns = null;
      ResultSet rsInsTot = null;
     String msg1 = null;
@@ -119,6 +124,7 @@ public final class Clients extends javax.swing.JFrame {
          connUpdStato = Db.db();
          connApp = Db.db();
          connAppDel = Db.db();
+         connAppDelPrest = Db.db();
          combo_cliente.setText(comb);
         Update_table();
     AnimationStation();
@@ -162,13 +168,32 @@ public final class Clients extends javax.swing.JFrame {
     
     
     
-    void DeleteData(String data,String ora,String cliente) {
+    void DeleteData(String data,String ora,String cliente,String servizio) {
 
-        String sql = "DELETE FROM appuntamenti  WHERE data = '" + data + "' AND ora = '" + ora + "' AND cliente = '" + cliente + "'";
+        String sql = "DELETE FROM appuntamenti  WHERE data = '" + data + "' AND ora = '" + ora + "' AND cliente = '" + cliente + "' AND descrizionev = '" + servizio + "'";
         try {
             pstsDel = connAppDel.createStatement();
-            System.out.println("QUERY DI ELIMINAZIONE: "+data+" "+ora);
+            System.out.println("QUERY DI ELIMINAZIONE: "+data+" "+ora+" "+servizio);
             pstsDel.execute(sql);
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+        }
+
+                   
+        
+
+    }
+    
+    void DeleteDataPrest(String nome,String cliente,String id) {
+
+        String sql = "DELETE FROM prestazione_cliente  WHERE nome = '" + nome + "' AND cliente = '" + cliente + "' AND id = '" + id + "'";
+        try {
+            pstsDelPrest = connAppDelPrest.createStatement();
+            System.out.println("QUERY DI ELIMINAZIONE: "+nome+" "+cliente+" "+id);
+            pstsDelPrest.execute(sql);
 
         } catch (SQLException e) {
 
@@ -215,13 +240,13 @@ public final class Clients extends javax.swing.JFrame {
             Double resu=0.0;
             Double accu=0.0;
             Double ttt=0.0;
-            tb1.removeColumn(tb1.getColumnModel().getColumn(1));
+            tb1.removeColumn(tb1.getColumnModel().getColumn(2));
        
             for(int i=0;i < tb1.getRowCount();i++){
                 
-                accu =  accu + Double.parseDouble(tb1.getValueAt(i, 1).toString());
+                accu =  accu + Double.parseDouble(tb1.getValueAt(i, 2).toString());
                
-                ttt=ttt+Double.parseDouble(tb1.getValueAt(i,3).toString());
+                ttt=ttt+Double.parseDouble(tb1.getValueAt(i,4).toString());
                 resu = ttt - accu;
             }
            
@@ -361,7 +386,123 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
 
     }
 
-    
+     public  void PopulatePrest() {
+          String cliente = combo_cliente.getText();
+// Clear table
+        tb1.setModel(new DefaultTableModel());
+// Model for Table
+        DefaultTableModel model3 = new DefaultTableModel() {
+
+            @Override
+            public Class<?> getColumnClass(int column) {
+
+                switch (column) {
+
+                    case 0:
+
+                    return Boolean.class;
+
+                    case 1:
+
+                        return String.class;
+
+                    case 2:
+
+                        return String.class;
+
+                    case 3:
+
+                        return String.class;
+
+                    case 4:
+
+                        return String.class;
+                        case 5:
+
+                        return String.class;
+
+                    default:
+
+                        return String.class;
+
+                }
+
+            }
+
+        };
+
+        tb1.setModel(model3);
+        
+// Add Column
+        model3.addColumn("");
+
+         model3.addColumn("id");
+        
+        model3.addColumn("Nome");
+
+        model3.addColumn("Acconto");
+
+        model3.addColumn("Resto");
+
+        model3.addColumn("Prezzo");
+        
+       // tb2.getColumnModel().removeColumn(tb2.getColumnModel().getColumn(4));
+
+        
+    String sql = "SELECT * FROM  prestazione_cliente where cliente ='"+cliente+"' ORDER BY nome DESC";
+        try {
+
+            pstApp = connApp.prepareStatement(sql);
+
+            
+
+            ResultSet recApp = pstApp.executeQuery();
+
+            int row = 0;
+            
+                while ((recApp != null) && (recApp.next())) {
+                    
+                     model3.addRow(new Object[0]);
+
+                model3.setValueAt(false, row, 0); // Checkbox
+                
+                model3.setValueAt(recApp.getString("id"), row, 1);
+                
+                model3.setValueAt(recApp.getString("nome"), row, 2);
+                
+                model3.setValueAt(recApp.getString("acconto"), row, 3);
+
+                model3.setValueAt(recApp.getString("resto"), row, 4);
+
+                model3.setValueAt(recApp.getString("prezzo"), row, 5);
+                                
+                row++;
+
+            }
+                   System.out.println("Numero righe tabella prestazione_cliente: "+row);
+               
+            
+            
+           tb1.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tb1.getColumnModel().getColumn(1).setPreferredWidth(5);
+            tb1.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(150);
+
+tb1.getColumnModel().getColumn(4).setPreferredWidth(150);
+tb1.getColumnModel().getColumn(5).setPreferredWidth(150);
+            
+
+        } catch (SQLException e) {
+
+// TODO Auto-generated catch block
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+
+// TODO Auto-generated catch block
+
+        }
+
+    }
     
     
 
@@ -411,7 +552,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
         txt_n = new javax.swing.JTextField();
         calendar = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
-        combo_ser_sek = new javax.swing.JComboBox();
+        txt_descr1 = new javax.swing.JComboBox();
         jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -435,7 +576,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
                 minimizzaMouseClicked(evt);
             }
         });
-        getContentPane().add(minimizza, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 0, 20, 20));
+        getContentPane().add(minimizza, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 6, 20, 20));
 
         jLabel5.setText("Saldo:  €");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 750, 50, -1));
@@ -452,7 +593,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
                 chiudiMouseClicked(evt);
             }
         });
-        getContentPane().add(chiudi, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 20, 20));
+        getContentPane().add(chiudi, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 6, 20, 20));
 
         jLabel11.setText("Acconto:");
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, -1));
@@ -480,7 +621,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
         getContentPane().add(txt_servizio, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 220, 25));
 
         txt_descr.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_descr.setToolTipText("Seleziona servizio Se'Koma Servizi SRL");
+        txt_descr.setToolTipText("");
         txt_descr.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
         txt_descr.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -493,16 +634,17 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
         });
         getContentPane().add(txt_descr, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 600, 310, 25));
 
-        btn8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_add_file_40_40.png"))); // NOI18N
-        btn8.setToolTipText("Seleziona azienda da menu a tendina");
+        btn8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/estratto_conto_cliente_100x40.png"))); // NOI18N
+        btn8.setToolTipText("");
         btn8.setBorder(null);
+        btn8.setBorderPainted(false);
         btn8.setContentAreaFilled(false);
         btn8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn8ActionPerformed(evt);
             }
         });
-        getContentPane().add(btn8, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 168, 50, 50));
+        getContentPane().add(btn8, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 168, 150, 50));
 
         tb1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
         tb1.setModel(new javax.swing.table.DefaultTableModel(
@@ -569,7 +711,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
         getContentPane().add(txt_anticipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 72, 25));
         getContentPane().add(txt_tt, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 400, 80, 40));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_upload_file_40_40.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/cartella_clinica_100x40.png"))); // NOI18N
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
@@ -653,7 +795,11 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
 
         combo_cliente.setEditable(false);
         combo_cliente.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        getContentPane().add(combo_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 340, -1));
+        combo_cliente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        combo_cliente.setBorder(null);
+        combo_cliente.setEnabled(false);
+        combo_cliente.setOpaque(false);
+        getContentPane().add(combo_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 340, -1));
 
         txt_n.setEditable(false);
         txt_n.setAutoscrolls(false);
@@ -670,19 +816,19 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
         jLabel6.setText("Descrizione:");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, -1, -1));
 
-        combo_ser_sek.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        combo_ser_sek.setToolTipText("Seleziona servizio Se'Koma Servizi SRL");
-        combo_ser_sek.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        combo_ser_sek.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+        txt_descr1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_descr1.setToolTipText("");
+        txt_descr1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
+        txt_descr1.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                combo_ser_sekPopupMenuWillBecomeVisible(evt);
+                txt_descr1PopupMenuWillBecomeVisible(evt);
             }
         });
-        getContentPane().add(combo_ser_sek, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 320, 25));
+        getContentPane().add(txt_descr1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 310, 25));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/window_schedapazientesingolo_1000x820.png"))); // NOI18N
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 820));
@@ -704,11 +850,14 @@ dispose();
 
     private void bnt_agg_sekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_agg_sekActionPerformed
         // TODO add your handling code here:
+        
+        
+        
         try{
                 String costoIns = null;
                 String cliente = combo_cliente.getText();
-                String servizio = combo_ser_sek.getSelectedItem().toString();
-               
+                String servizio = txt_descr1.getSelectedItem().toString();
+                
                     
                     int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiungere la seguente prestazione","Aggiungi Prestazione",JOptionPane.YES_NO_OPTION);
 
@@ -725,24 +874,30 @@ dispose();
                     costoIns = Double.toString(rsInsTot.getDouble("prezzo"));
                     }
                     System.out.println("costo: "+costoIns);
-                    String sql="insert into prestazione_cliente (nome,cliente,acconto,resto,prezzo) values (?,?,?,?,?)";
+                    String sql="insert into prestazione_cliente (id,nome,cliente,acconto,resto,prezzo) values (?,?,?,?,?,?)";
                     pst=conn.prepareStatement(sql);
-
-                    pst.setString(1,servizio);
-                    pst.setString(2,cliente);
-                    pst.setString(3,"0.0");
-                    pst.setString(4,costoIns);
+                    Random rand = new Random(); //instance of random class
+     
+                    int upperbound = 50;
+                    int int_random = rand.nextInt(upperbound); 
+                   String id = String.valueOf(int_random);
+                    pst.setString(1,id);
+                    pst.setString(2,servizio);
+                    pst.setString(3,cliente);
+                    pst.setString(4,"0.0");
                     pst.setString(5,costoIns);
+                    pst.setString(6,costoIns);
                     pst.execute();
                     JOptionPane.showMessageDialog(null,"Prestazione salvata correttamente" );
                     
                 }
                 Update_table();
+                PopulatePrest();
                 
                 
                 txt_costo.setText("");
                 txt_anticipo.setText("");
-                  
+                txt_descr1.setSelectedItem(-1);
             }catch(SQLException | HeadlessException e)
             {
                 JOptionPane.showMessageDialog(null,"Errore Salvataggio Prestazione");
@@ -767,16 +922,21 @@ dispose();
          txt_ant.getText();
          txt_resto.getText();
          
-         Update_table();
+         PopulatePrest();
         try{
-            
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+   LocalDateTime now = LocalDateTime.now();  
+   System.out.println(dtf.format(now));  
+   long millis=System.currentTimeMillis();  
+Date date=new Date(millis);  
+System.out.println(date);  
             String scelta= combo_cliente.getText();
-            
+           String adesso = date.getDay()+"-"+date.getMonth()+"-"+date.getYear()+"-"+date.getHours()+"-"+date.getMinutes();
             String sql = "select * from prestazione_cliente where cliente='"+scelta+"'";
             prep=repo.prepareStatement(sql);
             rep=prep.executeQuery();
             Document d=new Document();
-            PdfWriter.getInstance(d, new FileOutputStream("c:/dentalgest/reports/saldo-"+scelta+".pdf"));
+            PdfWriter.getInstance(d, new FileOutputStream("/dentalgest/reports/saldo-"+scelta+"_"+adesso+".pdf"));
             d.open();
             
             //Image image = Image.getInstance("c:/dentalgest/testata.png");
@@ -787,40 +947,40 @@ dispose();
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell.setPadding(8.0f);
             Font font=new Font();
-            font.setColor(52,147,81);
+            font.setColor(0,0,0);
             font.setSize(28);
-            Paragraph azienda= new Paragraph(scelta,font);
-            azienda.setAlignment(Element.ALIGN_CENTER);
-            d.add(azienda); /* Font Size */
+            Paragraph paziente= new Paragraph(scelta,font);
+            paziente.setAlignment(Element.ALIGN_CENTER);
+            d.add(paziente); /* Font Size */
             
             d.add(n);d.add(n);
             
             d.add(n);
             PdfPTable ptableh = new PdfPTable(4);
-               String nomeh="Servizio";
+               String nomeh="Prestazione";
                String prezzoh="Acconto";
                //String ivah="Iva Applicata";
                String nettoh="Resto";
                String ivatoh="Totale";  
                PdfPCell cell1h=new PdfPCell(new Paragraph(nomeh));
-               cell1h.setBorderColor(new Color(52,147,81));
-               cell1h.setBackgroundColor(new Color(52,147,81));
+               cell1h.setBorderColor(new Color(255,255,255));
+               cell1h.setBackgroundColor(new Color(255,255,255));
                cell1h.setHorizontalAlignment(Element.ALIGN_LEFT);
                PdfPCell cell2h=new PdfPCell(new Paragraph(prezzoh)); 
-               cell2h.setBorderColor(new Color(52,147,81));
-                cell2h.setBackgroundColor(new Color(52,147,81));
+               cell2h.setBorderColor(new Color(255,255,255));
+                cell2h.setBackgroundColor(new Color(255,255,255));
                 cell2h.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 PdfPCell cell3h=new PdfPCell(new Paragraph(ivatoh));
-               cell3h.setBorderColor(new Color(52,147,81));
-                cell3h.setBackgroundColor(new Color(52,147,81));
+               cell3h.setBorderColor(new Color(255,255,255));
+                cell3h.setBackgroundColor(new Color(255,255,255));
                cell3h.setHorizontalAlignment(Element.ALIGN_RIGHT);
                //PdfPCell cell4h=new PdfPCell(new Paragraph(ivah));
                 //cell4h.setBorderColor(new Color(52,147,81));
                  //cell4h.setBackgroundColor(new Color(52,147,81));
                 //cell4h.setHorizontalAlignment(Element.ALIGN_RIGHT);
                  PdfPCell cell5h=new PdfPCell(new Paragraph(nettoh));
-                cell5h.setBorderColor(new Color(52,147,81));
-                 cell5h.setBackgroundColor(new Color(52,147,81));
+                cell5h.setBorderColor(new Color(255,255,255));
+                 cell5h.setBackgroundColor(new Color(255,255,255));
                 cell5h.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 ptableh.addCell(cell1h);
                 ptableh.addCell(cell2h);
@@ -836,19 +996,19 @@ dispose();
                //String iva_app=rep.getString("iva");
                String total=rep.getString("prezzo");
                PdfPCell cell1=new PdfPCell(new Paragraph(nome));
-               cell1.setBorderColor(new Color(52,147,81));
+               cell1.setBorderColor(new Color(255,255,255));
                cell1.setHorizontalAlignment(Element.ALIGN_LEFT);
                PdfPCell cell2=new PdfPCell(new Paragraph("€"+impon)); 
-               cell2.setBorderColor(new Color(52,147,81));
+               cell2.setBorderColor(new Color(255,255,255));
                 cell2.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 PdfPCell cell3=new PdfPCell(new Paragraph("€"+iva_calc));
-               cell3.setBorderColor(new Color(52,147,81));
+               cell3.setBorderColor(new Color(255,255,255));
                cell3.setHorizontalAlignment(Element.ALIGN_RIGHT);
                //PdfPCell cell4=new PdfPCell(new Paragraph(""+iva_app));
                 //cell4.setBorderColor(new Color(52,147,81));
                 //cell4.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 PdfPCell cell5=new PdfPCell(new Paragraph("€"+total));
-                cell5.setBorderColor(new Color(52,147,81));
+                cell5.setBorderColor(new Color(255,255,255));
                 cell5.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 ptable.addCell(cell1);
                 ptable.addCell(cell2);
@@ -874,7 +1034,7 @@ dispose();
             
             JOptionPane.showMessageDialog(null,"Report creato correttamente");
          try{
-        Process exec = Runtime.getRuntime().exec("cmd.exe /C c:/dentalgest/utility/open.exe");       }
+        Process exec = Runtime.getRuntime().exec("cmd.exe /C /dentalgest/utility/open.bat");       }
          catch (IOException e){}}
         catch(HeadlessException e){
             JOptionPane.showMessageDialog(null,"Errore creazione report");
@@ -906,16 +1066,16 @@ dispose();
          int selectedRowIndex = tb1.getSelectedRow();
 
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
-        txt_servizio.setText(model.getValueAt(selectedRowIndex, 0).toString());
-        txt_costo.setText(model.getValueAt(selectedRowIndex, 4).toString());
-        txt_anticipo.setText(model.getValueAt(selectedRowIndex, 2).toString());
+        txt_servizio.setText(model.getValueAt(selectedRowIndex, 2).toString());
+        txt_costo.setText(model.getValueAt(selectedRowIndex, 5).toString());
+        txt_anticipo.setText(model.getValueAt(selectedRowIndex, 3).toString());
             Double resto=0.0;
             Double costo=0.0;
             Double acconto=0.0;
             Double ttt=0.0;
             for(int i=0;i < tb1.getRowCount();i++){
-                costo =  costo + Double.parseDouble(tb1.getValueAt(i,3).toString());
-                acconto =  acconto + Double.parseDouble(tb1.getValueAt(i, 1).toString());
+                costo =  costo + Double.parseDouble(tb1.getValueAt(i,4).toString());
+                acconto =  acconto + Double.parseDouble(tb1.getValueAt(i, 3).toString());
                 
                 resto = costo-acconto;
                 
@@ -923,9 +1083,9 @@ dispose();
                 
             }
 
-             txt_resto.setText(decimalFormat.format(resto));
-            txt_tot.setText(decimalFormat.format(costo));
-        txt_ant.setText(decimalFormat.format(acconto));
+//             txt_resto.setText(decimalFormat.format(resto));
+//            txt_tot.setText(decimalFormat.format(costo));
+//        txt_ant.setText(decimalFormat.format(acconto));
         
     }//GEN-LAST:event_tb1MouseClicked
 
@@ -963,7 +1123,8 @@ dispose();
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-
+        int sec = tb1.getSelectedRow();
+        String numero = tb1.getValueAt(sec, 1).toString();
        try{
             DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
             decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
@@ -976,31 +1137,34 @@ dispose();
                     Double var_anticipo = Double.valueOf(txt_anticipo.getText());
                     Double costo = Double.valueOf(txt_costo.getText());
                     int row = tb1.getSelectedRow();
+                    String ant1 = tb1.getValueAt(row, 3).toString();
                     Double resto=0.00;
                     Double sum=0.00;
                     Double anti=0.00;
                     Double nett=0.00;
                     Double ttot=0.00;
                     for(int i=0;i < tb1.getRowCount();i++){
-                        sum =  sum + Double.parseDouble(tb1.getValueAt(i,3 ).toString());
-                        anti =  anti + Double.parseDouble(tb1.getValueAt(i,1 ).toString());
-                        ttot=ttot + Double.parseDouble(tb1.getValueAt(i, 3).toString());
+                        sum =  sum + Double.parseDouble(tb1.getValueAt(i, 5).toString());
+                        anti =  anti + Double.parseDouble(tb1.getValueAt(i,3 ).toString());
+                        ttot=ttot + Double.parseDouble(tb1.getValueAt(i, 5).toString());
                         resto = (ttot - anti);
                         //resto=Math.ceil(resto);
                         }
-                    Double resto1 = Double.parseDouble(tb1.getValueAt(row, 3).toString()) - var_anticipo;
-                    String sql="update prestazione_cliente set prezzo=?,acconto=?,resto=? where cliente=? and nome=?";
+                    Double resto1 = Double.parseDouble(tb1.getValueAt(row, 4).toString()) - var_anticipo;
+                    String sql="update prestazione_cliente set prezzo=?,acconto=?,resto=? where cliente=? and nome=? and id=?";
                     System.out.println("Query update: "+sql);
                     pstUpd=connUpd.prepareStatement(sql);
-                    var_anticipo = Double.valueOf(txt_anticipo.getText());
+                    var_anticipo = Double.valueOf(txt_anticipo.getText())+Double.valueOf(ant1);
                     pstUpd.setDouble(1, costo);
                     pstUpd.setDouble(2, var_anticipo);
                     pstUpd.setDouble(3, resto1);
                     pstUpd.setString(4, val1);
                     pstUpd.setString(5, servizio);
-                    
+                    pstUpd.setString(6, numero);
+                    Update_table();
                    pstUpd.execute();
                    Update_table();
+                   PopulatePrest();
                      //tb1.removeColumn(tb1.getColumnModel().getColumn(1));
                     //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
                     
@@ -1012,9 +1176,11 @@ dispose();
                   
 
 Update_table();
+PopulatePrest();
                     
                     JOptionPane.showMessageDialog(null,"Prestazione modificata correttamente" );
                    Update_table(); 
+                   PopulatePrest();
                     txt_costo.setText("");
                     txt_servizio.setText("");
                     txt_anticipo.setText("");
@@ -1033,32 +1199,65 @@ Update_table();
     private void bt_elim1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_elim1ActionPerformed
         // TODO add your handling code here:
 
-        try{
+         Object[] options = {"Si", "No"};
 
-            String cliente = combo_cliente.getText();
-            if(cliente.isEmpty()){JOptionPane.showMessageDialog(null, "Nessuna Prestazione selezionato");}
-            else{
+        int n = JOptionPane
+                .showOptionDialog(null, "Sei sicuro di voler cancellare le prestazioni selezionate?",
+                        "Conferma cancellazione?",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, options,
+                        options[1]);
 
-                String servizio = txt_servizio.getText();
-                int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler rimuovere la seguente prestazione?","Elimina Prestazione",JOptionPane.YES_NO_OPTION);
-                if(x==0){
-                    String sql = "delete from prestazione_cliente where nome='"+servizio+"' and cliente='"+cliente+"'";
+        if (n == 0) // Confirm Delete = Yes
+        {
 
-                    psti=coni.prepareStatement(sql);
-                    psti.execute();
-                    Update_table();
-                    
-                    JOptionPane.showMessageDialog(null,"Prestazione eliminata correttamente" );
+            for (int i = 0; i < tb1.getRowCount(); i++) {
 
-                    txt_costo.setText("");
-                    txt_servizio.setText("");
-                    txt_anticipo.setText("");
+                Boolean chkDel = Boolean.valueOf(tb1.getValueAt(i, 0).toString()); // Checked
 
-                }}}
-                catch(SQLException | HeadlessException e)
+                if(chkDel) // Checked to Delete
                 {
-                    JOptionPane.showMessageDialog(null,"Errore eliminazione Prestazione " );
+                    
+                    
+
+                    String nome = tb1.getValueAt(i, 2).toString();
+                     String cliente = combo_cliente.getText();
+                    String id = tb1.getValueAt(i, 1).toString();
+                    int row = tb1.getSelectedRow();
+                    DeleteDataPrest(nome,cliente,id); 
+                    System.out.println("Cancello 3");
+                    DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+                     decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
+                    Double sum=0.00;
+                    Double anti =0.00;
+                    Double  ttot = 0.00;
+                    Double resto = 0.00;
+                    for(int j=0;j<tb1.getSelectedRow();j++){    
+                    sum =   Double.parseDouble(tb1.getValueAt(j, 5).toString());
+                         anti =  Double.parseDouble(tb1.getValueAt(j,3 ).toString());
+                      ttot = Double.parseDouble(tb1.getValueAt(j, 5).toString());
+                        resto = ((ttot + Double.parseDouble(tb1.getValueAt(j, 5).toString())) - (anti + Double.parseDouble(tb1.getValueAt(j, 3).toString())));
+                        //resto=Math.ceil(resto);
+                    
+                     Update_table();
+                    PopulatePrest();
+                    PopulateData(); // Reload Table
+                   
+                    }
+                     Update_table();
+                    PopulatePrest();
+                    PopulateData(); // Reload Table
+                    
+             PopulateData(); // Reload Table
                 }
+
+            }
+
+            JOptionPane.showMessageDialog(null, "prestazione/i concallate correttamente");
+            
+            PopulateData(); // Reload Table
+             PopulateData(); // Reload Table
+        }
     }//GEN-LAST:event_bt_elim1ActionPerformed
 
     private void txt_anticipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_anticipoActionPerformed
@@ -1091,7 +1290,7 @@ Update_table();
         if (n == 0) // Confirm Delete = Yes
         {
 
-            for (int i = 0; i < tb1.getRowCount(); i++) {
+            for (int i = 0; i < tb2.getRowCount(); i++) {
 
                 Boolean chkDel = Boolean.valueOf(tb2.getValueAt(i, 0).toString()); // Checked
 
@@ -1101,11 +1300,11 @@ Update_table();
                     
 
                     String data = tb2.getValueAt(i, 1).toString();
-                             
+                                 String servizio = tb2.getValueAt(i, 3).toString();
                      String cliente = combo_cliente.getText();
                     String ora = tb2.getValueAt(i, 2).toString();
 
-                    DeleteData(data,ora,cliente); 
+                    DeleteData(data,ora,cliente,servizio); 
 
                 }
 
@@ -1114,6 +1313,7 @@ Update_table();
             JOptionPane.showMessageDialog(null, "Appuntamento/i concallati correttamente");
             
             PopulateData(); // Reload Table
+             PopulateData(); // Reload Table
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -1133,7 +1333,7 @@ Update_table();
                                        
                        String data = tb2.getValueAt(i, 1).toString();
                        String stato = combo_stato.getSelectedItem().toString();
- 
+                       String descr = tb2.getValueAt(i, 3).toString();
                     
                     String ora =tb2.getValueAt(i, 2).toString();
                    
@@ -1141,7 +1341,7 @@ Update_table();
                       System.out.println("ora "+ora);
                        System.out.println("stato "+stato);
                     System.out.print("qui arrivo");
-                    String sql="update appuntamenti set stato='"+stato+"' where cliente='"+val1+"' and data='"+data+"' and ora='"+ora+"'";
+                    String sql="update appuntamenti set stato='"+stato+"' where cliente='"+val1+"' and data='"+data+"' and ora='"+ora+"' and descrizionev='"+descr+"'";
                     pstUpdStato=connUpdStato.prepareStatement(sql);
                    pstUpdStato.execute();
                            System.out.print("anche qui arrivo");
@@ -1220,9 +1420,9 @@ Update_table();
         
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void combo_ser_sekPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_combo_ser_sekPopupMenuWillBecomeVisible
+    private void txt_descr1PopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_txt_descr1PopupMenuWillBecomeVisible
         // TODO add your handling code here:
-         try {
+        try {
             String sql = "SELECT * FROM  prestazioni ORDER BY nome ASC";
             pstva= connva.prepareStatement(sql);
             rscva = pstva.executeQuery();
@@ -1231,7 +1431,7 @@ Update_table();
 
             {
                 String serv1 = rscva.getString("nome");
-                combo_ser_sek.addItem(serv1);
+                txt_descr1.addItem(serv1);
 
             }
            
@@ -1250,7 +1450,7 @@ Update_table();
 
             }
         }
-    }//GEN-LAST:event_combo_ser_sekPopupMenuWillBecomeVisible
+    }//GEN-LAST:event_txt_descr1PopupMenuWillBecomeVisible
 
     /**
      * @param args the command line arguments
@@ -1310,7 +1510,6 @@ Update_table();
     private com.toedter.calendar.JDateChooser calendar;
     private javax.swing.JLabel chiudi;
     public javax.swing.JTextField combo_cliente;
-    private javax.swing.JComboBox combo_ser_sek;
     private javax.swing.JComboBox<String> combo_stato;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -1338,6 +1537,7 @@ Update_table();
     public javax.swing.JTextField txt_c;
     private javax.swing.JTextField txt_costo;
     private javax.swing.JComboBox txt_descr;
+    private javax.swing.JComboBox txt_descr1;
     public javax.swing.JTextField txt_n;
     private javax.swing.JLabel txt_resto;
     private javax.swing.JLabel txt_servizio;
