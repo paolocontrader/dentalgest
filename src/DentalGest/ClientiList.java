@@ -30,6 +30,9 @@ public final  class ClientiList extends javax.swing.JFrame {
     Connection conn=null;
     Connection connUpd=null;
     Connection connDel=null;
+    Connection connDelCli=null;
+    Connection connDelPrest=null;
+    Connection connDelApp=null;
     Connection connSearch=null;
     Connection connRef=null;
     Connection connClick = null;
@@ -45,6 +48,9 @@ public final  class ClientiList extends javax.swing.JFrame {
     PreparedStatement pstUpd=null;
     PreparedStatement psclick = null;
         Statement pstDel=null;
+        Statement pstDelCli=null;
+        Statement pstDelApp=null;
+        Statement pstDelPrest=null;
         PreparedStatement pstPop = null;
     PreparedStatement pstSearch=null;
     PreparedStatement pstcheck=null;
@@ -67,6 +73,9 @@ public final  class ClientiList extends javax.swing.JFrame {
          connClick = Db.db();
          connIns = Db.db();
          connCheck = Db.db();
+         connDelApp = Db.db();
+         connDelPrest = Db.db();
+         connDelCli = Db.db();
     PopulateData();
     AnimationStation();
             
@@ -463,7 +472,9 @@ public final  class ClientiList extends javax.swing.JFrame {
     private void bt_elim2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_elim2ActionPerformed
         // TODO add your handling code here:
         Object[] options = {"Si", "No"};
-
+        String strNome = null;
+         String strCognome = null;
+         String cliente = null;
         int n = JOptionPane
                 .showOptionDialog(null, "Sei sicuro di voler cancellare i pazienti selezionati?",
                         "Conferma cancellazione?",
@@ -481,17 +492,21 @@ public final  class ClientiList extends javax.swing.JFrame {
                 if(chkDel) // Checked to Delete
                 {
 
-                    String strNome = tb1.getValueAt(i, 1)
+                    strNome = tb1.getValueAt(i, 1)
                             .toString(); 
-                    String strCognome = tb1.getValueAt(i, 2)
+                    strCognome = tb1.getValueAt(i, 2)
                             .toString(); 
-                    String cliente = strNome+" "+strCognome;
+                    cliente = strNome+" "+strCognome;
                     System.out.println("Il cliente che viene terminato "+cliente);
-                    DeleteData(strNome,strCognome); 
-                    DeleteDataPrest(cliente); 
-                    DeleteDataApp(cliente);
+                    
 
                 }
+                DeleteData(strNome,strCognome); 
+                    DeleteDataPrest(cliente); 
+                    DeleteDataApp(cliente.toUpperCase());
+                    DeleteDataCart(cliente.toUpperCase());
+                    
+                    
 
             }
 
@@ -502,7 +517,8 @@ public final  class ClientiList extends javax.swing.JFrame {
                 txt_nome.setText("");
                
             PopulateData(); // Reload Table
-
+ AppList.getObj().PopulateData();
+                        AppList.getObj().PopulateDataAll();
         }
 
   
@@ -870,9 +886,9 @@ PopulateData();
 
         String sql = "DELETE FROM prestazione_cliente  WHERE cliente = '" + cliente + "'";
         try {
-            pstDel = connDel.createStatement();
+            pstDelPrest = connDelPrest.createStatement();
             System.out.println("QUERY DI ELIMINAZIONE: "+cliente);
-            pstDel.execute(sql);
+            pstDelPrest.execute(sql);
 
         } catch (SQLException e) {
 
@@ -889,9 +905,28 @@ PopulateData();
 
         String sql = "DELETE FROM appuntamenti  WHERE cliente = '" + cliente + "'";
         try {
-            pstDel = connDel.createStatement();
+            pstDelApp = connDelApp.createStatement();
             System.out.println("QUERY DI ELIMINAZIONE: "+cliente);
-            pstDel.execute(sql);
+            pstDelApp.execute(sql);
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+        }
+
+                   
+        
+
+    }
+    
+    void DeleteDataCart(String cliente) {
+
+        String sql = "DELETE FROM cartella  WHERE cliente = '" + cliente + "'";
+        try {
+            pstDelCli = connDelCli.createStatement();
+            System.out.println("QUERY DI ELIMINAZIONE: "+cliente);
+            pstDelCli.execute(sql);
 
         } catch (SQLException e) {
 

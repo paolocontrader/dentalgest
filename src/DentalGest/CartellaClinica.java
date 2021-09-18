@@ -5,10 +5,12 @@
  */
 package DentalGest;
 
+import java.awt.Desktop;
 import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -157,6 +159,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
@@ -177,9 +180,8 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         ));
         tb1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tb1.setAutoscrolls(false);
-        tb1.setEditingColumn(0);
-        tb1.setEditingRow(0);
         tb1.setFocusable(false);
+        tb1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tb1.getTableHeader().setReorderingAllowed(false);
         tb1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -188,7 +190,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tb1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 760, 150));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 730, 150));
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_cerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_lente_ingrandimento_cerca_40x40.png"))); // NOI18N
@@ -201,7 +203,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 bt_cercaActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 40, 50));
+        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, 40, 40));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -209,7 +211,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 jLabel11MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 6, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 4, -1, -1));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -217,7 +219,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 jLabel12MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 6, -1, -1));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(786, 4, -1, -1));
 
         paziente.setEditable(false);
         paziente.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -228,8 +230,8 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 pazienteActionPerformed(evt);
             }
         });
-        getContentPane().add(paziente, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 450, -1));
-        getContentPane().add(txt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 250, -1));
+        getContentPane().add(paziente, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 450, -1));
+        getContentPane().add(txt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 250, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/Scegli-file_40x100.png"))); // NOI18N
         jButton1.setBorder(null);
@@ -240,20 +242,20 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 110, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 230, 110, -1));
 
         doc_n.setEditable(false);
-        getContentPane().add(doc_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 400, -1));
+        getContentPane().add(doc_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 400, -1));
 
         jLabel1.setText("Documento:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
 
         nome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nomeActionPerformed(evt);
             }
         });
-        getContentPane().add(nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 400, -1));
+        getContentPane().add(nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 400, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/Carica-file_40x100.png"))); // NOI18N
         jButton2.setBorder(null);
@@ -263,10 +265,10 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 210, 110, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 230, 110, -1));
 
         jLabel2.setText("Path:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
         jButton3.setBorder(null);
@@ -275,9 +277,13 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 270, -1, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 290, -1, -1));
 
-        setSize(new java.awt.Dimension(848, 445));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/cartella-clinica_830_480.png"))); // NOI18N
+        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 490));
+
+        setSize(new java.awt.Dimension(832, 479));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -286,6 +292,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
             
             try
             {
+                
                 int row = tb1.getSelectedRow();
                 String tbclick =(tb1.getModel().getValueAt(row, 2).toString());
                 System.out.println("tbclick: "+tbclick);
@@ -297,18 +304,15 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 psclick.setString(1, tbclick);
                 psclick.executeQuery();
                
-                    
                    Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler "+tbclick);
-                    
-                
-                
+
             }
             catch(SQLException e)
             {
                 e.getMessage();
             } catch (IOException ex) { 
             Logger.getLogger(CartellaClinica.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
             
     }//GEN-LAST:event_tb1MouseClicked
 
@@ -4763,6 +4767,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nome;
     public javax.swing.JTextField paziente;

@@ -171,6 +171,9 @@ public final  class AppList extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         calendar = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        txt_n = new javax.swing.JTextField();
+        label3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
@@ -191,7 +194,6 @@ public final  class AppList extends javax.swing.JFrame {
         ));
         tb1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tb1.setAutoscrolls(false);
-        tb1.setEnabled(false);
         tb1.setFocusable(false);
         tb1.getTableHeader().setReorderingAllowed(false);
         tb1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -201,7 +203,7 @@ public final  class AppList extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tb1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 770, 240));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 770, 240));
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_cerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_lente_ingrandimento_cerca_40x40.png"))); // NOI18N
@@ -216,7 +218,7 @@ public final  class AppList extends javax.swing.JFrame {
                 bt_cercaActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 40, 60));
+        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 40, 60));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -224,7 +226,7 @@ public final  class AppList extends javax.swing.JFrame {
                 jLabel11MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 8, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 5, -1, -1));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -232,10 +234,10 @@ public final  class AppList extends javax.swing.JFrame {
                 jLabel12MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 8, -1, -1));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(796, 5, -1, -1));
 
         calendar.setDateFormatString("dd-MM-yyyy");
-        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 160, -1));
+        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 160, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/visualizza-tutti-gli-appuntamenti_40x100.png"))); // NOI18N
         jButton1.setBorder(null);
@@ -247,38 +249,42 @@ public final  class AppList extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 180, 40));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 180, 40));
 
-        setSize(new java.awt.Dimension(848, 377));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setDefaultCapable(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
+
+        txt_n.setEditable(false);
+        txt_n.setBorder(null);
+        txt_n.setEnabled(false);
+        txt_n.setFocusable(false);
+        txt_n.setOpaque(false);
+        getContentPane().add(txt_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+
+        label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/schermata_appuntamenti_850x480.png"))); // NOI18N
+        getContentPane().add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 490));
+
+        setSize(new java.awt.Dimension(848, 481));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tb1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb1MouseClicked
-       PopulateData();
-            try
-            {
-                int row = tb1.getSelectedRow();
-                String tbclick =(tb1.getModel().getValueAt(row, 1).toString());
-                String sql = "SELECT * FROM appuntamenti";
-                psclick = connClick.prepareStatement(sql);
-               // psclick.setString(1, tbclick);
-                rsclick = psclick.executeQuery();
-                if(rsclick.next())
-                {
-                    String add1 = rsclick.getString("cliente");
-                    String add2 = rsclick.getString("data");
-                    String add3 = rsclick.getString("ora");
-                    String add4 = rsclick.getString("descrizionev");
-                    String add5 = rsclick.getString("stato");
-                    
-                    
-                }
-                
-            }
-            catch(SQLException e)
-            {
-                e.getMessage();
-            }
+       
+        int row = tb1.getSelectedRow();
+        txt_n.setText(tb1.getValueAt(row, 0).toString());
+        String t = txt_n.getText();
+        System.out.println("App cliente: "+txt_n.getText());
+        Clients.getObj().combo_cliente.setText(t);
+        
         
             
             
@@ -305,6 +311,15 @@ public final  class AppList extends javax.swing.JFrame {
         // TODO add your handling code here:
         PopulateDataAll();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+       
+     
+     Clients.getObj().PopulateData();
+        Clients.getObj().PopulatePrest();
+        Clients.getObj().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     
     public  void PopulateData() {
@@ -386,7 +401,7 @@ Date date=new Date(millis);
  
            String adesso = dtf.format(now);
    System.out.println(adesso);      
-    String sql = "SELECT * FROM  appuntamenti where data = ?ORDER BY data DESC";
+    String sql = "SELECT * FROM  appuntamenti where data = ? ORDER BY data DESC";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -426,8 +441,8 @@ Date date=new Date(millis);
              tb1.getColumnModel().getColumn(0).setPreferredWidth(200);
             tb1.getColumnModel().getColumn(1).setPreferredWidth(80);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(3).setPreferredWidth(320);
-            tb1.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(310);
+            tb1.getColumnModel().getColumn(4).setPreferredWidth(110);
             
 
         } catch (SQLException e) {
@@ -551,8 +566,8 @@ Date date=new Date(millis);
              tb1.getColumnModel().getColumn(0).setPreferredWidth(200);
             tb1.getColumnModel().getColumn(1).setPreferredWidth(80);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(3).setPreferredWidth(320);
-            tb1.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(310);
+            tb1.getColumnModel().getColumn(4).setPreferredWidth(110);
             
 
         } catch (SQLException e) {
@@ -655,6 +670,8 @@ Date newDate = calendar.getDate();
 
             int row = 0;
             
+             
+            
                 while ((rec != null) && (rec.next())) {
                    
                 model.addRow(new Object[0]);
@@ -673,22 +690,19 @@ Date newDate = calendar.getDate();
                 
                 row++;
 
+                
             }
                    System.out.println("Numero righe tabella appuntamento: "+row);
-                   if(row==0){
-                   
-                JOptionPane.showMessageDialog(null, "Nessun appuntamento disponibile");
-                 PopulateData();
-                }
-                
+                  
+     
             
-                    //tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
+                    tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
 
             tb1.getColumnModel().getColumn(0).setPreferredWidth(200);
             tb1.getColumnModel().getColumn(1).setPreferredWidth(80);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(3).setPreferredWidth(320);
-            tb1.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(310);
+            tb1.getColumnModel().getColumn(4).setPreferredWidth(110);
 
         } catch (SQLException e) {
 
@@ -2787,9 +2801,12 @@ Date newDate = calendar.getDate();
     private javax.swing.JButton bt_cerca;
     private com.toedter.calendar.JDateChooser calendar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel label3;
     private javax.swing.JTable tb1;
+    private javax.swing.JTextField txt_n;
     // End of variables declaration//GEN-END:variables
 }

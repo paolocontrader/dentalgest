@@ -15,6 +15,7 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -321,7 +322,7 @@ public final class Clients extends javax.swing.JFrame {
         tb2.setModel(model2);
         
 // Add Column
-        model2.addColumn("Seleziona");
+        model2.addColumn("");
 
         model2.addColumn("Data");
 
@@ -367,11 +368,11 @@ public final class Clients extends javax.swing.JFrame {
             
             
            tb2.getColumnModel().getColumn(0).setPreferredWidth(5);
-            tb2.getColumnModel().getColumn(1).setPreferredWidth(10);
+            tb2.getColumnModel().getColumn(1).setPreferredWidth(40);
             tb2.getColumnModel().getColumn(2).setPreferredWidth(10);
-            tb2.getColumnModel().getColumn(3).setPreferredWidth(10);
+            tb2.getColumnModel().getColumn(3).setPreferredWidth(310);
 
-tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
+tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
             
 
         } catch (SQLException e) {
@@ -436,7 +437,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
 // Add Column
         model3.addColumn("");
 
-         model3.addColumn("id");
+         model3.addColumn("");
         
         model3.addColumn("Nome");
 
@@ -483,13 +484,13 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(10);
                
             
             
-           tb1.getColumnModel().getColumn(0).setPreferredWidth(5);
-            tb1.getColumnModel().getColumn(1).setPreferredWidth(5);
-            tb1.getColumnModel().getColumn(2).setPreferredWidth(150);
-            tb1.getColumnModel().getColumn(3).setPreferredWidth(150);
+           tb1.getColumnModel().getColumn(0).setPreferredWidth(2);
+            tb1.getColumnModel().getColumn(1).setPreferredWidth(2);
+            tb1.getColumnModel().getColumn(2).setPreferredWidth(480);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(50);
 
-tb1.getColumnModel().getColumn(4).setPreferredWidth(150);
-tb1.getColumnModel().getColumn(5).setPreferredWidth(150);
+tb1.getColumnModel().getColumn(4).setPreferredWidth(50);
+tb1.getColumnModel().getColumn(5).setPreferredWidth(50);
             
 
         } catch (SQLException e) {
@@ -528,7 +529,7 @@ tb1.getColumnModel().getColumn(5).setPreferredWidth(150);
         bnt_agg_sek = new javax.swing.JButton();
         txt_ant = new javax.swing.JLabel();
         txt_servizio = new javax.swing.JLabel();
-        txt_descr = new javax.swing.JComboBox();
+        prestazioni = new javax.swing.JComboBox();
         btn8 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tb1 = new javax.swing.JTable();
@@ -551,9 +552,9 @@ tb1.getColumnModel().getColumn(5).setPreferredWidth(150);
         combo_cliente = new javax.swing.JTextField();
         txt_n = new javax.swing.JTextField();
         calendar = new com.toedter.calendar.JDateChooser();
+        txt_descr = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
-        txt_descr1 = new javax.swing.JComboBox();
-        jLabel13 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest - Gestione Clienti");
@@ -620,19 +621,19 @@ tb1.getColumnModel().getColumn(5).setPreferredWidth(150);
         txt_servizio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
         getContentPane().add(txt_servizio, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 220, 25));
 
-        txt_descr.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_descr.setToolTipText("");
-        txt_descr.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        txt_descr.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+        prestazioni.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        prestazioni.setToolTipText("");
+        prestazioni.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
+        prestazioni.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                txt_descrPopupMenuWillBecomeVisible(evt);
+                prestazioniPopupMenuWillBecomeVisible(evt);
             }
         });
-        getContentPane().add(txt_descr, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 600, 310, 25));
+        getContentPane().add(prestazioni, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 310, 25));
 
         btn8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/estratto_conto_cliente_100x40.png"))); // NOI18N
         btn8.setToolTipText("");
@@ -797,9 +798,7 @@ tb1.getColumnModel().getColumn(5).setPreferredWidth(150);
         combo_cliente.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         combo_cliente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         combo_cliente.setBorder(null);
-        combo_cliente.setEnabled(false);
-        combo_cliente.setOpaque(false);
-        getContentPane().add(combo_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 340, -1));
+        getContentPane().add(combo_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 410, -1));
 
         txt_n.setEditable(false);
         txt_n.setAutoscrolls(false);
@@ -813,25 +812,25 @@ tb1.getColumnModel().getColumn(5).setPreferredWidth(150);
         getContentPane().add(txt_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -130, -1, -1));
         getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 570, 140, -1));
 
-        jLabel6.setText("Descrizione:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, -1, -1));
-
-        txt_descr1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_descr1.setToolTipText("");
-        txt_descr1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        txt_descr1.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+        txt_descr.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_descr.setToolTipText("");
+        txt_descr.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
+        txt_descr.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                txt_descr1PopupMenuWillBecomeVisible(evt);
+                txt_descrPopupMenuWillBecomeVisible(evt);
             }
         });
-        getContentPane().add(txt_descr1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 310, 25));
+        getContentPane().add(txt_descr, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 600, 310, 25));
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/window_schedapazientesingolo_1000x820.png"))); // NOI18N
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 820));
+        jLabel6.setText("Descrizione:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/window_schedapazientesingolo_1000x820.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 990, 820));
 
         setSize(new java.awt.Dimension(991, 819));
         setLocationRelativeTo(null);
@@ -856,7 +855,7 @@ dispose();
         try{
                 String costoIns = null;
                 String cliente = combo_cliente.getText();
-                String servizio = txt_descr1.getSelectedItem().toString();
+                String servizio = prestazioni.getSelectedItem().toString();
                 
                     
                     int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiungere la seguente prestazione","Aggiungi Prestazione",JOptionPane.YES_NO_OPTION);
@@ -897,7 +896,7 @@ dispose();
                 
                 txt_costo.setText("");
                 txt_anticipo.setText("");
-                txt_descr1.setSelectedItem(-1);
+                prestazioni.setSelectedItem(-1);
             }catch(SQLException | HeadlessException e)
             {
                 JOptionPane.showMessageDialog(null,"Errore Salvataggio Prestazione");
@@ -939,7 +938,7 @@ System.out.println(date);
             PdfWriter.getInstance(d, new FileOutputStream("/dentalgest/reports/saldo-"+scelta+"_"+adesso+".pdf"));
             d.open();
             
-            //Image image = Image.getInstance("c:/dentalgest/testata.png");
+            Image image = Image.getInstance("/dentalgest/header.png");
             PdfPCell cell=new PdfPCell();
            // d.add(image);
             Paragraph n=new Paragraph("\n");
@@ -951,7 +950,10 @@ System.out.println(date);
             font.setSize(28);
             Paragraph paziente= new Paragraph(scelta,font);
             paziente.setAlignment(Element.ALIGN_CENTER);
-            d.add(paziente); /* Font Size */
+            int indentation = 0;
+           
+            d.add(image);
+                    d.add(paziente); /* Font Size */
             
             d.add(n);d.add(n);
             
@@ -1028,13 +1030,24 @@ System.out.println(date);
             cell3.setBorder(0);
             cell3.setHorizontalAlignment(Element.ALIGN_RIGHT);
             table1.addCell(cell3);
-
+            Image image1 = Image.getInstance("/dentalgest/footer.png");
             d.add(table1);
+            d.add(image1);
             d.close();
             
             JOptionPane.showMessageDialog(null,"Report creato correttamente");
          try{
-        Process exec = Runtime.getRuntime().exec("cmd.exe /C /dentalgest/utility/open.bat");       }
+        //Process exec = Runtime.getRuntime().exec("cmd.exe /C /dentalgest/utility/open.bat");
+        File file = new File("/dentalgest/reports/saldo-"+scelta+"_"+adesso+".pdf");
+    if (file.toString().endsWith(".pdf")) 
+       Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file);
+   else {
+       Desktop desktop = Desktop.getDesktop();
+       desktop.open(file);
+}
+         }    // File myFile = new File("/dentalgest/reports/saldo-"+scelta+"_"+adesso+".pdf");
+        // Desktop.getDesktop().open(myFile);
+         
          catch (IOException e){}}
         catch(HeadlessException e){
             JOptionPane.showMessageDialog(null,"Errore creazione report");
@@ -1089,18 +1102,19 @@ System.out.println(date);
         
     }//GEN-LAST:event_tb1MouseClicked
 
-    private void txt_descrPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_txt_descrPopupMenuWillBecomeVisible
+    private void prestazioniPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_prestazioniPopupMenuWillBecomeVisible
         // TODO add your handling code here:
          try {
             String sql = "SELECT * FROM  prestazioni ORDER BY nome ASC";
-            pstv= connv.prepareStatement(sql);
-            rscv = pstv.executeQuery();
+            pstva= connva.prepareStatement(sql);
+            rscva = pstva.executeQuery();
 
-            while(rscv.next())
+            while(rscva.next())
 
             {
-                String serv1 = rscv.getString("nome");
-                txt_descr.addItem(serv1);
+                String serv1 = rscva.getString("nome");
+                prestazioni.addItem(serv1);
+               
 
             }
            
@@ -1110,16 +1124,16 @@ System.out.println(date);
 
         } finally{
             try{
-                rscv.close();
-                pstv.close();
-                connv.close();
+                rscva.close();
+                pstva.close();
+                connva.close();
             }
             catch(SQLException e)
             {
 
             }
         }
-    }//GEN-LAST:event_txt_descrPopupMenuWillBecomeVisible
+    }//GEN-LAST:event_prestazioniPopupMenuWillBecomeVisible
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -1305,7 +1319,8 @@ PopulatePrest();
                     String ora = tb2.getValueAt(i, 2).toString();
 
                     DeleteData(data,ora,cliente,servizio); 
-
+                     AppList.getObj().PopulateData();
+                        AppList.getObj().PopulateDataAll();
                 }
 
             }
@@ -1354,7 +1369,8 @@ PopulatePrest();
 
                     
                     JOptionPane.showMessageDialog(null,"Stato modificato correttamente per l'appuntamento del "+data+" delle ore "+ora );
-                  
+                   AppList.getObj().PopulateData();
+                        AppList.getObj().PopulateDataAll();
                    
                  
            
@@ -1404,7 +1420,9 @@ PopulatePrest();
                         System.out.println("VALORI INSERIMENT PAZIENTE: " + data + " | " + ora + " | " + cliente + " | " + descrizionev + " | " + stato + " ");
 
                         JOptionPane.showMessageDialog(null, "Appuntamento aggiunto correttamente");
-
+                        AppList.getObj().PopulateData();
+                        AppList.getObj().PopulateDataAll();
+                        
                     
 
                 } catch (SQLException ex) {
@@ -1420,18 +1438,19 @@ PopulatePrest();
         
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void txt_descr1PopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_txt_descr1PopupMenuWillBecomeVisible
+    private void txt_descrPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_txt_descrPopupMenuWillBecomeVisible
         // TODO add your handling code here:
         try {
             String sql = "SELECT * FROM  prestazioni ORDER BY nome ASC";
-            pstva= connva.prepareStatement(sql);
-            rscva = pstva.executeQuery();
+            pstv= connv.prepareStatement(sql);
+            rscv = pstv.executeQuery();
 
-            while(rscva.next())
+            while(rscv.next())
 
             {
-                String serv1 = rscva.getString("nome");
-                txt_descr1.addItem(serv1);
+                String serv1 = rscv.getString("nome");
+                txt_descr.addItem(serv1);
+               
 
             }
            
@@ -1441,16 +1460,16 @@ PopulatePrest();
 
         } finally{
             try{
-                rscva.close();
-                pstva.close();
-                connva.close();
+                rscv.close();
+                pstv.close();
+                connv.close();
             }
             catch(SQLException e)
             {
 
             }
         }
-    }//GEN-LAST:event_txt_descr1PopupMenuWillBecomeVisible
+    }//GEN-LAST:event_txt_descrPopupMenuWillBecomeVisible
 
     /**
      * @param args the command line arguments
@@ -1516,9 +1535,9 @@ PopulatePrest();
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1529,6 +1548,7 @@ PopulatePrest();
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel minimizza;
+    public javax.swing.JComboBox prestazioni;
     private javax.swing.JTable tb1;
     private javax.swing.JTable tb2;
     private javax.swing.JTextField time_txt;
@@ -1536,8 +1556,7 @@ PopulatePrest();
     private javax.swing.JTextField txt_anticipo;
     public javax.swing.JTextField txt_c;
     private javax.swing.JTextField txt_costo;
-    private javax.swing.JComboBox txt_descr;
-    private javax.swing.JComboBox txt_descr1;
+    public javax.swing.JComboBox txt_descr;
     public javax.swing.JTextField txt_n;
     private javax.swing.JLabel txt_resto;
     private javax.swing.JLabel txt_servizio;

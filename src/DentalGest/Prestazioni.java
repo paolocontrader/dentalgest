@@ -358,10 +358,12 @@ combo_ser.addItem(rscd.getString("nome"));
                 txt_prezzo.setText("");
                 txt_nome.setText("");
                     Refresh();
+                    
+                    Clients.getObj().txt_descr.addItem(servizio);
+                    Clients.getObj().prestazioni.addItem(servizio);
                     Clients.getObj().PopulatePrest();
                 }
-                 Clients.getObj().PopulatePrest();
-                  Clients.getObj().PopulatePrest();
+                
             }
 
             catch(SQLException | HeadlessException e)
@@ -395,8 +397,9 @@ combo_ser.addItem(rscd.getString("nome"));
                 combo_ser.removeAllItems();
                 txt_nome.setText("");
                 txt_prezzo.setText("");
-                Clients.getObj().PopulatePrest();
- Clients.getObj().PopulatePrest();
+                Clients.getObj().txt_descr.addItem(nome);
+                    Clients.getObj().prestazioni.addItem(nome);
+                    Clients.getObj().PopulatePrest();
             }
             catch(SQLException | HeadlessException e)
             {
@@ -417,14 +420,21 @@ combo_ser.addItem(rscd.getString("nome"));
                 String sql = "delete from prestazioni where nome='"+servizio+"'";
 
                 pst=conn.prepareStatement(sql);
+               
+                   
                 pst.execute();
                 Refresh();
                 JOptionPane.showMessageDialog(null,"Servizio eliminato correttamente" );
+                
+
 
                 combo_ser.removeAllItems();
                 txt_prezzo.setText("");
                 txt_nome.setText("");
-                Clients.getObj().PopulatePrest();
+                Refresh();
+                   Clients.getObj().txt_descr.removeItem(servizio);
+                    Clients.getObj().prestazioni.removeItem(servizio);
+                    Clients.getObj().PopulatePrest(); 
 
             }catch(SQLException | HeadlessException e)
             {
