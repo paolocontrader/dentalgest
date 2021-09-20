@@ -5,11 +5,17 @@
  */
 package DentalGest;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;
+import com.lowagie.text.HeaderFooter;
 import com.lowagie.text.Image;
+import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
@@ -577,7 +583,7 @@ tb1.getColumnModel().getColumn(5).setPreferredWidth(50);
                 minimizzaMouseClicked(evt);
             }
         });
-        getContentPane().add(minimizza, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 6, 20, 20));
+        getContentPane().add(minimizza, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 2, 20, 20));
 
         jLabel5.setText("Saldo:  €");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 750, 50, -1));
@@ -594,7 +600,7 @@ tb1.getColumnModel().getColumn(5).setPreferredWidth(50);
                 chiudiMouseClicked(evt);
             }
         });
-        getContentPane().add(chiudi, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 6, 20, 20));
+        getContentPane().add(chiudi, new org.netbeans.lib.awtextra.AbsoluteConstraints(964, 2, 20, 20));
 
         jLabel11.setText("Acconto:");
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, -1));
@@ -914,6 +920,8 @@ dispose();
             }    
     }//GEN-LAST:event_bnt_agg_sekActionPerformed
 
+    
+    
     private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
         // TODO add your handling code here:
     
@@ -934,7 +942,7 @@ System.out.println(date);
             String sql = "select * from prestazione_cliente where cliente='"+scelta+"'";
             prep=repo.prepareStatement(sql);
             rep=prep.executeQuery();
-            Document d=new Document();
+            Document d=new Document(PageSize.A4);
             PdfWriter.getInstance(d, new FileOutputStream("/dentalgest/reports/saldo-"+scelta+"_"+adesso+".pdf"));
             d.open();
             
@@ -1032,7 +1040,11 @@ System.out.println(date);
             table1.addCell(cell3);
             Image image1 = Image.getInstance("/dentalgest/footer.png");
             d.add(table1);
+            image1.setAbsolutePosition(15, 10);
+            image1.setAlignment(Image.ALIGN_CENTER);
             d.add(image1);
+           
+            
             d.close();
             
             JOptionPane.showMessageDialog(null,"Report creato correttamente");
@@ -1164,7 +1176,7 @@ System.out.println(date);
                         resto = (ttot - anti);
                         //resto=Math.ceil(resto);
                         }
-                    Double resto1 = Double.parseDouble(tb1.getValueAt(row, 4).toString()) - var_anticipo;
+                    Double resto1 = costo - var_anticipo-Double.parseDouble(tb1.getValueAt(row,3 ).toString());
                     String sql="update prestazione_cliente set prezzo=?,acconto=?,resto=? where cliente=? and nome=? and id=?";
                     System.out.println("Query update: "+sql);
                     pstUpd=connUpd.prepareStatement(sql);
@@ -1177,6 +1189,7 @@ System.out.println(date);
                     pstUpd.setString(6, numero);
                     Update_table();
                    pstUpd.execute();
+                   
                    Update_table();
                    PopulatePrest();
                      //tb1.removeColumn(tb1.getColumnModel().getColumn(1));
@@ -1268,7 +1281,9 @@ PopulatePrest();
             }
 
             JOptionPane.showMessageDialog(null, "prestazione/i cancallate correttamente");
-            
+            txt_costo.setText("");
+                    txt_servizio.setText("");
+                    txt_anticipo.setText("");
             PopulateData(); // Reload Table
              PopulateData(); // Reload Table
         }

@@ -303,17 +303,20 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 psclick = connClick.prepareStatement(sql);
                 psclick.setString(1, tbclick);
                 psclick.executeQuery();
-               if(evt.getClickCount()==2){
-                   Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler "+tbclick);
-               }
+                
+               
+                try {
+                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + tbclick);
+                } catch (IOException ex) {
+                    Logger.getLogger(CartellaClinica.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               
             }
             catch(SQLException e)
             {
                 e.getMessage();
-            } catch (IOException ex) { 
-            Logger.getLogger(CartellaClinica.class.getName()).log(Level.SEVERE, null, ex);
-        }
             
+            }
     }//GEN-LAST:event_tb1MouseClicked
 
     private void bt_cercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cercaActionPerformed
@@ -366,6 +369,8 @@ public final  class CartellaClinica extends javax.swing.JFrame {
             psAll.execute();
             
             JOptionPane.showMessageDialog(null, "Documento caricato correttamente");
+            nome.setText("");
+            doc_n.setText("");
              PopulateData();
          }   
          catch(SQLException e) {
@@ -411,7 +416,8 @@ public final  class CartellaClinica extends javax.swing.JFrame {
             }
 
             JOptionPane.showMessageDialog(null, "allegato/i cancallati correttamente");
-            
+             nome.setText("");
+            doc_n.setText("");
             PopulateData(); // Reload Table
              PopulateData(); // Reload Table
         }
