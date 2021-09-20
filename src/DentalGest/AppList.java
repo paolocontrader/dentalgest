@@ -380,7 +380,6 @@ public final  class AppList extends javax.swing.JFrame {
         tb1.setModel(model);
         
 // Add Column
-        model.addColumn("Seleziona");
 
         model.addColumn("Cliente");
 
@@ -436,7 +435,7 @@ Date date=new Date(millis);
                 //JOptionPane.showMessageDialog(null, "Nessun appuntamento disponibile");
                 }
             
-           tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
+           //tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
            
              tb1.getColumnModel().getColumn(0).setPreferredWidth(200);
             tb1.getColumnModel().getColumn(1).setPreferredWidth(80);
@@ -515,7 +514,7 @@ Date date=new Date(millis);
         tb1.setModel(model);
         
 // Add Column
-        model.addColumn("Seleziona");
+         model.addColumn("");
 
         model.addColumn("Cliente");
 

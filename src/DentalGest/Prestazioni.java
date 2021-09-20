@@ -424,7 +424,7 @@ combo_ser.addItem(rscd.getString("nome"));
                    
                 pst.execute();
                 Refresh();
-                JOptionPane.showMessageDialog(null,"Servizio eliminato correttamente" );
+                JOptionPane.showMessageDialog(null,"Servizio cancellato correttamente" );
                 
 
 

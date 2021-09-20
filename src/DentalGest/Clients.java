@@ -1267,7 +1267,7 @@ PopulatePrest();
 
             }
 
-            JOptionPane.showMessageDialog(null, "prestazione/i concallate correttamente");
+            JOptionPane.showMessageDialog(null, "prestazione/i cancallate correttamente");
             
             PopulateData(); // Reload Table
              PopulateData(); // Reload Table
@@ -1325,7 +1325,7 @@ PopulatePrest();
 
             }
 
-            JOptionPane.showMessageDialog(null, "Appuntamento/i concallati correttamente");
+            JOptionPane.showMessageDialog(null, "Appuntamento/i cancallati correttamente");
             
             PopulateData(); // Reload Table
              PopulateData(); // Reload Table
@@ -1420,6 +1420,8 @@ PopulatePrest();
                         System.out.println("VALORI INSERIMENT PAZIENTE: " + data + " | " + ora + " | " + cliente + " | " + descrizionev + " | " + stato + " ");
 
                         JOptionPane.showMessageDialog(null, "Appuntamento aggiunto correttamente");
+                                       PopulateData();
+
                         AppList.getObj().PopulateData();
                         AppList.getObj().PopulateDataAll();
                         
@@ -1432,7 +1434,6 @@ PopulatePrest();
                 
                
                 
-               PopulateData();
                 
             }
         

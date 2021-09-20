@@ -499,18 +499,18 @@ public final  class ClientiList extends javax.swing.JFrame {
                     cliente = strNome+" "+strCognome;
                     System.out.println("Il cliente che viene terminato "+cliente);
                     
-
-                }
-                DeleteData(strNome,strCognome); 
-                    DeleteDataPrest(cliente); 
+DeleteData(strNome,strCognome); 
+                    DeleteDataPrest(cliente.toUpperCase()); 
                     DeleteDataApp(cliente.toUpperCase());
                     DeleteDataCart(cliente.toUpperCase());
+                }
+                
                     
                     
 
             }
 
-            JOptionPane.showMessageDialog(null, "Paziente/i concallati correttamente");
+            JOptionPane.showMessageDialog(null, "Paziente/i cancallati correttamente");
             txt_cognome.setText("");
                 txt_codfisc.setText("");
                 txt_recapito.setText("");
@@ -518,7 +518,7 @@ public final  class ClientiList extends javax.swing.JFrame {
                
             PopulateData(); // Reload Table
  AppList.getObj().PopulateData();
-                        AppList.getObj().PopulateDataAll();
+                        //AppList.getObj().PopulateDataAll();
         }
 
   
@@ -600,8 +600,13 @@ PopulateData();
         // TODO add your handling code here:
       String msg = txt_nominativo.getText();
       
-      
-      Clients.getObj().txt_n.setText(msg1);
+      if(nom.getText().equals("") && cogn.getText().equals(""))
+      {
+          JOptionPane.showMessageDialog(null, "Selezionare paziente");
+      }
+      else
+      {
+          Clients.getObj().txt_n.setText(msg1);
       Clients.getObj().txt_c.setText(msg2);
       System.out.println("passaggio nome: "+msg1);
       System.out.println("passaggio cognome: "+msg2);
@@ -609,6 +614,8 @@ PopulateData();
       Clients.getObj().PopulateData();
       Clients.getObj().PopulatePrest();
       Clients.getObj().setVisible(true);
+      }
+      
     }//GEN-LAST:event_jButton1ActionPerformed
 
     
@@ -887,9 +894,9 @@ PopulateData();
         String sql = "DELETE FROM prestazione_cliente  WHERE cliente = '" + cliente + "'";
         try {
             pstDelPrest = connDelPrest.createStatement();
-            System.out.println("QUERY DI ELIMINAZIONE: "+cliente);
+            System.out.println("QUERY DI ELIMINAZIONE PRESTAZIONI: "+cliente);
             pstDelPrest.execute(sql);
-
+            JOptionPane.showMessageDialog(null, "Prestazioni del paziente "+cliente+" eliminate correttamente");
         } catch (SQLException e) {
 
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -906,8 +913,9 @@ PopulateData();
         String sql = "DELETE FROM appuntamenti  WHERE cliente = '" + cliente + "'";
         try {
             pstDelApp = connDelApp.createStatement();
-            System.out.println("QUERY DI ELIMINAZIONE: "+cliente);
+            System.out.println("QUERY DI ELIMINAZIONE APPUNTAMENTI: "+cliente);
             pstDelApp.execute(sql);
+                        JOptionPane.showMessageDialog(null, "Appuntamenti del paziente "+cliente+" eliminati correttamente");
 
         } catch (SQLException e) {
 
@@ -922,11 +930,12 @@ PopulateData();
     
     void DeleteDataCart(String cliente) {
 
-        String sql = "DELETE FROM cartella  WHERE cliente = '" + cliente + "'";
+        String sql = "DELETE FROM cartella  WHERE paziente = '" + cliente.toUpperCase() + "'";
         try {
             pstDelCli = connDelCli.createStatement();
-            System.out.println("QUERY DI ELIMINAZIONE: "+cliente);
+            System.out.println("QUERY DI ELIMINAZIONE CARTELLA: "+cliente);
             pstDelCli.execute(sql);
+                        JOptionPane.showMessageDialog(null, "Cartella clinica del paziente "+cliente+" eliminata correttamente");
 
         } catch (SQLException e) {
 

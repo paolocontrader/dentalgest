@@ -410,7 +410,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
 
             }
 
-            JOptionPane.showMessageDialog(null, "allegato/i concallati correttamente");
+            JOptionPane.showMessageDialog(null, "allegato/i cancallati correttamente");
             
             PopulateData(); // Reload Table
              PopulateData(); // Reload Table
