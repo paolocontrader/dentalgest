@@ -303,9 +303,9 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 psclick = connClick.prepareStatement(sql);
                 psclick.setString(1, tbclick);
                 psclick.executeQuery();
-               
+               if(evt.getClickCount()==2){
                    Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler "+tbclick);
-
+               }
             }
             catch(SQLException e)
             {
@@ -475,7 +475,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         tb1.setModel(model);
         
 // Add Column
-        model.addColumn("Seleziona");
+        model.addColumn("");
 
         model.addColumn("Nome");
         
@@ -566,7 +566,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         tb1.setModel(model);
         
 // Add Column
-        model.addColumn("Seleziona");
+        model.addColumn("");
 
         model.addColumn("Nome");
         
@@ -607,7 +607,10 @@ public final  class CartellaClinica extends javax.swing.JFrame {
 
             }
                    System.out.println("Numero righe tabella cartella_clinica: "+row);
-                  
+             if(row==0){
+                 JOptionPane.showMessageDialog(null, "File non trovato ");
+                 PopulateData();
+             }     
                 
             
                  // tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 

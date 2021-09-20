@@ -282,8 +282,11 @@ public final  class AppList extends javax.swing.JFrame {
         int row = tb1.getSelectedRow();
         txt_n.setText(tb1.getValueAt(row, 0).toString());
         String t = txt_n.getText();
+        
         System.out.println("App cliente: "+txt_n.getText());
-        Clients.getObj().combo_cliente.setText(t);
+            Clients.getObj().combo_cliente.setText(t);
+        
+        
         
         
             
@@ -315,10 +318,20 @@ public final  class AppList extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
        
-     
-     Clients.getObj().PopulateData();
+      if(txt_n.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Selezionare paziente");
+        }
+      else
+      {
+          Clients.getObj().PopulateData();
         Clients.getObj().PopulatePrest();
         Clients.getObj().setVisible(true);
+        
+        txt_n.setText("");
+      }
+     
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     
@@ -399,7 +412,7 @@ DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 Date date=new Date(millis);  
  
            String adesso = dtf.format(now);
-   System.out.println(adesso);      
+   System.out.println("Oggi: "+adesso);      
     String sql = "SELECT * FROM  appuntamenti where data = ? ORDER BY data DESC";
         try {
 
@@ -557,7 +570,11 @@ Date date=new Date(millis);
             }
                    System.out.println("Numero righe tabella appuntamenti: "+row);
                 if(row==0){
+                    
+            
+             
                 JOptionPane.showMessageDialog(null, "Nessun appuntamento disponibile");
+                 
                 }
             
            tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
