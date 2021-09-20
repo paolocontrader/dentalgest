@@ -947,6 +947,7 @@ System.out.println(date);
             d.open();
             
             Image image = Image.getInstance("/dentalgest/header.png");
+            image.scaleToFit(1400, 150);
             PdfPCell cell=new PdfPCell();
            // d.add(image);
             Paragraph n=new Paragraph("\n");
@@ -1039,6 +1040,7 @@ System.out.println(date);
             cell3.setHorizontalAlignment(Element.ALIGN_RIGHT);
             table1.addCell(cell3);
             Image image1 = Image.getInstance("/dentalgest/footer.png");
+            image1.scaleToFit(720, 55);
             d.add(table1);
             image1.setAbsolutePosition(15, 10);
             image1.setAlignment(Image.ALIGN_CENTER);

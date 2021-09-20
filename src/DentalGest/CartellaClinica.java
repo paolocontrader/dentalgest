@@ -10,8 +10,12 @@ import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -136,6 +140,15 @@ public final  class CartellaClinica extends javax.swing.JFrame {
     }
     
  
+    private void openFile(String path)
+    {
+         try {
+                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + path);
+                } catch (IOException ex) {
+                    Logger.getLogger(CartellaClinica.class.getName()).log(Level.SEVERE, null, ex);
+                }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -159,6 +172,8 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        open = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -190,7 +205,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tb1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 730, 150));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 690, 150));
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_cerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_lente_ingrandimento_cerca_40x40.png"))); // NOI18N
@@ -277,11 +292,42 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 290, -1, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 290, -1, -1));
+
+        open.setEditable(false);
+        open.setAutoscrolls(false);
+        open.setBorder(null);
+        open.setEnabled(false);
+        open.setFocusable(false);
+        open.setOpaque(false);
+        open.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openActionPerformed(evt);
+            }
+        });
+        getContentPane().add(open, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 350, 10, -1));
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri_file_86x40.png"))); // NOI18N
+        jButton4.setBorder(null);
+        jButton4.setBorderPainted(false);
+        jButton4.setContentAreaFilled(false);
+        jButton4.setDefaultCapable(false);
+        jButton4.setFocusPainted(false);
+        jButton4.setFocusable(false);
+        jButton4.setOpaque(false);
+        jButton4.setRequestFocusEnabled(false);
+        jButton4.setRolloverEnabled(false);
+        jButton4.setVerifyInputWhenFocusTarget(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 320, 90, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/cartella-clinica_830_480.png"))); // NOI18N
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 490));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 490));
 
         setSize(new java.awt.Dimension(832, 479));
         setLocationRelativeTo(null);
@@ -304,12 +350,9 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 psclick.setString(1, tbclick);
                 psclick.executeQuery();
                 
-               
-                try {
-                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + tbclick);
-                } catch (IOException ex) {
-                    Logger.getLogger(CartellaClinica.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                open.setText(tbclick);
+                System.out.println("il file path: "+open.getText());
+                
                
             }
             catch(SQLException e)
@@ -358,7 +401,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         String nom = nome.getText();
         String pat = doc_n.getText();
         String paz = paziente.getText();
-        
+         
         System.out.println("Dati: "+nom+" "+pat+" "+paz);
         String sql = "insert into cartella (paziente,path,nome) values (?,?,?)";
          try{
@@ -367,8 +410,42 @@ public final  class CartellaClinica extends javax.swing.JFrame {
             psAll.setString(2, pat );
             psAll.setString(3, nom);
             psAll.execute();
-            
+              
+      //Creating a folder using mkdirs() method  
+    
+      File f = new File("/dentalgest/cartelle/"+paz+"/");
+  
+        // check if the directory can be created
+        // using the abstract path name
+        if (f.mkdir()) {
+  
+            // display that the directory is created
+            // as the function returned true
+            System.out.println("Directory creata");
+        }
+        else {
+            // display that the directory cannot be created
+            // as the function returned false
+            System.out.println("Directory non creata");
+        }     
+      
+           File dirFrom = new File(pat);
+            File dirTo = new File("/dentalgest/cartelle/"+paz+"/"+nom+".pdf");
+//            boolean boole2 = dirTo.mkdir();
+//    if(boole2){  
+//         System.out.println("Folder is created successfully");  
+//      }else{  
+//         System.out.println("Error Found!");  
+//      }  
+    
+    try {
+        copyFile(dirFrom, dirTo);
+} catch (IOException ex) {
+        ex.getMessage();
+}
+    
             JOptionPane.showMessageDialog(null, "Documento caricato correttamente");
+            
             nome.setText("");
             doc_n.setText("");
              PopulateData();
@@ -378,6 +455,10 @@ public final  class CartellaClinica extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+  public static void copyFile( File from, File to ) throws IOException {
+    Files.copy( from.toPath(), to.toPath() );
+}
+    
     private void pazienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pazienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pazienteActionPerformed
@@ -422,6 +503,15 @@ public final  class CartellaClinica extends javax.swing.JFrame {
              PopulateData(); // Reload Table
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void openActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_openActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        openFile(open.getText());
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     
     void DeleteData(String paziente,String path,String nome) {
@@ -4772,6 +4862,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -4779,6 +4870,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nome;
+    private javax.swing.JTextField open;
     public javax.swing.JTextField paziente;
     private javax.swing.JTable tb1;
     private javax.swing.JTextField txt_cerca;

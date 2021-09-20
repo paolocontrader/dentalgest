@@ -896,7 +896,7 @@ PopulateData();
             pstDelPrest = connDelPrest.createStatement();
             System.out.println("QUERY DI ELIMINAZIONE PRESTAZIONI: "+cliente);
             pstDelPrest.execute(sql);
-            JOptionPane.showMessageDialog(null, "Prestazioni del paziente "+cliente+" eliminate correttamente");
+            //JOptionPane.showMessageDialog(null, "Prestazioni del paziente "+cliente+" eliminate correttamente");
         } catch (SQLException e) {
 
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -915,7 +915,7 @@ PopulateData();
             pstDelApp = connDelApp.createStatement();
             System.out.println("QUERY DI ELIMINAZIONE APPUNTAMENTI: "+cliente);
             pstDelApp.execute(sql);
-                        JOptionPane.showMessageDialog(null, "Appuntamenti del paziente "+cliente+" eliminati correttamente");
+            //JOptionPane.showMessageDialog(null, "Appuntamenti del paziente "+cliente+" eliminati correttamente");
 
         } catch (SQLException e) {
 
@@ -935,7 +935,7 @@ PopulateData();
             pstDelCli = connDelCli.createStatement();
             System.out.println("QUERY DI ELIMINAZIONE CARTELLA: "+cliente);
             pstDelCli.execute(sql);
-                        JOptionPane.showMessageDialog(null, "Cartella clinica del paziente "+cliente+" eliminata correttamente");
+            //JOptionPane.showMessageDialog(null, "Cartella clinica del paziente "+cliente+" eliminata correttamente");
 
         } catch (SQLException e) {
 
