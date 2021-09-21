@@ -20,18 +20,18 @@ public class Db {
   
 //Connessione di test    
 
-
-//String dburl = "jdbc:derby://localhost:1527/dentalsoft";
-         //Connessione al server locale
-         String dburl = "jdbc:derby:/Database/bin/dentalsoft";
+  //String dburl = "jdbc:derby://localhost:1527/dentalsoft";
+//Connessione al server locale
+    String dburl = "jdbc:derby:/Database/bin/dentalsoft";
     String userName = "dentalsoft";
     String passWord = "5y*Ym0HsbWyO";
      
-  
+   
       try{
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-             Connection conn =null;
+            Connection conn =null;
             conn = DriverManager.getConnection(dburl, userName, passWord);
+            
             return conn;
         }
     

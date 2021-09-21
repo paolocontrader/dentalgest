@@ -372,6 +372,8 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         dispose();
+        nome.setText("");
+            doc_n.setText("");
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
@@ -519,9 +521,17 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                      String cliente = paziente.getText();
                     String nome = tb1.getValueAt(i, 1).toString();
                     File currDir = new File(System.getProperty("user.dir", "."));
+                    String extension = "";
        controlPanel cp = new controlPanel();
        String lettera = cp.lettera_txt.getText();
-                    File file= new File(lettera+":/dentalgest/cartelle/"+cliente+"/"+nome+".pdf");
+       int j = path.lastIndexOf('.');
+        if (j > 0) {
+    extension = path.substring(i+j);
+        }
+       
+        System.out.println("Estensione cancella: "+extension);
+                    File file= new File(lettera+":/dentalgest/cartelle/"+cliente+"/"+nome+extension);
+                     System.out.println("path da cancellare: "+file.toString());
                     DeleteData(cliente,path,nome); 
                     try {
                         deleteDirectory(file);

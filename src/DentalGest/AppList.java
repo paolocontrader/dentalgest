@@ -394,6 +394,8 @@ public final  class AppList extends javax.swing.JFrame {
         
 // Add Column
 
+        model.addColumn("");
+
         model.addColumn("Cliente");
 
         model.addColumn("Data");
@@ -442,19 +444,18 @@ Date date=new Date(millis);
                 
                 row++;
 
+               
             }
                    System.out.println("Numero righe tabella appuntamenti: "+row);
-                if(row==0){
-                //JOptionPane.showMessageDialog(null, "Nessun appuntamento disponibile");
-                }
-            
-           //tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
+                
+            tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
            
              tb1.getColumnModel().getColumn(0).setPreferredWidth(200);
             tb1.getColumnModel().getColumn(1).setPreferredWidth(80);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(80);
             tb1.getColumnModel().getColumn(3).setPreferredWidth(310);
             tb1.getColumnModel().getColumn(4).setPreferredWidth(110);
+           
             
 
         } catch (SQLException e) {
@@ -572,7 +573,11 @@ Date date=new Date(millis);
                 if(row==0){
                     
             
-             
+              tb1.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tb1.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tb1.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(310);
+            tb1.getColumnModel().getColumn(4).setPreferredWidth(110);
                 JOptionPane.showMessageDialog(null, "Nessun appuntamento disponibile");
                  
                 }
@@ -656,7 +661,7 @@ Date date=new Date(millis);
         tb1.setModel(model);
         
 // Add Column
-        model.addColumn("Seleziona");
+        model.addColumn("");
 
         model.addColumn("Cliente");
 
@@ -673,14 +678,16 @@ Date newDate = calendar.getDate();
   String x = dateFormat.format(newDate);
   
      //String cerca = calendar.getDate().toString();
-     System.out.println("Data da cercare: "+x);
      
+    
+          
     String sql = "SELECT * FROM  appuntamenti WHERE data = ? ORDER BY data DESC";
         try {
 
             psts = conn.prepareStatement(sql);
             psts.setString(1, x);
             
+           
 
             ResultSet rec = psts.executeQuery();
 
@@ -709,7 +716,7 @@ Date newDate = calendar.getDate();
                 
             }
                    System.out.println("Numero righe tabella appuntamento: "+row);
-                  
+                   
      
             
                     tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
@@ -719,7 +726,8 @@ Date newDate = calendar.getDate();
             tb1.getColumnModel().getColumn(2).setPreferredWidth(80);
             tb1.getColumnModel().getColumn(3).setPreferredWidth(310);
             tb1.getColumnModel().getColumn(4).setPreferredWidth(110);
-
+        
+            calendar.setDate(null);
         } catch (SQLException e) {
 
 // TODO Auto-generated catch block

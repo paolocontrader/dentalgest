@@ -970,7 +970,7 @@ System.out.println(date);
                
                String cf = ClientiList.getObj().txt_codfisc.getText();
                String rec = ClientiList.getObj().txt_recapito.getText();
-                PdfPCell cell112=new PdfPCell(new Paragraph("Codice Fiscale: "+cf.toUpperCase()));
+                PdfPCell cell112=new PdfPCell(new Paragraph("C.F: "+cf.toUpperCase()));
                cell112.setBorderColor(new Color(255,255,255));
                cell112.setHorizontalAlignment(Element.ALIGN_LEFT);
                 PdfPCell cell113=new PdfPCell(new Paragraph("Cell: "+rec));
