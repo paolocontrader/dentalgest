@@ -13,6 +13,7 @@ import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
 import com.lowagie.text.HeaderFooter;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
@@ -948,6 +949,7 @@ System.out.println(date);
             
             Image image = Image.getInstance("/dentalgest/header.png");
             image.scaleToFit(1400, 150);
+            image.setBorderColor(new Color(0,0,0));
             PdfPCell cell=new PdfPCell();
            // d.add(image);
             Paragraph n=new Paragraph("\n");
@@ -957,48 +959,76 @@ System.out.println(date);
             Font font=new Font();
             font.setColor(0,0,0);
             font.setSize(28);
-            Paragraph paziente= new Paragraph(scelta,font);
-            paziente.setAlignment(Element.ALIGN_CENTER);
+            
             int indentation = 0;
            
             d.add(image);
-                    d.add(paziente); /* Font Size */
+                    /* Font Size */
             
             d.add(n);d.add(n);
-            
-            d.add(n);
+            PdfPTable anagr = new PdfPTable(1);
+               
+               String cf = ClientiList.getObj().txt_codfisc.getText();
+               String rec = ClientiList.getObj().txt_recapito.getText();
+                PdfPCell cell112=new PdfPCell(new Paragraph("Codice Fiscale: "+cf.toUpperCase()));
+               cell112.setBorderColor(new Color(255,255,255));
+               cell112.setHorizontalAlignment(Element.ALIGN_LEFT);
+                PdfPCell cell113=new PdfPCell(new Paragraph("Cell: "+rec));
+               cell113.setBorderColor(new Color(255,255,255));
+               cell113.setHorizontalAlignment(Element.ALIGN_LEFT);
+               Font fontSize_16 =  FontFactory.getFont(FontFactory.TIMES, 22f);
+               PdfPCell pazi = new PdfPCell(new Paragraph("Paziente",fontSize_16));
+               pazi.setIndent(-40);
+             
+               pazi.setBorderColor(new Color(255,255,255));
+               pazi.setHorizontalAlignment(Element.ALIGN_LEFT);
+               PdfPCell cell111=new PdfPCell(new Paragraph(scelta));
+               cell111.setBorderColor(new Color(255,255,255));
+               cell111.setIndent(-40);
+               cell112.setIndent(-40);
+               cell113.setIndent(-40);
+               cell111.setHorizontalAlignment(Element.ALIGN_LEFT);
+              
+               anagr.addCell(pazi);
+                anagr.addCell(cell111);
+                anagr.addCell(cell112);
+                anagr.addCell(cell113);
+                d.add(anagr);
+            d.add(n);d.add(n);d.add(n);
             PdfPTable ptableh = new PdfPTable(4);
+            
                String nomeh="Prestazione";
                String prezzoh="Acconto";
                //String ivah="Iva Applicata";
                String nettoh="Resto";
                String ivatoh="Totale";  
                PdfPCell cell1h=new PdfPCell(new Paragraph(nomeh));
-               cell1h.setBorderColor(new Color(255,255,255));
+               cell1h.setBorderColor(new Color(0,0,0));
                cell1h.setBackgroundColor(new Color(255,255,255));
-               cell1h.setHorizontalAlignment(Element.ALIGN_LEFT);
+               cell1h.setHorizontalAlignment(Element.ALIGN_CENTER);
                PdfPCell cell2h=new PdfPCell(new Paragraph(prezzoh)); 
-               cell2h.setBorderColor(new Color(255,255,255));
+               cell2h.setBorderColor(new Color(0,0,0));
                 cell2h.setBackgroundColor(new Color(255,255,255));
-                cell2h.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                cell2h.setHorizontalAlignment(Element.ALIGN_CENTER);
                 PdfPCell cell3h=new PdfPCell(new Paragraph(ivatoh));
-               cell3h.setBorderColor(new Color(255,255,255));
+               cell3h.setBorderColor(new Color(0,0,0));
                 cell3h.setBackgroundColor(new Color(255,255,255));
-               cell3h.setHorizontalAlignment(Element.ALIGN_RIGHT);
+               cell3h.setHorizontalAlignment(Element.ALIGN_CENTER);
                //PdfPCell cell4h=new PdfPCell(new Paragraph(ivah));
                 //cell4h.setBorderColor(new Color(52,147,81));
                  //cell4h.setBackgroundColor(new Color(52,147,81));
                 //cell4h.setHorizontalAlignment(Element.ALIGN_RIGHT);
                  PdfPCell cell5h=new PdfPCell(new Paragraph(nettoh));
-                cell5h.setBorderColor(new Color(255,255,255));
+                cell5h.setBorderColor(new Color(0,0,0));
                  cell5h.setBackgroundColor(new Color(255,255,255));
-                cell5h.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                cell5h.setHorizontalAlignment(Element.ALIGN_CENTER);
                 ptableh.addCell(cell1h);
                 ptableh.addCell(cell2h);
                 ptableh.addCell(cell5h);
                 //ptableh.addCell(cell4h);
                 ptableh.addCell(cell3h);
                 d.add(ptableh);
+                 
             while(rep.next()){
                PdfPTable ptable = new PdfPTable(4);
                String nome=rep.getString("nome");
@@ -1007,20 +1037,20 @@ System.out.println(date);
                //String iva_app=rep.getString("iva");
                String total=rep.getString("prezzo");
                PdfPCell cell1=new PdfPCell(new Paragraph(nome));
-               cell1.setBorderColor(new Color(255,255,255));
+               cell1.setBorderColor(new Color(0,0,0));
                cell1.setHorizontalAlignment(Element.ALIGN_LEFT);
                PdfPCell cell2=new PdfPCell(new Paragraph("€"+impon)); 
-               cell2.setBorderColor(new Color(255,255,255));
-                cell2.setHorizontalAlignment(Element.ALIGN_RIGHT);
+               cell2.setBorderColor(new Color(0,0,0));
+                cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
                 PdfPCell cell3=new PdfPCell(new Paragraph("€"+iva_calc));
-               cell3.setBorderColor(new Color(255,255,255));
-               cell3.setHorizontalAlignment(Element.ALIGN_RIGHT);
+               cell3.setBorderColor(new Color(0,0,0));
+               cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
                //PdfPCell cell4=new PdfPCell(new Paragraph(""+iva_app));
                 //cell4.setBorderColor(new Color(52,147,81));
                 //cell4.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 PdfPCell cell5=new PdfPCell(new Paragraph("€"+total));
-                cell5.setBorderColor(new Color(255,255,255));
-                cell5.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                cell5.setBorderColor(new Color(0,0,0));
+                cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
                 ptable.addCell(cell1);
                 ptable.addCell(cell2);
                 ptable.addCell(cell3);

@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -404,15 +405,27 @@ public final  class CartellaClinica extends javax.swing.JFrame {
          
         System.out.println("Dati: "+nom+" "+pat+" "+paz);
         String sql = "insert into cartella (paziente,path,nome) values (?,?,?)";
+        controlPanel cp = new controlPanel();
+       String lettera = cp.lettera_txt.getText();
+       String extension = "";
+
+        int i = pat.lastIndexOf('.');
+        if (i > 0) {
+    extension = pat.substring(i+1);
+        }
+        System.out.println("Estensione: "+extension);
+       
+       String newPath = lettera+":/dentalgest/cartelle/"+paz+"/"+nom+"."+extension;
+       System.out.println("newPath: "+newPath);
          try{
             psAll = connAll.prepareStatement(sql);
             psAll.setString(1,paz);
-            psAll.setString(2, pat );
+            psAll.setString(2, newPath );
             psAll.setString(3, nom);
             psAll.execute();
               
       //Creating a folder using mkdirs() method  
-    
+      
       File f = new File("/dentalgest/cartelle/"+paz+"/");
   
         // check if the directory can be created
@@ -428,9 +441,11 @@ public final  class CartellaClinica extends javax.swing.JFrame {
             // as the function returned false
             System.out.println("Directory non creata");
         }     
-      
+      File currDir = new File(System.getProperty("user.dir", "."));
+        Path root = currDir.toPath().getRoot();
+        System.out.println("Path cartella: "+root.toString());
            File dirFrom = new File(pat);
-            File dirTo = new File("/dentalgest/cartelle/"+paz+"/"+nom+".pdf");
+            File dirTo = new File(root.toString()+"/dentalgest/cartelle/"+paz+"/"+nom+"."+extension);
 //            boolean boole2 = dirTo.mkdir();
 //    if(boole2){  
 //         System.out.println("Folder is created successfully");  
@@ -463,6 +478,20 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_pazienteActionPerformed
 
+    void deleteDirectory(File file) throws IOException {
+  if (file.isDirectory()) {
+    File[] entries = file.listFiles();
+    if (entries != null) {
+      for (File entry : entries) {
+        deleteDirectory(entry);
+      }
+    }
+  }
+  if (!file.delete()) {
+    throw new IOException("Failed to delete " + file);
+  }
+}
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
          Object[] options = {"Si", "No"};
@@ -489,9 +518,16 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                     String path = tb1.getValueAt(i, 2).toString();
                      String cliente = paziente.getText();
                     String nome = tb1.getValueAt(i, 1).toString();
-
+                    File currDir = new File(System.getProperty("user.dir", "."));
+       controlPanel cp = new controlPanel();
+       String lettera = cp.lettera_txt.getText();
+                    File file= new File(lettera+":/dentalgest/cartelle/"+cliente+"/"+nome+".pdf");
                     DeleteData(cliente,path,nome); 
-
+                    try {
+                        deleteDirectory(file);
+                    } catch (IOException ex) {
+                        Logger.getLogger(CartellaClinica.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
 
             }
@@ -671,7 +707,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
        
    
 
-  String cerca = txt_cerca.getText();
+  String cerca = txt_cerca.getText().toLowerCase();
      //String cerca = calendar.getDate().toString();
      System.out.println("Data da cercare: "+cerca);
      if(cerca.isEmpty())

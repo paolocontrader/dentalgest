@@ -8,11 +8,15 @@ package DentalGest;
 import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -936,17 +940,31 @@ PopulateData();
             System.out.println("QUERY DI ELIMINAZIONE CARTELLA: "+cliente);
             pstDelCli.execute(sql);
             //JOptionPane.showMessageDialog(null, "Cartella clinica del paziente "+cliente+" eliminata correttamente");
-
+            File file = new File("/dentalgest/cartelle/"+cliente);
+            deleteDirectory(file);
         } catch (SQLException e) {
 
             JOptionPane.showMessageDialog(null, e.getMessage());
 
+        } catch (IOException ex) {
+            Logger.getLogger(ClientiList.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-                   
-        
-
     }
+
+void deleteDirectory(File file) throws IOException {
+  if (file.isDirectory()) {
+    File[] entries = file.listFiles();
+    if (entries != null) {
+      for (File entry : entries) {
+        deleteDirectory(entry);
+      }
+    }
+  }
+  if (!file.delete()) {
+    throw new IOException("Failed to delete " + file);
+  }
+}
     
     /**
      * @param args the command line arguments
@@ -2021,10 +2039,10 @@ PopulateData();
     private javax.swing.JTextField nom;
     private javax.swing.JTable tb1;
     private javax.swing.JTextField txt_cerca;
-    private javax.swing.JTextField txt_codfisc;
+    public javax.swing.JTextField txt_codfisc;
     private javax.swing.JTextField txt_cognome;
     public javax.swing.JTextField txt_nome;
     public javax.swing.JTextField txt_nominativo;
-    private javax.swing.JTextField txt_recapito;
+    public javax.swing.JTextField txt_recapito;
     // End of variables declaration//GEN-END:variables
 }

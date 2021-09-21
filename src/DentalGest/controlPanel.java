@@ -42,7 +42,13 @@ String value=oper.userN;
         initComponents();
         conn= Db.db();
         AnimationStation();//movimento jframe undecorate
-        
+        String directory = System.getProperty("user.dir");
+        String[] pathDir = directory.split(":");
+        String lettera= pathDir[0];
+        System.out.println("Working Directory = " + lettera);
+        lettera_txt.setText(lettera);
+        System.out.println(lettera+":/dentalgest/cartelle/");
+        System.out.println("Lettera: "+lettera_txt.getText());
     }
     
   
@@ -87,6 +93,7 @@ String value=oper.userN;
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        lettera_txt = new javax.swing.JTextField();
         sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -156,6 +163,12 @@ String value=oper.userN;
             }
         });
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, -1, -1));
+
+        lettera_txt.setEditable(false);
+        lettera_txt.setBorder(null);
+        lettera_txt.setEnabled(false);
+        lettera_txt.setOpaque(false);
+        getContentPane().add(lettera_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, -1, -1));
 
         sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/main_700x400.png"))); // NOI18N
         sfondo.setText("jLabel1");
@@ -260,6 +273,7 @@ String value=oper.userN;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
+    public javax.swing.JTextField lettera_txt;
     private javax.swing.JLabel sfondo;
     // End of variables declaration//GEN-END:variables
 }
