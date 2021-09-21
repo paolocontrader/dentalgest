@@ -303,6 +303,7 @@ public final  class AppList extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         dispose();
+        PopulateData();
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked

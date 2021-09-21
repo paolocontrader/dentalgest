@@ -1470,7 +1470,7 @@ PopulatePrest();
                                        PopulateData();
 
                         AppList.getObj().PopulateData();
-                        AppList.getObj().PopulateDataAll();
+                       // AppList.getObj().PopulateDataAll();
                         
                         calendar.setDate(null);
                         txt_descr.setSelectedIndex(-1);
