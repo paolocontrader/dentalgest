@@ -1472,7 +1472,9 @@ PopulatePrest();
                         AppList.getObj().PopulateData();
                         AppList.getObj().PopulateDataAll();
                         
-                    
+                        calendar.setDate(null);
+                        txt_descr.setSelectedIndex(-1);
+                        time_txt.setText("");
 
                 } catch (SQLException ex) {
                 Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
