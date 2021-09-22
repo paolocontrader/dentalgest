@@ -44,6 +44,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
@@ -335,14 +336,14 @@ public final class Clients extends javax.swing.JFrame {
 
         model2.addColumn("Ora");
 
-        model2.addColumn("Descrizionev");
+        model2.addColumn("Descrizione");
 
-        model2.addColumn("Stato.");
+        model2.addColumn("Stato");
         
        // tb2.getColumnModel().removeColumn(tb2.getColumnModel().getColumn(4));
 
         
-    String sql = "SELECT * FROM  appuntamenti where cliente ='"+cliente+"' ORDER BY data DESC";
+    String sql = "SELECT * FROM  appuntamenti where cliente ='"+cliente+"' ORDER BY data,ora ASC";
         try {
 
             pstApp = connApp.prepareStatement(sql);
@@ -569,8 +570,8 @@ tb1.getColumnModel().getColumn(5).setPreferredWidth(50);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Servizio:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 60, -1));
+        jLabel2.setText("Prestazione:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 80, -1));
 
         jLabel4.setText("Costo:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 70, -1));
@@ -833,7 +834,7 @@ tb1.getColumnModel().getColumn(5).setPreferredWidth(50);
         });
         getContentPane().add(txt_descr, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 600, 310, 25));
 
-        jLabel6.setText("Descrizione:");
+        jLabel6.setText("Prestazione:");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/window_schedapazientesingolo_1000x820.png"))); // NOI18N
@@ -932,19 +933,35 @@ dispose();
          
          PopulatePrest();
         try{
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
    LocalDateTime now = LocalDateTime.now();  
    System.out.println(dtf.format(now));  
-   long millis=System.currentTimeMillis();  
-Date date=new Date(millis);  
-System.out.println(date);  
+  DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm");
+Calendar cal = Calendar.getInstance();
+System.out.println(dateFormat.format(cal.getTime()));
             String scelta= combo_cliente.getText();
-           String adesso = date.getDay()+"-"+date.getMonth()+"-"+date.getYear()+"-"+date.getHours()+"-"+date.getMinutes();
+           String adesso = dateFormat.format(cal.getTime());
             String sql = "select * from prestazione_cliente where cliente='"+scelta+"'";
             prep=repo.prepareStatement(sql);
             rep=prep.executeQuery();
             Document d=new Document(PageSize.A4);
-            PdfWriter.getInstance(d, new FileOutputStream("/dentalgest/reports/saldo-"+scelta+"_"+adesso+".pdf"));
+            
+            File f = new File("/dentalgest/reports/"+scelta+"/");
+  
+        // check if the directory can be created
+        // using the abstract path name
+        if (f.mkdir()) {
+  
+            // display that the directory is created
+            // as the function returned true
+            System.out.println("Directory creata");
+        }
+        else {
+            // display that the directory cannot be created
+            // as the function returned false
+            System.out.println("Directory non creata");
+        }     
+            PdfWriter.getInstance(d, new FileOutputStream("/dentalgest/reports/"+scelta+"/saldo-"+scelta+"_"+adesso+".pdf"));
             d.open();
             
             Image image = Image.getInstance("/dentalgest/header.png");
@@ -1082,7 +1099,7 @@ System.out.println(date);
             JOptionPane.showMessageDialog(null,"Report creato correttamente");
          try{
         //Process exec = Runtime.getRuntime().exec("cmd.exe /C /dentalgest/utility/open.bat");
-        File file = new File("/dentalgest/reports/saldo-"+scelta+"_"+adesso+".pdf");
+        File file = new File("/dentalgest/reports/"+scelta+"/saldo-"+scelta+"_"+adesso+".pdf");
     if (file.toString().endsWith(".pdf")) 
        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file);
    else {
@@ -1417,7 +1434,7 @@ PopulatePrest();
                     
                     JOptionPane.showMessageDialog(null,"Stato modificato correttamente per l'appuntamento del "+data+" delle ore "+ora );
                    AppList.getObj().PopulateData();
-                        AppList.getObj().PopulateDataAll();
+                        //AppList.getObj().PopulateDataAll();
                    
                  
            

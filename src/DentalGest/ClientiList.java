@@ -888,10 +888,9 @@ PopulateData();
 
         }
 
-                   
-        
-
     }
+    
+    
     
     void DeleteDataPrest(String cliente) {
 
@@ -932,6 +931,7 @@ PopulateData();
 
     }
     
+    
     void DeleteDataCart(String cliente) {
 
         String sql = "DELETE FROM cartella  WHERE paziente = '" + cliente.toUpperCase() + "'";
@@ -941,7 +941,13 @@ PopulateData();
             pstDelCli.execute(sql);
             //JOptionPane.showMessageDialog(null, "Cartella clinica del paziente "+cliente+" eliminata correttamente");
             File file = new File("/dentalgest/cartelle/"+cliente);
+            File file1 = new File("/dentalgest/reports/"+cliente.toUpperCase());
+            System.out.println("FIle 1: "+file1);
+            deleteDirectory(file1);
             deleteDirectory(file);
+            
+            
+            
         } catch (SQLException e) {
 
             JOptionPane.showMessageDialog(null, e.getMessage());

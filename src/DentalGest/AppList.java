@@ -416,7 +416,8 @@ Date date=new Date(millis);
  
            String adesso = dtf.format(now);
    System.out.println("Oggi: "+adesso);      
-    String sql = "SELECT * FROM  appuntamenti where data = ? ORDER BY data DESC";
+     String terminato = "Terminato";
+    String sql = "SELECT * FROM  appuntamenti where data = ? AND stato NOT IN ('"+terminato+"') ORDER BY data DESC";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -541,9 +542,9 @@ Date date=new Date(millis);
 
         model.addColumn("Stato");
         
-      
+      String terminato = "Terminato";
 
-    String sql = "SELECT * FROM  appuntamenti ORDER BY data DESC";
+    String sql = "SELECT * FROM  appuntamenti WHERE stato NOT IN ('"+terminato+"') ORDER BY data,ora ASC";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -682,7 +683,7 @@ Date newDate = calendar.getDate();
      
     
           
-    String sql = "SELECT * FROM  appuntamenti WHERE data = ? ORDER BY data DESC";
+    String sql = "SELECT * FROM  appuntamenti WHERE data = ? ORDER BY data,ora ASC";
         try {
 
             psts = conn.prepareStatement(sql);
