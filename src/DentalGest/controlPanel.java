@@ -5,6 +5,7 @@
  */
 package DentalGest;
 
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -97,7 +98,7 @@ String value=oper.userN;
         sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MascGest - Pannello di Controllo");
+        setTitle("Dentalgest - Pannello di Controllo");
         setBackground(new java.awt.Color(0, 153, 255));
         setFont(new java.awt.Font("Arial Narrow", 0, 10)); // NOI18N
         setForeground(new java.awt.Color(0, 153, 255));
@@ -213,17 +214,19 @@ String value=oper.userN;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        Prestazioni.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
          Prestazioni.getObj().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        AppList.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
          AppList.getObj().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-      
+      ClientiList.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
        ClientiList.getObj().setVisible(true);
        
     }//GEN-LAST:event_jButton5ActionPerformed

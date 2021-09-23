@@ -5,7 +5,12 @@
  */
 package DentalGest;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -27,8 +32,11 @@ public class DentalGest {
 		}
        
          controlPanel loa = new controlPanel();
+         //Image image = new ImageIcon("/dentalgest/icona.ico").getImage();
+
+        loa.setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
         loa.setVisible(true);
-        
+       
         
         
        

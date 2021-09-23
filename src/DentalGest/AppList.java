@@ -177,6 +177,7 @@ public final  class AppList extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
+        setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -244,12 +245,13 @@ public final  class AppList extends javax.swing.JFrame {
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
         jButton1.setDefaultCapable(false);
+        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 180, 40));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 150, 40));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
         jButton2.setBorder(null);
@@ -270,6 +272,7 @@ public final  class AppList extends javax.swing.JFrame {
         txt_n.setOpaque(false);
         getContentPane().add(txt_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
 
+        label3.setBackground(new java.awt.Color(255, 255, 255));
         label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/schermata_appuntamenti_850x480.png"))); // NOI18N
         getContentPane().add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 490));
 
@@ -417,7 +420,7 @@ Date date=new Date(millis);
            String adesso = dtf.format(now);
    System.out.println("Oggi: "+adesso);      
      String terminato = "Terminato";
-    String sql = "SELECT * FROM  appuntamenti where data = ? AND stato NOT IN ('"+terminato+"') ORDER BY data DESC";
+    String sql = "SELECT * FROM  appuntamenti where data = ? AND stato NOT IN ('"+terminato+"','Sospeso','Annullato') ORDER BY data DESC";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -544,7 +547,7 @@ Date date=new Date(millis);
         
       String terminato = "Terminato";
 
-    String sql = "SELECT * FROM  appuntamenti WHERE stato NOT IN ('"+terminato+"') ORDER BY data,ora ASC";
+    String sql = "SELECT * FROM  appuntamenti WHERE stato NOT IN ('"+terminato+"','Sospeso','Annullato') ORDER BY data,ora ASC";
         try {
 
             psts = conn.prepareStatement(sql);
