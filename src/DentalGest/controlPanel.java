@@ -196,7 +196,7 @@ String value=oper.userN;
         sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/main_700x400.png"))); // NOI18N
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 410));
 
-        setSize(new java.awt.Dimension(876, 402));
+        setSize(new java.awt.Dimension(812, 402));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
