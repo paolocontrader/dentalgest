@@ -546,7 +546,7 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
                 btn8ActionPerformed(evt);
             }
         });
-        getContentPane().add(btn8, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 168, 150, 50));
+        getContentPane().add(btn8, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 170, 150, 47));
 
         tb1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
         tb1.setModel(new javax.swing.table.DefaultTableModel(
@@ -622,7 +622,7 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 168, -1, 50));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 170, -1, 47));
 
         txt_c.setEditable(false);
         txt_c.setAutoscrolls(false);
@@ -652,7 +652,7 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
         txt_n.setVerifyInputWhenFocusTarget(false);
         getContentPane().add(txt_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -130, -1, -1));
 
-        jButton4.setText("APPUNTAMENTI");
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/APPUNTAMENTI-150X40.png"))); // NOI18N
         jButton4.setBorder(null);
         jButton4.setBorderPainted(false);
         jButton4.setContentAreaFilled(false);
@@ -661,7 +661,7 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 260, -1, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, -1, -1));
 
         setSize(new java.awt.Dimension(991, 613));
         setLocationRelativeTo(null);

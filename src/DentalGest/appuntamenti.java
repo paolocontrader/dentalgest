@@ -234,6 +234,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
         jButton2 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         txt_prest = new javax.swing.JTextField();
+        sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -245,7 +246,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
                 jLabel5MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 0, 20, 20));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 20, 20));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -253,7 +254,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
                 jLabel6MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 0, 20, 20));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(616, 0, 20, 20));
 
         jLabel3.setText("Data: ");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
@@ -293,7 +294,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
         ));
         jScrollPane1.setViewportView(tb2);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 700, 130));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 620, 430));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
         jButton2.setToolTipText("Selezionare gli appuntamenti da eliminare");
@@ -305,7 +306,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 170, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 180, -1, -1));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/nuovo_150x40.png"))); // NOI18N
         jButton5.setText("Nuovo appuntamento");
@@ -325,6 +326,12 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
             }
         });
         getContentPane().add(txt_prest, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 410, -1));
+
+        sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/appuntamenti_670_650.png"))); // NOI18N
+        sfondo.setLabelFor(this);
+        sfondo.setToolTipText("");
+        sfondo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 670));
 
         pack();
         setLocationRelativeTo(null);
@@ -567,6 +574,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel sfondo;
     private javax.swing.JTable tb2;
     private javax.swing.JTextField time_txt;
     private javax.swing.JTextField txt_prest;
