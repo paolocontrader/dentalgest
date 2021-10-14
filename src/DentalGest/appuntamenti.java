@@ -44,7 +44,7 @@ public class Appuntamenti extends javax.swing.JFrame {
        connAppDel = Db.db();
        conn = Db.db();
         AnimationStation();
-        
+        PopulateData();
     }
     
      void DeleteData(String data,String ora,String cliente,String servizio) {
@@ -96,7 +96,13 @@ public class Appuntamenti extends javax.swing.JFrame {
                     case 4:
 
                         return String.class;
-                        case 5:
+                    case 5:
+
+                        return String.class;
+                     case 6:
+
+                        return String.class;
+                     case 7:
 
                         return String.class;
 
@@ -115,12 +121,16 @@ public class Appuntamenti extends javax.swing.JFrame {
 // Add Column
         model2.addColumn("");
 
+        model2.addColumn("Operatore");
+        
         model2.addColumn("Data");
 
         model2.addColumn("Ora");
 
         model2.addColumn("Descrizione");
-
+        
+        model2.addColumn("Dente");
+        
         model2.addColumn("Stato");
         
        // tb2.getColumnModel().removeColumn(tb2.getColumnModel().getColumn(4));
@@ -143,13 +153,17 @@ public class Appuntamenti extends javax.swing.JFrame {
 
                 model2.setValueAt(false, row, 0); // Checkbox
 
-                model2.setValueAt(recApp.getString("data"), row, 1);
+                model2.setValueAt(recApp.getString("operatore"), row, 1);
+                
+                model2.setValueAt(recApp.getString("data"), row, 2);
 
-                model2.setValueAt(recApp.getString("ora"), row, 2);
+                model2.setValueAt(recApp.getString("ora"), row, 3);
 
-                model2.setValueAt(recApp.getString("descrizionev"), row, 3);
+                model2.setValueAt(recApp.getString("descrizionev"), row, 4);
 
-                model2.setValueAt(recApp.getString("stato"), row, 4);
+                 model2.setValueAt(recApp.getString("dente"), row, 5);
+                
+                model2.setValueAt(recApp.getString("stato"), row, 6);
                                 
                 row++;
 
@@ -159,11 +173,11 @@ public class Appuntamenti extends javax.swing.JFrame {
             
             
            tb2.getColumnModel().getColumn(0).setPreferredWidth(5);
-            tb2.getColumnModel().getColumn(1).setPreferredWidth(40);
-            tb2.getColumnModel().getColumn(2).setPreferredWidth(10);
-            tb2.getColumnModel().getColumn(3).setPreferredWidth(310);
+            tb2.getColumnModel().getColumn(1).setPreferredWidth(180);
+            tb2.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tb2.getColumnModel().getColumn(3).setPreferredWidth(40);
 
-tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
+tb2.getColumnModel().getColumn(4).setPreferredWidth(270);
             
 
         } catch (SQLException e) {
@@ -234,6 +248,8 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
         jButton2 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         txt_prest = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        operacombo = new javax.swing.JComboBox<>();
         sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -256,16 +272,19 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
         });
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(616, 0, 20, 20));
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Data: ");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
-        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 140, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 140, -1));
 
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Ora: (HH:MM)");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 100, -1));
-        getContentPane().add(time_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, 100, -1));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 100, -1));
+        getContentPane().add(time_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 100, -1));
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Prestazione:");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
         jButton6.setText("Modifica stato");
         jButton6.setToolTipText("Selezionare gli appuntamenti da modificare");
@@ -274,12 +293,12 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
                 jButton6ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 160, -1));
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 160, -1));
 
         combo_stato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In essere", "Sospeso", "Annullato", "Terminato" }));
         combo_stato.setSelectedIndex(-1);
         combo_stato.setToolTipText("");
-        getContentPane().add(combo_stato, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 130, -1));
+        getContentPane().add(combo_stato, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 130, -1));
 
         tb2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -294,7 +313,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
         ));
         jScrollPane1.setViewportView(tb2);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 620, 430));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 790, 400));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
         jButton2.setToolTipText("Selezionare gli appuntamenti da eliminare");
@@ -306,7 +325,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 180, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 210, -1, -1));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/nuovo_150x40.png"))); // NOI18N
         jButton5.setText("Nuovo appuntamento");
@@ -318,14 +337,22 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, 90, -1));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, 90, -1));
 
         txt_prest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_prestActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_prest, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 410, -1));
+        getContentPane().add(txt_prest, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 410, -1));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Operatore:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+
+        operacombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dott Pagliarulo", "Dott.ssa Calabrese", "Dott. Donnarumma", "Dott. Famiglietti" }));
+        operacombo.setSelectedIndex(-1);
+        getContentPane().add(operacombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 410, -1));
 
         sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/appuntamenti_670_650.png"))); // NOI18N
         sfondo.setLabelFor(this);
@@ -382,9 +409,10 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
                             //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
 
                             JOptionPane.showMessageDialog(null,"Stato modificato correttamente per l'appuntamento del "+data+" delle ore "+ora );
+                            PopulateData();
                             AppList.getObj().PopulateData();
                             //AppList.getObj().PopulateDataAll();
-
+                            
                         }
 
                     }}
@@ -451,12 +479,14 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
         String cliente = Clients.getObj().combo_cliente.getText();
         String stato = "in essere";
         String descrizionev = txt_prest.getText();
+        String operatore = operacombo.getSelectedItem().toString();
+        int dente = Dentiera.getObj().dente_check;
         System.out.println("Cliens cliente: "+cliente);
         int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiugere il seguente appuntamento?", "Aggiungi appuntamento", JOptionPane.YES_NO_OPTION);
         if (x == 0) {
             try {
 
-                    String sql = "insert into appuntamenti (data,ora,descrizionev,cliente,stato) values (?,?,?,?,?)";
+                    String sql = "insert into appuntamenti (data,ora,descrizionev,cliente,stato,dente,operatore) values (?,?,?,?,?,?,?)";
                 PreparedStatement pst = conn.prepareStatement(sql);
 
                     pst.setString(1, data);
@@ -464,10 +494,11 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
                     pst.setString(3,  descrizionev);
                     pst.setString(4, cliente);
                     pst.setString(5, stato);
-              
+                    pst.setInt(6, dente);
+                    pst.setString(7, operatore);
                    
                         pst.execute();
-                        System.out.println("VALORI INSERIMENT PAZIENTE: " + data + " | " + ora + " | " + cliente + " | " + descrizionev + " | " + stato + " ");
+                        System.out.println("VALORI INSERIMENT PAZIENTE: " + data + " | " + ora + " | " + cliente + " | " + descrizionev + " | " + stato + "| " + dente + "| " + operatore + " ");
 
                         JOptionPane.showMessageDialog(null, "Appuntamento aggiunto correttamente");
                                        PopulateData();
@@ -478,6 +509,7 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
                         calendar.setDate(null);
                         txt_prest.setText("");
                         time_txt.setText("");
+                        operacombo.setSelectedIndex(-1);
 
                 } catch (SQLException ex) {
                 Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
@@ -568,12 +600,14 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> operacombo;
     private javax.swing.JLabel sfondo;
     private javax.swing.JTable tb2;
     private javax.swing.JTextField time_txt;
