@@ -315,7 +315,6 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         jButton4.setDefaultCapable(false);
         jButton4.setFocusPainted(false);
         jButton4.setFocusable(false);
-        jButton4.setOpaque(false);
         jButton4.setRequestFocusEnabled(false);
         jButton4.setRolloverEnabled(false);
         jButton4.setVerifyInputWhenFocusTarget(false);

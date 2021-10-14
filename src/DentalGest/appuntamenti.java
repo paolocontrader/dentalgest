@@ -13,53 +13,177 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Paolo
  */
-public class services_s extends javax.swing.JFrame {
+public class Appuntamenti extends javax.swing.JFrame {
 
-    Connection conn=null;
-    Connection connc=null;
-    Connection connd=null;
-    Connection conne=null;
-    Connection connel=null;
+    Connection connApp;
+    Connection connUpdStato;
+    Connection connAppDel;
+    Connection conn;
 
-    Connection connf=null;
-        Connection conng=null;
-        ResultSet rscd=null;
-    ResultSet rs=null;
-    PreparedStatement pst=null;
-    PreparedStatement pstc=null;
-   Statement pstcheck=null;
-   PreparedStatement pstd=null;
-    ResultSet rsc=null;
+    
     /**
      * Creates new form services
      */
-    private services_s() {
+    private Appuntamenti() {
         initComponents();
-        conn=Db.db();
-        connc=Db.db();
-        connd=Db.db();
-        conne=Db.db();
-        connf=Db.db();
-        conng=Db.db();
-        connel=Db.db();
+       connApp = Db.db();
+       connUpdStato = Db.db();
+       connAppDel = Db.db();
+       conn = Db.db();
         AnimationStation();
         
     }
     
-    private static services_s obj=null;
+     void DeleteData(String data,String ora,String cliente,String servizio) {
+
+        String sql = "DELETE FROM appuntamenti  WHERE data = '" + data + "' AND ora = '" + ora + "' AND cliente = '" + cliente + "' AND descrizionev = '" + servizio + "'";
+        try {
+            Statement pstsDel = connAppDel.createStatement();
+            System.out.println("QUERY DI ELIMINAZIONE: "+data+" "+ora+" "+servizio);
+            pstsDel.execute(sql);
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+        }
+
+                   
+        
+
+    }
+    public  void PopulateData() {
+          String cliente = Clients.getObj().combo_cliente.getText();
+// Clear table
+        tb2.setModel(new DefaultTableModel());
+// Model for Table
+        DefaultTableModel model2 = new DefaultTableModel() {
+
+            @Override
+            public Class<?> getColumnClass(int column) {
+
+                switch (column) {
+
+                    case 0:
+
+                        return Boolean.class;
+
+                    case 1:
+
+                        return String.class;
+
+                    case 2:
+
+                        return String.class;
+
+                    case 3:
+
+                        return String.class;
+
+                    case 4:
+
+                        return String.class;
+                        case 5:
+
+                        return String.class;
+
+                    default:
+
+                        return String.class;
+
+                }
+
+            }
+
+        };
+
+        tb2.setModel(model2);
+        
+// Add Column
+        model2.addColumn("");
+
+        model2.addColumn("Data");
+
+        model2.addColumn("Ora");
+
+        model2.addColumn("Descrizione");
+
+        model2.addColumn("Stato");
+        
+       // tb2.getColumnModel().removeColumn(tb2.getColumnModel().getColumn(4));
+
+        
+    String sql = "SELECT * FROM  appuntamenti where cliente ='"+cliente+"' ORDER BY data,ora ASC";
+        try {
+
+              PreparedStatement pstApp = connApp.prepareStatement(sql);
+
+            
+
+            ResultSet recApp = pstApp.executeQuery();
+
+            int row = 0;
+            
+                while ((recApp != null) && (recApp.next())) {
+                   
+                model2.addRow(new Object[0]);
+
+                model2.setValueAt(false, row, 0); // Checkbox
+
+                model2.setValueAt(recApp.getString("data"), row, 1);
+
+                model2.setValueAt(recApp.getString("ora"), row, 2);
+
+                model2.setValueAt(recApp.getString("descrizionev"), row, 3);
+
+                model2.setValueAt(recApp.getString("stato"), row, 4);
+                                
+                row++;
+
+            }
+                   System.out.println("Numero righe tabella appuntamenti: "+row);
+               
+            
+            
+           tb2.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tb2.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tb2.getColumnModel().getColumn(2).setPreferredWidth(10);
+            tb2.getColumnModel().getColumn(3).setPreferredWidth(310);
+
+tb2.getColumnModel().getColumn(4).setPreferredWidth(110);
+            
+
+        } catch (SQLException e) {
+
+// TODO Auto-generated catch block
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+
+// TODO Auto-generated catch block
+
+        }
+
+    }
     
-    public static services_s getObj(){
+    
+    private static Appuntamenti obj=null;
+    
+    public static Appuntamenti getObj(){
         if(obj==null){
-            obj=new services_s();
+            obj=new Appuntamenti();
         }return obj;
     }
     private void AnimationStation() {
@@ -86,39 +210,6 @@ public class services_s extends javax.swing.JFrame {
     addMouseListener(ma);
     addMouseMotionListener(ma);
 }
-    void Refresh(){
-        combo_ser.removeAllItems();
-        combo_ser.setSelectedItem("");
-        try {
-        String sql = "SELECT * FROM  servizi_s";
-       pstd = connel.prepareStatement(sql);
-        rscd = pstd.executeQuery();
-       
-        while(rscd.next())
-
-{      
-combo_ser.addItem(rscd.getString("nome_s"));
-
-
-}
-
-        }
-        catch (SQLException e){
-                
-        } finally{
-            
-                try{
-                    rscd.close();
-                    pstd.close();
-                 //onnel.close();
-                    
-                }
-                catch(SQLException e)
-                {
-
-                }
-}
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -131,15 +222,18 @@ combo_ser.addItem(rscd.getString("nome_s"));
 
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        btn_mod = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        combo_ser = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        txt_prezzo = new javax.swing.JTextField();
-        bnt_agg = new javax.swing.JButton();
-        txt_nome = new javax.swing.JTextField();
-        bt_elim1 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        calendar = new com.toedter.calendar.JDateChooser();
+        jLabel12 = new javax.swing.JLabel();
+        time_txt = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
+        combo_stato = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tb2 = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        txt_prest = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -151,7 +245,7 @@ combo_ser.addItem(rscd.getString("nome_s"));
                 jLabel5MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 20, 20));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 0, 20, 20));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -159,90 +253,78 @@ combo_ser.addItem(rscd.getString("nome_s"));
                 jLabel6MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 20, 20));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 0, 20, 20));
 
-        btn_mod.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btn_mod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/modifica_150x40.png"))); // NOI18N
-        btn_mod.setToolTipText("");
-        btn_mod.setBorder(null);
-        btn_mod.setBorderPainted(false);
-        btn_mod.setContentAreaFilled(false);
-        btn_mod.setFocusable(false);
-        btn_mod.addActionListener(new java.awt.event.ActionListener() {
+        jLabel3.setText("Data: ");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 140, -1));
+
+        jLabel12.setText("Ora: (HH:MM)");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 100, -1));
+        getContentPane().add(time_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, 100, -1));
+
+        jLabel8.setText("Prestazione:");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+
+        jButton6.setText("Modifica stato");
+        jButton6.setToolTipText("Selezionare gli appuntamenti da modificare");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_modActionPerformed(evt);
+                jButton6ActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 90, 30));
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 160, -1));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Servizio:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+        combo_stato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In essere", "Sospeso", "Annullato", "Terminato" }));
+        combo_stato.setSelectedIndex(-1);
+        combo_stato.setToolTipText("");
+        getContentPane().add(combo_stato, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 130, -1));
 
-        combo_ser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        combo_ser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " " }));
-        combo_ser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        combo_ser.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+        tb2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
             }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-                combo_serPopupMenuWillBecomeInvisible(evt);
-            }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                combo_serPopupMenuWillBecomeVisible(evt);
-            }
-        });
-        getContentPane().add(combo_ser, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 260, 25));
+        ));
+        jScrollPane1.setViewportView(tb2);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Prezzo:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 700, 130));
 
-        txt_prezzo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_prezzo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        txt_prezzo.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
+        jButton2.setToolTipText("Selezionare gli appuntamenti da eliminare");
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setFocusPainted(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_prezzoActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_prezzo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 260, 25));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 170, -1, -1));
 
-        bnt_agg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/aggiungi_150x40.png"))); // NOI18N
-        bnt_agg.setBorder(null);
-        bnt_agg.setBorderPainted(false);
-        bnt_agg.setContentAreaFilled(false);
-        bnt_agg.setFocusPainted(false);
-        bnt_agg.setFocusable(false);
-        bnt_agg.addActionListener(new java.awt.event.ActionListener() {
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/nuovo_150x40.png"))); // NOI18N
+        jButton5.setText("Nuovo appuntamento");
+        jButton5.setBorder(null);
+        jButton5.setBorderPainted(false);
+        jButton5.setContentAreaFilled(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bnt_aggActionPerformed(evt);
+                jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(bnt_agg, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 90, 30));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, 90, -1));
 
-        txt_nome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_nome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
-        txt_nome.addActionListener(new java.awt.event.ActionListener() {
+        txt_prest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_nomeActionPerformed(evt);
+                txt_prestActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 260, 25));
-
-        bt_elim1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        bt_elim1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/elimina_150x40.png"))); // NOI18N
-        bt_elim1.setBorderPainted(false);
-        bt_elim1.setContentAreaFilled(false);
-        bt_elim1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_elim1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(bt_elim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 80, 30));
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Nome");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
+        getContentPane().add(txt_prest, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 410, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -259,172 +341,152 @@ combo_ser.addItem(rscd.getString("nome_s"));
         dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 
-    private void txt_prezzoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_prezzoActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_txt_prezzoActionPerformed
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try{
 
-    private void bnt_aggActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_aggActionPerformed
-        // TODO add your handling code here:
-        int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler creare il seguente servizio","Crea Servizio",JOptionPane.YES_NO_OPTION);
-        if(x==0){
-            try{
-                String servizio = txt_nome.getText();
+            String val1 = Clients.getObj().combo_cliente.getText();
+            if(val1.isEmpty()){JOptionPane.showMessageDialog(null, "Nessuno Stato selezionato");}
+            else{
+                int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiornare il seguente stato?","Aggiorna Stato",JOptionPane.YES_NO_OPTION);
+                if(x==0){
+                    for(int i=0;i < tb2.getRowCount();i++){
+                        Boolean chkDel = Boolean.valueOf(tb2.getValueAt(i, 0).toString()); // Checked
 
-                pstcheck = conn.createStatement();
-                rsc = pstcheck.executeQuery("select nome_s from servizi_s where nome_s='"+servizio+"'");
-                if(rsc.next()){
-                    JOptionPane.showMessageDialog(null,"Servizio già esistente");
-                    
+                        if(chkDel) // Checked to Delete
+                        {
+
+                            String data = tb2.getValueAt(i, 1).toString();
+                            String stato = combo_stato.getSelectedItem().toString();
+                            String descr = tb2.getValueAt(i, 3).toString();
+
+                            String ora =tb2.getValueAt(i, 2).toString();
+
+                            System.out.println("data "+data);
+                            System.out.println("ora "+ora);
+                            System.out.println("stato "+stato);
+                            System.out.print("qui arrivo");
+                            String sql="update appuntamenti set stato='"+stato+"' where cliente='"+val1+"' and data='"+data+"' and ora='"+ora+"' and descrizionev='"+descr+"'";
+                            PreparedStatement pstUpdStato = connUpdStato.prepareStatement(sql);
+                            pstUpdStato.execute();
+                            System.out.print("anche qui arrivo");
+                            //tb1.removeColumn(tb1.getColumnModel().getColumn(1));
+                            //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
+
+                            //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
+
+                            JOptionPane.showMessageDialog(null,"Stato modificato correttamente per l'appuntamento del "+data+" delle ore "+ora );
+                            AppList.getObj().PopulateData();
+                            //AppList.getObj().PopulateDataAll();
+
+                        }
+
+                    }}
                 }
-                else{
-                    String sql="insert into servizi_s (nome_s,prezzo) values (?,?)";
-                    pst=conn.prepareStatement(sql);
-                    pst.setString(1,txt_nome.getText().toLowerCase());
-                    pst.setString(2,txt_prezzo.getText());
-                    pst.execute();
-                    JOptionPane.showMessageDialog(null,"Servizio creato correttamente" );
-                 
-               combo_ser.setSelectedItem("");
-               txt_nome.setText("");
-               txt_prezzo.setText("");
-                 Refresh(); 
+                PopulateData(); // Reload Table
+                combo_stato.setSelectedIndex(-1);
             }
-            }
-
             catch(SQLException | HeadlessException e)
             {
-                JOptionPane.showMessageDialog(null,"Errore Creazione Servizio");
+                JOptionPane.showMessageDialog(null,"Errore modifica stato");
             }
+            // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
-            finally{
-                try{
-                    rs.close();
-                    pst.close();
-                   
-                }
-                catch(SQLException e)
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Object[] options = {"Si", "No"};
+
+        int n = JOptionPane
+        .showOptionDialog(null, "Sei sicuro di voler cancellare gli appuntamenti selezionati?",
+            "Conferma cancellazione?",
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE, null, options,
+            options[1]);
+
+        if (n == 0) // Confirm Delete = Yes
+        {
+
+            for (int i = 0; i < tb2.getRowCount(); i++) {
+
+                Boolean chkDel = Boolean.valueOf(tb2.getValueAt(i, 0).toString()); // Checked
+
+                if(chkDel) // Checked to Delete
                 {
 
+                    String data = tb2.getValueAt(i, 1).toString();
+                    String servizio = tb2.getValueAt(i, 3).toString();
+                    String cliente = Clients.getObj().combo_cliente.getText();
+                    String ora = tb2.getValueAt(i, 2).toString();
+
+                    DeleteData(data,ora,cliente,servizio);
+                    AppList.getObj().PopulateData();
+                    AppList.getObj().PopulateDataAll();
                 }
-            }    }
+
+            }
+
+            JOptionPane.showMessageDialog(null, "Appuntamento/i cancallati correttamente");
+
+            PopulateData(); // Reload Table
+            PopulateData(); // Reload Table
         }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-        private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-             
-            
-    }//GEN-LAST:event_bnt_aggActionPerformed
-
-    private void txt_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomeActionPerformed
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_nomeActionPerformed
 
-    private void bt_elim1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_elim1ActionPerformed
-        // TODO add your handling code here:
-       
-        String servizio =combo_ser.getSelectedItem().toString();
-        int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler rimuovere il seguente servizio?","Elimina Servizio",JOptionPane.YES_NO_OPTION);
-        if(x==0){
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date newDate = calendar.getDate();
+  String data = dateFormat.format(newDate);
+     //String cerca = calendar.getDate().toString();
+     System.out.println("Data da cercare: "+data);
+        String ora = time_txt.getText();
+        String cliente = Clients.getObj().combo_cliente.getText();
+        String stato = "in essere";
+        String descrizionev = txt_prest.getText();
+        System.out.println("Cliens cliente: "+cliente);
+        int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiugere il seguente appuntamento?", "Aggiungi appuntamento", JOptionPane.YES_NO_OPTION);
+        if (x == 0) {
+            try {
 
-            try{
-                String sql = "delete from servizi_s where nome_s='"+servizio+"'";
+                    String sql = "insert into appuntamenti (data,ora,descrizionev,cliente,stato) values (?,?,?,?,?)";
+                PreparedStatement pst = conn.prepareStatement(sql);
 
-                pst=conn.prepareStatement(sql);
-                pst.execute();
-                Refresh();
-                JOptionPane.showMessageDialog(null,"Servizio eliminato correttamente" );
-               
-                 
-                combo_ser.setSelectedItem("");
-                txt_prezzo.setText("");
-                txt_nome.setText("");
-               
-            }catch(SQLException | HeadlessException e)
-            {
-                JOptionPane.showMessageDialog(null,"Errore eliminazione Servizio " );
-            }}
-    }//GEN-LAST:event_bt_elim1ActionPerformed
-
-    private void btn_modActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modActionPerformed
-        // TODO add your handling code here:
-        
-        int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiornare li seguente servizio?","Aggiorna Servizio",JOptionPane.YES_NO_OPTION);
-        if(x==0){
-            
-           
-            try{
-        String val1 = combo_ser.getSelectedItem().toString();
-        String nome = txt_nome.getText().toLowerCase();
-        String prezzo = txt_prezzo.getText();
-               
-                  String sql="update servizi_s set nome_s='"+nome+"',prezzo='"+prezzo+"' where nome_s='"+val1+"'"; 
-            pst=connd.prepareStatement(sql);                 
-            pst.execute();
-                
-            JOptionPane.showMessageDialog(null,"Servizio aggiornato Correttamente" );
-            combo_ser.removeAllItems();
-          txt_nome.setText("");
-        txt_prezzo.setText("");
+                    pst.setString(1, data);
+                    pst.setString(2, ora);
+                    pst.setString(3,  descrizionev);
+                    pst.setString(4, cliente);
+                    pst.setString(5, stato);
               
-            
-        }
-    catch(SQLException | HeadlessException e)
-        {
-            JOptionPane.showMessageDialog(null,"Errore modifica servizio");
-      }
-       
-        finally{
-            try{
-                rs.close();
-                pst.close();
-            }
-            catch(SQLException e)
-        {
-            
-      }
-        } }   
-    }//GEN-LAST:event_btn_modActionPerformed
+                   
+                        pst.execute();
+                        System.out.println("VALORI INSERIMENT PAZIENTE: " + data + " | " + ora + " | " + cliente + " | " + descrizionev + " | " + stato + " ");
 
-    private void combo_serPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_combo_serPopupMenuWillBecomeVisible
-        // TODO add your handling code here:
-        combo_ser.removeAllItems();
-        String sql="select * from servizi_s ORDER BY nome_s  ASC ";
-        try {
-            pst=conn.prepareStatement(sql);
-            rs=pst.executeQuery();
-        if(!rs.next()){
-             JOptionPane.showMessageDialog(null,"Nessun servizio installato");
-            combo_ser.removeAllItems();        }
-        else{
-            while(rs.next()){
-            combo_ser.addItem(rs.getString("nome_s"));
-            
-        }
-        }} catch (SQLException ex) {
-            Logger.getLogger(services_s.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
-    }//GEN-LAST:event_combo_serPopupMenuWillBecomeVisible
+                        JOptionPane.showMessageDialog(null, "Appuntamento aggiunto correttamente");
+                                       PopulateData();
 
-    private void combo_serPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_combo_serPopupMenuWillBecomeInvisible
-        // TODO add your handling code here:
-        
-        String scelta=combo_ser.getSelectedItem().toString();
-        try{
-            String sql = "select * from servizi_s where nome_s='"+scelta+"'";
-        pst=conn.prepareStatement(sql);
-        rs=pst.executeQuery();
-        while(rs.next()){
-        txt_nome.setText(rs.getString("nome_s"));
-        txt_prezzo.setText(rs.getString("prezzo"));
-        }
-        
-        }catch(SQLException e){
+                        AppList.getObj().PopulateData();
+                       // AppList.getObj().PopulateDataAll();
+                        
+                        calendar.setDate(null);
+                        txt_prest.setText("");
+                        time_txt.setText("");
+
+                } catch (SQLException ex) {
+                Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
-        
-        
-    }//GEN-LAST:event_combo_serPopupMenuWillBecomeInvisible
+
+                
+               
+                
+                
+            }
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void txt_prestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_prestActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_prestActionPerformed
 
     /**
      * @param args the command line arguments
@@ -443,14 +505,38 @@ combo_ser.addItem(rscd.getString("nome_s"));
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(services_s.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Appuntamenti.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(services_s.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Appuntamenti.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(services_s.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Appuntamenti.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(services_s.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Appuntamenti.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -464,22 +550,25 @@ combo_ser.addItem(rscd.getString("nome_s"));
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new services_s().setVisible(true);
+                new Appuntamenti().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bnt_agg;
-    private javax.swing.JButton bt_elim1;
-    private javax.swing.JButton btn_mod;
-    private javax.swing.JComboBox combo_ser;
-    private javax.swing.JLabel jLabel2;
+    private com.toedter.calendar.JDateChooser calendar;
+    private javax.swing.JComboBox<String> combo_stato;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField txt_nome;
-    private javax.swing.JTextField txt_prezzo;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tb2;
+    private javax.swing.JTextField time_txt;
+    private javax.swing.JTextField txt_prest;
     // End of variables declaration//GEN-END:variables
 }

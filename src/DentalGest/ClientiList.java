@@ -181,6 +181,8 @@ public final  class ClientiList extends javax.swing.JFrame {
         txt_nominativo = new javax.swing.JTextField();
         nom = new javax.swing.JTextField();
         cogn = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtdataN = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -344,7 +346,7 @@ public final  class ClientiList extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 400, 130, 40));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 120, 130, 47));
 
         txt_nominativo.setEditable(false);
         txt_nominativo.setBorder(null);
@@ -365,6 +367,20 @@ public final  class ClientiList extends javax.swing.JFrame {
         cogn.setOpaque(false);
         cogn.setRequestFocusEnabled(false);
         getContentPane().add(cogn, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 200, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Data di Nascita: ");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 390, -1, -1));
+
+        txtdataN.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+        txtdataN.setMinimumSize(new java.awt.Dimension(2, 19));
+        txtdataN.setPreferredSize(new java.awt.Dimension(2, 19));
+        txtdataN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtdataNActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtdataN, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 390, 70, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/window_anagraficapazienti_850x480.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 850, 500));
@@ -395,6 +411,8 @@ public final  class ClientiList extends javax.swing.JFrame {
                     txt_codfisc.setText(add3);
                     String add4 = rsclick.getString("cell");
                     txt_recapito.setText(add4);
+                     String add5 = rsclick.getString("datanascita");
+                    txtdataN.setText(add5);
                     
                    msg1 = txt_nome.getText();
                    msg2 = txt_cognome.getText();
@@ -427,6 +445,7 @@ public final  class ClientiList extends javax.swing.JFrame {
         String val2 = txt_cognome.getText().toLowerCase();
         String val3 = txt_codfisc.getText().toLowerCase();
         String val4 = txt_recapito.getText().toLowerCase();
+        String val5 = txtdataN.getText();
         int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiugere il seguente paziente?", "Aggiungi Paziente", JOptionPane.YES_NO_OPTION);
         if (x == 0) {
             try {
@@ -438,31 +457,28 @@ public final  class ClientiList extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Paziente già esistente");
                 } else {
                     System.out.println("Arrivo 2");
-                    String sql = "insert into pazienti (nome,cognome,codice_fiscale,cell) values (?,?,?,?)";
+                    String sql = "insert into pazienti (nome,cognome,codice_fiscale,cell,datanascita) values (?,?,?,?,?)";
                     pstIns = connIns.prepareStatement(sql);
                     System.out.println("Query: "+sql);
                     pstIns.setString(1, val1);
                     pstIns.setString(2, val2);
                     pstIns.setString(3, val3);
                     pstIns.setString(4, val4);
-                    System.out.println("VALORI INSERIMENT PAZIENTE: " + val1 + " | " + val2 + " | " + val3 + " | " + val4 + " ");
-                    System.out.println("Arrivo 3");
-                   
-                        
-                        System.out.println("VALORI INSERIMENT PAZIENTE: " + val1 + " | " + val2 + " | " + val3 + " | " + val4 + " ");
- System.out.println("Arrivo 4");
+                    pstIns.setString(5, val5);
+                    System.out.println("VALORI INSERIMENT PAZIENTE: " + val1 + " | " + val2 + " | " + val3 + " | " + val4 + " | " + val5 + " ");
+                       
                         JOptionPane.showMessageDialog(null, "paziente aggiunto correttamente");
 
                     
 
                 }
                 pstIns.execute();
- System.out.println("Arrivo 5");
                 txt_cognome.setText("");
                 txt_codfisc.setText("");
                 
                 txt_nome.setText("");
                 txt_recapito.setText("");
+                txtdataN.setText("");
                 PopulateData();
                
             } catch (SQLException | HeadlessException e) {
@@ -519,6 +535,7 @@ DeleteData(strNome,strCognome);
                 txt_codfisc.setText("");
                 txt_recapito.setText("");
                 txt_nome.setText("");
+                txtdataN.setText("");
                
             PopulateData(); // Reload Table
  AppList.getObj().PopulateData();
@@ -545,16 +562,17 @@ PopulateData();
                 String val4 = txt_recapito.getText().toLowerCase();
                 String val5 = nom.getText().toLowerCase();
                 String val6 = cogn.getText().toLowerCase();
-                
+                String val7 = txtdataN.getText().toLowerCase();
 
-                String sql = "update pazienti set nome=?,cognome=?,codice_fiscale=?,cell=? where nome=? and cognome=?";
+                String sql = "update pazienti set nome=?,cognome=?,codice_fiscale=?,cell=?,datanascita=? where nome=? and cognome=?";
                 pstUpd = connUpd.prepareStatement(sql);
                 pstUpd.setString(1, val1);
                 pstUpd.setString(2, val2);
                 pstUpd.setString(3, val3);
                 pstUpd.setString(4, val4);
-                pstUpd.setString(5, val5);
-                pstUpd.setString(6, val6);
+                pstUpd.setString(5, val7);
+                pstUpd.setString(6, val5);
+                pstUpd.setString(7, val6);
               
                 pstUpd.execute();
                 JOptionPane.showMessageDialog(null, "Anagrafica paziente " + val1 + " " + val2 + " modificata correttamente");
@@ -562,7 +580,7 @@ PopulateData();
                 txt_cognome.setText("");
                 txt_codfisc.setText("");
                 txt_recapito.setText("");
-                
+                txtdataN.setText("");
                 PopulateData();
 
             } catch (SQLException | HeadlessException e) {
@@ -615,12 +633,15 @@ PopulateData();
       System.out.println("passaggio nome: "+msg1);
       System.out.println("passaggio cognome: "+msg2);
       Clients.getObj().Update_table();
-      Clients.getObj().PopulateData();
       Clients.getObj().PopulatePrest();
       Clients.getObj().setVisible(true);
       }
       
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtdataNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdataNActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtdataNActionPerformed
 
     
     public  void PopulateData() {
@@ -688,6 +709,8 @@ PopulateData();
         model.addColumn("Cognome");
 
         model.addColumn("Recapito");
+        
+         model.addColumn("Data di Nascita");
 
         
       
@@ -716,6 +739,8 @@ PopulateData();
 
                 model.setValueAt(rsPop.getString("cell"), row, 3);
                 
+                model.setValueAt(rsPop.getString("datanascita"), row, 4);
+                
                 row++;
 
             }
@@ -726,9 +751,10 @@ PopulateData();
             
             
            tb1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tb1.getColumnModel().getColumn(1).setPreferredWidth(310);
-            tb1.getColumnModel().getColumn(2).setPreferredWidth(310);
+            tb1.getColumnModel().getColumn(1).setPreferredWidth(230);
+            tb1.getColumnModel().getColumn(2).setPreferredWidth(230);
             tb1.getColumnModel().getColumn(3).setPreferredWidth(160);
+            tb1.getColumnModel().getColumn(4).setPreferredWidth(160);
             
             
 
@@ -809,6 +835,8 @@ PopulateData();
         model.addColumn("Cognome");
 
         model.addColumn("Recapito");
+        
+         model.addColumn("Data di Nascita");
 
        
 
@@ -840,6 +868,8 @@ PopulateData();
                 model.setValueAt(rsSearch.getString("cognome"), row, 2);
 
                 model.setValueAt(rsSearch.getString("cell"), row, 3);
+                
+                model.setValueAt(rsSearch.getString("datanascita"), row, 4);
 
                
                 
@@ -858,7 +888,7 @@ PopulateData();
             tb1.getColumnModel().getColumn(1).setPreferredWidth(310);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(310);
             tb1.getColumnModel().getColumn(3).setPreferredWidth(160);
-            
+             tb1.getColumnModel().getColumn(4).setPreferredWidth(160);            
 
         } catch (SQLException e) {
 
@@ -2037,6 +2067,7 @@ void deleteDirectory(File file) throws IOException {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lab_codfisc;
     private javax.swing.JLabel lab_formagiur;
@@ -2050,5 +2081,6 @@ void deleteDirectory(File file) throws IOException {
     public javax.swing.JTextField txt_nome;
     public javax.swing.JTextField txt_nominativo;
     public javax.swing.JTextField txt_recapito;
+    private javax.swing.JTextField txtdataN;
     // End of variables declaration//GEN-END:variables
 }

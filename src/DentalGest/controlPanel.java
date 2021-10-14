@@ -94,8 +94,8 @@ String value=oper.userN;
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        lettera_txt = new javax.swing.JTextField();
         sfondo = new javax.swing.JLabel();
+        lettera_txt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dentalgest - Pannello di Controllo");
@@ -165,15 +165,15 @@ String value=oper.userN;
         });
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, -1, -1));
 
+        sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/main_700x400.png"))); // NOI18N
+        sfondo.setText("jLabel1");
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 700, 410));
+
         lettera_txt.setEditable(false);
         lettera_txt.setBorder(null);
         lettera_txt.setEnabled(false);
         lettera_txt.setOpaque(false);
         getContentPane().add(lettera_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, -1, -1));
-
-        sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/main_700x400.png"))); // NOI18N
-        sfondo.setText("jLabel1");
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 700, 410));
 
         setSize(new java.awt.Dimension(699, 402));
         setLocationRelativeTo(null);

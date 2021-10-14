@@ -150,6 +150,8 @@ combo_ser.addItem(rscd.getString("nome"));
         bnt_agg = new javax.swing.JButton();
         btn_mod = new javax.swing.JButton();
         bt_elim1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        checkdente = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -230,7 +232,7 @@ combo_ser.addItem(rscd.getString("nome"));
                 bnt_aggActionPerformed(evt);
             }
         });
-        getContentPane().add(bnt_agg, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 100, 30));
+        getContentPane().add(bnt_agg, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 100, 30));
 
         btn_mod.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btn_mod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/modifica_150x40.png"))); // NOI18N
@@ -244,7 +246,7 @@ combo_ser.addItem(rscd.getString("nome"));
                 btn_modActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 90, 30));
+        getContentPane().add(btn_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 90, 30));
 
         bt_elim1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_elim1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/elimina_150x40.png"))); // NOI18N
@@ -255,12 +257,17 @@ combo_ser.addItem(rscd.getString("nome"));
                 bt_elim1ActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_elim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 90, 30));
+        getContentPane().add(bt_elim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 90, 30));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Scelta Dente:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
+        getContentPane().add(checkdente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/prestazioni_400x300.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 400, 380));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 400, 370));
 
-        setSize(new java.awt.Dimension(400, 300));
+        setSize(new java.awt.Dimension(400, 324));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -321,6 +328,7 @@ combo_ser.addItem(rscd.getString("nome"));
         while(rsPrestI.next()){
         txt_nome.setText(rsPrestI.getString("nome"));
         txt_prezzo.setText(rsPrestI.getString("prezzo"));
+        checkdente.setSelected(rsPrestI.getBoolean("dente"));
         }
         
         }catch(SQLException e){
@@ -347,10 +355,21 @@ combo_ser.addItem(rscd.getString("nome"));
 
                 }
                 else{
-                    String sql="insert into prestazioni (nome,prezzo) values (?,?)";
+                    
+                    int dente;
+    if(checkdente.isSelected() == true)
+{
+dente = 1;
+}
+else
+{
+dente =0;
+}
+                    String sql="insert into prestazioni (nome,prezzo,dente) values (?,?,?)";
                     pst=conn.prepareStatement(sql);
                     pst.setString(1,txt_nome.getText().toLowerCase());
                     pst.setString(2,txt_prezzo.getText());
+                     pst.setInt(3,dente);
                     pst.execute();
                     JOptionPane.showMessageDialog(null,"Servizio creato correttamente" );
 
@@ -359,8 +378,7 @@ combo_ser.addItem(rscd.getString("nome"));
                 txt_nome.setText("");
                     Refresh();
                     
-                    Clients.getObj().txt_descr.addItem(servizio);
-                    Clients.getObj().prestazioni.addItem(servizio);
+                   
                     Clients.getObj().PopulatePrest();
                 }
                 
@@ -380,7 +398,15 @@ combo_ser.addItem(rscd.getString("nome"));
 
     private void btn_modActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modActionPerformed
         // TODO add your handling code here:
-
+                int dente;
+    if(checkdente.isSelected() == true)
+{
+dente = 1;
+}
+else
+{
+dente =0;
+}
         int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiornare li seguente servizio?","Aggiorna Servizio",JOptionPane.YES_NO_OPTION);
         if(x==0){
 
@@ -388,18 +414,18 @@ combo_ser.addItem(rscd.getString("nome"));
                 String val1 = combo_ser.getSelectedItem().toString();
                 String nome = txt_nome.getText().toLowerCase();
                 String prezzo = txt_prezzo.getText();
-
-                String sql="update prestazioni set nome='"+nome+"',prezzo='"+prezzo+"' where nome='"+val1+"'";
+                System.out.println("dente: "+dente);
+                String sql="update prestazioni set nome='"+nome+"',prezzo='"+prezzo+"', dente=? where nome='"+val1+"'";
                 pstUpd=connUpd.prepareStatement(sql);
+                pstUpd.setInt(1, dente);
                 pstUpd.execute();
 
                 JOptionPane.showMessageDialog(null,"Servizio aggiornato Correttamente" );
                 combo_ser.removeAllItems();
                 txt_nome.setText("");
                 txt_prezzo.setText("");
-                Clients.getObj().txt_descr.addItem(nome);
-                    Clients.getObj().prestazioni.addItem(nome);
-                    Clients.getObj().PopulatePrest();
+                checkdente.setSelected(false);
+                                   Clients.getObj().PopulatePrest();
             }
             catch(SQLException | HeadlessException e)
             {
@@ -432,8 +458,7 @@ combo_ser.addItem(rscd.getString("nome"));
                 txt_prezzo.setText("");
                 txt_nome.setText("");
                 Refresh();
-                   Clients.getObj().txt_descr.removeItem(servizio);
-                    Clients.getObj().prestazioni.removeItem(servizio);
+                   
                     Clients.getObj().PopulatePrest(); 
 
             }catch(SQLException | HeadlessException e)
@@ -489,10 +514,12 @@ combo_ser.addItem(rscd.getString("nome"));
     private javax.swing.JButton bnt_agg;
     private javax.swing.JButton bt_elim1;
     private javax.swing.JButton btn_mod;
+    private javax.swing.JCheckBox checkdente;
     private javax.swing.JComboBox combo_ser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

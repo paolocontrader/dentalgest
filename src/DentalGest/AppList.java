@@ -328,7 +328,6 @@ public final  class AppList extends javax.swing.JFrame {
         }
       else
       {
-          Clients.getObj().PopulateData();
         Clients.getObj().PopulatePrest();
         Clients.getObj().setVisible(true);
         
