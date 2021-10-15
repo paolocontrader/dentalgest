@@ -109,7 +109,7 @@ public final class Clients extends javax.swing.JFrame {
     String msg2 = null;
      String comb = null;
      String id = null;
-     
+      String dataora= null;
      String costoIns = null;
                 String cliente = null;
                 String servizio = null;
@@ -121,6 +121,7 @@ public final class Clients extends javax.swing.JFrame {
         initComponents();
          String msg1 = txt_n.getText();
     String msg2 = txt_c.getText();;
+   
          connUpd = Db.db();
         conn=Db.db();
          conne= Db.db();
@@ -254,13 +255,13 @@ public final class Clients extends javax.swing.JFrame {
             Double resu=0.0;
             Double accu=0.0;
             Double ttt=0.0;
-            tb1.removeColumn(tb1.getColumnModel().getColumn(2));
+            //tb1.removeColumn(tb1.getColumnModel().getColumn(2));
        
             for(int i=0;i < tb1.getRowCount();i++){
                 
-                accu =  accu + Double.parseDouble(tb1.getValueAt(i, 2).toString());
+                accu =  accu + Double.parseDouble(tb1.getValueAt(i, 3).toString());
                
-                ttt=ttt+Double.parseDouble(tb1.getValueAt(i,4).toString());
+                ttt=ttt+Double.parseDouble(tb1.getValueAt(i,5).toString());
                 resu = ttt - accu;
             }
            
@@ -724,7 +725,7 @@ dispose();
                     else{
                     
                         System.out.println("costo: "+costoIns);
-                    String sql="insert into prestazione_cliente (id,nome,cliente,acconto,resto,prezzo,dente) values (?,?,?,?,?,?,?)";
+                    String sql="insert into prestazione_cliente (id,nome,cliente,acconto,resto,prezzo,dente,dataora,tipo) values (?,?,?,?,?,?,?,?,?)";
                     pst=conn.prepareStatement(sql);
                     Random rand = new Random(); //instance of random class
      
@@ -738,6 +739,8 @@ dispose();
                     pst.setString(5,costoIns);
                     pst.setString(6,costoIns);
                     pst.setInt(7, 0);
+                    pst.setString(8,dataora);
+                    pst.setString(9,"inserimento");
                     pst.execute();
                     JOptionPane.showMessageDialog(null,"Prestazione salvata correttamente" );
                 }
@@ -988,22 +991,22 @@ System.out.println(dateFormat.format(cal.getTime()));
 
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
         txt_servizio.setText(model.getValueAt(selectedRowIndex, 2).toString());
-        txt_costo.setText(model.getValueAt(selectedRowIndex, 5).toString());
-        txt_anticipo.setText(model.getValueAt(selectedRowIndex, 3).toString());
-            Double resto=0.0;
+        txt_costo.setText(model.getValueAt(selectedRowIndex, 6).toString());
+        txt_anticipo.setText(model.getValueAt(selectedRowIndex, 4).toString());
+           /* Double resto=0.0;
             Double costo=0.0;
             Double acconto=0.0;
             Double ttt=0.0;
             for(int i=0;i < tb1.getRowCount();i++){
-                costo =  costo + Double.parseDouble(tb1.getValueAt(i,4).toString());
-                acconto =  acconto + Double.parseDouble(tb1.getValueAt(i, 3).toString());
+                costo =  costo + Double.parseDouble(tb1.getValueAt(i,6).toString());
+                acconto =  acconto + Double.parseDouble(tb1.getValueAt(i, 4).toString());
                 
                 resto = costo-acconto;
                 
            
                 
             }
-
+*/
 //             txt_resto.setText(decimalFormat.format(resto));
 //            txt_tot.setText(decimalFormat.format(costo));
 //        txt_ant.setText(decimalFormat.format(acconto));
@@ -1045,6 +1048,7 @@ System.out.println(dateFormat.format(cal.getTime()));
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        dataora =  DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDateTime.now()); 
         int sec = tb1.getSelectedRow();
         String numero = tb1.getValueAt(sec, 1).toString();
        try{
@@ -1055,37 +1059,48 @@ System.out.println(dateFormat.format(cal.getTime()));
             else{
                 int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiornare la seguente prestazione?","Aggiorna Prestazione",JOptionPane.YES_NO_OPTION);
                 if(x==0){
+                    String account = txt_anticipo.getText();
                     String servizio = txt_servizio.getText();
                     Double var_anticipo = Double.valueOf(txt_anticipo.getText());
                     Double costo = Double.valueOf(txt_costo.getText());
                     int row = tb1.getSelectedRow();
-                    String ant1 = tb1.getValueAt(row, 3).toString();
+                    String ant1 = tb1.getValueAt(row, 4).toString();
                     Double resto=0.00;
                     Double sum=0.00;
                     Double anti=0.00;
                     Double nett=0.00;
                     Double ttot=0.00;
                     for(int i=0;i < tb1.getRowCount();i++){
-                        sum =  sum + Double.parseDouble(tb1.getValueAt(i, 5).toString());
-                        anti =  anti + Double.parseDouble(tb1.getValueAt(i,3 ).toString());
-                        ttot=ttot + Double.parseDouble(tb1.getValueAt(i, 5).toString());
+                        sum =  sum + Double.parseDouble(tb1.getValueAt(i, 6).toString());
+                        anti =  anti + Double.parseDouble(tb1.getValueAt(i,4 ).toString());
+                        ttot=ttot + Double.parseDouble(tb1.getValueAt(i, 6).toString());
                         resto = (ttot - anti);
                         //resto=Math.ceil(resto);
                         }
-                    Double resto1 = costo - var_anticipo-Double.parseDouble(tb1.getValueAt(row,3 ).toString());
-                    String sql="update prestazione_cliente set prezzo=?,acconto=?,resto=? where cliente=? and nome=? and id=?";
+                    Double resto1 = costo - var_anticipo-Double.parseDouble(tb1.getValueAt(row,4 ).toString());
+                    String sql="update prestazione_cliente set prezzo=?,acconto=?,resto=? ,dataora=?,tipo=? where cliente=? and nome=? and id=?";
                     System.out.println("Query update: "+sql);
                     pstUpd=connUpd.prepareStatement(sql);
                     var_anticipo = Double.valueOf(txt_anticipo.getText())+Double.valueOf(ant1);
                     pstUpd.setDouble(1, costo);
                     pstUpd.setDouble(2, var_anticipo);
                     pstUpd.setDouble(3, resto1);
-                    pstUpd.setString(4, val1);
-                    pstUpd.setString(5, servizio);
-                    pstUpd.setString(6, numero);
+                    pstUpd.setString(4, dataora);
+                    pstUpd.setString(5, "aggiornamento");
+                    pstUpd.setString(6, val1);
+                    pstUpd.setString(7, servizio);
+                    pstUpd.setString(8, numero);
                     Update_table();
                    pstUpd.execute();
                    
+                   String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto) values(?,?,?,?)";
+                   Connection furb = Db.db();
+                   PreparedStatement psfurb = furb.prepareStatement(sqlfurb);
+                   psfurb.setString(1, val1);
+                   psfurb.setString(2, servizio);
+                   psfurb.setString(3, dataora);
+                   psfurb.setString(4, account);
+                   psfurb.execute();
                    Update_table();
                    PopulatePrest();
                      //tb1.removeColumn(tb1.getColumnModel().getColumn(1));
