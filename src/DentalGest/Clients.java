@@ -789,7 +789,7 @@ dispose();
     
     private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
         // TODO add your handling code here:
-    
+    //deve stampare la prestazione in grande e acconto  e cercare di 
          txt_tot.getText();
          txt_ant.getText();
          txt_resto.getText();
@@ -999,6 +999,12 @@ System.out.println(dateFormat.format(cal.getTime()));
         }
     }//GEN-LAST:event_btn8ActionPerformed
 
+    public void listFiles() throws IOException{
+        String scelta = combo_cliente.getText();
+        String folder = "/Dentalgest/reports/"+scelta+"/";
+Desktop.getDesktop().open(new File(folder));
+    }
+    
     public void storico()
     {
          txt_tot.getText();
@@ -1414,8 +1420,14 @@ PopulatePrest();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        storico();
+        try {
+            // TODO add your handling code here:
+            //deve aprire cartella dei report
+
+            listFiles();
+        } catch (IOException ex) {
+            Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
