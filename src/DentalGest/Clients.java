@@ -80,12 +80,15 @@ public final class Clients extends javax.swing.JFrame {
     Connection connApp = null;
     Connection connAppDel = null;
     Connection connAppDelPrest = null;
+    Connection connSto = null;
     ResultSet rs=null;
+     ResultSet repSto=null;
     ResultSet rsc=null;
     ResultSet rscv=null;
     ResultSet rscva=null;
     ResultSet rscs=null;
     PreparedStatement pstv=null;
+    PreparedStatement prepSto=null;
     PreparedStatement pstva=null;
     PreparedStatement psti=null;
     PreparedStatement pstz=null;
@@ -135,7 +138,7 @@ public final class Clients extends javax.swing.JFrame {
          connv=Db.db();
          connva=Db.db();
          connInsTot = Db.db();
-        
+        connSto = Db.db();
          connUpdStato = Db.db();
          connApp = Db.db();
          connAppDel = Db.db();
@@ -427,7 +430,6 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txt_resto = new javax.swing.JLabel();
@@ -455,8 +457,8 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
         combo_cliente = new javax.swing.JTextField();
         txt_n = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/window_schedapazientesingolo_1000x820.png"))); // NOI18N
+        jButton5 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest - Gestione Clienti");
@@ -662,7 +664,21 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, -1, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 250, -1, -1));
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/STORICO-CLIENTE-150X40.png"))); // NOI18N
+        jButton5.setBorder(null);
+        jButton5.setBorderPainted(false);
+        jButton5.setContentAreaFilled(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/window_schedapazientesingolo_1000x820.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 810));
 
         setSize(new java.awt.Dimension(991, 613));
         setLocationRelativeTo(null);
@@ -983,6 +999,187 @@ System.out.println(dateFormat.format(cal.getTime()));
         }
     }//GEN-LAST:event_btn8ActionPerformed
 
+    public void storico()
+    {
+         txt_tot.getText();
+         txt_ant.getText();
+         txt_resto.getText();
+         
+         PopulatePrest();
+        try{
+           
+            String scelta= combo_cliente.getText();
+          
+            String sqlAcc = "select * from storico_acc where cliente='"+scelta+"' order by nome, dataora";
+            prepSto=connSto.prepareStatement(sqlAcc);
+            repSto=prepSto.executeQuery();
+            Document d=new Document(PageSize.A4);
+            
+            File f = new File("/dentalgest/reports/"+scelta+"/storico/");
+  
+        // check if the directory can be created
+        // using the abstract path name
+        if (f.mkdir()) {
+  
+            // display that the directory is created
+            // as the function returned true
+            System.out.println("Directory creata");
+        }
+        else {
+            // display that the directory cannot be created
+            // as the function returned false
+            System.out.println("Directory non creata");
+        }     
+            PdfWriter.getInstance(d, new FileOutputStream("/dentalgest/reports/"+scelta+"/storico/storico-"+scelta+".pdf"));
+            d.open();
+            
+            Image image = Image.getInstance("/dentalgest/header.png");
+            image.scaleToFit(1400, 150);
+            image.setBorderColor(new Color(0,0,0));
+            PdfPCell cell=new PdfPCell();
+           // d.add(image);
+            Paragraph n=new Paragraph("\n");
+            cell.setColspan(2);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setPadding(8.0f);
+            Font font=new Font();
+            font.setColor(0,0,0);
+            font.setSize(28);
+            
+            int indentation = 0;
+           
+            d.add(image);
+                    /* Font Size */
+            
+            d.add(n);d.add(n);
+            PdfPTable anagr = new PdfPTable(1);
+               
+               String cf = ClientiList.getObj().txt_codfisc.getText();
+               String rec = ClientiList.getObj().txt_recapito.getText();
+                PdfPCell cell112=new PdfPCell(new Paragraph("C.F: "+cf.toUpperCase()));
+               cell112.setBorderColor(new Color(255,255,255));
+               cell112.setHorizontalAlignment(Element.ALIGN_LEFT);
+                PdfPCell cell113=new PdfPCell(new Paragraph("Cell: "+rec));
+               cell113.setBorderColor(new Color(255,255,255));
+               cell113.setHorizontalAlignment(Element.ALIGN_LEFT);
+               Font fontSize_16 =  FontFactory.getFont(FontFactory.TIMES, 22f);
+               PdfPCell pazi = new PdfPCell(new Paragraph("Paziente",fontSize_16));
+               pazi.setIndent(-40);
+             
+               pazi.setBorderColor(new Color(255,255,255));
+               pazi.setHorizontalAlignment(Element.ALIGN_LEFT);
+               PdfPCell cell111=new PdfPCell(new Paragraph(scelta));
+               cell111.setBorderColor(new Color(255,255,255));
+               cell111.setIndent(-40);
+               cell112.setIndent(-40);
+               cell113.setIndent(-40);
+               cell111.setHorizontalAlignment(Element.ALIGN_LEFT);
+              
+               anagr.addCell(pazi);
+                anagr.addCell(cell111);
+                anagr.addCell(cell112);
+                anagr.addCell(cell113);
+                d.add(anagr);
+            d.add(n);d.add(n);d.add(n);
+            PdfPTable ptableh = new PdfPTable(4);
+            
+               String nomeh="Prestazione";
+               String accontoh="Acconto";
+               String datah="Data"; 
+               PdfPCell cell1h=new PdfPCell(new Paragraph(nomeh));
+               cell1h.setBorderColor(new Color(0,0,0));
+               cell1h.setBackgroundColor(new Color(255,255,255));
+               cell1h.setHorizontalAlignment(Element.ALIGN_CENTER);
+               PdfPCell cell2h=new PdfPCell(new Paragraph(accontoh)); 
+               cell2h.setBorderColor(new Color(0,0,0));
+                cell2h.setBackgroundColor(new Color(255,255,255));
+                cell2h.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell cell3h=new PdfPCell(new Paragraph(datah));
+               cell3h.setBorderColor(new Color(0,0,0));
+                cell3h.setBackgroundColor(new Color(255,255,255));
+               cell3h.setHorizontalAlignment(Element.ALIGN_CENTER);
+               
+                ptableh.addCell(cell1h);
+                ptableh.addCell(cell2h);
+                ptableh.addCell(cell3h);
+                d.add(ptableh);
+                 
+            while(repSto.next()){
+               PdfPTable ptable = new PdfPTable(3);
+               String nomes=repSto.getString("nome");
+               String accontos=repSto.getString("acconto");
+               String quandos=repSto.getString("dataora");
+               PdfPCell cell1=new PdfPCell(new Paragraph(nomes));
+               cell1.setBorderColor(new Color(0,0,0));
+                PdfPCell cell2=new PdfPCell(new Paragraph("€"+accontos));
+               PdfPCell cell3=new PdfPCell(new Paragraph(quandos)); 
+               cell2.setBorderColor(new Color(0,0,0));
+                cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
+               
+                ptable.addCell(cell1);
+                ptable.addCell(cell2);
+                ptable.addCell(cell3);
+               
+                d.add(ptable);
+            }
+                d.add(n);
+                d.add(n);
+            PdfPTable table1=new PdfPTable(1);
+            String resor=txt_resto.getText();
+            String t=txt_tot.getText();
+            String totaler=txt_tot.getText();
+            String accontor=txt_ant.getText();
+            PdfPCell cell3=new PdfPCell(new Paragraph("Totale: €"+totaler+ "\nAcconto: €"+accontor+"\nSaldo: €"+resor));
+            cell3.setBorder(0);
+            cell3.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            table1.addCell(cell3);
+            Image image1 = Image.getInstance("/dentalgest/footer.png");
+            image1.scaleToFit(720, 55);
+            d.add(table1);
+            image1.setAbsolutePosition(15, 10);
+            image1.setAlignment(Image.ALIGN_CENTER);
+            d.add(image1);
+           
+            
+            d.close();
+            
+            JOptionPane.showMessageDialog(null,"Storico creato correttamente");
+         try{
+        //Process exec = Runtime.getRuntime().exec("cmd.exe /C /dentalgest/utility/open.bat");
+        File file = new File("/dentalgest/reports/"+scelta+"/storico/storico-"+scelta+".pdf");
+    if (file.toString().endsWith(".pdf")) 
+       Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file);
+   else {
+       Desktop desktop = Desktop.getDesktop();
+       desktop.open(file);
+}
+         }    // File myFile = new File("/dentalgest/reports/saldo-"+scelta+"_"+adesso+".pdf");
+        // Desktop.getDesktop().open(myFile);
+         
+         catch (IOException e){}}
+        catch(HeadlessException e){
+            JOptionPane.showMessageDialog(null,"Errore creazione storico");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | IOException | DocumentException ex) {
+            Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        finally {
+
+            try{
+
+                repSto.close();
+                prepSto.close();
+                
+
+            }
+            catch(SQLException e){
+
+            }
+        
+        }
+        
+    }
     private void tb1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb1MouseClicked
        
         DefaultTableModel model = (DefaultTableModel)tb1.getModel();
@@ -1216,6 +1413,11 @@ PopulatePrest();
         Appuntamenti.getObj().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        storico();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1276,6 +1478,7 @@ PopulatePrest();
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
