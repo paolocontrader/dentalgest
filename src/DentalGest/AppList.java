@@ -5,9 +5,26 @@
  */
 package DentalGest;
 
+import com.itextpdf.text.Element;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.Image;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,8 +35,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -39,6 +59,7 @@ public final  class AppList extends javax.swing.JFrame {
     Connection conn2=null;
     Connection conn3=null;
     Connection conns=null;
+     Connection connStampa=null;
         Connection connel=null;
          Connection connect = null;
          Connection connClick = null;
@@ -49,6 +70,7 @@ public final  class AppList extends javax.swing.JFrame {
     ResultSet rsc=null;
     ResultSet rscv=null;
     ResultSet rscs=null;
+    ResultSet resStampa=null;
     PreparedStatement pstv=null;
     PreparedStatement psti=null;
     PreparedStatement pstz=null;
@@ -56,6 +78,7 @@ public final  class AppList extends javax.swing.JFrame {
     PreparedStatement pst=null;
     PreparedStatement pstr=null;
     PreparedStatement psclick = null;
+    PreparedStatement psStampa= null;
         Statement pstd=null;
 
     PreparedStatement prep=null;
@@ -85,12 +108,227 @@ public final  class AppList extends javax.swing.JFrame {
          connd=Db.db();
          connel=Db.db();
          connClick=Db.db();
+         connStampa=Db.db();
     PopulateData();
     AnimationStation();
             
        
     }
     
+    
+     public void storico()
+    {
+        
+         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
+   LocalDateTime now = LocalDateTime.now();  
+   System.out.println(dtf.format(now));  
+  DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm");
+Calendar cal = Calendar.getInstance();
+System.out.println(dateFormat.format(cal.getTime()));
+           String adesso = dateFormat.format(cal.getTime());
+         
+Date newDate = calendar.getDate();
+        try{
+           int row = tb1.getSelectedRow();
+            //String scelta= (tb1.getValueAt(row, 0).toString());
+           String x = (tb1.getValueAt(row, 2).toString());
+             String sqlStampa = "select * from appuntamenti where data='"+x+"'";
+            psStampa=connStampa.prepareStatement(sqlStampa);
+            resStampa=psStampa.executeQuery();
+            Document d=new Document(PageSize.A4);
+            
+            File f = new File("/dentalgest/appuntamenti/");
+  
+        // check if the directory can be created
+        // using the abstract path name
+        if (f.mkdir()) {
+  
+            // display that the directory is created
+            // as the function returned true
+            System.out.println("Directory creata");
+        }
+        else {
+            // display that the directory cannot be created
+            // as the function returned false
+            System.out.println("Directory non creata");
+        }     
+            PdfWriter.getInstance(d, new FileOutputStream("/dentalgest/appuntamenti/appuntamenti-"+adesso+".pdf"));
+            d.open();
+            d.newPage();
+           
+                Image image = Image.getInstance("/dentalgest/header.png");
+            image.scaleToFit(1400, 150);
+            image.setBorderColor(new Color(0,0,0));
+            PdfPCell cell=new PdfPCell();
+           // d.add(image);
+            Paragraph n=new Paragraph("\n");
+            cell.setColspan(2);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setPadding(8.0f);
+            Font font=new Font();
+            font.setColor(0,0,0);
+            font.setSize(28);
+            
+            int indentation = 0;
+           
+            d.add(image);
+                    /* Font Size */
+            
+            d.add(n);d.add(n);
+                 
+         
+                
+                            
+           while(resStampa.next())
+            {   
+                
+                String datah="Data";
+                PdfPTable ptableD = new PdfPTable(1);
+             PdfPCell cellD=new PdfPCell(new Paragraph(datah)); 
+              PdfPCell cellD1=new PdfPCell(new Paragraph(x)); 
+               cellD.setBorderColor(new Color(0,0,0));
+                cellD.setBackgroundColor(new Color(255,255,255));
+                cellD.setHorizontalAlignment(Element.ALIGN_CENTER);
+                ptableD.addCell(cellD);
+                cellD1.setBorderColor(new Color(0,0,0));
+                cellD1.setBackgroundColor(new Color(255,255,255));
+                cellD1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                ptableD.addCell(cellD1);
+                d.add(ptableD);
+                d.add(n);
+                d.add(n);
+            
+                PdfPTable ptableh = new PdfPTable(5);
+                
+               String operatoreh="Operatore";
+               String clienteh="Cliente";
+               String descrizioneh="Descrizione";
+               String denteh="Dente";
+               String orah ="Ora";
+               
+               String oraS = resStampa.getString("ora");
+                String clienteS = resStampa.getString("cliente");
+                String denteS = resStampa.getString("dente");
+                String operatoreS = resStampa.getString("operatore");
+                String descrizioneS = resStampa.getString("descrizionev");
+               
+               PdfPCell cell2h=new PdfPCell(new Paragraph(operatoreh)); 
+               cell2h.setBorderColor(new Color(0,0,0));
+                cell2h.setBackgroundColor(new Color(255,255,255));
+                cell2h.setHorizontalAlignment(Element.ALIGN_CENTER);
+                
+                PdfPCell cell3h=new PdfPCell(new Paragraph(clienteh));
+               cell3h.setBorderColor(new Color(0,0,0));
+                cell3h.setBackgroundColor(new Color(255,255,255));
+               cell3h.setHorizontalAlignment(Element.ALIGN_CENTER);
+               
+               PdfPCell cell4h=new PdfPCell(new Paragraph(descrizioneh));
+               cell3h.setBorderColor(new Color(0,0,0));
+                cell3h.setBackgroundColor(new Color(255,255,255));
+               cell3h.setHorizontalAlignment(Element.ALIGN_CENTER);
+               
+               PdfPCell cell5h=new PdfPCell(new Paragraph(orah));
+               cell3h.setBorderColor(new Color(0,0,0));
+                cell3h.setBackgroundColor(new Color(255,255,255));
+               cell3h.setHorizontalAlignment(Element.ALIGN_CENTER);
+               
+               PdfPCell cell6h=new PdfPCell(new Paragraph(denteh));
+               cell3h.setBorderColor(new Color(0,0,0));
+                cell3h.setBackgroundColor(new Color(255,255,255));
+               cell3h.setHorizontalAlignment(Element.ALIGN_CENTER);
+               
+                ptableh.addCell(cell2h);
+                ptableh.addCell(cell3h);
+                ptableh.addCell(cell4h);
+                ptableh.addCell(cell6h);
+                ptableh.addCell(cell5h);
+                d.add(ptableh);
+               
+               PdfPCell cell2h1=new PdfPCell(new Paragraph(operatoreS)); 
+               cell2h1.setBorderColor(new Color(0,0,0));
+                cell2h1.setBackgroundColor(new Color(255,255,255));
+                cell2h1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                
+                PdfPCell cell3h1=new PdfPCell(new Paragraph(clienteS.toLowerCase()));
+               cell3h1.setBorderColor(new Color(0,0,0));
+                cell3h1.setBackgroundColor(new Color(255,255,255));
+               cell3h1.setHorizontalAlignment(Element.ALIGN_CENTER);
+               
+               PdfPCell cell4h1=new PdfPCell(new Paragraph(descrizioneS));
+               cell4h1.setBorderColor(new Color(0,0,0));
+                cell4h1.setBackgroundColor(new Color(255,255,255));
+               cell4h1.setHorizontalAlignment(Element.ALIGN_CENTER);
+               
+               PdfPCell cell5h1=new PdfPCell(new Paragraph(oraS));
+               cell5h1.setBorderColor(new Color(0,0,0));
+                cell5h1.setBackgroundColor(new Color(255,255,255));
+               cell5h1.setHorizontalAlignment(Element.ALIGN_CENTER);
+               
+                PdfPCell cell6h1=new PdfPCell(new Paragraph(denteS));
+               cell6h1.setBorderColor(new Color(0,0,0));
+                cell6h1.setBackgroundColor(new Color(255,255,255));
+               cell6h1.setHorizontalAlignment(Element.ALIGN_CENTER);
+               
+              PdfPTable ptableh1 = new PdfPTable(5);
+                 ptableh1.addCell(cell2h1);
+                ptableh1.addCell(cell3h1);
+                ptableh1.addCell(cell4h1);
+                ptableh1.addCell(cell6h1);
+                ptableh1.addCell(cell5h1);
+                d.add(ptableh1);
+               Image image1 = Image.getInstance("/dentalgest/footer.png");
+            image1.scaleToFit(720, 55);
+//          d.add(table1);
+            image1.setAbsolutePosition(15, 10);
+            image1.setAlignment(Image.ALIGN_CENTER);
+            d.add(image1);
+            }
+           
+                        d.close(); 
+
+            //d.add(n);
+              
+             
+                
+            
+            
+            JOptionPane.showMessageDialog(null,"Appuntamenti creati correttamente");
+         try{
+        //Process exec = Runtime.getRuntime().exec("cmd.exe /C /dentalgest/utility/open.bat");
+        File file = new File("/dentalgest/appuntamenti/appuntamenti-"+adesso+".pdf");
+    if (file.toString().endsWith(".pdf")) 
+       Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file);
+   else {
+       Desktop desktop = Desktop.getDesktop();
+       desktop.open(file);
+}
+         }    // File myFile = new File("/dentalgest/reports/saldo-"+scelta+"_"+adesso+".pdf");
+        // Desktop.getDesktop().open(myFile);
+         
+         catch (IOException e){}}
+        catch(HeadlessException e){
+            JOptionPane.showMessageDialog(null,"Errore creazione appuntamenti");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | IOException | DocumentException ex) {
+            Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        finally {
+//
+//            try{
+//
+//                repSto.close();
+//                prepSto.close();
+//                
+//
+//            }
+//            catch(SQLException e){
+//
+//            }
+        
+        }
+        
+    }
 //    public static boolean isMyResultSetEmpty(ResultSet rs) throws SQLException {
 //         return (!rs.isBeforeFirst() && rs.getRow() == 0);
 //    }
@@ -175,6 +413,7 @@ public final  class AppList extends javax.swing.JFrame {
         label1 = new java.awt.Label();
         txt_n = new javax.swing.JTextField();
         operacombo = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
         label3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -295,6 +534,14 @@ public final  class AppList extends javax.swing.JFrame {
         });
         getContentPane().add(operacombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 410, -1));
 
+        jButton3.setText("jButton3");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 110, -1, -1));
+
         label3.setBackground(new java.awt.Color(255, 255, 255));
         label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/appuntamenti_830_670.png"))); // NOI18N
         getContentPane().add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 670));
@@ -359,12 +606,17 @@ public final  class AppList extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tb1MouseClicked
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        storico();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     
     public  void PopulateData() {
 
 // Clear table
         tb1.setModel(new DefaultTableModel());
-         calendar.setDate(null);
+         //calendar.setDate(null);
 // Model for Table
         DefaultTableModel model = new DefaultTableModel() {
 
@@ -504,7 +756,7 @@ Date date=new Date(millis);
 
 // Clear table
         tb1.setModel(new DefaultTableModel());
-         calendar.setDate(null);
+         //calendar.setDate(null);
 // Model for Table
         DefaultTableModel model = new DefaultTableModel() {
 
@@ -712,17 +964,17 @@ Date date=new Date(millis);
 DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 Date newDate = calendar.getDate();
   String x = dateFormat.format(newDate);
-  String operator = operacombo.getSelectedItem().toString();
+  //String operator = operacombo.getSelectedItem().toString();
      //String cerca = calendar.getDate().toString();
      
     
           
-    String sql = "SELECT * FROM  appuntamenti WHERE data = ? or operatore = ? ORDER BY data,ora ASC";
+    String sql = "SELECT * FROM  appuntamenti WHERE data = ?  ORDER BY data,ora ASC";
         try {
 
             psts = conn.prepareStatement(sql);
             psts.setString(1, x);
-            psts.setString(2, operator);
+            //psts.setString(2, operator);
            
 
             ResultSet rec = psts.executeQuery();
@@ -905,7 +1157,7 @@ Date newDate = calendar.getDate();
             tb1.getColumnModel().getColumn(4).setPreferredWidth(310);
             tb1.getColumnModel().getColumn(5).setPreferredWidth(110);
         
-            calendar.setDate(null);
+           // calendar.setDate(null);
         } catch (SQLException e) {
 
 // TODO Auto-generated catch block
@@ -3002,6 +3254,7 @@ Date newDate = calendar.getDate();
     private com.toedter.calendar.JDateChooser calendar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JScrollPane jScrollPane2;
