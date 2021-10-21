@@ -264,8 +264,8 @@ combo_ser.addItem(rscd.getString("nome"));
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
         getContentPane().add(checkdente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/prestazioni_400x300.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 400, 370));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/prestazioni_400x330.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 400, 410));
 
         setSize(new java.awt.Dimension(400, 324));
         setLocationRelativeTo(null);

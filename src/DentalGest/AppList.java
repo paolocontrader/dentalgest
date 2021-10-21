@@ -206,7 +206,7 @@ public final  class AppList extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tb1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 780, 240));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 780, 450));
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_cerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_lente_ingrandimento_cerca_40x40.png"))); // NOI18N
@@ -296,10 +296,10 @@ public final  class AppList extends javax.swing.JFrame {
         getContentPane().add(operacombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 410, -1));
 
         label3.setBackground(new java.awt.Color(255, 255, 255));
-        label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/schermata_appuntamenti_850x480.png"))); // NOI18N
-        getContentPane().add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 490));
+        label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/appuntamenti_830_670.png"))); // NOI18N
+        getContentPane().add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 670));
 
-        setSize(new java.awt.Dimension(848, 481));
+        setSize(new java.awt.Dimension(848, 672));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
