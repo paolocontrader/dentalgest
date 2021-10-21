@@ -81,6 +81,7 @@ public final class Clients extends javax.swing.JFrame {
     Connection connAppDel = null;
     Connection connAppDelPrest = null;
     Connection connSto = null;
+    Connection connStoDati = null;
     ResultSet rs=null;
      ResultSet repSto=null;
     ResultSet rsc=null;
@@ -139,6 +140,7 @@ public final class Clients extends javax.swing.JFrame {
          connva=Db.db();
          connInsTot = Db.db();
         connSto = Db.db();
+         connStoDati = Db.db();
          connUpdStato = Db.db();
          connApp = Db.db();
          connAppDel = Db.db();
@@ -699,7 +701,8 @@ dispose();
         // TODO add your handling code here:
         
         
-        
+                    dataora =  DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDateTime.now());
+
         try{
                 boolean dente = false;
                  costoIns = null;
@@ -733,7 +736,7 @@ dispose();
                        
                         //System.out.println("dente_ins: "+dente_ins);
                     
-                     dente_check = Dentiera.getObj().dente_check;
+                     //dente_check = Dentiera.getObj().dente_check;
                    if(Dentiera.getObj().isVisible()){
                    System.out.println("Dentiera attivo");
                    }
@@ -790,23 +793,250 @@ dispose();
     private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
         // TODO add your handling code here:
     //deve stampare la prestazione in grande e acconto  e cercare di 
-         txt_tot.getText();
-         txt_ant.getText();
-         txt_resto.getText();
-         
-         PopulatePrest();
-        try{
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
+    
+    storico();
+//         txt_tot.getText();
+//         txt_ant.getText();
+//         txt_resto.getText();
+//         
+//         PopulatePrest();
+//        try{
+//            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
+//   LocalDateTime now = LocalDateTime.now();  
+//   System.out.println(dtf.format(now));  
+//  DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm");
+//Calendar cal = Calendar.getInstance();
+//System.out.println(dateFormat.format(cal.getTime()));
+//            String scelta= combo_cliente.getText();
+//           String adesso = dateFormat.format(cal.getTime());
+//            String sql = "select * from prestazione_cliente where cliente='"+scelta+"'";
+//            prep=repo.prepareStatement(sql);
+//            rep=prep.executeQuery();
+//            Document d=new Document(PageSize.A4);
+//            
+//            File f = new File("/dentalgest/reports/"+scelta+"/");
+//  
+//        // check if the directory can be created
+//        // using the abstract path name
+//        if (f.mkdir()) {
+//  
+//            // display that the directory is created
+//            // as the function returned true
+//            System.out.println("Directory creata");
+//        }
+//        else {
+//            // display that the directory cannot be created
+//            // as the function returned false
+//            System.out.println("Directory non creata");
+//        }     
+//            PdfWriter.getInstance(d, new FileOutputStream("/dentalgest/reports/"+scelta+"/saldo-"+scelta+"_"+adesso+".pdf"));
+//            d.open();
+//            
+//            Image image = Image.getInstance("/dentalgest/header.png");
+//            image.scaleToFit(1400, 150);
+//            image.setBorderColor(new Color(0,0,0));
+//            PdfPCell cell=new PdfPCell();
+//           // d.add(image);
+//            Paragraph n=new Paragraph("\n");
+//            cell.setColspan(2);
+//            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            cell.setPadding(8.0f);
+//            Font font=new Font();
+//            font.setColor(0,0,0);
+//            font.setSize(28);
+//            
+//            int indentation = 0;
+//           
+//            d.add(image);
+//                    /* Font Size */
+//            
+//            d.add(n);d.add(n);
+//            PdfPTable anagr = new PdfPTable(1);
+//               
+//               String cf = ClientiList.getObj().txt_codfisc.getText();
+//               String rec = ClientiList.getObj().txt_recapito.getText();
+//                PdfPCell cell112=new PdfPCell(new Paragraph("C.F: "+cf.toUpperCase()));
+//               cell112.setBorderColor(new Color(255,255,255));
+//               cell112.setHorizontalAlignment(Element.ALIGN_LEFT);
+//                PdfPCell cell113=new PdfPCell(new Paragraph("Cell: "+rec));
+//               cell113.setBorderColor(new Color(255,255,255));
+//               cell113.setHorizontalAlignment(Element.ALIGN_LEFT);
+//               Font fontSize_16 =  FontFactory.getFont(FontFactory.TIMES, 22f);
+//               PdfPCell pazi = new PdfPCell(new Paragraph("Paziente",fontSize_16));
+//               pazi.setIndent(-40);
+//             
+//               pazi.setBorderColor(new Color(255,255,255));
+//               pazi.setHorizontalAlignment(Element.ALIGN_LEFT);
+//               PdfPCell cell111=new PdfPCell(new Paragraph(scelta));
+//               cell111.setBorderColor(new Color(255,255,255));
+//               cell111.setIndent(-40);
+//               cell112.setIndent(-40);
+//               cell113.setIndent(-40);
+//               cell111.setHorizontalAlignment(Element.ALIGN_LEFT);
+//              
+//               anagr.addCell(pazi);
+//                anagr.addCell(cell111);
+//                anagr.addCell(cell112);
+//                anagr.addCell(cell113);
+//                d.add(anagr);
+//            d.add(n);d.add(n);d.add(n);
+//            PdfPTable ptableh = new PdfPTable(4);
+//            
+//               String nomeh="Prestazione";
+//               String prezzoh="Acconto";
+//               //String ivah="Iva Applicata";
+//               String nettoh="Resto";
+//               String ivatoh="Totale";  
+//               PdfPCell cell1h=new PdfPCell(new Paragraph(nomeh));
+//               cell1h.setBorderColor(new Color(0,0,0));
+//               cell1h.setBackgroundColor(new Color(255,255,255));
+//               cell1h.setHorizontalAlignment(Element.ALIGN_CENTER);
+//               PdfPCell cell2h=new PdfPCell(new Paragraph(prezzoh)); 
+//               cell2h.setBorderColor(new Color(0,0,0));
+//                cell2h.setBackgroundColor(new Color(255,255,255));
+//                cell2h.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                PdfPCell cell3h=new PdfPCell(new Paragraph(ivatoh));
+//               cell3h.setBorderColor(new Color(0,0,0));
+//                cell3h.setBackgroundColor(new Color(255,255,255));
+//               cell3h.setHorizontalAlignment(Element.ALIGN_CENTER);
+//               //PdfPCell cell4h=new PdfPCell(new Paragraph(ivah));
+//                //cell4h.setBorderColor(new Color(52,147,81));
+//                 //cell4h.setBackgroundColor(new Color(52,147,81));
+//                //cell4h.setHorizontalAlignment(Element.ALIGN_RIGHT);
+//                 PdfPCell cell5h=new PdfPCell(new Paragraph(nettoh));
+//                cell5h.setBorderColor(new Color(0,0,0));
+//                 cell5h.setBackgroundColor(new Color(255,255,255));
+//                cell5h.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                ptableh.addCell(cell1h);
+//                ptableh.addCell(cell2h);
+//                ptableh.addCell(cell5h);
+//                //ptableh.addCell(cell4h);
+//                ptableh.addCell(cell3h);
+//                d.add(ptableh);
+//                 
+//            while(rep.next()){
+//               PdfPTable ptable = new PdfPTable(4);
+//               String nome=rep.getString("nome");
+//               String dente=rep.getString("dente");
+//               String impon=rep.getString("acconto");
+//               String iva_calc=rep.getString("resto");
+//               //String iva_app=rep.getString("iva");
+//               String total=rep.getString("prezzo");
+//               PdfPCell cell1=new PdfPCell(new Paragraph(nome));
+//               cell1.setBorderColor(new Color(0,0,0));
+//                PdfPCell celld=new PdfPCell(new Paragraph(dente));
+//               celld.setBorderColor(new Color(0,0,0));
+//               celld.setHorizontalAlignment(Element.ALIGN_LEFT);
+//               PdfPCell cell2=new PdfPCell(new Paragraph("€"+impon)); 
+//               cell2.setBorderColor(new Color(0,0,0));
+//                cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
+//                PdfPCell cell3=new PdfPCell(new Paragraph("€"+iva_calc));
+//               cell3.setBorderColor(new Color(0,0,0));
+//               cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
+//               //PdfPCell cell4=new PdfPCell(new Paragraph(""+iva_app));
+//                //cell4.setBorderColor(new Color(52,147,81));
+//                //cell4.setHorizontalAlignment(Element.ALIGN_RIGHT);
+//                PdfPCell cell5=new PdfPCell(new Paragraph("€"+total));
+//                cell5.setBorderColor(new Color(0,0,0));
+//                cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
+//                ptable.addCell(cell1);
+//                ptable.addCell(cell2);
+//                ptable.addCell(cell3);
+//                //ptable.addCell(cell4);
+//                ptable.addCell(cell5);
+//                d.add(ptable);
+//            }
+//                d.add(n);
+//                d.add(n);
+//            PdfPTable table1=new PdfPTable(1);
+//            String resor=txt_resto.getText();
+//            String t=txt_tot.getText();
+//            String totaler=txt_tot.getText();
+//            String accontor=txt_ant.getText();
+//            PdfPCell cell3=new PdfPCell(new Paragraph("Totale: €"+totaler+ "\nAcconto: €"+accontor+"\nSaldo: €"+resor));
+//            cell3.setBorder(0);
+//            cell3.setHorizontalAlignment(Element.ALIGN_RIGHT);
+//            table1.addCell(cell3);
+//            Image image1 = Image.getInstance("/dentalgest/footer.png");
+//            image1.scaleToFit(720, 55);
+//            d.add(table1);
+//            image1.setAbsolutePosition(15, 10);
+//            image1.setAlignment(Image.ALIGN_CENTER);
+//            d.add(image1);
+//           
+//            
+//            d.close();
+//            
+//            JOptionPane.showMessageDialog(null,"Report creato correttamente");
+//         try{
+//        //Process exec = Runtime.getRuntime().exec("cmd.exe /C /dentalgest/utility/open.bat");
+//        File file = new File("/dentalgest/reports/"+scelta+"/saldo-"+scelta+"_"+adesso+".pdf");
+//    if (file.toString().endsWith(".pdf")) 
+//       Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file);
+//   else {
+//       Desktop desktop = Desktop.getDesktop();
+//       desktop.open(file);
+//}
+//         }    // File myFile = new File("/dentalgest/reports/saldo-"+scelta+"_"+adesso+".pdf");
+//        // Desktop.getDesktop().open(myFile);
+//         
+//         catch (IOException e){}}
+//        catch(HeadlessException e){
+//            JOptionPane.showMessageDialog(null,"Errore creazione report");
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (SQLException | IOException | DocumentException ex) {
+//            Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+//        } 
+//        finally {
+//
+//            try{
+//
+//                rep.close();
+//                prep.close();
+//                
+//
+//            }
+//            catch(SQLException e){
+//
+//            }
+//        
+//        }
+    }//GEN-LAST:event_btn8ActionPerformed
+
+    public void listFiles() throws IOException{
+        String scelta = combo_cliente.getText();
+        String folder = "/Dentalgest/reports/"+scelta+"/";
+Desktop.getDesktop().open(new File(folder));
+    }
+    
+    public void storico()
+    {
+        
+         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
    LocalDateTime now = LocalDateTime.now();  
    System.out.println(dtf.format(now));  
   DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm");
 Calendar cal = Calendar.getInstance();
 System.out.println(dateFormat.format(cal.getTime()));
-            String scelta= combo_cliente.getText();
            String adesso = dateFormat.format(cal.getTime());
-            String sql = "select * from prestazione_cliente where cliente='"+scelta+"'";
-            prep=repo.prepareStatement(sql);
-            rep=prep.executeQuery();
+         txt_tot.getText();
+         txt_ant.getText();
+         txt_resto.getText();
+         double accontos1 = 0.0;
+         String dente = null;
+         String accontos = null;
+          Double accontoTot = 0.0;
+         String denteh="Dente";
+                PdfPCell cellD=new PdfPCell(new Paragraph(denteh)); 
+         PopulatePrest();
+        try{
+           
+            String scelta= combo_cliente.getText();
+           
+             String sqlAcc = "select nome from storico_acc where cliente='"+scelta+"' group by nome";
+            prepSto=connSto.prepareStatement(sqlAcc);
+            repSto=prepSto.executeQuery();
             Document d=new Document(PageSize.A4);
             
             File f = new File("/dentalgest/reports/"+scelta+"/");
@@ -824,10 +1054,17 @@ System.out.println(dateFormat.format(cal.getTime()));
             // as the function returned false
             System.out.println("Directory non creata");
         }     
-            PdfWriter.getInstance(d, new FileOutputStream("/dentalgest/reports/"+scelta+"/saldo-"+scelta+"_"+adesso+".pdf"));
+            PdfWriter.getInstance(d, new FileOutputStream("/dentalgest/reports/"+scelta+"/storico-"+scelta+"-"+adesso+".pdf"));
             d.open();
+            d.newPage();
             
-            Image image = Image.getInstance("/dentalgest/header.png");
+            
+              
+                 
+              
+               
+            while(repSto.next()){
+                Image image = Image.getInstance("/dentalgest/header.png");
             image.scaleToFit(1400, 150);
             image.setBorderColor(new Color(0,0,0));
             PdfPCell cell=new PdfPCell();
@@ -875,284 +1112,151 @@ System.out.println(dateFormat.format(cal.getTime()));
                 anagr.addCell(cell113);
                 d.add(anagr);
             d.add(n);d.add(n);d.add(n);
-            PdfPTable ptableh = new PdfPTable(4);
             
-               String nomeh="Prestazione";
-               String prezzoh="Acconto";
-               //String ivah="Iva Applicata";
-               String nettoh="Resto";
-               String ivatoh="Totale";  
-               PdfPCell cell1h=new PdfPCell(new Paragraph(nomeh));
+            
+                 
+             String nomes = null;
+                nomes=repSto.getString("nome");
+                 PdfPTable ptableP = new PdfPTable(1);
+            String nomeh="Prestazione";
+            PdfPCell cell1h=new PdfPCell(new Paragraph(nomeh));
                cell1h.setBorderColor(new Color(0,0,0));
                cell1h.setBackgroundColor(new Color(255,255,255));
                cell1h.setHorizontalAlignment(Element.ALIGN_CENTER);
-               PdfPCell cell2h=new PdfPCell(new Paragraph(prezzoh)); 
-               cell2h.setBorderColor(new Color(0,0,0));
-                cell2h.setBackgroundColor(new Color(255,255,255));
-                cell2h.setHorizontalAlignment(Element.ALIGN_CENTER);
-                PdfPCell cell3h=new PdfPCell(new Paragraph(ivatoh));
-               cell3h.setBorderColor(new Color(0,0,0));
-                cell3h.setBackgroundColor(new Color(255,255,255));
-               cell3h.setHorizontalAlignment(Element.ALIGN_CENTER);
-               //PdfPCell cell4h=new PdfPCell(new Paragraph(ivah));
-                //cell4h.setBorderColor(new Color(52,147,81));
-                 //cell4h.setBackgroundColor(new Color(52,147,81));
-                //cell4h.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                 PdfPCell cell5h=new PdfPCell(new Paragraph(nettoh));
-                cell5h.setBorderColor(new Color(0,0,0));
-                 cell5h.setBackgroundColor(new Color(255,255,255));
-                cell5h.setHorizontalAlignment(Element.ALIGN_CENTER);
-                ptableh.addCell(cell1h);
-                ptableh.addCell(cell2h);
-                ptableh.addCell(cell5h);
-                //ptableh.addCell(cell4h);
-                ptableh.addCell(cell3h);
-                d.add(ptableh);
-                 
-            while(rep.next()){
-               PdfPTable ptable = new PdfPTable(4);
-               String nome=rep.getString("nome");
-               String dente=rep.getString("dente");
-               String impon=rep.getString("acconto");
-               String iva_calc=rep.getString("resto");
-               //String iva_app=rep.getString("iva");
-               String total=rep.getString("prezzo");
-               PdfPCell cell1=new PdfPCell(new Paragraph(nome));
+            ptableP.addCell(cell1h);
+            d.add(ptableP);
+                PdfPTable ptableN = new PdfPTable(1);
+              PdfPCell cell1=new PdfPCell(new Paragraph(nomes));
+               cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
                cell1.setBorderColor(new Color(0,0,0));
-                PdfPCell celld=new PdfPCell(new Paragraph(dente));
-               celld.setBorderColor(new Color(0,0,0));
-               celld.setHorizontalAlignment(Element.ALIGN_LEFT);
-               PdfPCell cell2=new PdfPCell(new Paragraph("€"+impon)); 
-               cell2.setBorderColor(new Color(0,0,0));
-                cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
-                PdfPCell cell3=new PdfPCell(new Paragraph("€"+iva_calc));
-               cell3.setBorderColor(new Color(0,0,0));
-               cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
-               //PdfPCell cell4=new PdfPCell(new Paragraph(""+iva_app));
-                //cell4.setBorderColor(new Color(52,147,81));
-                //cell4.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                PdfPCell cell5=new PdfPCell(new Paragraph("€"+total));
-                cell5.setBorderColor(new Color(0,0,0));
-                cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
-                ptable.addCell(cell1);
-                ptable.addCell(cell2);
-                ptable.addCell(cell3);
-                //ptable.addCell(cell4);
-                ptable.addCell(cell5);
-                d.add(ptable);
-            }
-                d.add(n);
-                d.add(n);
-            PdfPTable table1=new PdfPTable(1);
-            String resor=txt_resto.getText();
-            String t=txt_tot.getText();
-            String totaler=txt_tot.getText();
-            String accontor=txt_ant.getText();
-            PdfPCell cell3=new PdfPCell(new Paragraph("Totale: €"+totaler+ "\nAcconto: €"+accontor+"\nSaldo: €"+resor));
-            cell3.setBorder(0);
-            cell3.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            table1.addCell(cell3);
-            Image image1 = Image.getInstance("/dentalgest/footer.png");
-            image1.scaleToFit(720, 55);
-            d.add(table1);
-            image1.setAbsolutePosition(15, 10);
-            image1.setAlignment(Image.ALIGN_CENTER);
-            d.add(image1);
-           
-            
-            d.close();
-            
-            JOptionPane.showMessageDialog(null,"Report creato correttamente");
-         try{
-        //Process exec = Runtime.getRuntime().exec("cmd.exe /C /dentalgest/utility/open.bat");
-        File file = new File("/dentalgest/reports/"+scelta+"/saldo-"+scelta+"_"+adesso+".pdf");
-    if (file.toString().endsWith(".pdf")) 
-       Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file);
-   else {
-       Desktop desktop = Desktop.getDesktop();
-       desktop.open(file);
-}
-         }    // File myFile = new File("/dentalgest/reports/saldo-"+scelta+"_"+adesso+".pdf");
-        // Desktop.getDesktop().open(myFile);
-         
-         catch (IOException e){}}
-        catch(HeadlessException e){
-            JOptionPane.showMessageDialog(null,"Errore creazione report");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException | IOException | DocumentException ex) {
-            Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        finally {
-
-            try{
-
-                rep.close();
-                prep.close();
+          ptableN.addCell(cell1);
+                d.add(ptableN);
                 
-
-            }
-            catch(SQLException e){
-
-            }
-        
-        }
-    }//GEN-LAST:event_btn8ActionPerformed
-
-    public void listFiles() throws IOException{
-        String scelta = combo_cliente.getText();
-        String folder = "/Dentalgest/reports/"+scelta+"/";
-Desktop.getDesktop().open(new File(folder));
-    }
-    
-    public void storico()
-    {
-         txt_tot.getText();
-         txt_ant.getText();
-         txt_resto.getText();
-         
-         PopulatePrest();
-        try{
-           
-            String scelta= combo_cliente.getText();
-          
-            String sqlAcc = "select * from storico_acc where cliente='"+scelta+"' order by nome, dataora";
-            prepSto=connSto.prepareStatement(sqlAcc);
-            repSto=prepSto.executeQuery();
-            Document d=new Document(PageSize.A4);
-            
-            File f = new File("/dentalgest/reports/"+scelta+"/storico/");
-  
-        // check if the directory can be created
-        // using the abstract path name
-        if (f.mkdir()) {
-  
-            // display that the directory is created
-            // as the function returned true
-            System.out.println("Directory creata");
-        }
-        else {
-            // display that the directory cannot be created
-            // as the function returned false
-            System.out.println("Directory non creata");
-        }     
-            PdfWriter.getInstance(d, new FileOutputStream("/dentalgest/reports/"+scelta+"/storico/storico-"+scelta+".pdf"));
-            d.open();
-            
-            Image image = Image.getInstance("/dentalgest/header.png");
-            image.scaleToFit(1400, 150);
-            image.setBorderColor(new Color(0,0,0));
-            PdfPCell cell=new PdfPCell();
-           // d.add(image);
-            Paragraph n=new Paragraph("\n");
-            cell.setColspan(2);
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cell.setPadding(8.0f);
-            Font font=new Font();
-            font.setColor(0,0,0);
-            font.setSize(28);
-            
-            int indentation = 0;
-           
-            d.add(image);
-                    /* Font Size */
-            
-            d.add(n);d.add(n);
-            PdfPTable anagr = new PdfPTable(1);
+                PreparedStatement prepCosto = null;
+            ResultSet repCosto = null;
+            Double prezzo = 0.0;
+             String sqlCosto = "select prezzo,dente  from prestazione_cliente where nome ='"+nomes+"' and cliente = '"+scelta+"'";
+            prepCosto=connStoDati.prepareStatement(sqlCosto);
+            repCosto=prepCosto.executeQuery();             
+           while(repCosto.next())
+            {   
+                dente = repCosto.getString("dente");
+                prezzo = Double.parseDouble(repCosto.getString("prezzo"))+prezzo;
+                System.out.println("ACCONTO TOTALE: "+accontos1);
+                
                
-               String cf = ClientiList.getObj().txt_codfisc.getText();
-               String rec = ClientiList.getObj().txt_recapito.getText();
-                PdfPCell cell112=new PdfPCell(new Paragraph("C.F: "+cf.toUpperCase()));
-               cell112.setBorderColor(new Color(255,255,255));
-               cell112.setHorizontalAlignment(Element.ALIGN_LEFT);
-                PdfPCell cell113=new PdfPCell(new Paragraph("Cell: "+rec));
-               cell113.setBorderColor(new Color(255,255,255));
-               cell113.setHorizontalAlignment(Element.ALIGN_LEFT);
-               Font fontSize_16 =  FontFactory.getFont(FontFactory.TIMES, 22f);
-               PdfPCell pazi = new PdfPCell(new Paragraph("Paziente",fontSize_16));
-               pazi.setIndent(-40);
              
-               pazi.setBorderColor(new Color(255,255,255));
-               pazi.setHorizontalAlignment(Element.ALIGN_LEFT);
-               PdfPCell cell111=new PdfPCell(new Paragraph(scelta));
-               cell111.setBorderColor(new Color(255,255,255));
-               cell111.setIndent(-40);
-               cell112.setIndent(-40);
-               cell113.setIndent(-40);
-               cell111.setHorizontalAlignment(Element.ALIGN_LEFT);
-              
-               anagr.addCell(pazi);
-                anagr.addCell(cell111);
-                anagr.addCell(cell112);
-                anagr.addCell(cell113);
-                d.add(anagr);
-            d.add(n);d.add(n);d.add(n);
-            PdfPTable ptableh = new PdfPTable(4);
-            
-               String nomeh="Prestazione";
+               
+           PreparedStatement prepStoDati = null;
+            ResultSet repStoDati = null;
+             String sqlDati = "select acconto,dente,dataora from storico_acc where dente = '"+dente+"' AND nome ='"+nomes+"' AND cliente ='"+scelta+"' group by dente,acconto,dataora";
+            prepStoDati=connStoDati.prepareStatement(sqlDati);
+            repStoDati=prepStoDati.executeQuery(); 
+            PdfPTable ptableh = new PdfPTable(3);
                String accontoh="Acconto";
                String datah="Data"; 
-               PdfPCell cell1h=new PdfPCell(new Paragraph(nomeh));
-               cell1h.setBorderColor(new Color(0,0,0));
-               cell1h.setBackgroundColor(new Color(255,255,255));
-               cell1h.setHorizontalAlignment(Element.ALIGN_CENTER);
+               
                PdfPCell cell2h=new PdfPCell(new Paragraph(accontoh)); 
                cell2h.setBorderColor(new Color(0,0,0));
                 cell2h.setBackgroundColor(new Color(255,255,255));
                 cell2h.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cellD.setBackgroundColor(new Color(255,255,255));
+                cellD.setHorizontalAlignment(Element.ALIGN_CENTER);
                 PdfPCell cell3h=new PdfPCell(new Paragraph(datah));
                cell3h.setBorderColor(new Color(0,0,0));
                 cell3h.setBackgroundColor(new Color(255,255,255));
                cell3h.setHorizontalAlignment(Element.ALIGN_CENTER);
                
-                ptableh.addCell(cell1h);
+                ptableh.addCell(cellD);
                 ptableh.addCell(cell2h);
                 ptableh.addCell(cell3h);
                 d.add(ptableh);
-                 
-            while(repSto.next()){
+               
+            while(repStoDati.next()){
+                
                PdfPTable ptable = new PdfPTable(3);
-               String nomes=repSto.getString("nome");
-               String accontos=repSto.getString("acconto");
-               String quandos=repSto.getString("dataora");
-               PdfPCell cell1=new PdfPCell(new Paragraph(nomes));
-               cell1.setBorderColor(new Color(0,0,0));
+               
+                accontos=repStoDati.getString("acconto");
+                accontoTot = Double.parseDouble(accontos)+accontoTot;
+               
+                
+               String quandos=repStoDati.getString("dataora");
+                PdfPCell cellDe=new PdfPCell(new Paragraph(dente));
                 PdfPCell cell2=new PdfPCell(new Paragraph("€"+accontos));
                PdfPCell cell3=new PdfPCell(new Paragraph(quandos)); 
                cell2.setBorderColor(new Color(0,0,0));
                 cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
-               
-                ptable.addCell(cell1);
+               cellD.setBorderColor(new Color(0,0,0));
+                cellD.setBackgroundColor(new Color(255,255,255));
+                cellD.setHorizontalAlignment(Element.ALIGN_CENTER);
+                ptable.addCell(cellDe);
                 ptable.addCell(cell2);
                 ptable.addCell(cell3);
                
                 d.add(ptable);
+                
             }
-                d.add(n);
-                d.add(n);
-            PdfPTable table1=new PdfPTable(1);
-            String resor=txt_resto.getText();
-            String t=txt_tot.getText();
-            String totaler=txt_tot.getText();
-            String accontor=txt_ant.getText();
-            PdfPCell cell3=new PdfPCell(new Paragraph("Totale: €"+totaler+ "\nAcconto: €"+accontor+"\nSaldo: €"+resor));
-            cell3.setBorder(0);
-            cell3.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            table1.addCell(cell3);
+            }
+            
+            
+              d.add(n);
+            Double resto = prezzo-accontoTot;
+               System.out.println("ACCONTOS++: "+accontoTot);
+               PdfPTable tableAcc=new PdfPTable(1);
+               PdfPCell cellAcc=new PdfPCell(new Paragraph("Costo: €"+prezzo+"\nAcconto: €"+accontoTot+"\nResto: €"+resto));
+                 cellAcc.setBorder(0);
+            cellAcc.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            tableAcc.addCell(cellAcc);
+            d.add(tableAcc);
+              d.add(n);
+
             Image image1 = Image.getInstance("/dentalgest/footer.png");
             image1.scaleToFit(720, 55);
-            d.add(table1);
+//          d.add(table1);
             image1.setAbsolutePosition(15, 10);
             image1.setAlignment(Image.ALIGN_CENTER);
             d.add(image1);
-           
             
-            d.close();
+           accontoTot=0.0;
+            d.newPage();
+            
+          // d.add(image);
+//            Image imagePage = Image.getInstance("/dentalgest/header.png");
+//            imagePage.scaleToFit(1400, 150);
+//            imagePage.setBorderColor(new Color(0,0,0));
+//            PdfPCell cellPage=new PdfPCell();
+//           // d.add(image);
+//            
+//            cellPage.setColspan(2);
+//            cellPage.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            cellPage.setPadding(8.0f);
+//            
+//           
+//            d.add(imagePage);
+           
+           }
+//            PdfPTable table1=new PdfPTable(1);
+//            String resor=txt_resto.getText();
+//            String t=txt_tot.getText();
+//            String totaler=txt_tot.getText();
+//            String accontor=txt_ant.getText();
+//            PdfPCell cell3=new PdfPCell(new Paragraph("Totale: €"+totaler+ "\nAcconto: €"+accontor+"\nSaldo: €"+resor));
+//            cell3.setBorder(0);
+//            cell3.setHorizontalAlignment(Element.ALIGN_RIGHT);
+//            table1.addCell(cell3);
+//                         d.add(table1);
+                        d.close(); 
+
+            //d.add(n);
+              
+             
+                
+            
             
             JOptionPane.showMessageDialog(null,"Storico creato correttamente");
          try{
         //Process exec = Runtime.getRuntime().exec("cmd.exe /C /dentalgest/utility/open.bat");
-        File file = new File("/dentalgest/reports/"+scelta+"/storico/storico-"+scelta+".pdf");
+        File file = new File("/dentalgest/reports/"+scelta+"/storico-"+scelta+"-"+adesso+".pdf");
     if (file.toString().endsWith(".pdf")) 
        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file);
    else {
@@ -1171,17 +1275,17 @@ Desktop.getDesktop().open(new File(folder));
             Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
         } 
         finally {
-
-            try{
-
-                repSto.close();
-                prepSto.close();
-                
-
-            }
-            catch(SQLException e){
-
-            }
+//
+//            try{
+//
+//                repSto.close();
+//                prepSto.close();
+//                
+//
+//            }
+//            catch(SQLException e){
+//
+//            }
         
         }
         
@@ -1268,6 +1372,7 @@ Desktop.getDesktop().open(new File(folder));
                     Double costo = Double.valueOf(txt_costo.getText());
                     int row = tb1.getSelectedRow();
                     String ant1 = tb1.getValueAt(row, 4).toString();
+                    String denteSel = tb1.getValueAt(row, 3).toString();
                     Double resto=0.00;
                     Double sum=0.00;
                     Double anti=0.00;
@@ -1296,13 +1401,14 @@ Desktop.getDesktop().open(new File(folder));
                     Update_table();
                    pstUpd.execute();
                    
-                   String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto) values(?,?,?,?)";
+                   String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto,dente) values(?,?,?,?,?)";
                    Connection furb = Db.db();
                    PreparedStatement psfurb = furb.prepareStatement(sqlfurb);
                    psfurb.setString(1, val1);
                    psfurb.setString(2, servizio);
                    psfurb.setString(3, dataora);
                    psfurb.setString(4, account);
+                   psfurb.setString(5, denteSel);
                    psfurb.execute();
                    Update_table();
                    PopulatePrest();

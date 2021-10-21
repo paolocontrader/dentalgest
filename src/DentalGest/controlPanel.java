@@ -89,7 +89,6 @@ String value=oper.userN;
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        lettera_txt = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btn9 = new javax.swing.JButton();
@@ -97,6 +96,7 @@ String value=oper.userN;
         jButton5 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        lettera_txt = new javax.swing.JTextField();
         sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -117,12 +117,6 @@ String value=oper.userN;
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, -1, -1));
-
-        lettera_txt.setEditable(false);
-        lettera_txt.setBorder(null);
-        lettera_txt.setEnabled(false);
-        lettera_txt.setOpaque(false);
-        getContentPane().add(lettera_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, -1, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
         jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -192,6 +186,12 @@ String value=oper.userN;
             }
         });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, -1, -1));
+
+        lettera_txt.setEditable(false);
+        lettera_txt.setBorder(null);
+        lettera_txt.setEnabled(false);
+        lettera_txt.setOpaque(false);
+        getContentPane().add(lettera_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 0, -1));
 
         sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/main_800x400.png"))); // NOI18N
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 410));

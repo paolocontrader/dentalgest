@@ -379,7 +379,7 @@ dente =0;
                     Refresh();
                     
                    
-                    Clients.getObj().PopulatePrest();
+                    Clients.getObj().prestazioni.addItem(servizio);
                 }
                 
             }

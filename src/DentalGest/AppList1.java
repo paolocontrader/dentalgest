@@ -356,7 +356,7 @@ public final  class AppList1 extends javax.swing.JFrame {
     private void tb1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb1MouseClicked
 
         int row = tb1.getSelectedRow();
-        txt_n.setText(tb1.getValueAt(row, 0).toString());
+        txt_n.setText(tb1.getValueAt(row, 1).toString());
         String t = txt_n.getText();
 
         System.out.println("App cliente: "+txt_n.getText());
