@@ -515,7 +515,7 @@ dente =0;
     private javax.swing.JButton bt_elim1;
     private javax.swing.JButton btn_mod;
     private javax.swing.JCheckBox checkdente;
-    private javax.swing.JComboBox combo_ser;
+    public javax.swing.JComboBox combo_ser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
