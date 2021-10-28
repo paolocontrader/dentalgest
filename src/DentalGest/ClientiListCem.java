@@ -66,6 +66,8 @@ public final  class ClientiListCem extends javax.swing.JFrame {
      ResultSet rsd = null;
      ResultSet rsPop = null;
      ResultSet rscheck = null;
+     String add3 = null;
+     Connection connUpdStato = null;
     /**
      * Creates new form Clients
      */
@@ -83,6 +85,7 @@ public final  class ClientiListCem extends javax.swing.JFrame {
          connDelApp = Db.db();
          connDelPrest = Db.db();
          connDelCli = Db.db();
+         connUpdStato = Db.db();
     PopulateData();
     AnimationStation();
             
@@ -174,10 +177,10 @@ public final  class ClientiListCem extends javax.swing.JFrame {
         cogn = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         calendar = new com.toedter.calendar.JDateChooser();
-        jLabel13 = new javax.swing.JLabel();
-        time_txt = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        combo_stato = new javax.swing.JComboBox<>();
+        jButton6 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -208,7 +211,7 @@ public final  class ClientiListCem extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tb1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 780, 210));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 770, 280));
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_cerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_lente_ingrandimento_cerca_40x40.png"))); // NOI18N
@@ -236,7 +239,7 @@ public final  class ClientiListCem extends javax.swing.JFrame {
                 jLabel11MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 4, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, -1, -1));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -244,7 +247,7 @@ public final  class ClientiListCem extends javax.swing.JFrame {
                 jLabel12MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(796, 4, -1, -1));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 0, -1, -1));
 
         txt_nominativo.setEditable(false);
         txt_nominativo.setBorder(null);
@@ -268,13 +271,8 @@ public final  class ClientiListCem extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Data: ");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
-        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 410, 140, -1));
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel13.setText("Ora: (HH:MM)");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, 100, -1));
-        getContentPane().add(time_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 410, 100, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 480, -1, -1));
+        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 480, 140, -1));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/nuovo_150x40.png"))); // NOI18N
         jButton5.setText("Nuovo appuntamento");
@@ -286,7 +284,7 @@ public final  class ClientiListCem extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 410, 90, 30));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 470, 90, 30));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
         jButton2.setToolTipText("Selezionare gli appuntamenti da eliminare");
@@ -298,12 +296,26 @@ public final  class ClientiListCem extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 170, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 170, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/window_anagraficapazienti_850x480.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 850, 500));
+        combo_stato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Provvisoria", "Definitiva" }));
+        combo_stato.setSelectedIndex(-1);
+        combo_stato.setToolTipText("");
+        getContentPane().add(combo_stato, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 480, 130, -1));
 
-        setSize(new java.awt.Dimension(848, 480));
+        jButton6.setText("Scelta stato");
+        jButton6.setToolTipText("Selezionare gli appuntamenti da modificare");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 480, 160, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/cementazione_830x550_window_1.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 550));
+
+        setSize(new java.awt.Dimension(827, 547));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -323,9 +335,10 @@ public final  class ClientiListCem extends javax.swing.JFrame {
                    
                     String add2 = rsclick.getString("cognome");
                     
+                     add3 = rsclick.getString("datanascita");
                     
                    msg1 = add1+" "+add2;
-                   System.out.println("Nome da passare: "+msg1);
+                   System.out.println("Nome da passare: "+msg1+" "+add3);
                   
                     
                     
@@ -374,29 +387,30 @@ public final  class ClientiListCem extends javax.swing.JFrame {
         String data = dateFormat.format(newDate);
         //String cerca = calendar.getDate().toString();
         System.out.println("Data da cercare: "+data);
-        String ora = time_txt.getText();
+       
         int row = tb1.getSelectedRow();
         String cliente = tb1.getValueAt(row, 0)
                             .toString()+" "+tb1.getValueAt(row, 1)
                             .toString();  
-        String stato = "Da definire";
+        String stato = combo_stato.getSelectedItem().toString();
+        String datanascita = tb1.getValueAt(row, 3).toString();
        
-       
+       System.out.println("data di nascita: "+datanascita );
         System.out.println("Cliens cliente: "+cliente);
         int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiugere la seguente cementazione?", "Aggiungi cementazione", JOptionPane.YES_NO_OPTION);
         if (x == 0) {
             try {
 
-                String sql = "insert into cementazione (cliente,tipologia,data,ora) values (?,?,?,?)";
+                String sql = "insert into cementazione (cliente,datanascita,tipologia,data) values (?,?,?,?)";
                 PreparedStatement pst = conn.prepareStatement(sql);
 
                 pst.setString(1, cliente);
-                pst.setString(2, stato);
-                pst.setString(3,  data);
-                pst.setString(4, ora);
+                pst.setString(2, datanascita);
+                pst.setString(3,  stato);
+                pst.setString(4, data);
 
                 pst.execute();
-                System.out.println("VALORI INSERIMENT PAZIENTE: " + cliente + " | " + stato + " | " + data + " | " + ora+ "");
+                System.out.println("VALORI INSERIMENT PAZIENTE: " + cliente + " | " + stato + " | " + data + " | " + datanascita+ "");
 
                 JOptionPane.showMessageDialog(null, "Cementazione aggiunta correttamente");
                  Cenentazione.getObj().PopulateData();
@@ -407,7 +421,7 @@ public final  class ClientiListCem extends javax.swing.JFrame {
 
                 calendar.setDate(null);
                 txt_cerca.setText("");
-                time_txt.setText("");
+                
                 setVisible(false);
 
             } catch (SQLException ex) {
@@ -455,6 +469,50 @@ public final  class ClientiListCem extends javax.swing.JFrame {
             PopulateData(); // Reload Table
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try{
+
+            String stato = combo_stato.getSelectedItem().toString();
+            if(stato.isEmpty()){JOptionPane.showMessageDialog(null, "Nessuno Stato selezionato");}
+            else{
+                int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiornare il seguente stato?","Aggiorna Stato",JOptionPane.YES_NO_OPTION);
+                if(x==0){
+                    int row = tb1.getSelectedRow();
+
+                    String cliente = tb1.getValueAt(row, 0).toString();
+                    String data = tb1.getValueAt(row, 3).toString();
+                    String datanascita = tb1.getValueAt(row, 1).toString();
+                    System.out.println("data "+data);
+                    System.out.println("datanascita "+datanascita);
+                    System.out.println("stato "+stato);
+                    System.out.print("qui arrivo");
+                    String sql="update cementazione set tipologia='"+stato+"' where cliente='"+cliente+"' and data='"+data+"' and datanascita='"+datanascita+"'";
+                    PreparedStatement pstUpdStato = connUpdStato.prepareStatement(sql);
+                    pstUpdStato.execute();
+                    System.out.print("anche qui arrivo");
+                    //tb1.removeColumn(tb1.getColumnModel().getColumn(1));
+                    //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
+
+                    //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
+
+                    JOptionPane.showMessageDialog(null,"Stato modificato correttamente per la cementazione di "+cliente+" del "+data );
+                    PopulateData();
+
+                    //AppList.getObj().PopulateDataAll();
+
+                }}
+
+                PopulateData(); // Reload Table
+                
+                combo_stato.setSelectedIndex(-1);
+            }
+            catch(SQLException | HeadlessException e)
+            {
+                JOptionPane.showMessageDialog(null,"Errore modifica stato");
+            }
+            // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     
     public  void PopulateData() {
@@ -565,7 +623,7 @@ public final  class ClientiListCem extends javax.swing.JFrame {
             
           tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
             tb1.getColumnModel().getColumn(0).setPreferredWidth(230);
-            tb1.getColumnModel().getColumn(1).setPreferredWidth(230);
+            tb1.getColumnModel().getColumn(1).setPreferredWidth(225);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(160);
             tb1.getColumnModel().getColumn(3).setPreferredWidth(160);
             
@@ -2831,18 +2889,18 @@ void deleteDirectory(File file) throws IOException {
     private javax.swing.JButton bt_cerca;
     private com.toedter.calendar.JDateChooser calendar;
     private javax.swing.JTextField cogn;
+    private javax.swing.JComboBox<String> combo_stato;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private com.toedter.calendar.JDateChooserBeanInfo jDateChooserBeanInfo1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nom;
     private javax.swing.JTable tb1;
-    private javax.swing.JTextField time_txt;
     private javax.swing.JTextField txt_cerca;
     public javax.swing.JTextField txt_nominativo;
     // End of variables declaration//GEN-END:variables

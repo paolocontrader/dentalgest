@@ -226,7 +226,7 @@ public final class Clients extends javax.swing.JFrame {
 
     }
     
-     void Update_table() {
+    void Update_table() {
     
         
          try{
@@ -235,6 +235,70 @@ public final class Clients extends javax.swing.JFrame {
           comb = n+" "+c;
         System.out.println("Nome da List: "+n+" "+c);
         combo_cliente.setText(comb);
+        String sql ="select * from prestazione_cliente where cliente='"+comb+"'";
+       
+        pst=conn.prepareStatement(sql);
+        rs=pst.executeQuery();
+        
+        DefaultTableModel model = (DefaultTableModel)tb1.getModel();
+        tb1.setDefaultEditor(Object.class, null);
+              
+
+
+        // get the selected row index
+       int selectedRowIndex = tb1.getSelectedRow();
+       DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+       decimalFormat.setRoundingMode(RoundingMode.FLOOR);
+
+        // set the selected row data into jtextfields
+//       ric_serv.setText(model.getValueAt(selectedRowIndex, 2).toString());
+       /*txt_servizio.setText(model.getValueAt(selectedRowIndex, 1).toString());
+       txt_costo.setText(model.getValueAt(selectedRowIndex, 3).toString());
+       txt_iva.setText(model.getValueAt(selectedRowIndex, 4).toString());
+       txt_anticipo.setText(model.getValueAt(selectedRowIndex, 5).toString());
+       */tb1.setModel(DbUtils.resultSetToTableModel(rs));
+            Double resu=0.0;
+            Double accu=0.0;
+            Double ttt=0.0;
+            //tb1.removeColumn(tb1.getColumnModel().getColumn(2));
+       
+            for(int i=0;i < tb1.getRowCount();i++){
+                
+                accu =  accu + Double.parseDouble(tb1.getValueAt(i, 3).toString());
+               
+                ttt=ttt+Double.parseDouble(tb1.getValueAt(i,5).toString());
+                resu = ttt - accu;
+            }
+           
+           
+            txt_resto.setText(decimalFormat.format(resu));
+            txt_tot.setText(decimalFormat.format(ttt));
+        txt_ant.setText(decimalFormat.format(accu));
+
+       
+    }
+    catch(SQLException | NumberFormatException e){
+    JOptionPane.showMessageDialog(null, e);
+    }
+    finally {
+            
+            try{
+                rs.close();
+                pst.close();
+                
+            }
+            catch(SQLException e){
+                
+            }
+        }
+    }
+    
+     void Update_table1() {
+    
+        
+         try{
+        
+          comb = combo_cliente.getText();
         String sql ="select * from prestazione_cliente where cliente='"+comb+"'";
        
         pst=conn.prepareStatement(sql);

@@ -176,8 +176,6 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
         calendar = new com.toedter.calendar.JDateChooser();
         jButton5 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        txtpaz = new javax.swing.JComboBox<>();
-        Tipologia = new java.awt.Label();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -220,7 +218,7 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
                 bt_cercaActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 75, 47));
+        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 75, 47));
 
         txt_cerca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         txt_cerca.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -268,8 +266,8 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Data: ");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
-        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 410, 140, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, -1, -1));
+        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, 140, -1));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/nuovo_150x40.png"))); // NOI18N
         jButton5.setText("Nuovo appuntamento");
@@ -281,7 +279,7 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, 90, 30));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 400, 90, 30));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
         jButton2.setToolTipText("Selezionare gli appuntamenti da eliminare");
@@ -294,24 +292,6 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 170, -1, -1));
-
-        txtpaz.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Provvisoria", "Definitiva" }));
-        txtpaz.setSelectedIndex(-1);
-        txtpaz.setToolTipText("");
-        txtpaz.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                txtpazPopupMenuWillBecomeVisible(evt);
-            }
-        });
-        getContentPane().add(txtpaz, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, 160, -1));
-
-        Tipologia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Tipologia.setText("Tipologia:");
-        getContentPane().add(Tipologia, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 410, 80, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/window_anagraficapazienti_850x480.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 850, 500));
@@ -387,12 +367,12 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
         String data = dateFormat.format(newDate);
         //String cerca = calendar.getDate().toString();
         System.out.println("Data da cercare: "+data);
-       String datanew = "da definire";
         int row = tb1.getSelectedRow();
         String cliente = tb1.getValueAt(row, 0)
                             .toString()+" "+tb1.getValueAt(row, 1)
                             .toString();  
-        String stato = txtpaz.getSelectedItem().toString();
+        String datanascita = tb1.getValueAt(row, 3).toString();
+        String intervento = "Da definire";
        
        
         System.out.println("Cliens cliente: "+cliente);
@@ -400,19 +380,19 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
         if (x == 0) {
             try {
 
-                String sql = "insert into richiamo (cliente,tipologia,dataold,datanew) values (?,?,?,?)";
+                String sql = "insert into richiami (cliente,datanascita,intervento,data) values (?,?,?,?)";
                 PreparedStatement pst = conn.prepareStatement(sql);
 
                 pst.setString(1, cliente);
-                pst.setString(2, stato);
-                pst.setString(3,  data);
-                pst.setString(4, datanew);
+                pst.setString(2, datanascita);
+                pst.setString(3,  intervento);
+                pst.setString(4, data);
 
                 pst.execute();
-                System.out.println("VALORI INSERIMENT PAZIENTE: " + cliente + " | " + stato + " | " + data + " | " + datanew+ "");
+                System.out.println("VALORI INSERIMENT PAZIENTE: " + cliente + " | " + intervento + " | " + data + " | " + datanascita+ "");
 
                 JOptionPane.showMessageDialog(null, "Richiamo aggiunto correttamente");
-                 Cenentazione.getObj().PopulateData();
+                 Richiami.getObj().PopulateData();
                 PopulateData();
 
                
@@ -422,6 +402,7 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
                 txt_cerca.setText("");
                
                 setVisible(false);
+              
 
             } catch (SQLException ex) {
                 Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
@@ -468,32 +449,6 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
             PopulateData(); // Reload Table
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void txtpazPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_txtpazPopupMenuWillBecomeVisible
-        // TODO add your handling code here:
-         txtpaz.removeAllItems();
-          PreparedStatement psPrest =null;
-        String sql="select * from prestazioni ORDER BY nome  ASC ";
-        try {
-              psPrest = connRef.prepareStatement(sql);
-             ResultSet rsPrest = psPrest.executeQuery();
-            while(rsPrest.next()){
-            txtpaz.addItem(rsPrest.getString("nome"));
-            
-        }
-        } catch (SQLException ex) {
-            Logger.getLogger(Prestazioni.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
-            try {
-                psPrest.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Prestazioni.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        }
-    }//GEN-LAST:event_txtpazPopupMenuWillBecomeVisible
 
     
     public  void PopulateData() {
@@ -4915,7 +4870,6 @@ void deleteDirectory(File file) throws IOException {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Label Tipologia;
     private javax.swing.JButton bt_cerca;
     private com.toedter.calendar.JDateChooser calendar;
     private javax.swing.JTextField cogn;
@@ -4931,6 +4885,5 @@ void deleteDirectory(File file) throws IOException {
     private javax.swing.JTable tb1;
     private javax.swing.JTextField txt_cerca;
     public javax.swing.JTextField txt_nominativo;
-    private javax.swing.JComboBox<String> txtpaz;
     // End of variables declaration//GEN-END:variables
 }

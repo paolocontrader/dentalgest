@@ -51,6 +51,7 @@ import net.proteanit.sql.DbUtils;
  * @author Paolo
  */
 public final  class Cenentazione extends javax.swing.JFrame {
+    Connection connD = null;
     Connection connd=null;
     Connection conna=null;
     Connection conne=null;
@@ -91,6 +92,7 @@ public final  class Cenentazione extends javax.swing.JFrame {
      ResultSet rsclick = null;
     PreparedStatement psts=null;
     PreparedStatement pss = null;
+    String t = null;
     /**
      * Creates new form Clients
      */
@@ -113,6 +115,7 @@ public final  class Cenentazione extends javax.swing.JFrame {
          connStampa=Db.db();
          connUpdStato = Db.db();
          connDel = Db.db();
+         connD = Db.db();
     PopulateData();
     AnimationStation();
             
@@ -350,7 +353,7 @@ public final  class Cenentazione extends javax.swing.JFrame {
        
         int i = 0;
          int j=0; 
-        String sql = "SELECT * FROM  cementazione ORDER BY data,ora ASC";
+        String sql = "SELECT * FROM  cementazione ORDER BY data ASC";
                
 
        try{
@@ -385,7 +388,6 @@ public final  class Cenentazione extends javax.swing.JFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         tb1 = new javax.swing.JTable();
-        bt_cerca = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         Tipologia = new java.awt.Label();
@@ -396,12 +398,17 @@ public final  class Cenentazione extends javax.swing.JFrame {
         combo_stato1 = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
         txtpaz = new javax.swing.JComboBox<>();
+        Tipologia1 = new java.awt.Label();
+        txtcerca = new javax.swing.JTextField();
+        bt_cerca1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         label3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        setMaximumSize(new java.awt.Dimension(2555, 1856));
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -427,26 +434,7 @@ public final  class Cenentazione extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tb1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 780, 330));
-
-        bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        bt_cerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_lente_ingrandimento_cerca_40x40.png"))); // NOI18N
-        bt_cerca.setBorder(null);
-        bt_cerca.setBorderPainted(false);
-        bt_cerca.setContentAreaFilled(false);
-        bt_cerca.setDefaultCapable(false);
-        bt_cerca.setFocusPainted(false);
-        bt_cerca.setFocusable(false);
-        bt_cerca.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        bt_cerca.setRequestFocusEnabled(false);
-        bt_cerca.setRolloverEnabled(false);
-        bt_cerca.setVerifyInputWhenFocusTarget(false);
-        bt_cerca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_cercaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 40, 40));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 780, 260));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -465,15 +453,15 @@ public final  class Cenentazione extends javax.swing.JFrame {
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, -1, -1));
 
         Tipologia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Tipologia.setText("Tipologia:");
-        getContentPane().add(Tipologia, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 150, 80, -1));
+        Tipologia.setText("Paziente:");
+        getContentPane().add(Tipologia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 80, -1));
 
         txt_n.setEditable(false);
         txt_n.setBorder(null);
         txt_n.setEnabled(false);
         txt_n.setFocusable(false);
         txt_n.setOpaque(false);
-        getContentPane().add(txt_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+        getContentPane().add(txt_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 0));
 
         jButton6.setText("Modifica stato");
         jButton6.setToolTipText("Selezionare gli appuntamenti da modificare");
@@ -482,14 +470,14 @@ public final  class Cenentazione extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 160, -1));
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 480, 160, -1));
 
         combo_stato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Provvisoria", "Definitiva" }));
         combo_stato.setSelectedIndex(-1);
         combo_stato.setToolTipText("");
-        getContentPane().add(combo_stato, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 540, 130, -1));
+        getContentPane().add(combo_stato, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 480, 130, -1));
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/nuovo_150x40.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/aggiungi_150x40.png"))); // NOI18N
         jButton5.setText("Nuovo appuntamento");
         jButton5.setBorder(null);
         jButton5.setBorderPainted(false);
@@ -499,7 +487,7 @@ public final  class Cenentazione extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 140, 90, 40));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 470, 120, 40));
 
         combo_stato1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Provvisoria", "Definitiva" }));
         combo_stato1.setSelectedIndex(-1);
@@ -521,13 +509,64 @@ public final  class Cenentazione extends javax.swing.JFrame {
         txtpaz.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Provvisoria", "Definitiva" }));
         txtpaz.setSelectedIndex(-1);
         txtpaz.setToolTipText("");
-        getContentPane().add(txtpaz, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 160, -1));
+        txtpaz.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                txtpazPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
+        txtpaz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtpazActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtpaz, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, 160, -1));
+
+        Tipologia1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Tipologia1.setText("Tipologia:");
+        getContentPane().add(Tipologia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 80, -1));
+        getContentPane().add(txtcerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 200, -1));
+
+        bt_cerca1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        bt_cerca1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_lente_ingrandimento_cerca_40x40.png"))); // NOI18N
+        bt_cerca1.setBorder(null);
+        bt_cerca1.setBorderPainted(false);
+        bt_cerca1.setContentAreaFilled(false);
+        bt_cerca1.setDefaultCapable(false);
+        bt_cerca1.setFocusPainted(false);
+        bt_cerca1.setFocusable(false);
+        bt_cerca1.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        bt_cerca1.setRequestFocusEnabled(false);
+        bt_cerca1.setRolloverEnabled(false);
+        bt_cerca1.setVerifyInputWhenFocusTarget(false);
+        bt_cerca1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_cerca1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(bt_cerca1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setDefaultCapable(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 140, -1, -1));
 
         label3.setBackground(new java.awt.Color(255, 255, 255));
-        label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/appuntamenti_830_670.png"))); // NOI18N
-        getContentPane().add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 670));
+        label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/cementazione_830x550_window_1.png"))); // NOI18N
+        label3.setMaximumSize(new java.awt.Dimension(3000, 2789));
+        getContentPane().add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -1, -1, 550));
 
-        setSize(new java.awt.Dimension(829, 669));
+        setSize(new java.awt.Dimension(828, 548));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -547,8 +586,8 @@ public final  class Cenentazione extends javax.swing.JFrame {
 
         int row = tb1.getSelectedRow();
         
-        String t = tb1.getValueAt(row, 1).toString();
-
+         txt_n.setText(tb1.getValueAt(row, 0).toString());
+         t= txt_n.getText().toUpperCase();
         Clients.getObj().combo_cliente.setText(t);
 
     }//GEN-LAST:event_tb1MouseClicked
@@ -564,14 +603,13 @@ public final  class Cenentazione extends javax.swing.JFrame {
                     int row = tb1.getSelectedRow();
                         
                             String cliente = tb1.getValueAt(row, 0).toString();
-                            String data = tb1.getValueAt(row, 2).toString();
-                            String ora =tb1.getValueAt(row, 3).toString();
-
+                            String data = tb1.getValueAt(row, 3).toString();
+                            String datanascita = tb1.getValueAt(row, 1).toString();
                             System.out.println("data "+data);
-                            System.out.println("ora "+ora);
+                            System.out.println("datanascita "+datanascita);
                             System.out.println("stato "+stato);
                             System.out.print("qui arrivo");
-                            String sql="update cementazione set tipologia='"+stato+"' where cliente='"+cliente+"' and data='"+data+"' and ora='"+ora+"'";
+                            String sql="update cementazione set tipologia='"+stato+"' where cliente='"+cliente+"' and data='"+data+"' and datanascita='"+datanascita+"'";
                             PreparedStatement pstUpdStato = connUpdStato.prepareStatement(sql);
                             pstUpdStato.execute();
                             System.out.print("anche qui arrivo");
@@ -579,8 +617,8 @@ public final  class Cenentazione extends javax.swing.JFrame {
                             //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
 
                             //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
-
-                            JOptionPane.showMessageDialog(null,"Stato modificato correttamente per la cementazione di "+cliente+" del "+data+" delle ore "+ora );
+                            
+                            JOptionPane.showMessageDialog(null,"Stato modificato correttamente per la cementazione di "+cliente+" del "+data );
                             PopulateData();
                            
                             //AppList.getObj().PopulateDataAll();
@@ -590,6 +628,7 @@ public final  class Cenentazione extends javax.swing.JFrame {
                     }}
                 
                 PopulateData(); // Reload Table
+                txtcerca.setText("");
                 combo_stato.setSelectedIndex(-1);
             }
             catch(SQLException | HeadlessException e)
@@ -604,11 +643,6 @@ public final  class Cenentazione extends javax.swing.JFrame {
         ClientiListCem.getObj().setVisible(true);
 
     }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void bt_cercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cercaActionPerformed
-        // TODO add your handling code here:
-        Search();
-    }//GEN-LAST:event_bt_cercaActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -626,12 +660,12 @@ public final  class Cenentazione extends javax.swing.JFrame {
 
            int i = tb1.getSelectedRow();
 
-                 String data = tb1.getValueAt(i, 2).toString();
-                    String stato = tb1.getValueAt(i, 1).toString();
+                 String data = tb1.getValueAt(i, 3).toString();
+                   
                     String cliente = tb1.getValueAt(i, 0).toString();
-                    String ora = tb1.getValueAt(i, 3).toString();
-
-                    DeleteData(cliente,stato,data,ora);
+                    String tipologia = tb1.getValueAt(i, 2).toString();
+                    String datanascita = tb1.getValueAt(i, 1).toString();
+                    DeleteData(cliente,datanascita,tipologia,data);
                     Cenentazione.getObj().PopulateData();
                 }
 
@@ -643,6 +677,39 @@ public final  class Cenentazione extends javax.swing.JFrame {
             PopulateData(); // Reload Table
         
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void txtpazActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpazActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtpazActionPerformed
+
+    private void bt_cerca1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cerca1ActionPerformed
+        // TODO add your handling code here:
+        SearchPaz();
+    }//GEN-LAST:event_bt_cerca1ActionPerformed
+
+    private void txtpazPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_txtpazPopupMenuWillBecomeInvisible
+        // TODO add your handling code here:
+         Search();
+    }//GEN-LAST:event_txtpazPopupMenuWillBecomeInvisible
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+
+        if(t.equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Selezionare paziente");
+        }
+        else
+        {
+            
+            Clients.getObj().Update_table1();
+      Clients.getObj().PopulatePrest();
+      Clients.getObj().setVisible(true);
+
+           
+        }
+ txt_n.setText("");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     
     public  void PopulateData() {
@@ -708,11 +775,13 @@ public final  class Cenentazione extends javax.swing.JFrame {
 
          model.addColumn("Cliente");
         
+          model.addColumn("Data di Nascita");
+          
         model.addColumn("Cementazione");
 
         model.addColumn("Data");
         
-        model.addColumn("Ora");
+        
         
       
 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
@@ -724,7 +793,7 @@ Date date=new Date(millis);
            String adesso = dtf.format(now);
    System.out.println("Oggi: "+adesso);      
      String terminato = "Terminato";
-    String sql = "SELECT * FROM  cementazione ";
+    String sql = "SELECT * FROM  cementazione where data = '"+adesso+"' ";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -743,11 +812,13 @@ Date date=new Date(millis);
 
                  model.setValueAt(rec.getString("cliente"), row, 1);
                 
-                model.setValueAt(rec.getString("tipologia"), row, 2);
+                  model.setValueAt(rec.getString("datanascita"), row, 2);
+                 
+                model.setValueAt(rec.getString("tipologia"), row, 3);
 
-                model.setValueAt(rec.getString("data"), row, 3);
+                model.setValueAt(rec.getString("data"), row, 4);
                 
-                 model.setValueAt(rec.getString("ora"), row, 4);
+                
 
                row++;
 
@@ -778,12 +849,12 @@ Date date=new Date(millis);
 
     }
     
-     void DeleteData(String cliente,String stato,String data,String ora) {
+     void DeleteData(String cliente,String datanascita,String stato,String data) {
 
-        String sql = "DELETE FROM cementazione  WHERE cliente = '" + cliente + "' AND tipologia = '" + stato + "' AND data = '" + data + "' AND ora = '" + ora + "'";
+        String sql = "DELETE FROM cementazione  WHERE cliente = '" + cliente + "' AND datanascita = '"+datanascita+ "' AND tipologia = '" + stato + "' AND data = '" + data + "'";
         try {
             Statement pstDel = connDel.createStatement();
-            System.out.println("QUERY DI ELIMINAZIONE: "+cliente+" "+data+" "+ora+" "+stato);
+            System.out.println("QUERY DI ELIMINAZIONE: "+cliente+" "+data+" "+stato+" "+datanascita);
             pstDel.execute(sql);
 
         } catch (SQLException e) {
@@ -856,11 +927,13 @@ Date date=new Date(millis);
         
          model.addColumn("Cliente");
 
+          model.addColumn("Data di nascita");
+         
         model.addColumn("Cementazione");
 
         model.addColumn("Data");
 
-        model.addColumn("Ora");
+       
    
 DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
   String x = txtpaz.getSelectedItem().toString();
@@ -869,7 +942,7 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
      
     
           
-    String sql = "SELECT * FROM cementazione WHERE tipologia = ?  ORDER BY data,ora ASC";
+    String sql = "SELECT * FROM cementazione WHERE tipologia = ?  order by data asc";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -890,16 +963,156 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 model.setValueAt(false, row, 0); // Checkbox
 
                  model.setValueAt(rec.getString("cliente"), row, 1);
+                 
+                 model.setValueAt(rec.getString("datanascita"), row, 2);
                 
-                model.setValueAt(rec.getString("tipologia"), row, 2);
+                model.setValueAt(rec.getString("tipologia"), row, 3);
 
-                model.setValueAt(rec.getString("data"), row, 3);
+                model.setValueAt(rec.getString("data"), row, 4);
                 
-                 model.setValueAt(rec.getString("ora"), row, 4);
+                 
 
                row++;
 
                 
+            }
+                   System.out.println("Numero righe tabella appuntamento: "+row);
+                   
+     
+            
+                    tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
+            tb1.getColumnModel().getColumn(0).setPreferredWidth(350);
+             tb1.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tb1.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(150);
+ 
+        } catch (SQLException e) {
+
+// TODO Auto-generated catch block
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            PopulateData();
+
+
+// TODO Auto-generated catch block
+
+        }
+      
+
+    }
+    
+     private  void SearchPaz() {
+
+// Clear table
+        tb1.setModel(new DefaultTableModel());
+         
+// Model for Table
+        DefaultTableModel model = new DefaultTableModel() {
+
+            @Override
+            public Class<?> getColumnClass(int column) {
+
+                switch (column) {
+
+                    case 0:
+
+                        return Boolean.class;
+
+                    case 1:
+
+                        return String.class;
+
+                    case 2:
+
+                        return String.class;
+
+                    case 3:
+
+                        return String.class;
+
+                    case 4:
+
+                        return String.class;
+
+                    case 5:
+
+                        return String.class;
+
+                    case 6:
+
+                        return String.class;
+                        
+                    case 7:
+
+                        return String.class;
+
+                    default:
+
+                        return String.class;
+
+                }
+
+            }
+
+        };
+
+        tb1.setModel(model);
+        
+// Add Column
+        model.addColumn("");
+        
+         model.addColumn("Cliente");
+         
+         model.addColumn("Data di nascita");
+
+        model.addColumn("Cementazione");
+
+        model.addColumn("Data");
+
+   
+DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+  //String operator = operacombo.getSelectedItem().toString();
+     String cerca = txtcerca.getText();
+     String datanascita = null;
+    
+          
+    String sql = "SELECT * FROM cementazione WHERE cliente like ?   ORDER BY datanascita ASC";
+        try {
+
+                 
+                
+            psts = conn.prepareStatement(sql);
+            psts.setString(1, "%"+ cerca + "%");
+             
+            //psts.setString(2, operator);
+           
+
+            ResultSet rec = psts.executeQuery();
+                
+                
+            int row = 0;
+            
+             
+                while ((rec != null) && (rec.next()))
+                        { 
+                   
+                model.addRow(new Object[0]);
+
+                model.setValueAt(false, row, 0); // Checkbox
+                String cliente = rec.getString("cliente");
+                 model.setValueAt(cliente, row, 1);
+               
+                 datanascita = rec.getString("datanascita");
+                      System.out.println("Data di nascita: "+datanascita);
+                 
+                 
+               model.setValueAt(rec.getString("datanascita"), row, 2);
+                model.setValueAt(rec.getString("tipologia"), row, 3);
+                
+                model.setValueAt(rec.getString("data"), row, 4);
+                
+               row++;
+
+                             
             }
                    System.out.println("Numero righe tabella appuntamento: "+row);
                    
@@ -5044,7 +5257,6 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         
         //</editor-fold>
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new Cenentazione().setVisible(true);
@@ -5053,9 +5265,11 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Label Tipologia;
-    private javax.swing.JButton bt_cerca;
+    private java.awt.Label Tipologia1;
+    private javax.swing.JButton bt_cerca1;
     private javax.swing.JComboBox<String> combo_stato;
     private javax.swing.JComboBox<String> combo_stato1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -5065,6 +5279,7 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private javax.swing.JLabel label3;
     private javax.swing.JTable tb1;
     private javax.swing.JTextField txt_n;
+    private javax.swing.JTextField txtcerca;
     private javax.swing.JComboBox<String> txtpaz;
     // End of variables declaration//GEN-END:variables
 }

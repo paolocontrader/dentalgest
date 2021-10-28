@@ -81,6 +81,9 @@ public final  class Richiami extends javax.swing.JFrame {
     PreparedStatement pstr=null;
     PreparedStatement psclick = null;
     PreparedStatement psStampa= null;
+    Connection connPrest = null;
+    PreparedStatement psPrest = null;
+    ResultSet rsPrest = null;
         Statement pstd=null;
 
     PreparedStatement prep=null;
@@ -91,6 +94,7 @@ public final  class Richiami extends javax.swing.JFrame {
      ResultSet rsclick = null;
     PreparedStatement psts=null;
     PreparedStatement pss = null;
+    String t = null;
     /**
      * Creates new form Clients
      */
@@ -113,6 +117,7 @@ public final  class Richiami extends javax.swing.JFrame {
          connStampa=Db.db();
          connUpdStato = Db.db();
          connDel = Db.db();
+         connPrest = Db.db();
     PopulateData();
     AnimationStation();
             
@@ -385,16 +390,18 @@ public final  class Richiami extends javax.swing.JFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         tb1 = new javax.swing.JTable();
-        bt_cerca = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        Tipologia = new java.awt.Label();
         txt_n = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        txtpaz = new javax.swing.JComboBox<>();
         calendar = new com.toedter.calendar.JDateChooser();
+        jLabel3 = new javax.swing.JLabel();
+        bt_cerca = new javax.swing.JButton();
+        calendar1 = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         label3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -426,7 +433,59 @@ public final  class Richiami extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tb1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 780, 330));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 780, 330));
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, -1, -1));
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, -1, -1));
+
+        txt_n.setEditable(false);
+        txt_n.setBorder(null);
+        txt_n.setEnabled(false);
+        txt_n.setFocusable(false);
+        txt_n.setOpaque(false);
+        getContentPane().add(txt_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/nuovo_150x40.png"))); // NOI18N
+        jButton5.setText("Nuovo appuntamento");
+        jButton5.setBorder(null);
+        jButton5.setBorderPainted(false);
+        jButton5.setContentAreaFilled(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 90, 40));
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
+        jButton3.setToolTipText("Selezionare gli appuntamenti da eliminare");
+        jButton3.setBorder(null);
+        jButton3.setBorderPainted(false);
+        jButton3.setFocusPainted(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 170, -1, -1));
+        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 140, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Data: ");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_cerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_lente_ingrandimento_cerca_40x40.png"))); // NOI18N
@@ -445,73 +504,33 @@ public final  class Richiami extends javax.swing.JFrame {
                 bt_cercaActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 40, 40));
+        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 40, 40));
+        getContentPane().add(calendar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 520, 140, -1));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel11MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, -1, -1));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Data di richiamo: ");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, -1, -1));
 
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
-        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel12MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, -1, -1));
-
-        Tipologia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Tipologia.setText("Tipologia:");
-        getContentPane().add(Tipologia, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 150, 80, -1));
-
-        txt_n.setEditable(false);
-        txt_n.setBorder(null);
-        txt_n.setEnabled(false);
-        txt_n.setFocusable(false);
-        txt_n.setOpaque(false);
-        getContentPane().add(txt_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
-
-        jButton6.setText("Modifica stato");
-        jButton6.setToolTipText("Selezionare gli appuntamenti da modificare");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/inserisci_150x40.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 160, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 510, 150, -1));
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/nuovo_150x40.png"))); // NOI18N
-        jButton5.setText("Nuovo appuntamento");
-        jButton5.setBorder(null);
-        jButton5.setBorderPainted(false);
-        jButton5.setContentAreaFilled(false);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setDefaultCapable(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 140, 90, 40));
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
-        jButton3.setToolTipText("Selezionare gli appuntamenti da eliminare");
-        jButton3.setBorder(null);
-        jButton3.setBorderPainted(false);
-        jButton3.setFocusPainted(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 190, -1, -1));
-
-        txtpaz.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Provvisoria", "Definitiva" }));
-        txtpaz.setSelectedIndex(-1);
-        txtpaz.setToolTipText("");
-        getContentPane().add(txtpaz, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 160, -1));
-        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 540, 140, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, -1, -1));
 
         label3.setBackground(new java.awt.Color(255, 255, 255));
         label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/appuntamenti_830_670.png"))); // NOI18N
@@ -537,7 +556,7 @@ public final  class Richiami extends javax.swing.JFrame {
 
         int row = tb1.getSelectedRow();
         
-        String t = tb1.getValueAt(row, 0).toString();
+         t = tb1.getValueAt(row, 0).toString().toUpperCase();
 
         Clients.getObj().combo_cliente.setText(t);
 
@@ -548,11 +567,6 @@ public final  class Richiami extends javax.swing.JFrame {
         ClientiListRichiamo.getObj().setVisible(true);
 
     }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void bt_cercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cercaActionPerformed
-        // TODO add your handling code here:
-        Search();
-    }//GEN-LAST:event_bt_cercaActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -570,74 +584,97 @@ public final  class Richiami extends javax.swing.JFrame {
 
            int i = tb1.getSelectedRow();
 
-                 String datanew = tb1.getValueAt(i, 3).toString();
-                    String dataold = tb1.getValueAt(i, 2).toString();
+                 String data = tb1.getValueAt(i, 3).toString();
+                    String datanascita = tb1.getValueAt(i, 1).toString();
                     String cliente = tb1.getValueAt(i, 0).toString();
-                    String tipologia = tb1.getValueAt(i, 1).toString();
+                    String intervento = tb1.getValueAt(i, 2).toString();
 
-                    DeleteData(cliente,dataold,datanew,tipologia);
+                    DeleteData(cliente,datanascita,intervento,data);
                     Richiami.getObj().PopulateData();
                 }
 
             
 
-            JOptionPane.showMessageDialog(null, "Appuntamento/i cancallati correttamente");
+            JOptionPane.showMessageDialog(null, "Richiamo/i cancallati correttamente");
 
             PopulateData(); // Reload Table
             PopulateData(); // Reload Table
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void bt_cercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cercaActionPerformed
+        // TODO add your handling code here:
+        Search();
+    }//GEN-LAST:event_bt_cercaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date newDate = calendar1.getDate();
+  String datanew = dateFormat.format(newDate);
         try{
- DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date newDate = calendar.getDate();
-        String datanew = dateFormat.format(newDate);
-            
-            
-            if(datanew.isEmpty()){JOptionPane.showMessageDialog(null, "Nessuna data selezionato");}
+
+            String stato = "Definito";
+            if(stato.isEmpty()){JOptionPane.showMessageDialog(null, "Nessuno Stato selezionato");}
             else{
-                int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiungere la data di richiamo?","Aggiorna richiamo",JOptionPane.YES_NO_OPTION);
+                int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiornare il seguente stato?","Aggiorna Stato",JOptionPane.YES_NO_OPTION);
                 if(x==0){
                     int row = tb1.getSelectedRow();
+                            String cliente = tb1.getValueAt(row, 0).toString();
+                            String data = tb1.getValueAt(row, 2).toString();
+                            String datanascita = tb1.getValueAt(row, 1).toString();
+                            System.out.println("data "+data);
+                            System.out.println("datanascita "+datanascita);
+                            System.out.println("stato "+stato);
+                            System.out.print("qui arrivo");
+                            String sql="update richiami set intervento='"+stato+"', data = '"+datanew+"' where cliente='"+cliente+"' and data='"+data+"' and datanascita='"+datanascita+"'";
+                            PreparedStatement pstUpdStato = connUpdStato.prepareStatement(sql);
+                            pstUpdStato.execute();
+                            System.out.print("anche qui arrivo");
+                            //tb1.removeColumn(tb1.getColumnModel().getColumn(1));
+                            //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
 
-                    String cliente = tb1.getValueAt(row, 0).toString();
-                    String dataold = tb1.getValueAt(row, 2).toString();
-                    String tipologia =tb1.getValueAt(row, 1).toString();
+                            //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
+                            
+                            JOptionPane.showMessageDialog(null,"Stato modificato correttamente per il richiamo di "+cliente+" del "+datanew );
+                            PopulateData();
+                           
+                            //AppList.getObj().PopulateDataAll();
 
-                    System.out.println("dataold "+dataold);
-                    System.out.println("tipologia "+tipologia);
-                    System.out.println("datanew "+datanew);
-                    System.out.print("qui arrivo");
-                    String sql="update richiamo set datanew='"+datanew+"' where cliente='"+cliente+"' and dataold='"+dataold+"' and tipologia='"+tipologia+"'";
-                    PreparedStatement pstUpdStato = connUpdStato.prepareStatement(sql);
-                    pstUpdStato.execute();
-                    System.out.print("anche qui arrivo");
-                    //tb1.removeColumn(tb1.getColumnModel().getColumn(1));
-                    //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
+                        
 
-                    //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
-
-                    JOptionPane.showMessageDialog(null,"Richiamo aggiunto correttamente per la per "+tipologia+" di "+cliente+" del "+dataold );
-                    PopulateData();
-
-                    //AppList.getObj().PopulateDataAll();
-
-                }}
-
+                    }}
+                
                 PopulateData(); // Reload Table
-            calendar.setDate(null);
+               calendar.setDate(null);
             }
             catch(SQLException | HeadlessException e)
             {
                 JOptionPane.showMessageDialog(null,"Errore modifica stato");
             }
-            // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+
+        if(t.equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Selezionare paziente");
+        }
+        else
+        {
+
+            Clients.getObj().Update_table1();
+            Clients.getObj().PopulatePrest();
+            Clients.getObj().setVisible(true);
+
+        }
+        txt_n.setText("");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     
     public  void PopulateData() {
-
+        calendar.setDate(null);
 // Clear table
         tb1.setModel(new DefaultTableModel());
          //calendar.setDate(null);
@@ -699,11 +736,11 @@ public final  class Richiami extends javax.swing.JFrame {
 
          model.addColumn("Cliente");
         
-        model.addColumn("Tipologia");
+        model.addColumn("Data di nascita");
 
-        model.addColumn("Intervento");
+        model.addColumn("Data");
         
-        model.addColumn("Richiamo");
+        model.addColumn("Stato");
         
       
 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
@@ -715,7 +752,7 @@ Date date=new Date(millis);
            String adesso = dtf.format(now);
    System.out.println("Oggi: "+adesso);      
      String terminato = "Terminato";
-    String sql = "SELECT * FROM  richiamo ";
+    String sql = "SELECT * FROM  richiami  where data = '"+adesso+"' ";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -734,17 +771,17 @@ Date date=new Date(millis);
 
                  model.setValueAt(rec.getString("cliente"), row, 1);
                 
-                model.setValueAt(rec.getString("tipologia"), row, 2);
+                model.setValueAt(rec.getString("datanascita"), row, 2);
 
-                model.setValueAt(rec.getString("dataold"), row, 3);
+                model.setValueAt(rec.getString("data"), row, 3);
                 
-                 model.setValueAt(rec.getString("datanew"), row, 4);
+                 model.setValueAt(rec.getString("intervento"), row, 4);
 
                row++;
 
                 
             }
-                   System.out.println("Numero righe tabella appuntamento: "+row);
+                   System.out.println("Numero righe tabella richiami: "+row);
                    
      
             
@@ -769,12 +806,12 @@ Date date=new Date(millis);
 
     }
     
-     void DeleteData(String cliente,String dataold,String datanew,String tipologia) {
+     void DeleteData(String cliente,String datanascita,String intervento,String data) {
 
-        String sql = "DELETE FROM richiamo  WHERE cliente = '" + cliente + "' AND dataold = '" + dataold + "' AND datanew = '" + datanew + "' AND tipologia = '" + tipologia + "'";
+        String sql = "DELETE FROM richiami  WHERE cliente = '" + cliente + "' AND datanascita = '" + datanascita + "' AND data = '" + data + "' AND intervento = '" + intervento + "'";
         try {
             Statement pstDel = connDel.createStatement();
-            System.out.println("QUERY DI ELIMINAZIONE: "+cliente+" "+dataold+" "+datanew+" "+tipologia);
+            System.out.println("QUERY DI ELIMINAZIONE: "+cliente+" "+datanascita+" "+data+" "+intervento);
             pstDel.execute(sql);
 
         } catch (SQLException e) {
@@ -785,6 +822,8 @@ Date date=new Date(millis);
 
     }
 
+     
+     
     private  void Search() {
 
 // Clear table
@@ -847,24 +886,25 @@ Date date=new Date(millis);
         
          model.addColumn("Cliente");
 
-        model.addColumn("Tipologia");
+        model.addColumn("Data di nascita");
 
-        model.addColumn("Intervento");
-
-        model.addColumn("Richiamo");
+        model.addColumn("Data");
+        
+        model.addColumn("Stato");
    
 DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-  String x = txtpaz.getSelectedItem().toString();
+  
   //String operator = operacombo.getSelectedItem().toString();
-     //String cerca = calendar.getDate().toString();
+        Date newDate = calendar.getDate();
+  String cerca = dateFormat.format(newDate);
      
     
           
-    String sql = "SELECT * FROM richiamo WHERE tipologia = ?  ORDER BY data,ora ASC";
+    String sql = "SELECT * FROM richiami WHERE data = ?  ORDER BY data ASC";
         try {
 
             psts = conn.prepareStatement(sql);
-            psts.setString(1, x);
+            psts.setString(1, cerca);
             //psts.setString(2, operator);
            
 
@@ -882,11 +922,11 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
                  model.setValueAt(rec.getString("cliente"), row, 1);
                 
-                model.setValueAt(rec.getString("tipologia"), row, 2);
+                model.setValueAt(rec.getString("datanascita"), row, 2);
 
-                model.setValueAt(rec.getString("dataold"), row, 3);
+                model.setValueAt(rec.getString("data"), row, 3);
                 
-                 model.setValueAt(rec.getString("datanew"), row, 4);
+                 model.setValueAt(rec.getString("intervento"), row, 4);
 
                row++;
 
@@ -912,6 +952,7 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 // TODO Auto-generated catch block
 
         }
+        
       
 
     }
@@ -9139,18 +9180,20 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Label Tipologia;
     private javax.swing.JButton bt_cerca;
     private com.toedter.calendar.JDateChooser calendar;
+    private com.toedter.calendar.JDateChooser calendar1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label3;
     private javax.swing.JTable tb1;
     private javax.swing.JTextField txt_n;
-    private javax.swing.JComboBox<String> txtpaz;
     // End of variables declaration//GEN-END:variables
 }

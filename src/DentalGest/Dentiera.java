@@ -5,6 +5,8 @@
  */
 package DentalGest;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -40,10 +42,34 @@ public class Dentiera extends javax.swing.JFrame {
      */
     public Dentiera() {
         initComponents();
+        AnimationStation();
         conn = Db.db();
     }
 
-    
+     private void AnimationStation() {
+    MouseAdapter ma = new MouseAdapter() {
+        int lastX, lastY;
+   
+        @Override
+        public void mousePressed(MouseEvent e) {
+            lastX = e.getXOnScreen();
+            lastY = e.getYOnScreen();
+        }
+        
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            int x = e.getXOnScreen();
+            int y = e.getYOnScreen();
+            // Move frame by the mouse delta
+            setLocation(getLocationOnScreen().x + x - lastX,
+                    getLocationOnScreen().y + y - lastY);
+            lastX = x;
+            lastY = y;
+        }
+    };
+    addMouseListener(ma);
+    addMouseMotionListener(ma);
+}
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,63 +116,64 @@ public class Dentiera extends javax.swing.JFrame {
         sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(check11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, -1, -1));
-        getContentPane().add(check12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 27, -1, -1));
+        getContentPane().add(check11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
+        getContentPane().add(check12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, -1, -1));
 
         check13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 check13ActionPerformed(evt);
             }
         });
-        getContentPane().add(check13, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 53, -1, -1));
-        getContentPane().add(check14, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 84, -1, -1));
-        getContentPane().add(check15, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
-        getContentPane().add(check16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, -1, -1));
-        getContentPane().add(check17, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
-        getContentPane().add(check18, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, -1, -1));
+        getContentPane().add(check13, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, -1));
+        getContentPane().add(check14, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, -1, -1));
+        getContentPane().add(check15, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
+        getContentPane().add(check16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, -1, -1));
+        getContentPane().add(check17, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, -1, -1));
+        getContentPane().add(check18, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, -1, -1));
 
         check21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 check21ActionPerformed(evt);
             }
         });
-        getContentPane().add(check21, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, -1, -1));
-        getContentPane().add(check22, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 27, -1, -1));
-        getContentPane().add(check23, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 53, -1, -1));
-        getContentPane().add(check24, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 84, -1, -1));
-        getContentPane().add(check25, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, -1, -1));
-        getContentPane().add(check26, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, -1, -1));
-        getContentPane().add(check27, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, -1, -1));
+        getContentPane().add(check21, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, -1, -1));
+        getContentPane().add(check22, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, -1, -1));
+        getContentPane().add(check23, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 80, -1, -1));
+        getContentPane().add(check24, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, -1, -1));
+        getContentPane().add(check25, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 150, -1, -1));
+        getContentPane().add(check26, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, -1, -1));
+        getContentPane().add(check27, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, -1, -1));
 
         check28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 check28ActionPerformed(evt);
             }
         });
-        getContentPane().add(check28, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 270, -1, -1));
-        getContentPane().add(check38, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, -1, -1));
-        getContentPane().add(check37, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 380, -1, -1));
+        getContentPane().add(check28, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 300, -1, -1));
+        getContentPane().add(check38, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 360, -1, -1));
+        getContentPane().add(check37, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 410, -1, -1));
 
         check36.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 check36ActionPerformed(evt);
             }
         });
-        getContentPane().add(check36, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 430, -1, -1));
-        getContentPane().add(check35, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 480, -1, -1));
-        getContentPane().add(check34, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 520, -1, -1));
-        getContentPane().add(check33, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 550, -1, -1));
-        getContentPane().add(check32, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 572, -1, -1));
-        getContentPane().add(check31, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 600, -1, -1));
-        getContentPane().add(check41, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 600, -1, -1));
-        getContentPane().add(check42, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 570, -1, -1));
-        getContentPane().add(check43, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 550, -1, -1));
-        getContentPane().add(check44, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 520, -1, -1));
-        getContentPane().add(check45, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 480, -1, -1));
-        getContentPane().add(check46, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, -1, -1));
-        getContentPane().add(check47, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 380, -1, -1));
-        getContentPane().add(check48, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, -1));
+        getContentPane().add(check36, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 460, -1, -1));
+        getContentPane().add(check35, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 510, -1, -1));
+        getContentPane().add(check34, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 550, -1, -1));
+        getContentPane().add(check33, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 580, -1, -1));
+        getContentPane().add(check32, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 600, -1, -1));
+        getContentPane().add(check31, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 630, -1, -1));
+        getContentPane().add(check41, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 630, -1, -1));
+        getContentPane().add(check42, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 600, -1, -1));
+        getContentPane().add(check43, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 580, -1, -1));
+        getContentPane().add(check44, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 550, -1, -1));
+        getContentPane().add(check45, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 510, -1, -1));
+        getContentPane().add(check46, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 460, -1, -1));
+        getContentPane().add(check47, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, -1, -1));
+        getContentPane().add(check48, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, -1, -1));
 
         sceltabnt.setText("Scegli");
         sceltabnt.addActionListener(new java.awt.event.ActionListener() {
@@ -154,12 +181,13 @@ public class Dentiera extends javax.swing.JFrame {
                 sceltabntActionPerformed(evt);
             }
         });
-        getContentPane().add(sceltabnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 640, -1, -1));
+        getContentPane().add(sceltabnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 670, -1, -1));
 
         sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/schema-denti_440_630.png"))); // NOI18N
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 560, 620));
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 560, 620));
 
-        pack();
+        setSize(new java.awt.Dimension(598, 723));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void check36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check36ActionPerformed
