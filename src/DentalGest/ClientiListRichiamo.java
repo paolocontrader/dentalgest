@@ -372,7 +372,7 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
                             .toString()+" "+tb1.getValueAt(row, 1)
                             .toString();  
         String datanascita = tb1.getValueAt(row, 3).toString();
-        String intervento = "Da definire";
+        String intervento = "Da chiamare";
        
        
         System.out.println("Cliens cliente: "+cliente);

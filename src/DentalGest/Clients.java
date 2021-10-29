@@ -226,6 +226,25 @@ public final class Clients extends javax.swing.JFrame {
 
     }
     
+     void DeleteDataStorico(String nome,String cliente,String dente) {
+
+        String sql = "DELETE FROM storico_acc  WHERE nome = '" + nome + "' AND cliente = '" + cliente + "' AND dente = '"+dente+"'";
+        try {
+            pstsDelPrest = connAppDelPrest.createStatement();
+            System.out.println("QUERY DI ELIMINAZIONE STORICO: "+nome+" "+cliente+" "+id);
+            pstsDelPrest.execute(sql);
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+        }
+
+                   
+        
+
+    }
+    
     void Update_table() {
     
         
@@ -1532,10 +1551,12 @@ PopulatePrest();
                     
 
                     String nome = tb1.getValueAt(i, 2).toString();
+                    String dente = tb1.getValueAt(i, 3).toString();
                      String cliente = combo_cliente.getText();
                     String id = tb1.getValueAt(i, 1).toString();
                     int row = tb1.getSelectedRow();
                     DeleteDataPrest(nome,cliente,id); 
+                    DeleteDataStorico(nome,cliente,dente);
                     System.out.println("Cancello 3");
                     DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
                      decimalFormat.setRoundingMode(RoundingMode.HALF_UP);

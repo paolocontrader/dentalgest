@@ -350,7 +350,142 @@ public final  class Richiami extends javax.swing.JFrame {
             obj=new Richiami();
         }return obj;
     }
+       
+     public  void PopulateDataAll() {
+
+// Clear table
+        tb1.setModel(new DefaultTableModel());
+         calendar.setDate(null);
+// Model for Table
+        DefaultTableModel model = new DefaultTableModel() {
+
+            @Override
+            public Class<?> getColumnClass(int column) {
+
+                switch (column) {
+
+                    case 0:
+
+                        return Boolean.class;
+
+                    case 1:
+
+                        return String.class;
+
+                    case 2:
+
+                        return String.class;
+
+                    case 3:
+
+                        return String.class;
+
+                    case 4:
+
+                        return String.class;
+
+                    case 5:
+
+                        return String.class;
+
+                    case 6:
+
+                        return String.class;
+                        
+                    case 7:
+
+                        return String.class;
+
+                    default:
+
+                        return String.class;
+
+                }
+
+            }
+
+        };
+
+        tb1.setModel(model);
         
+// Add Column
+         model.addColumn("");
+
+         model.addColumn("Cliente");
+        
+        model.addColumn("Data di nascita");
+
+        model.addColumn("Data");
+        
+        model.addColumn("Stato");
+        
+      
+DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
+   LocalDateTime now = LocalDateTime.now();  
+   System.out.println(dtf.format(now));  
+   long millis=System.currentTimeMillis();  
+Date date=new Date(millis);  
+ 
+           String adesso = dtf.format(now);
+   System.out.println("Oggi: "+adesso);      
+     String terminato = "Terminato";
+    String sql = "SELECT * FROM  richiami ";
+        try {
+
+            psts = conn.prepareStatement(sql);
+            
+            ResultSet rec = psts.executeQuery();
+
+             int row = 0;
+            
+             
+            
+                while ((rec != null) && (rec.next())) {
+                   
+                model.addRow(new Object[0]);
+
+                model.setValueAt(false, row, 0); // Checkbox
+
+                 model.setValueAt(rec.getString("cliente"), row, 1);
+                
+                model.setValueAt(rec.getString("datanascita"), row, 2);
+
+                model.setValueAt(rec.getString("data"), row, 3);
+                
+                 model.setValueAt(rec.getString("intervento"), row, 4);
+
+               row++;
+
+                
+            }
+                   System.out.println("Numero righe tabella richiami: "+row);
+                   
+     
+            
+                    tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
+            tb1.getColumnModel().getColumn(0).setPreferredWidth(350);
+             tb1.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tb1.getColumnModel().getColumn(2).setPreferredWidth(100);
+             tb1.getColumnModel().getColumn(3).setPreferredWidth(100);
+        } catch (SQLException e) {
+
+// TODO Auto-generated catch block
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+
+// TODO Auto-generated catch block
+
+        }
+
+    }
+    
+     public void mouseClicked(MouseEvent e) {
+        if (e.getModifiers() == MouseEvent.BUTTON3_MASK && e.getClickCount() == 1) {
+            // whatever
+            JOptionPane.showMessageDialog(null, "test");
+        }
+    }
+     
     void Refresh() {
        
         int i = 0;
@@ -398,10 +533,9 @@ public final  class Richiami extends javax.swing.JFrame {
         calendar = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         bt_cerca = new javax.swing.JButton();
-        calendar1 = new com.toedter.calendar.JDateChooser();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         label3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -433,7 +567,7 @@ public final  class Richiami extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tb1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 780, 330));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 780, 430));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -468,7 +602,7 @@ public final  class Richiami extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 90, 40));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 90, 40));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
         jButton3.setToolTipText("Selezionare gli appuntamenti da eliminare");
@@ -505,20 +639,6 @@ public final  class Richiami extends javax.swing.JFrame {
             }
         });
         getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 40, 40));
-        getContentPane().add(calendar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 520, 140, -1));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Data di richiamo: ");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, -1, -1));
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/inserisci_150x40.png"))); // NOI18N
-        jButton1.setBorder(null);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 510, 150, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
         jButton2.setBorder(null);
@@ -531,6 +651,28 @@ public final  class Richiami extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, -1, -1));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/visualizza-tutti-gli-appuntamenti_40x100.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setDefaultCapable(false);
+        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, 150, 40));
+
+        jButton6.setText("Modifica stato");
+        jButton6.setToolTipText("Selezionare gli appuntamenti da modificare");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 610, 160, -1));
 
         label3.setBackground(new java.awt.Color(255, 255, 255));
         label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/appuntamenti_830_670.png"))); // NOI18N
@@ -607,53 +749,6 @@ public final  class Richiami extends javax.swing.JFrame {
         Search();
     }//GEN-LAST:event_bt_cercaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date newDate = calendar1.getDate();
-  String datanew = dateFormat.format(newDate);
-        try{
-
-            String stato = "Definito";
-            if(stato.isEmpty()){JOptionPane.showMessageDialog(null, "Nessuno Stato selezionato");}
-            else{
-                int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiornare il seguente stato?","Aggiorna Stato",JOptionPane.YES_NO_OPTION);
-                if(x==0){
-                    int row = tb1.getSelectedRow();
-                            String cliente = tb1.getValueAt(row, 0).toString();
-                            String data = tb1.getValueAt(row, 2).toString();
-                            String datanascita = tb1.getValueAt(row, 1).toString();
-                            System.out.println("data "+data);
-                            System.out.println("datanascita "+datanascita);
-                            System.out.println("stato "+stato);
-                            System.out.print("qui arrivo");
-                            String sql="update richiami set intervento='"+stato+"', data = '"+datanew+"' where cliente='"+cliente+"' and data='"+data+"' and datanascita='"+datanascita+"'";
-                            PreparedStatement pstUpdStato = connUpdStato.prepareStatement(sql);
-                            pstUpdStato.execute();
-                            System.out.print("anche qui arrivo");
-                            //tb1.removeColumn(tb1.getColumnModel().getColumn(1));
-                            //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
-
-                            //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
-                            
-                            JOptionPane.showMessageDialog(null,"Stato modificato correttamente per il richiamo di "+cliente+" del "+datanew );
-                            PopulateData();
-                           
-                            //AppList.getObj().PopulateDataAll();
-
-                        
-
-                    }}
-                
-                PopulateData(); // Reload Table
-               calendar.setDate(null);
-            }
-            catch(SQLException | HeadlessException e)
-            {
-                JOptionPane.showMessageDialog(null,"Errore modifica stato");
-            }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
 
@@ -671,6 +766,55 @@ public final  class Richiami extends javax.swing.JFrame {
         }
         txt_n.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        PopulateDataAll();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try{
+
+            String stato = "Chiamato";
+            if(stato.isEmpty()){JOptionPane.showMessageDialog(null, "Nessuno Stato selezionato");}
+            else{
+                int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiornare il seguente stato?","Aggiorna Stato",JOptionPane.YES_NO_OPTION);
+                if(x==0){
+                    int row = tb1.getSelectedRow();
+
+                    String cliente = tb1.getValueAt(row, 0).toString();
+                    String data = tb1.getValueAt(row, 2).toString();
+                    String datanascita = tb1.getValueAt(row, 1).toString();
+                    System.out.println("data "+data);
+                    System.out.println("datanascita "+datanascita);
+                    System.out.println("stato "+stato);
+                    System.out.print("qui arrivo");
+                    String sql="update richiami set intervento='"+stato+"' where cliente='"+cliente+"' and data='"+data+"' and datanascita='"+datanascita+"'";
+                    PreparedStatement pstUpdStato = connUpdStato.prepareStatement(sql);
+                    pstUpdStato.execute();
+                    System.out.print("anche qui arrivo");
+                    //tb1.removeColumn(tb1.getColumnModel().getColumn(1));
+                    //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
+
+                    //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
+
+                    JOptionPane.showMessageDialog(null,"Stato modificato correttamente per il richiamo di "+cliente+" del "+data );
+                    PopulateData();
+                    PopulateDataAll();
+
+                    //AppList.getObj().PopulateDataAll();
+
+                }}
+
+                PopulateData(); // Reload Table
+               
+            }
+            catch(SQLException | HeadlessException e)
+            {
+                JOptionPane.showMessageDialog(null,"Errore modifica stato");
+            }
+            // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     
     public  void PopulateData() {
@@ -9182,15 +9326,14 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_cerca;
     private com.toedter.calendar.JDateChooser calendar;
-    private com.toedter.calendar.JDateChooser calendar1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label3;
     private javax.swing.JTable tb1;
