@@ -47,9 +47,9 @@ public class Appuntamenti extends javax.swing.JFrame {
         PopulateData();
     }
     
-     void DeleteData(String data,String ora,String cliente,String servizio) {
+     void DeleteData(String data,String ora,String cliente,String servizio,String operatore) {
 
-        String sql = "DELETE FROM appuntamenti  WHERE data = '" + data + "' AND ora = '" + ora + "' AND cliente = '" + cliente + "' AND descrizionev = '" + servizio + "'";
+        String sql = "DELETE FROM appuntamenti  WHERE data = '" + data + "' AND ora = '" + ora + "' AND cliente = '" + cliente + "' AND descrizionev = '" + servizio + "' and operatore = '"+operatore+"'";
         try {
             Statement pstsDel = connAppDel.createStatement();
             System.out.println("QUERY DI ELIMINAZIONE: "+data+" "+ora+" "+servizio);
@@ -129,8 +129,6 @@ public class Appuntamenti extends javax.swing.JFrame {
 
         model2.addColumn("Descrizione");
         
-        model2.addColumn("Dente");
-        
         model2.addColumn("Stato");
         
        // tb2.getColumnModel().removeColumn(tb2.getColumnModel().getColumn(4));
@@ -161,9 +159,7 @@ public class Appuntamenti extends javax.swing.JFrame {
 
                 model2.setValueAt(recApp.getString("descrizionev"), row, 4);
 
-                 model2.setValueAt(recApp.getString("dente"), row, 5);
-                
-                model2.setValueAt(recApp.getString("stato"), row, 6);
+                model2.setValueAt(recApp.getString("stato"), row,5);
                                 
                 row++;
 
@@ -389,12 +385,12 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(270);
                         if(chkDel) // Checked to Delete
                         {
 
-                            String data = tb2.getValueAt(i, 1).toString();
+                            String data = tb2.getValueAt(i, 2).toString();
                             String stato = combo_stato.getSelectedItem().toString();
-                            String descr = tb2.getValueAt(i, 3).toString();
-
-                            String ora =tb2.getValueAt(i, 2).toString();
-
+                            String descr = tb2.getValueAt(i, 4).toString();
+                            
+                            String ora =tb2.getValueAt(i, 3).toString();
+                            String operatore = tb2.getValueAt(i, 1).toString();
                             System.out.println("data "+data);
                             System.out.println("ora "+ora);
                             System.out.println("stato "+stato);
@@ -448,12 +444,12 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(270);
                 if(chkDel) // Checked to Delete
                 {
 
-                    String data = tb2.getValueAt(i, 1).toString();
-                    String servizio = tb2.getValueAt(i, 3).toString();
+                    String data = tb2.getValueAt(i, 2).toString();
+                    String servizio = tb2.getValueAt(i,4 ).toString();
                     String cliente = Clients.getObj().combo_cliente.getText();
-                    String ora = tb2.getValueAt(i, 2).toString();
-
-                    DeleteData(data,ora,cliente,servizio);
+                    String ora = tb2.getValueAt(i, 3).toString();
+                    String operatore = tb2.getValueAt(i, 1).toString();
+                    DeleteData(data,ora,cliente,servizio,operatore);
                     AppList.getObj().PopulateData();
                     AppList.getObj().PopulateDataAll();
                 }
@@ -480,13 +476,13 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(270);
         String stato = "in essere";
         String descrizionev = txt_prest.getText();
         String operatore = operacombo.getSelectedItem().toString();
-        int dente = Dentiera.getObj().dente_check;
+       
         System.out.println("Cliens cliente: "+cliente);
         int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiugere il seguente appuntamento?", "Aggiungi appuntamento", JOptionPane.YES_NO_OPTION);
         if (x == 0) {
             try {
 
-                    String sql = "insert into appuntamenti (data,ora,descrizionev,cliente,stato,dente,operatore) values (?,?,?,?,?,?,?)";
+                    String sql = "insert into appuntamenti (data,ora,descrizionev,cliente,stato,operatore) values (?,?,?,?,?,?)";
                 PreparedStatement pst = conn.prepareStatement(sql);
 
                     pst.setString(1, data);
@@ -494,11 +490,11 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(270);
                     pst.setString(3,  descrizionev);
                     pst.setString(4, cliente);
                     pst.setString(5, stato);
-                    pst.setInt(6, dente);
-                    pst.setString(7, operatore);
+                    pst.setString(6, operatore);
+                   
                    
                         pst.execute();
-                        System.out.println("VALORI INSERIMENT PAZIENTE: " + data + " | " + ora + " | " + cliente + " | " + descrizionev + " | " + stato + "| " + dente + "| " + operatore + " ");
+                        System.out.println("VALORI INSERIMENT PAZIENTE: " + data + " | " + ora + " | " + cliente + " | " + descrizionev + " | " + stato + "| " + operatore + " ");
 
                         JOptionPane.showMessageDialog(null, "Appuntamento aggiunto correttamente");
                                        PopulateData();

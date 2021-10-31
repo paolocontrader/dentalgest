@@ -325,6 +325,16 @@ public class Dentiera extends javax.swing.JFrame {
               pst.setString(9, "inserimento");
             System.out.println("valori dentiera: "+sql);
             pst.execute();
+            
+            String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto,dente) values(?,?,?,?,?)";
+                   Connection furb = Db.db();
+                   PreparedStatement psfurb = furb.prepareStatement(sqlfurb);
+                   psfurb.setString(1, Clients.getObj().cliente);
+                   psfurb.setString(2, Clients.getObj().servizio);
+                   psfurb.setString(3, dataora);
+                   psfurb.setString(4, "0.0");
+                   psfurb.setString(5, String.valueOf(dente_check));
+                   psfurb.execute();
             JOptionPane.showMessageDialog(null,"Prestazione salvata correttamente" );
             check11.setSelected(false);
             check12.setSelected(false);

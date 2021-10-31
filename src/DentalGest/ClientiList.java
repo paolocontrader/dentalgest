@@ -884,11 +884,11 @@ PopulateData();
                 }
                 
             
-         tb1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tb1.getColumnModel().getColumn(1).setPreferredWidth(310);
-            tb1.getColumnModel().getColumn(2).setPreferredWidth(310);
+          tb1.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tb1.getColumnModel().getColumn(1).setPreferredWidth(230);
+            tb1.getColumnModel().getColumn(2).setPreferredWidth(230);
             tb1.getColumnModel().getColumn(3).setPreferredWidth(160);
-             tb1.getColumnModel().getColumn(4).setPreferredWidth(160);            
+            tb1.getColumnModel().getColumn(4).setPreferredWidth(160);
 
         } catch (SQLException e) {
 

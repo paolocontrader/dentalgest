@@ -793,7 +793,7 @@ Date date=new Date(millis);
            String adesso = dtf.format(now);
    System.out.println("Oggi: "+adesso);      
      String terminato = "Terminato";
-    String sql = "SELECT * FROM  cementazione where data = '"+adesso+"' ";
+    String sql = "SELECT * FROM  cementazione ";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -942,7 +942,7 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
      
     
           
-    String sql = "SELECT * FROM cementazione WHERE tipologia = ?  order by data asc";
+    String sql = "SELECT * FROM cementazione WHERE cliente = ?  order by data asc";
         try {
 
             psts = conn.prepareStatement(sql);

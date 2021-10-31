@@ -314,8 +314,7 @@ public final  class AppList extends javax.swing.JFrame {
         txt_n.setOpaque(false);
         getContentPane().add(txt_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
 
-        operacombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dott Pagliarulo", "Dott.ssa Calabrese", "Dott. Donnarumma", "Dott. Famiglietti" }));
-        operacombo.setSelectedIndex(-1);
+        operacombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tutti", "Dott Pagliarulo", "Dott.ssa Calabrese", "Dott. Donnarumma", "Dott. Famiglietti" }));
         operacombo.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -688,13 +687,15 @@ Date newDate = calendar.getDate();
         
 // Add Column
 
-        model.addColumn("");
-
-         model.addColumn("Ora");
+         model.addColumn("");
          
-         model.addColumn("Operatore");
-        
+          model.addColumn("Operatore");
+
         model.addColumn("Cliente");
+
+        model.addColumn("Data");
+
+        model.addColumn("Ora");
 
         model.addColumn("Descrizione");
 
@@ -728,28 +729,30 @@ Date date=new Date(millis);
 
                 model.setValueAt(false, rowApp, 0); // Checkbox
 
-                model.setValueAt(recApp.getString("mezzore"), rowApp, 1);       
+                model.setValueAt(recApp.getString("operatore"), rowApp, 1);       
            
-                model.setValueAt(rec.getString("operatore"), rowApp, 2);
+                model.setValueAt(rec.getString("cliente"), rowApp, 2);
                     
-                model.setValueAt(rec.getString("cliente"), rowApp, 3);
+                model.setValueAt(rec.getString("data"), rowApp, 3);
 
-                model.setValueAt(rec.getString("descrizionev"), rowApp, 4);
+                model.setValueAt(rec.getString("ora"), rowApp, 4);
                 
-                model.setValueAt(rec.getString("stato"), rowApp, 5);
+                model.setValueAt(rec.getString("descrizionev"), rowApp, 5);
+                
+                model.setValueAt(rec.getString("descrizionev"), rowApp, 6);
                 
                 rowApp++;
 
                
             }
                    System.out.println("Numero righe tabella appuntamenti: "+rowApp);
-                
-            tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
+              tb1.removeColumn(tb1.getColumnModel().getColumn(0));   
            tb1.getColumnModel().getColumn(0).setPreferredWidth(150);
-             tb1.getColumnModel().getColumn(1).setPreferredWidth(150);
+              tb1.getColumnModel().getColumn(1).setPreferredWidth(150);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(4).setPreferredWidth(310);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(60);
+            tb1.getColumnModel().getColumn(4).setPreferredWidth(250);
+            tb1.getColumnModel().getColumn(5).setPreferredWidth(100);
             //tb1.getColumnModel().getColumn(5).setPreferredWidth(110);
            
             
@@ -840,7 +843,7 @@ Date date=new Date(millis);
         
       String terminato = "Terminato";
 
-    String sql = "SELECT * FROM  appuntamenti WHERE stato NOT IN ('"+terminato+"','Sospeso','Annullato') ORDER BY data,ora ASC";
+    String sql = "SELECT * FROM  appuntamenti WHERE stato NOT IN ('"+terminato+"','Sospeso','Annullato') ORDER BY data,ora DESC";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -872,23 +875,23 @@ Date date=new Date(millis);
                    System.out.println("Numero righe tabella appuntamenti: "+row);
                 if(row==0){
                     
-            tb1.getColumnModel().getColumn(0).setPreferredWidth(150);
+           tb1.getColumnModel().getColumn(0).setPreferredWidth(150);
               tb1.getColumnModel().getColumn(1).setPreferredWidth(150);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(4).setPreferredWidth(310);
-            tb1.getColumnModel().getColumn(5).setPreferredWidth(110);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(60);
+            tb1.getColumnModel().getColumn(4).setPreferredWidth(250);
+            tb1.getColumnModel().getColumn(5).setPreferredWidth(100);
                 JOptionPane.showMessageDialog(null, "Nessun appuntamento disponibile");
                  
                 }
             
            tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
            tb1.getColumnModel().getColumn(0).setPreferredWidth(150);
-             tb1.getColumnModel().getColumn(1).setPreferredWidth(150);
+              tb1.getColumnModel().getColumn(1).setPreferredWidth(150);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(4).setPreferredWidth(310);
-            tb1.getColumnModel().getColumn(5).setPreferredWidth(110);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(60);
+            tb1.getColumnModel().getColumn(4).setPreferredWidth(250);
+            tb1.getColumnModel().getColumn(5).setPreferredWidth(100);
             
 
         } catch (SQLException e) {
@@ -980,17 +983,30 @@ Date newDate = calendar.getDate();
   String x = dateFormat.format(newDate);
   String operator = operacombo.getSelectedItem().toString();
      //String cerca = calendar.getDate().toString();
-     
-    
+  LocalDateTime now = LocalDateTime.now();  
+   
+   long millis=System.currentTimeMillis();  
+Date date=new Date(millis);  
+ 
+         
+    String sql = null;
           
-    String sql = "SELECT * FROM  appuntamenti WHERE data = ? or operatore = ? ORDER BY data,ora ASC";
+   
         try {
 
+           
+           if(operacombo.getSelectedIndex()==0){
+           sql = "SELECT * FROM  appuntamenti WHERE data = ? ORDER BY data,ora ASC";
             psts = conn.prepareStatement(sql);
             psts.setString(1, x);
+           }
+           else{
+           sql = "SELECT * FROM  appuntamenti WHERE data = ? and operatore = ? ORDER BY data,ora ASC";
+           psts = conn.prepareStatement(sql);
+            psts.setString(1, x);
             psts.setString(2, operator);
-           
 
+           }
             ResultSet rec = psts.executeQuery();
 
             int row = 0;
@@ -1024,12 +1040,12 @@ Date newDate = calendar.getDate();
      
             
                     tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
-            tb1.getColumnModel().getColumn(0).setPreferredWidth(150);
-            tb1.getColumnModel().getColumn(1).setPreferredWidth(150);
+           tb1.getColumnModel().getColumn(0).setPreferredWidth(150);
+              tb1.getColumnModel().getColumn(1).setPreferredWidth(150);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(4).setPreferredWidth(310);
-            tb1.getColumnModel().getColumn(5).setPreferredWidth(110);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(60);
+            tb1.getColumnModel().getColumn(4).setPreferredWidth(250);
+            tb1.getColumnModel().getColumn(5).setPreferredWidth(100);
         
             calendar.setDate(null);
         } catch (SQLException e) {
@@ -1120,17 +1136,23 @@ Date newDate = calendar.getDate();
    
   String operator = operacombo.getSelectedItem().toString();
      //String cerca = calendar.getDate().toString();
-     
+   DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+Date newDate = calendar.getDate();
+ 
     
-          
-    String sql = "SELECT * FROM  appuntamenti WHERE operatore = ? ORDER BY data,ora ASC";
+           String sql = null;
+    
         try {
-
-            psts = conn.prepareStatement(sql);
-           
+            if(operacombo.getSelectedItem().toString()=="Tutti"){
+                 sql = "SELECT * FROM  appuntamenti ORDER BY data,ora ASC";
+                  psts = conn.prepareStatement(sql);
+            }
+            else{
+                sql = "SELECT * FROM  appuntamenti WHERE operatore = ? ORDER BY data,ora ASC";
+                 psts = conn.prepareStatement(sql);
             psts.setString(1, operator);
-           
-
+            }
+            
             ResultSet rec = psts.executeQuery();
 
             int row = 0;
@@ -1164,13 +1186,12 @@ Date newDate = calendar.getDate();
      
             
                     tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
-            tb1.getColumnModel().getColumn(0).setPreferredWidth(150);
-            tb1.getColumnModel().getColumn(1).setPreferredWidth(150);
+           tb1.getColumnModel().getColumn(0).setPreferredWidth(150);
+              tb1.getColumnModel().getColumn(1).setPreferredWidth(150);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tb1.getColumnModel().getColumn(4).setPreferredWidth(310);
-            tb1.getColumnModel().getColumn(5).setPreferredWidth(110);
-        
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(60);
+            tb1.getColumnModel().getColumn(4).setPreferredWidth(250);
+            tb1.getColumnModel().getColumn(5).setPreferredWidth(100);        
             calendar.setDate(null);
         } catch (SQLException e) {
 
