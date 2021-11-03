@@ -229,9 +229,8 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(270);
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         calendar = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
@@ -246,41 +245,60 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(270);
         txt_prest = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         operacombo = new javax.swing.JComboBox<>();
-        sfondo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 20, 20));
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(616, 0, 20, 20));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(850, 650));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Data: ");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
-        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 140, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(70, 30, 0, 0);
+        getContentPane().add(jLabel3, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 113;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(70, 6, 0, 0);
+        getContentPane().add(calendar, gridBagConstraints);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Ora: (HH:MM)");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 100, -1));
-        getContentPane().add(time_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 100, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.ipadx = 16;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(70, 20, 0, 0);
+        getContentPane().add(jLabel12, gridBagConstraints);
+
+        time_txt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 19;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.ipadx = 94;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(70, 0, 0, 0);
+        getContentPane().add(time_txt, gridBagConstraints);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Prestazione:");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridheight = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 30, 0, 0);
+        getContentPane().add(jLabel8, gridBagConstraints);
 
         jButton6.setText("Modifica stato");
         jButton6.setToolTipText("Selezionare gli appuntamenti da modificare");
@@ -289,12 +307,28 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(270);
                 jButton6ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 160, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 49;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 10, 0, 0);
+        getContentPane().add(jButton6, gridBagConstraints);
 
         combo_stato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In essere", "Sospeso", "Annullato", "Terminato" }));
         combo_stato.setSelectedIndex(-1);
         combo_stato.setToolTipText("");
-        getContentPane().add(combo_stato, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 130, -1));
+        combo_stato.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.ipadx = 44;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 10, 0, 0);
+        getContentPane().add(combo_stato, gridBagConstraints);
 
         tb2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -309,7 +343,19 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(270);
         ));
         jScrollPane1.setViewportView(tb2);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 790, 400));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 14;
+        gridBagConstraints.gridwidth = 26;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 763;
+        gridBagConstraints.ipady = 369;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(15, 10, 40, 0);
+        getContentPane().add(jScrollPane1, gridBagConstraints);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
         jButton2.setToolTipText("Selezionare gli appuntamenti da eliminare");
@@ -321,7 +367,12 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(270);
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 26;
+        gridBagConstraints.gridy = 14;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(15, 10, 0, 15);
+        getContentPane().add(jButton2, gridBagConstraints);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/nuovo_150x40.png"))); // NOI18N
         jButton5.setText("Nuovo appuntamento");
@@ -333,43 +384,58 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(270);
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, 90, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 21;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.ipadx = -185;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(70, 20, 0, 0);
+        getContentPane().add(jButton5, gridBagConstraints);
 
+        txt_prest.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txt_prest.setMinimumSize(new java.awt.Dimension(2, 22));
         txt_prest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_prestActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_prest, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 410, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 18;
+        gridBagConstraints.gridheight = 6;
+        gridBagConstraints.ipadx = 404;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 6, 0, 0);
+        getContentPane().add(txt_prest, gridBagConstraints);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Operatore:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 30, 0, 0);
+        getContentPane().add(jLabel1, gridBagConstraints);
 
         operacombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dott Pagliarulo", "Dott.ssa Calabrese", "Dott. Donnarumma", "Dott. Famiglietti" }));
         operacombo.setSelectedIndex(-1);
-        getContentPane().add(operacombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 410, -1));
-
-        sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/appuntamenti_670_650.png"))); // NOI18N
-        sfondo.setLabelFor(this);
-        sfondo.setToolTipText("");
-        sfondo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 670));
+        operacombo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 18;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 275;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 6, 0, 0);
+        getContentPane().add(operacombo, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-        // TODO add your handling code here:
-        setExtendedState(JFrame.ICONIFIED );
-    }//GEN-LAST:event_jLabel6MouseClicked
-
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        // TODO add your handling code here:
-
-        dispose();
-    }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try{
@@ -599,12 +665,9 @@ tb2.getColumnModel().getColumn(4).setPreferredWidth(270);
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> operacombo;
-    private javax.swing.JLabel sfondo;
     private javax.swing.JTable tb2;
     private javax.swing.JTextField time_txt;
     private javax.swing.JTextField txt_prest;

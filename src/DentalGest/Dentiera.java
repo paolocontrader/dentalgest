@@ -119,7 +119,7 @@ public class Dentiera extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(check11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
-        getContentPane().add(check12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, -1, -1));
+        getContentPane().add(check12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, -1, -1));
 
         check13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,7 +139,7 @@ public class Dentiera extends javax.swing.JFrame {
             }
         });
         getContentPane().add(check21, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, -1, -1));
-        getContentPane().add(check22, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, -1, -1));
+        getContentPane().add(check22, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 50, -1, -1));
         getContentPane().add(check23, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 80, -1, -1));
         getContentPane().add(check24, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, -1, -1));
         getContentPane().add(check25, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 150, -1, -1));
@@ -164,10 +164,10 @@ public class Dentiera extends javax.swing.JFrame {
         getContentPane().add(check35, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 510, -1, -1));
         getContentPane().add(check34, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 550, -1, -1));
         getContentPane().add(check33, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 580, -1, -1));
-        getContentPane().add(check32, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 600, -1, -1));
+        getContentPane().add(check32, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 610, -1, -1));
         getContentPane().add(check31, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 630, -1, -1));
         getContentPane().add(check41, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 630, -1, -1));
-        getContentPane().add(check42, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 600, -1, -1));
+        getContentPane().add(check42, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 610, -1, -1));
         getContentPane().add(check43, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 580, -1, -1));
         getContentPane().add(check44, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 550, -1, -1));
         getContentPane().add(check45, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 510, -1, -1));

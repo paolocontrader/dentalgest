@@ -37,7 +37,7 @@
     <Component class="javax.swing.JCheckBox" name="check12">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="150" y="60" width="-1" height="-1"/>
+          <AbsoluteConstraints x="150" y="50" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -99,7 +99,7 @@
     <Component class="javax.swing.JCheckBox" name="check22">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="410" y="60" width="-1" height="-1"/>
+          <AbsoluteConstraints x="410" y="50" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -196,7 +196,7 @@
     <Component class="javax.swing.JCheckBox" name="check32">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="390" y="600" width="-1" height="-1"/>
+          <AbsoluteConstraints x="390" y="610" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -217,7 +217,7 @@
     <Component class="javax.swing.JCheckBox" name="check42">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="170" y="600" width="-1" height="-1"/>
+          <AbsoluteConstraints x="170" y="610" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

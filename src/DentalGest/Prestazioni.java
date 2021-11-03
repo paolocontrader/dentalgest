@@ -139,8 +139,6 @@ combo_ser.addItem(rscd.getString("nome"));
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         combo_ser = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
@@ -152,37 +150,19 @@ combo_ser.addItem(rscd.getString("nome"));
         bt_elim1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         checkdente = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 0, 20, 20));
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 20, 20));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Prestazione:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
         combo_ser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         combo_ser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " " }));
         combo_ser.setSelectedIndex(-1);
         combo_ser.setSelectedItem(-1);
-        combo_ser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
+        combo_ser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         combo_ser.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -193,33 +173,33 @@ combo_ser.addItem(rscd.getString("nome"));
                 combo_serPopupMenuWillBecomeVisible(evt);
             }
         });
-        getContentPane().add(combo_ser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 260, 25));
+        getContentPane().add(combo_ser, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 260, 25));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Prezzo:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
         txt_prezzo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_prezzo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
+        txt_prezzo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_prezzo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_prezzoActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_prezzo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 260, 25));
+        getContentPane().add(txt_prezzo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 260, 25));
 
         txt_nome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_nome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
+        txt_nome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_nome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_nomeActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 260, 25));
+        getContentPane().add(txt_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 260, 25));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Nome");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
         bnt_agg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/aggiungi_150x40.png"))); // NOI18N
         bnt_agg.setBorder(null);
@@ -232,7 +212,7 @@ combo_ser.addItem(rscd.getString("nome"));
                 bnt_aggActionPerformed(evt);
             }
         });
-        getContentPane().add(bnt_agg, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 100, 30));
+        getContentPane().add(bnt_agg, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 100, 30));
 
         btn_mod.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btn_mod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/modifica_150x40.png"))); // NOI18N
@@ -246,7 +226,7 @@ combo_ser.addItem(rscd.getString("nome"));
                 btn_modActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 90, 30));
+        getContentPane().add(btn_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 90, 30));
 
         bt_elim1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_elim1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/elimina_150x40.png"))); // NOI18N
@@ -257,30 +237,18 @@ combo_ser.addItem(rscd.getString("nome"));
                 bt_elim1ActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_elim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 90, 30));
+        getContentPane().add(bt_elim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 90, 30));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Scelta Dente:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
-        getContentPane().add(checkdente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/prestazioni_400x330.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 400, 410));
+        checkdente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(checkdente, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
 
-        setSize(new java.awt.Dimension(400, 324));
+        setSize(new java.awt.Dimension(408, 361));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-        // TODO add your handling code here:
-        setExtendedState(JFrame.ICONIFIED );
-    }//GEN-LAST:event_jLabel6MouseClicked
-
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        // TODO add your handling code here:
-
-        dispose();
-    }//GEN-LAST:event_jLabel5MouseClicked
 
     private void txt_prezzoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_prezzoActionPerformed
         // TODO add your handling code here:
@@ -516,12 +484,9 @@ dente =0;
     private javax.swing.JButton btn_mod;
     private javax.swing.JCheckBox checkdente;
     public javax.swing.JComboBox combo_ser;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField txt_nome;
     private javax.swing.JTextField txt_prezzo;

@@ -193,12 +193,11 @@ public final  class AppList extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jScrollPane2 = new javax.swing.JScrollPane();
         tb1 = new javax.swing.JTable();
         bt_cerca = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         calendar = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -206,14 +205,13 @@ public final  class AppList extends javax.swing.JFrame {
         txt_n = new javax.swing.JTextField();
         operacombo = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
-        label3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(102, 102, 255));
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        setUndecorated(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setForeground(new java.awt.Color(153, 153, 255));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -226,9 +224,8 @@ public final  class AppList extends javax.swing.JFrame {
 
             }
         ));
-        tb1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tb1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tb1.setAutoscrolls(false);
-        tb1.setEditingRow(1);
         tb1.setFocusable(false);
         tb1.getTableHeader().setReorderingAllowed(false);
         tb1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -238,7 +235,19 @@ public final  class AppList extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tb1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 780, 240));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 13;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 753;
+        gridBagConstraints.ipady = 240;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(8, 40, 100, 20);
+        getContentPane().add(jScrollPane2, gridBagConstraints);
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_cerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_lente_ingrandimento_cerca_40x40.png"))); // NOI18N
@@ -257,26 +266,23 @@ public final  class AppList extends javax.swing.JFrame {
                 bt_cercaActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 112, 40, 40));
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel11MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 8, -1, -1));
-
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
-        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel12MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(796, 8, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(84, 10, 0, 0);
+        getContentPane().add(bt_cerca, gridBagConstraints);
 
         calendar.setDateFormatString("dd-MM-yyyy");
-        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 112, 160, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.ipadx = 133;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(84, 40, 0, 0);
+        getContentPane().add(calendar, gridBagConstraints);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/visualizza-tutti-gli-appuntamenti_40x100.png"))); // NOI18N
         jButton1.setBorder(null);
@@ -289,7 +295,15 @@ public final  class AppList extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 112, 150, 40));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.ipadx = -1;
+        gridBagConstraints.ipady = -1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(84, 30, 0, 0);
+        getContentPane().add(jButton1, gridBagConstraints);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
         jButton2.setBorder(null);
@@ -301,20 +315,39 @@ public final  class AppList extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 112, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(84, 10, 0, 0);
+        getContentPane().add(jButton2, gridBagConstraints);
 
         label1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label1.setText("Operatore:");
-        getContentPane().add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(7, 40, 0, 0);
+        getContentPane().add(label1, gridBagConstraints);
 
         txt_n.setEditable(false);
         txt_n.setBorder(null);
         txt_n.setEnabled(false);
         txt_n.setFocusable(false);
         txt_n.setOpaque(false);
-        getContentPane().add(txt_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(28, 0, 0, 0);
+        getContentPane().add(txt_n, gridBagConstraints);
 
         operacombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tutti", "Dott Pagliarulo", "Dott.ssa Calabrese", "Dott. Donnarumma", "Dott. Famiglietti" }));
+        operacombo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         operacombo.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -324,7 +357,15 @@ public final  class AppList extends javax.swing.JFrame {
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
             }
         });
-        getContentPane().add(operacombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 410, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 275;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(7, 10, 0, 0);
+        getContentPane().add(operacombo, gridBagConstraints);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_stampa_40x40.png"))); // NOI18N
         jButton3.setBorder(null);
@@ -336,13 +377,15 @@ public final  class AppList extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 111, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(83, 9, 0, 0);
+        getContentPane().add(jButton3, gridBagConstraints);
 
-        label3.setBackground(new java.awt.Color(255, 255, 255));
-        label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/schermata_appuntamenti_850x480.png"))); // NOI18N
-        getContentPane().add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 490));
-
-        setSize(new java.awt.Dimension(848, 481));
+        setSize(new java.awt.Dimension(856, 579));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -350,18 +393,6 @@ public final  class AppList extends javax.swing.JFrame {
         // TODO add your handling code here:
         Search();
     }//GEN-LAST:event_bt_cercaActionPerformed
-
-    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
-        // TODO add your handling code here:
-
-        dispose();
-        PopulateData();
-    }//GEN-LAST:event_jLabel11MouseClicked
-
-    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
-        // TODO add your handling code here:
-        setExtendedState(JFrame.ICONIFIED );
-    }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -621,7 +652,7 @@ Date newDate = calendar.getDate();
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             // TODO add your handling code here:
-            storico();
+           storico();
         } catch (DocumentException | IOException ex) {
             Logger.getLogger(AppList.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -9434,11 +9465,8 @@ Date newDate = calendar.getDate();
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JScrollPane jScrollPane2;
     private java.awt.Label label1;
-    private javax.swing.JLabel label3;
     private javax.swing.JComboBox<String> operacombo;
     private javax.swing.JTable tb1;
     private javax.swing.JTextField txt_n;

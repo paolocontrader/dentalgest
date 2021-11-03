@@ -429,7 +429,7 @@ Date date=new Date(millis);
            String adesso = dtf.format(now);
    System.out.println("Oggi: "+adesso);      
      String terminato = "Terminato";
-    String sql = "SELECT * FROM  richiami ";
+    String sql = "SELECT * FROM  richiami  where intervento NOT IN ('Chiamato') ";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -463,8 +463,8 @@ Date date=new Date(millis);
      
             
                     tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
-            tb1.getColumnModel().getColumn(0).setPreferredWidth(350);
-             tb1.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tb1.getColumnModel().getColumn(0).setPreferredWidth(300);
+             tb1.getColumnModel().getColumn(1).setPreferredWidth(255);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(100);
              tb1.getColumnModel().getColumn(3).setPreferredWidth(100);
         } catch (SQLException e) {
@@ -522,11 +522,10 @@ Date date=new Date(millis);
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jScrollPane2 = new javax.swing.JScrollPane();
         tb1 = new javax.swing.JTable();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         txt_n = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -536,14 +535,12 @@ Date date=new Date(millis);
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        label3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        setUndecorated(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -567,30 +564,31 @@ Date date=new Date(millis);
         });
         jScrollPane2.setViewportView(tb1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 780, 430));
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel11MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, -1, -1));
-
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
-        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel12MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 753;
+        gridBagConstraints.ipady = 420;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(9, 30, 0, 0);
+        getContentPane().add(jScrollPane2, gridBagConstraints);
 
         txt_n.setEditable(false);
         txt_n.setBorder(null);
         txt_n.setEnabled(false);
         txt_n.setFocusable(false);
         txt_n.setOpaque(false);
-        getContentPane().add(txt_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
+        getContentPane().add(txt_n, gridBagConstraints);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/nuovo_150x40.png"))); // NOI18N
         jButton5.setText("Nuovo appuntamento");
@@ -602,7 +600,15 @@ Date date=new Date(millis);
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 90, 40));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.ipadx = -185;
+        gridBagConstraints.ipady = -1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(100, 10, 0, 0);
+        getContentPane().add(jButton5, gridBagConstraints);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
         jButton3.setToolTipText("Selezionare gli appuntamenti da eliminare");
@@ -614,12 +620,29 @@ Date date=new Date(millis);
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 170, -1, -1));
-        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 140, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(9, 10, 0, 9);
+        getContentPane().add(jButton3, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 113;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(110, 20, 0, 0);
+        getContentPane().add(calendar, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Data: ");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(110, 30, 0, 0);
+        getContentPane().add(jLabel3, gridBagConstraints);
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_cerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_lente_ingrandimento_cerca_40x40.png"))); // NOI18N
@@ -638,7 +661,13 @@ Date date=new Date(millis);
                 bt_cercaActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 40, 40));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(100, 10, 0, 0);
+        getContentPane().add(bt_cerca, gridBagConstraints);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
         jButton2.setBorder(null);
@@ -650,7 +679,13 @@ Date date=new Date(millis);
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(100, 30, 0, 0);
+        getContentPane().add(jButton2, gridBagConstraints);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/visualizza-tutti-gli-appuntamenti_40x100.png"))); // NOI18N
         jButton1.setBorder(null);
@@ -663,36 +698,36 @@ Date date=new Date(millis);
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, 150, 40));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.ipadx = -1;
+        gridBagConstraints.ipady = -1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(100, 9, 0, 0);
+        getContentPane().add(jButton1, gridBagConstraints);
 
         jButton6.setText("Modifica stato");
         jButton6.setToolTipText("Selezionare gli appuntamenti da modificare");
+        jButton6.setMargin(new java.awt.Insets(2, 0, 2, 14));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 610, 160, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 49;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, -528, 34, 0);
+        getContentPane().add(jButton6, gridBagConstraints);
 
-        label3.setBackground(new java.awt.Color(255, 255, 255));
-        label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/appuntamenti_830_670.png"))); // NOI18N
-        getContentPane().add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 670));
-
-        setSize(new java.awt.Dimension(829, 669));
+        setSize(new java.awt.Dimension(837, 706));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
-        // TODO add your handling code here:
-
-        dispose();
-        PopulateData();
-    }//GEN-LAST:event_jLabel11MouseClicked
-
-    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
-        // TODO add your handling code here:
-        setExtendedState(JFrame.ICONIFIED );
-    }//GEN-LAST:event_jLabel12MouseClicked
 
     private void tb1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb1MouseClicked
 
@@ -726,10 +761,10 @@ Date date=new Date(millis);
 
            int i = tb1.getSelectedRow();
 
-                 String data = tb1.getValueAt(i, 3).toString();
+                 String data = tb1.getValueAt(i, 2).toString();
                     String datanascita = tb1.getValueAt(i, 1).toString();
                     String cliente = tb1.getValueAt(i, 0).toString();
-                    String intervento = tb1.getValueAt(i, 2).toString();
+                    String intervento = tb1.getValueAt(i, 3).toString();
 
                     DeleteData(cliente,datanascita,intervento,data);
                     Richiami.getObj().PopulateData();
@@ -774,7 +809,14 @@ Date date=new Date(millis);
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try{
-
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
+   LocalDateTime now = LocalDateTime.now();  
+   System.out.println(dtf.format(now));  
+   long millis=System.currentTimeMillis();  
+Date date=new Date(millis);  
+ 
+           String adesso = dtf.format(now);
+   System.out.println("Oggi: "+adesso);   
             String stato = "Chiamato";
             if(stato.isEmpty()){JOptionPane.showMessageDialog(null, "Nessuno Stato selezionato");}
             else{
@@ -789,7 +831,7 @@ Date date=new Date(millis);
                     System.out.println("datanascita "+datanascita);
                     System.out.println("stato "+stato);
                     System.out.print("qui arrivo");
-                    String sql="update richiami set intervento='"+stato+"' where cliente='"+cliente+"' and data='"+data+"' and datanascita='"+datanascita+"'";
+                    String sql="update richiami set data = '"+adesso+"',intervento='"+stato+"' where cliente='"+cliente+"' and data='"+data+"' and datanascita='"+datanascita+"'";
                     PreparedStatement pstUpdStato = connUpdStato.prepareStatement(sql);
                     pstUpdStato.execute();
                     System.out.print("anche qui arrivo");
@@ -896,7 +938,7 @@ Date date=new Date(millis);
            String adesso = dtf.format(now);
    System.out.println("Oggi: "+adesso);      
      String terminato = "Terminato";
-    String sql = "SELECT * FROM  richiami  where data = '"+adesso+"' ";
+    String sql = "SELECT * FROM  richiami  where data = '"+adesso+"' and intervento  NOT IN ('Chiamato')";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -930,8 +972,8 @@ Date date=new Date(millis);
      
             
                     tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
-            tb1.getColumnModel().getColumn(0).setPreferredWidth(350);
-             tb1.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tb1.getColumnModel().getColumn(0).setPreferredWidth(300);
+             tb1.getColumnModel().getColumn(1).setPreferredWidth(255);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(100);
              tb1.getColumnModel().getColumn(3).setPreferredWidth(100);
  
@@ -1081,8 +1123,8 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
      
             
                     tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
-            tb1.getColumnModel().getColumn(0).setPreferredWidth(350);
-             tb1.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tb1.getColumnModel().getColumn(0).setPreferredWidth(300);
+             tb1.getColumnModel().getColumn(1).setPreferredWidth(255);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(100);
             tb1.getColumnModel().getColumn(3).setPreferredWidth(100);
  
@@ -9331,11 +9373,8 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel label3;
     private javax.swing.JTable tb1;
     private javax.swing.JTextField txt_n;
     // End of variables declaration//GEN-END:variables
