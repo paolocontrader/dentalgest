@@ -194,6 +194,7 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
         tb1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tb1.setAutoscrolls(false);
         tb1.setFocusable(false);
+        tb1.setMaximumSize(new java.awt.Dimension(3000, 1500));
         tb1.getTableHeader().setReorderingAllowed(false);
         tb1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

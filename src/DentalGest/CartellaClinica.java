@@ -191,7 +191,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
 
             }
         ));
-        tb1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tb1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tb1.setAutoscrolls(false);
         tb1.setFocusable(false);
         tb1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
