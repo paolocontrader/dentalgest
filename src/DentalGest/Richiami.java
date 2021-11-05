@@ -424,7 +424,7 @@ public final  class Richiami extends javax.swing.JFrame {
         
       String terminato = "Chiamato";
 
-    String sql = "SELECT * FROM  richiami WHERE intervento NOT IN ('"+terminato+"') ORDER BY data DESC";
+    String sql = "SELECT * FROM  richiami WHERE intervento NOT IN ('"+terminato+"') ORDER BY data ASC";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -861,14 +861,14 @@ Date date=new Date(millis);
                     //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
 
                     JOptionPane.showMessageDialog(null,"Stato modificato correttamente per il richiamo di "+cliente+" del "+data );
-                    PopulateData();
-                    PopulateDataAll();
+                    //PopulateData();
+                    //PopulateDataAll();
 
                     //AppList.getObj().PopulateDataAll();
 
                 }}
 
-                PopulateData(); // Reload Table
+                Search(); // Reload Table
                
             }
             catch(SQLException | HeadlessException e)
@@ -956,7 +956,7 @@ Date date=new Date(millis);
            String adesso = dtf.format(now);
    System.out.println("Oggi: "+adesso);      
      String terminato = "Terminato";
-    String sql = "SELECT * FROM  richiami  where data = '"+adesso+"' and intervento  NOT IN ('Chiamato') order by data";
+    String sql = "SELECT * FROM  richiami  where data = '"+adesso+"' and intervento  NOT IN ('Chiamato') order by data asc";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -1156,12 +1156,12 @@ Date date=new Date(millis);
             tb1.getColumnModel().getColumn(3).setPreferredWidth(100);
                    }
         
-            calendar.setDate(null);
+          //  calendar.setDate(null);
         } catch (SQLException e) {
 
 // TODO Auto-generated catch block
             JOptionPane.showMessageDialog(null, e.getMessage());
-            PopulateData();
+           // PopulateData();
 
 
 // TODO Auto-generated catch block

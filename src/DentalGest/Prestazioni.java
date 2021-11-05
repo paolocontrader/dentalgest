@@ -353,11 +353,12 @@ dente =0;
                     JOptionPane.showMessageDialog(null,"Servizio creato correttamente" );
 
                    combo_ser.removeAllItems();
-                txt_prezzo.setText("");
-                txt_nome.setText("");
+                
                     Refresh();
                     
-                   
+                   txt_prezzo.setText("");
+                txt_nome.setText("");
+                combo_ser.setSelectedIndex(-1);
                     Clients.getObj().prestazioni.addItem(servizio);
                 }
                 

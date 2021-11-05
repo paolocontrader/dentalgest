@@ -876,7 +876,7 @@ Date date=new Date(millis);
            String adesso = dtf.format(now);
    System.out.println("Oggi: "+adesso);      
      String terminato = "Terminato";
-    String sql = "SELECT * FROM  cementazione ";
+    String sql = "SELECT * FROM  cementazione order by data asc";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -1026,7 +1026,7 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     String sql = null;
     
     if(txtpaz.getSelectedItem().toString().equals("Tutti")){
-        sql = "SELECT * FROM cementazione";
+        sql = "SELECT * FROM cementazione order by data asc";
         psts = conn.prepareStatement(sql);
         psts = conn.prepareStatement(sql);
     }
@@ -5371,6 +5371,6 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private javax.swing.JTable tb1;
     private javax.swing.JTextField txt_n;
     private javax.swing.JTextField txtcerca;
-    private javax.swing.JComboBox<String> txtpaz;
+    public javax.swing.JComboBox<String> txtpaz;
     // End of variables declaration//GEN-END:variables
 }

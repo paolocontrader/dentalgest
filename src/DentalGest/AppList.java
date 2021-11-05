@@ -511,11 +511,7 @@ public final  class AppList extends javax.swing.JFrame {
             d.add(n);d.add(n);
                  
          
-                
-                            
-           while(resStampa.next())
-            {   
-                
+                 
                 String datah="Data degli appuntamenti";
                 PdfPTable ptableD = new PdfPTable(1);
              PdfPCell cellD=new PdfPCell(new Paragraph(datah)); 
@@ -530,23 +526,15 @@ public final  class AppList extends javax.swing.JFrame {
                 ptableD.addCell(cellD1);
               
                 d.add(ptableD);
-                d.add(n);
-                d.add(n);
-            
-                PdfPTable ptableh = new PdfPTable(4);
                 
-               String operatoreh="Operatore";
+                String operatoreh="Operatore";
                String clienteh="Cliente";
                String descrizioneh="Descrizione";
                String denteh="Dente";
                String orah ="Ora";
                
-               String oraS = resStampa.getString("ora");
-                String clienteS = resStampa.getString("cliente");
-                String denteS = /*resStampa.getString("dente");*/ null;
-                String operatoreS = resStampa.getString("operatore");
-                String descrizioneS = resStampa.getString("descrizionev");
                
+                PdfPTable ptableh = new PdfPTable(4);
                PdfPCell cell2h=new PdfPCell(new Paragraph(operatoreh)); 
                cell2h.setBorderColor(new Color(0,0,0));
                 cell2h.setBackgroundColor(new Color(255,255,255));
@@ -578,7 +566,15 @@ public final  class AppList extends javax.swing.JFrame {
                // ptableh.addCell(cell6h);
                 ptableh.addCell(cell5h);
                 d.add(ptableh);
-               
+                            
+           while(resStampa.next())
+            {   
+               String oraS = resStampa.getString("ora");
+                String clienteS = resStampa.getString("cliente");
+                String denteS = /*resStampa.getString("dente");*/ null;
+                String operatoreS = resStampa.getString("operatore");
+                String descrizioneS = resStampa.getString("descrizionev");
+                
                PdfPCell cell2h1=new PdfPCell(new Paragraph(operatoreS)); 
                cell2h1.setBorderColor(new Color(0,0,0));
                 cell2h1.setBackgroundColor(new Color(255,255,255));
@@ -758,18 +754,19 @@ Date date=new Date(millis);
            String adesso = dtf.format(now);
    System.out.println("Oggi: "+adesso);      
      String terminato = "Terminato";
-    String sql = "SELECT * FROM  appuntamenti where data = ? AND stato NOT IN ('"+terminato+"','Sospeso','Annullato') ORDER BY data DESC";
+    
     
     try {
+        String sql = "SELECT * FROM  appuntamenti where data = ? AND stato NOT IN ('"+terminato+"','Sospeso','Annullato') ORDER BY data DESC";
             psts = conn.prepareStatement(sql);
             psts.setString(1, adesso);
             
-            ResultSet rec = psts.executeQuery();
-            ResultSet recApp = pstsApp.executeQuery();
+            ResultSet recApp = psts.executeQuery();
+            
 
             int rowApp = 0;
-            
-                while (((recApp != null) && (recApp.next())) && (rec != null) &&  (rec.next())) {
+            if(recApp!=null){
+                while (((recApp != null) && (recApp.next()))) {
                 
                 model.addRow(new Object[0]);
 
@@ -777,20 +774,21 @@ Date date=new Date(millis);
 
                 model.setValueAt(recApp.getString("operatore"), rowApp, 1);       
            
-                model.setValueAt(rec.getString("cliente"), rowApp, 2);
+                model.setValueAt(recApp.getString("cliente"), rowApp, 2);
                     
-                model.setValueAt(rec.getString("data"), rowApp, 3);
+                model.setValueAt(recApp.getString("data"), rowApp, 3);
 
-                model.setValueAt(rec.getString("ora"), rowApp, 4);
+                model.setValueAt(recApp.getString("ora"), rowApp, 4);
                 
-                model.setValueAt(rec.getString("descrizionev"), rowApp, 5);
+                model.setValueAt(recApp.getString("descrizionev"), rowApp, 5);
                 
-                model.setValueAt(rec.getString("descrizionev"), rowApp, 6);
+                model.setValueAt(recApp.getString("descrizionev"), rowApp, 6);
                 
                 rowApp++;
 
                
             }
+                
                    System.out.println("Numero righe tabella appuntamenti: "+rowApp);
               tb1.removeColumn(tb1.getColumnModel().getColumn(0));   
            tb1.getColumnModel().getColumn(0).setPreferredWidth(150);
@@ -800,7 +798,18 @@ Date date=new Date(millis);
             tb1.getColumnModel().getColumn(4).setPreferredWidth(250);
             tb1.getColumnModel().getColumn(5).setPreferredWidth(100);
             //tb1.getColumnModel().getColumn(5).setPreferredWidth(110);
-           
+            }
+            else{
+                                   System.out.println(" tabella Vuota appuntamenti");
+
+                tb1.removeColumn(tb1.getColumnModel().getColumn(0));   
+           tb1.getColumnModel().getColumn(0).setPreferredWidth(150);
+              tb1.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tb1.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(60);
+            tb1.getColumnModel().getColumn(4).setPreferredWidth(250);
+            tb1.getColumnModel().getColumn(5).setPreferredWidth(100);
+            }
             
 
         } catch (SQLException e) {

@@ -147,7 +147,7 @@ public final class Clients extends javax.swing.JFrame {
          connAppDel = Db.db();
          connAppDelPrest = Db.db();
          combo_cliente.setText(comb);
-        Update_table();
+        PopulateData();
     AnimationStation();
     
     }
@@ -246,6 +246,151 @@ public final class Clients extends javax.swing.JFrame {
 
     }
     
+     public  void PopulateData() {
+
+// Clear table
+        tb1.setModel(new DefaultTableModel());
+         //calendar.setDate(null);
+// Model for Table
+        DefaultTableModel model = new DefaultTableModel() {
+
+            @Override
+            public Class<?> getColumnClass(int column) {
+
+                switch (column) {
+
+                    case 0:
+
+                        return Boolean.class;
+
+                    case 1:
+
+                        return String.class;
+
+                    case 2:
+
+                        return String.class;
+
+                    case 3:
+
+                        return String.class;
+
+                    case 4:
+
+                        return String.class;
+
+                    case 5:
+
+                        return String.class;
+
+                    case 6:
+
+                        return String.class;
+                        
+                    case 7:
+
+                        return String.class;
+
+                    default:
+
+                        return String.class;
+
+                }
+
+            }
+
+        };
+
+        tb1.setModel(model);
+        
+// Add Column
+
+       model.addColumn("");
+
+         model.addColumn("Id");
+        
+          model.addColumn("Prestazione");
+          
+          model.addColumn("Dente");
+          
+        model.addColumn("Acconto");
+
+        model.addColumn("Saldo");
+        
+         model.addColumn("Costo");
+          
+
+       
+   
+   String n = txt_n.getText().toUpperCase();
+         String c = txt_c.getText().toUpperCase();
+          comb = n+" "+c;
+        System.out.println("Nome da List: "+n+" "+c);
+        combo_cliente.setText(comb);
+        String sql ="select * from prestazione_cliente where cliente='"+comb+"'";
+        try {
+
+            psts = conn.prepareStatement(sql);
+            
+            ResultSet rec = psts.executeQuery();
+
+             int row = 0;
+            
+             
+            
+                while ((rec != null) && (rec.next())) {
+                   
+                model.addRow(new Object[0]);
+
+                model.setValueAt(false, row, 0); // Checkbox
+
+                 model.setValueAt(rec.getString("id"), row, 1);
+                 
+                  model.setValueAt(rec.getString("nome"), row, 2);
+                  
+                  model.setValueAt(rec.getString("dente"), row, 3);
+                 
+                model.setValueAt(rec.getString("acconto"), row, 4);
+
+                model.setValueAt(rec.getString("resto"), row, 5);
+                
+                model.setValueAt(rec.getString("prezzo"), row, 6);
+                
+                
+                
+
+               row++;
+
+                
+            }
+                   System.out.println("Numero righe tabella Prestazioni cliente: "+row);
+                   
+     
+            
+            tb1.getColumnModel().getColumn(0).setPreferredWidth(5);
+             tb1.getColumnModel().getColumn(1).setPreferredWidth(0);
+            tb1.getColumnModel().getColumn(2).setPreferredWidth(100);
+             tb1.getColumnModel().getColumn(3).setPreferredWidth(50);
+              tb1.getColumnModel().getColumn(4).setPreferredWidth(50);
+               tb1.getColumnModel().getColumn(5).setPreferredWidth(50);
+                tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
+              
+ 
+            
+        } catch (SQLException e) {
+
+// TODO Auto-generated catch block
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            PopulateData();
+
+
+// TODO Auto-generated catch block
+
+        }
+      
+
+    }
+     
     void Update_table() {
     
         
@@ -277,6 +422,7 @@ public final class Clients extends javax.swing.JFrame {
        txt_iva.setText(model.getValueAt(selectedRowIndex, 4).toString());
        txt_anticipo.setText(model.getValueAt(selectedRowIndex, 5).toString());
        */tb1.setModel(DbUtils.resultSetToTableModel(rs));
+       tb1.getColumnModel().getColumn(1).setWidth(1);
             Double resu=0.0;
             Double accu=0.0;
             Double ttt=0.0;
@@ -430,7 +576,7 @@ public final class Clients extends javax.swing.JFrame {
 
          model3.addColumn("");
         
-        model3.addColumn("Nome");
+        model3.addColumn("Prestazione");
         
           model3.addColumn("Dente");
 
@@ -438,7 +584,7 @@ public final class Clients extends javax.swing.JFrame {
 
         model3.addColumn("Resto");
 
-        model3.addColumn("Prezzo");
+        model3.addColumn("Costo");
         
        
         
@@ -484,7 +630,7 @@ public final class Clients extends javax.swing.JFrame {
             
             
            tb1.getColumnModel().getColumn(0).setPreferredWidth(2);
-            tb1.getColumnModel().getColumn(1).setPreferredWidth(2);
+            tb1.getColumnModel().getColumn(1).setMaxWidth(0);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(480);
             tb1.getColumnModel().getColumn(3).setPreferredWidth(50);
 
@@ -664,12 +810,7 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
         tb1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 147, 81)));
         tb1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
 
@@ -1042,6 +1183,11 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
       .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
       .toString();
      System.out.println(generatedString);
+     
+     Random randomD = new Random();
+
+// generate a random integer from 0 to 899, then add 100
+int xD = randomD.nextInt(99)-100 ;
                     //int upperbound = 50;
                     //int int_random = rand.nextInt(upperbound); 
                    //String id = String.valueOf(int_random);
@@ -1051,7 +1197,7 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
                     pst.setString(4,"0.0");
                     pst.setString(5,costoIns);
                     pst.setString(6,costoIns);
-                    pst.setInt(7, 0);
+                    pst.setInt(7, xD);
                     pst.setString(8,dataora);
                     pst.setString(9,"inserimento");
                     pst.execute();
@@ -1622,19 +1768,22 @@ System.out.println(dateFormat.format(cal.getTime()));
            while(repCosto.next())
             {   
                 dente = repCosto.getString("dente");
+                ids = repSto.getString("id");
                 prezzo = Double.parseDouble(repCosto.getString("prezzo"));
                 System.out.println("ACCONTO TOTALE: "+accontos1);
+                System.out.println("ID STORICO: "+ids);
                 
            PreparedStatement prepStoDati = null;
             ResultSet repStoDati = null;
-             String sqlDati = "select acconto,dente,dataora,id from storico_acc where dente = '"+dente+"' AND nome ='"+nomes+"' AND cliente ='"+scelta+"' and id='"+ids+"' group by id,dente,acconto,dataora";
+             String sqlDati = "select acconto,dataora,id,dente from storico_acc where dente = ? AND nome ='"+nomes+"' AND cliente ='"+scelta+"' and id='"+ids+"' group by id,dente,acconto,dataora";
             prepStoDati=connStoDati.prepareStatement(sqlDati);
+            prepStoDati.setString(1, dente);
             repStoDati=prepStoDati.executeQuery(); 
           
                
             while(repStoDati.next()){
                    
-              
+              //dente = repStoDati.getString("dente");
                
                 accontos=repStoDati.getString("acconto");
                

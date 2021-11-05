@@ -457,18 +457,21 @@ public final  class ClientiListCem extends javax.swing.JFrame {
 
                 pst.execute();
                 System.out.println("VALORI INSERIMENT PAZIENTE: " + cliente + " | " + stato + " | " + data + " | " + datanascita+ "");
-
+ 
                 JOptionPane.showMessageDialog(null, "Cementazione aggiunta correttamente");
-                 Cenentazione.getObj().PopulateData();
+                
                 PopulateData();
-
+                Cenentazione.getObj().txtpaz.setSelectedIndex(0);
+//Cenentazione.getObj().PopulateData();
+ 
                
                 // AppList.getObj().PopulateDataAll();
 
                 calendar.setDate(null);
                 txt_cerca.setText("");
+                combo_stato.setSelectedIndex(-1);
                 
-                setVisible(false);
+                //setVisible(false);
 
             } catch (SQLException ex) {
                 Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
