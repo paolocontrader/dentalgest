@@ -174,6 +174,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         open = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
@@ -405,6 +406,21 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(9, 10, 0, 2);
         getContentPane().add(jButton4, gridBagConstraints);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/headers/CARTELLA_CLINICA_220_x_80.png"))); // NOI18N
+        jLabel3.setText("jLabel1");
+        jLabel3.setMaximumSize(new java.awt.Dimension(295, 80));
+        jLabel3.setMinimumSize(new java.awt.Dimension(295, 80));
+        jLabel3.setPreferredSize(new java.awt.Dimension(295, 80));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = -77;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        getContentPane().add(jLabel3, gridBagConstraints);
 
         setSize(new java.awt.Dimension(837, 516));
         setLocationRelativeTo(null);
@@ -4974,6 +4990,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nome;
     private javax.swing.JTextField open;

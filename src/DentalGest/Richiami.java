@@ -360,7 +360,7 @@ public final  class Richiami extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel() {
 
             @Override
-            public Class<?> getColumnClass(int column) {
+             public Class<?> getColumnClass(int column) {
 
                 switch (column) {
 
@@ -406,41 +406,33 @@ public final  class Richiami extends javax.swing.JFrame {
 
         };
 
+
         tb1.setModel(model);
         
 // Add Column
-         model.addColumn("");
-
-         model.addColumn("Cliente");
         
+        model.addColumn("");
+
+        model.addColumn("Cliente");
+
         model.addColumn("Data di nascita");
 
         model.addColumn("Data");
-        
+
         model.addColumn("Stato");
+
         
-      
-DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
-   LocalDateTime now = LocalDateTime.now();  
-   System.out.println(dtf.format(now));  
-   long millis=System.currentTimeMillis();  
-Date date=new Date(millis);  
- 
-           String adesso = dtf.format(now);
-   System.out.println("Oggi: "+adesso);      
-     String terminato = "Terminato";
-    String sql = "SELECT * FROM  richiami  where intervento NOT IN ('Chiamato') ";
+      String terminato = "Chiamato";
+
+    String sql = "SELECT * FROM  richiami WHERE intervento NOT IN ('"+terminato+"') ORDER BY data DESC";
         try {
 
             psts = conn.prepareStatement(sql);
-            
             ResultSet rec = psts.executeQuery();
 
-             int row = 0;
+            int row = 0;
             
-             
-            
-                while ((rec != null) && (rec.next())) {
+               while ((rec != null) && (rec.next())) {
                    
                 model.addRow(new Object[0]);
 
@@ -451,22 +443,27 @@ Date date=new Date(millis);
                 model.setValueAt(rec.getString("datanascita"), row, 2);
 
                 model.setValueAt(rec.getString("data"), row, 3);
-                
-                 model.setValueAt(rec.getString("intervento"), row, 4);
 
-               row++;
-
+                model.setValueAt(rec.getString("intervento"), row, 4);
                 
+                row++;
+
             }
                    System.out.println("Numero righe tabella richiami: "+row);
-                   
-     
+                if(row==0){
+                    
+           
+                JOptionPane.showMessageDialog(null, "Nessun richiamo disponibile");
+                 
+                }
             
-                    tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
-            tb1.getColumnModel().getColumn(0).setPreferredWidth(300);
-             tb1.getColumnModel().getColumn(1).setPreferredWidth(255);
+             tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
+            tb1.getColumnModel().getColumn(0).setPreferredWidth(150);
+              tb1.getColumnModel().getColumn(1).setPreferredWidth(150);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(100);
-             tb1.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(100);
+            
+
         } catch (SQLException e) {
 
 // TODO Auto-generated catch block
@@ -535,11 +532,14 @@ Date date=new Date(millis);
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        setMinimumSize(new java.awt.Dimension(874, 725));
+        setPreferredSize(new java.awt.Dimension(874, 1121));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -565,17 +565,17 @@ Date date=new Date(millis);
         jScrollPane2.setViewportView(tb1);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 10;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 753;
-        gridBagConstraints.ipady = 420;
+        gridBagConstraints.ipadx = 733;
+        gridBagConstraints.ipady = 360;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(9, 30, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(9, 20, 0, 0);
         getContentPane().add(jScrollPane2, gridBagConstraints);
 
         txt_n.setEditable(false);
@@ -584,10 +584,10 @@ Date date=new Date(millis);
         txt_n.setFocusable(false);
         txt_n.setOpaque(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = -16;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
         getContentPane().add(txt_n, gridBagConstraints);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/nuovo_150x40.png"))); // NOI18N
@@ -601,13 +601,13 @@ Date date=new Date(millis);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = -185;
         gridBagConstraints.ipady = -1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(100, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(30, 30, 0, 0);
         getContentPane().add(jButton5, gridBagConstraints);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
@@ -621,27 +621,30 @@ Date date=new Date(millis);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridx = 11;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 10, 0, 9);
+        gridBagConstraints.insets = new java.awt.Insets(9, 10, 0, 19);
         getContentPane().add(jButton3, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 113;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(110, 20, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(40, 70, 0, 0);
         getContentPane().add(calendar, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Data: ");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 22;
+        gridBagConstraints.ipady = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(110, 30, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(40, 30, 0, 0);
         getContentPane().add(jLabel3, gridBagConstraints);
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -662,11 +665,11 @@ Date date=new Date(millis);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(100, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(30, 2, 0, 0);
         getContentPane().add(bt_cerca, gridBagConstraints);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
@@ -680,14 +683,15 @@ Date date=new Date(millis);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.gridheight = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(100, 30, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(30, 10, 0, 0);
         getContentPane().add(jButton2, gridBagConstraints);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/visualizza-tutti-gli-appuntamenti_40x100.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/visualizza-tutti-i-richiami_150x40.png"))); // NOI18N
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
@@ -699,17 +703,17 @@ Date date=new Date(millis);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 9;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = -1;
         gridBagConstraints.ipady = -1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(100, 9, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(30, 9, 0, 0);
         getContentPane().add(jButton1, gridBagConstraints);
 
         jButton6.setText("Modifica stato");
-        jButton6.setToolTipText("Selezionare gli appuntamenti da modificare");
+        jButton6.setToolTipText("Selezionare il richiamo da modificare");
         jButton6.setMargin(new java.awt.Insets(2, 0, 2, 14));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -717,15 +721,29 @@ Date date=new Date(millis);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 49;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, -528, 34, 0);
+        gridBagConstraints.insets = new java.awt.Insets(10, 80, 30, 0);
         getContentPane().add(jButton6, gridBagConstraints);
 
-        setSize(new java.awt.Dimension(837, 706));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/headers/RICHIAMO_220_x_80.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        jLabel1.setMaximumSize(new java.awt.Dimension(295, 80));
+        jLabel1.setMinimumSize(new java.awt.Dimension(295, 80));
+        jLabel1.setPreferredSize(new java.awt.Dimension(295, 80));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = -77;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        getContentPane().add(jLabel1, gridBagConstraints);
+
+        setSize(new java.awt.Dimension(837, 632));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -780,8 +798,10 @@ Date date=new Date(millis);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void bt_cercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cercaActionPerformed
-        // TODO add your handling code here:
-        Search();
+       
+            // TODO add your handling code here:
+            Search();
+        
     }//GEN-LAST:event_bt_cercaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -868,7 +888,7 @@ Date date=new Date(millis);
         DefaultTableModel model = new DefaultTableModel() {
 
             @Override
-            public Class<?> getColumnClass(int column) {
+             public Class<?> getColumnClass(int column) {
 
                 switch (column) {
 
@@ -917,9 +937,8 @@ Date date=new Date(millis);
         tb1.setModel(model);
         
 // Add Column
-
-       model.addColumn("");
-
+        model.addColumn("");
+     
          model.addColumn("Cliente");
         
         model.addColumn("Data di nascita");
@@ -927,7 +946,6 @@ Date date=new Date(millis);
         model.addColumn("Data");
         
         model.addColumn("Stato");
-        
       
 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
    LocalDateTime now = LocalDateTime.now();  
@@ -938,7 +956,7 @@ Date date=new Date(millis);
            String adesso = dtf.format(now);
    System.out.println("Oggi: "+adesso);      
      String terminato = "Terminato";
-    String sql = "SELECT * FROM  richiami  where data = '"+adesso+"' and intervento  NOT IN ('Chiamato')";
+    String sql = "SELECT * FROM  richiami  where data = '"+adesso+"' and intervento  NOT IN ('Chiamato') order by data";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -960,22 +978,21 @@ Date date=new Date(millis);
                 model.setValueAt(rec.getString("datanascita"), row, 2);
 
                 model.setValueAt(rec.getString("data"), row, 3);
+
+                model.setValueAt(rec.getString("intervento"), row, 4);
                 
-                 model.setValueAt(rec.getString("intervento"), row, 4);
-
-               row++;
-
+                row++;
+           
                 
             }
                    System.out.println("Numero righe tabella richiami: "+row);
                    
      
-            
-                    tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
-            tb1.getColumnModel().getColumn(0).setPreferredWidth(300);
-             tb1.getColumnModel().getColumn(1).setPreferredWidth(255);
+          tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
+          tb1.getColumnModel().getColumn(0).setPreferredWidth(150);
+              tb1.getColumnModel().getColumn(1).setPreferredWidth(150);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(100);
-             tb1.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(100);
  
             
         } catch (SQLException e) {
@@ -1012,6 +1029,18 @@ Date date=new Date(millis);
      
     private  void Search() {
 
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+Date newDate = calendar.getDate();
+  String x = dateFormat.format(newDate);
+     //String cerca = calendar.getDate().toString();
+  LocalDateTime now = LocalDateTime.now();  
+   
+   long millis=System.currentTimeMillis();  
+Date date=new Date(millis);  
+ 
+         System.out.println("DARA: "+x);
+    String sql = null;
+          
 // Clear table
         tb1.setModel(new DefaultTableModel());
          
@@ -1069,31 +1098,26 @@ Date date=new Date(millis);
         
 // Add Column
         model.addColumn("");
-        
+     
          model.addColumn("Cliente");
-
+        
         model.addColumn("Data di nascita");
 
         model.addColumn("Data");
         
         model.addColumn("Stato");
+
+        
    
-DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-  
-  //String operator = operacombo.getSelectedItem().toString();
-        Date newDate = calendar.getDate();
-  String cerca = dateFormat.format(newDate);
-     
-    
-          
-    String sql = "SELECT * FROM richiami WHERE data = ?  ORDER BY data ASC";
+
         try {
 
-            psts = conn.prepareStatement(sql);
-            psts.setString(1, cerca);
-            //psts.setString(2, operator);
-           
+           sql = "SELECT * FROM  richiami WHERE data = ?  ORDER BY data ASC";
+           psts = conn.prepareStatement(sql);
+            psts.setString(1, x);
+          
 
+           
             ResultSet rec = psts.executeQuery();
 
             int row = 0;
@@ -1111,23 +1135,28 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 model.setValueAt(rec.getString("datanascita"), row, 2);
 
                 model.setValueAt(rec.getString("data"), row, 3);
-                
-                 model.setValueAt(rec.getString("intervento"), row, 4);
 
-               row++;
+                model.setValueAt(rec.getString("intervento"), row, 4);
+                
+                row++;
 
                 
             }
-                   System.out.println("Numero righe tabella appuntamento: "+row);
-                   
-     
+                   System.out.println("Numero righe tabella richiami: "+row);
+                   if(row==0){
+                        tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
+                JOptionPane.showMessageDialog(null, "Nessun richiamo disponibile");
+            }
+                   else{
             
                     tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
-            tb1.getColumnModel().getColumn(0).setPreferredWidth(300);
-             tb1.getColumnModel().getColumn(1).setPreferredWidth(255);
+            tb1.getColumnModel().getColumn(0).setPreferredWidth(150);
+              tb1.getColumnModel().getColumn(1).setPreferredWidth(150);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(100);
             tb1.getColumnModel().getColumn(3).setPreferredWidth(100);
- 
+                   }
+        
+            calendar.setDate(null);
         } catch (SQLException e) {
 
 // TODO Auto-generated catch block
@@ -1138,7 +1167,6 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 // TODO Auto-generated catch block
 
         }
-        
       
 
     }
@@ -9373,6 +9401,7 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tb1;

@@ -115,8 +115,7 @@ public class Dentiera extends javax.swing.JFrame {
         sceltabnt = new javax.swing.JButton();
         sfondo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(check11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
         getContentPane().add(check12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, -1, -1));
@@ -186,7 +185,7 @@ public class Dentiera extends javax.swing.JFrame {
         sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/schema-denti_440_630.png"))); // NOI18N
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 560, 620));
 
-        setSize(new java.awt.Dimension(598, 723));
+        setSize(new java.awt.Dimension(606, 760));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -307,13 +306,20 @@ public class Dentiera extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(Dentiera.class.getName()).log(Level.SEVERE, null, ex);
             }
-            Random rand = new Random(); //instance of random class
+            int leftLimit = 97; // letter 'a'
+    int rightLimit = 122; // letter 'z'
+    int targetStringLength = 10;
+    Random random = new Random();
+
+    String generatedString = random.ints(leftLimit, rightLimit + 1)
+      .limit(targetStringLength)
+      .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+      .toString();
+     System.out.println(generatedString);
             dataora =  DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDateTime.now());
-            int upperbound = 9999;
-            int int_random = rand.nextInt(upperbound);
-            String id = String.valueOf(int_random);
            
-                pst.setString(1,id);
+           
+                pst.setString(1,generatedString);
            
             pst.setString(2,Clients.getObj().servizio);
             pst.setString(3,Clients.getObj().cliente);
@@ -326,7 +332,7 @@ public class Dentiera extends javax.swing.JFrame {
             System.out.println("valori dentiera: "+sql);
             pst.execute();
             
-            String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto,dente) values(?,?,?,?,?)";
+            String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto,dente,id) values(?,?,?,?,?,?)";
                    Connection furb = Db.db();
                    PreparedStatement psfurb = furb.prepareStatement(sqlfurb);
                    psfurb.setString(1, Clients.getObj().cliente);
@@ -334,6 +340,7 @@ public class Dentiera extends javax.swing.JFrame {
                    psfurb.setString(3, dataora);
                    psfurb.setString(4, "0.0");
                    psfurb.setString(5, String.valueOf(dente_check));
+                   psfurb.setString(6, generatedString);
                    psfurb.execute();
             JOptionPane.showMessageDialog(null,"Prestazione salvata correttamente" );
             check11.setSelected(false);

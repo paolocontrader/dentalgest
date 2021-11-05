@@ -33,6 +33,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.RoundingMode;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -542,6 +543,7 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
         jLabel7 = new javax.swing.JLabel();
         txt_tot = new javax.swing.JLabel();
         txt_ant = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest - Gestione Clienti");
@@ -552,7 +554,7 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
         jLabel2.setText("Prestazione:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 9;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -562,7 +564,7 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
         jLabel4.setText("Costo:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.ipadx = 33;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(3, 30, 0, 0);
@@ -570,11 +572,11 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
 
         jLabel11.setText("Acconto:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridx = 18;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 11;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 60, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 2, 0, 0);
         getContentPane().add(jLabel11, gridBagConstraints);
 
         bnt_agg_sek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/aggiungi_150x40.png"))); // NOI18N
@@ -589,9 +591,9 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 23;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 14;
+        gridBagConstraints.gridx = 86;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 50;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = -50;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -604,8 +606,8 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
         txt_servizio.setPreferredSize(new java.awt.Dimension(2, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 35;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 218;
         gridBagConstraints.ipady = 2;
@@ -630,8 +632,8 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 38;
         gridBagConstraints.ipadx = 268;
         gridBagConstraints.ipady = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -649,9 +651,9 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 75;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 36;
+        gridBagConstraints.gridx = 255;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 117;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = -1;
         gridBagConstraints.ipady = 6;
@@ -687,8 +689,8 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 147;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 489;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 903;
@@ -710,9 +712,9 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 23;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 14;
+        gridBagConstraints.gridx = 86;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 50;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = -82;
         gridBagConstraints.ipady = -1;
@@ -730,8 +732,8 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 37;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 136;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = -83;
@@ -748,7 +750,7 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 68;
@@ -764,9 +766,9 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 11;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 13;
+        gridBagConstraints.gridx = 38;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 49;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 70;
         gridBagConstraints.ipady = 7;
@@ -774,9 +776,9 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
         gridBagConstraints.insets = new java.awt.Insets(3, 10, 0, 0);
         getContentPane().add(txt_anticipo, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 110;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 37;
+        gridBagConstraints.gridx = 371;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 118;
         gridBagConstraints.ipadx = 80;
         gridBagConstraints.ipady = 40;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -793,9 +795,9 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 39;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 34;
+        gridBagConstraints.gridx = 138;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 115;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipady = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -823,12 +825,12 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
         combo_cliente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         combo_cliente.setBorder(null);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 32;
+        gridBagConstraints.gridx = 28;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 113;
         gridBagConstraints.ipadx = 410;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(120, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         getContentPane().add(combo_cliente, gridBagConstraints);
 
         txt_n.setEditable(false);
@@ -857,9 +859,9 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 41;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 35;
+        gridBagConstraints.gridx = 140;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 116;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 9, 0, 0);
@@ -875,8 +877,8 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 37;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridx = 136;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -891,44 +893,43 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
         txt_resto.setMinimumSize(new java.awt.Dimension(2, 23));
         txt_resto.setPreferredSize(new java.awt.Dimension(2, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 37;
-        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridx = 136;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 88;
         gridBagConstraints.ipady = -3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(35, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(40, 0, 49, 0);
         getContentPane().add(txt_resto, gridBagConstraints);
 
         jLabel5.setText("Saldo:  €");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 36;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridx = 135;
+        gridBagConstraints.gridy = 12;
         gridBagConstraints.ipadx = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(40, 28, 23, 0);
+        gridBagConstraints.insets = new java.awt.Insets(40, 28, 0, 0);
         getContentPane().add(jLabel5, gridBagConstraints);
 
         jLabel8.setText("   Acconto:  €");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 9;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 10;
         gridBagConstraints.ipadx = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(40, 20, 23, 0);
+        gridBagConstraints.insets = new java.awt.Insets(40, 20, 0, 0);
         getContentPane().add(jLabel8, gridBagConstraints);
 
         jLabel7.setText("Totale: €");
         jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridy = 12;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 28;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(40, 30, 23, 0);
+        gridBagConstraints.insets = new java.awt.Insets(40, 30, 0, 0);
         getContentPane().add(jLabel7, gridBagConstraints);
 
         txt_tot.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -939,11 +940,12 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
         txt_tot.setMinimumSize(new java.awt.Dimension(2, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridy = 12;
         gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 78;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(35, 90, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(40, 90, 49, 0);
         getContentPane().add(txt_tot, gridBagConstraints);
 
         txt_ant.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -953,13 +955,28 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
         txt_ant.setMaximumSize(new java.awt.Dimension(2, 23));
         txt_ant.setMinimumSize(new java.awt.Dimension(2, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.gridwidth = 12;
+        gridBagConstraints.gridx = 28;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 48;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 78;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(35, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(40, 0, 49, 0);
         getContentPane().add(txt_ant, gridBagConstraints);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/headers/ANAGRAFICA_PAZIENTE_220_x_80.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        jLabel1.setMaximumSize(new java.awt.Dimension(295, 80));
+        jLabel1.setMinimumSize(new java.awt.Dimension(295, 80));
+        jLabel1.setPreferredSize(new java.awt.Dimension(295, 80));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.ipadx = -77;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        getContentPane().add(jLabel1, gridBagConstraints);
 
         setSize(new java.awt.Dimension(999, 656));
         setLocationRelativeTo(null);
@@ -1014,12 +1031,21 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
                         System.out.println("costo: "+costoIns);
                     String sql="insert into prestazione_cliente (id,nome,cliente,acconto,resto,prezzo,dente,dataora,tipo) values (?,?,?,?,?,?,?,?,?)";
                     pst=conn.prepareStatement(sql);
-                    Random rand = new Random(); //instance of random class
-     
-                    int upperbound = 50;
-                    int int_random = rand.nextInt(upperbound); 
-                   String id = String.valueOf(int_random);
-                    pst.setString(1,id);
+                    //Random rand = new Random(); //instance of random class
+                     int leftLimit = 97; // letter 'a'
+    int rightLimit = 122; // letter 'z'
+    int targetStringLength = 10;
+    Random random = new Random();
+
+    String generatedString = random.ints(leftLimit, rightLimit + 1)
+      .limit(targetStringLength)
+      .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+      .toString();
+     System.out.println(generatedString);
+                    //int upperbound = 50;
+                    //int int_random = rand.nextInt(upperbound); 
+                   //String id = String.valueOf(int_random);
+                    pst.setString(1,generatedString);
                     pst.setString(2,servizio);
                     pst.setString(3,cliente);
                     pst.setString(4,"0.0");
@@ -1030,7 +1056,7 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
                     pst.setString(9,"inserimento");
                     pst.execute();
                     
-                     String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto,dente) values(?,?,?,?,?)";
+                     String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto,dente,id) values(?,?,?,?,?,?)";
                    Connection furb = Db.db();
                    PreparedStatement psfurb = furb.prepareStatement(sqlfurb);
                    psfurb.setString(1, cliente);
@@ -1038,6 +1064,7 @@ tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
                    psfurb.setString(3, dataora);
                    psfurb.setString(4, "0.0");
                    psfurb.setString(5, "0");
+                   psfurb.setString(6, generatedString);
                    psfurb.execute();
                     JOptionPane.showMessageDialog(null,"Prestazione salvata correttamente" );
                 }
@@ -1313,14 +1340,18 @@ System.out.println(dateFormat.format(cal.getTime()));
          String dente = null;
          String accontos = null;
           Double accontoTot = 0.0;
+          Double resto =0.0;
          String denteh="Dente";
-                PdfPCell cellD=new PdfPCell(new Paragraph(denteh)); 
+         String total  = null;
+         String quandos = null;
+         String denteA = null;
+                PdfPCell cellD=null;
          PopulatePrest();
         try{
            
             String scelta= combo_cliente.getText();
            
-             String sqlAcc = "select nome from storico_acc where cliente='"+scelta+"' group by nome";
+             String sqlAcc = "select nome,id from storico_acc where cliente='"+scelta+"' group by nome,id";
             prepSto=connSto.prepareStatement(sqlAcc);
             repSto=prepSto.executeQuery();
             Document d=new Document(PageSize.A4);
@@ -1373,6 +1404,7 @@ System.out.println(dateFormat.format(cal.getTime()));
                cell113.setBorderColor(new Color(255,255,255));
                cell113.setHorizontalAlignment(Element.ALIGN_LEFT);
                Font fontSize_16 =  FontFactory.getFont(FontFactory.TIMES, 22f);
+                Font fontSize_16red =  FontFactory.getFont(FontFactory.TIMES, 22f);
                PdfPCell pazi = new PdfPCell(new Paragraph("Paziente",fontSize_16));
                pazi.setIndent(-40);
              
@@ -1446,15 +1478,15 @@ System.out.println(dateFormat.format(cal.getTime()));
                 //ptableh.addCell(cell4h);
                 ptableh.addCell(cell3h);
                 d.add(ptableh);
-                
+                String nome = null;
             while(rep.next()){
                PdfPTable ptable = new PdfPTable(4);
-               String nome=rep.getString("nome");
+              nome =rep.getString("nome");
                String dentea=rep.getString("dente");
                String impon=rep.getString("acconto");
                String iva_calc=rep.getString("resto");
                //String iva_app=rep.getString("iva");
-               String total=rep.getString("prezzo");
+                total=rep.getString("prezzo");
                PdfPCell cell1a=new PdfPCell(new Paragraph(nome));
                cell1a.setBorderColor(new Color(0,0,0));
                 PdfPCell celld=new PdfPCell(new Paragraph(dentea));
@@ -1484,12 +1516,13 @@ System.out.println(dateFormat.format(cal.getTime()));
             PdfPTable table1=new PdfPTable(1);
             String resor=txt_resto.getText();
             String t=txt_tot.getText();
-            String totaler=txt_tot.getText();
+             String totaler = txt_tot.getText();
+             
             String accontor=txt_ant.getText();
-            PdfPCell cell3=new PdfPCell(new Paragraph("Totale: €"+totaler+ "\nAcconto: €"+accontor+"\nSaldo: €"+resor));
-            cell3.setBorder(0);
-            cell3.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            table1.addCell(cell3);
+            PdfPCell cell3s=new PdfPCell(new Paragraph("Totale: €"+totaler+ "\nAcconto: €"+accontor+"\nSaldo: €"+resor));
+            cell3s.setBorder(0);
+            cell3s.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            table1.addCell(cell3s);
            // Image image1 = Image.getInstance("/dentalgest/footer.png");
            // image1.scaleToFit(720, 55);
             d.add(table1);
@@ -1522,7 +1555,7 @@ System.out.println(dateFormat.format(cal.getTime()));
 //            cell3.setBorder(0);
 //            cell3.setHorizontalAlignment(Element.ALIGN_RIGHT);
 //            table1.addCell(cell3);
-//                 
+                 
             Image image1 = Image.getInstance("/dentalgest/footer.png");
             image1.scaleToFit(720, 55);
 //          d.add(table1);
@@ -1542,18 +1575,20 @@ System.out.println(dateFormat.format(cal.getTime()));
               d.add(n);d.add(n);d.add(n);
              String nomes = null;
                 nomes=repSto.getString("nome");
+                 String ids=repSto.getString("id");
                  PdfPTable ptableP = new PdfPTable(1);
             String nomeh="Prestazione";
             PdfPCell cell1h=new PdfPCell(new Paragraph(nomeh));
-               cell1h.setBorderColor(new Color(0,0,0));
+               cell1h.setBorderColor(new Color(255,255,255));
                cell1h.setBackgroundColor(new Color(255,255,255));
                cell1h.setHorizontalAlignment(Element.ALIGN_CENTER);
             ptableP.addCell(cell1h);
-            d.add(ptableP);
+            //d.add(ptableP);
                 PdfPTable ptableN = new PdfPTable(1);
-              PdfPCell cell1=new PdfPCell(new Paragraph(nomes));
+                fontSize_16red.setColor(Color.RED);
+              PdfPCell cell1=new PdfPCell(new Paragraph(nomes,fontSize_16red));
                cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
-               cell1.setBorderColor(new Color(0,0,0));
+               cell1.setBorderColor(new Color(255,255,255));
           ptableN.addCell(cell1);
                 d.add(ptableN);
                 
@@ -1562,26 +1597,15 @@ System.out.println(dateFormat.format(cal.getTime()));
            
              String sqlCosto = "select prezzo,dente  from prestazione_cliente where nome ='"+nomes+"' and cliente = '"+scelta+"'";
             prepCosto=connStoDati.prepareStatement(sqlCosto);
-            repCosto=prepCosto.executeQuery();             
-           while(repCosto.next())
-            {   
-                dente = repCosto.getString("dente");
-                prezzo = Double.parseDouble(repCosto.getString("prezzo"))+prezzo;
-                System.out.println("ACCONTO TOTALE: "+accontos1);
-                
-           PreparedStatement prepStoDati = null;
-            ResultSet repStoDati = null;
-             String sqlDati = "select acconto,dente,dataora from storico_acc where dente = '"+dente+"' AND nome ='"+nomes+"' AND cliente ='"+scelta+"' group by dente,acconto,dataora";
-            prepStoDati=connStoDati.prepareStatement(sqlDati);
-            repStoDati=prepStoDati.executeQuery(); 
-             ptableh = new PdfPTable(3);
-               String accontoh="Acconti";
+            repCosto=prepCosto.executeQuery();   
+              String accontoh="Acconti";
                String datah="Date Acconti"; 
-               
+                PdfPTable ptableh1 = new PdfPTable(3);
                 cell2h=new PdfPCell(new Paragraph(accontoh)); 
                cell2h.setBorderColor(new Color(0,0,0));
                 cell2h.setBackgroundColor(new Color(255,255,255));
                 cell2h.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cellD=new PdfPCell(new Paragraph(denteh)); 
                 cellD.setBackgroundColor(new Color(255,255,255));
                 cellD.setHorizontalAlignment(Element.ALIGN_CENTER);
                  cell3h=new PdfPCell(new Paragraph(datah));
@@ -1589,23 +1613,42 @@ System.out.println(dateFormat.format(cal.getTime()));
                 cell3h.setBackgroundColor(new Color(255,255,255));
                cell3h.setHorizontalAlignment(Element.ALIGN_CENTER);
                
-                ptableh.addCell(cellD);
-                ptableh.addCell(cell2h);
-                ptableh.addCell(cell3h);
-                d.add(ptableh);
+                ptableh1.addCell(cellD);
+                ptableh1.addCell(cell2h);
+                ptableh1.addCell(cell3h);
+                d.add(ptableh1);
+                accontoTot=0.0;
+                
+           while(repCosto.next())
+            {   
+                dente = repCosto.getString("dente");
+                prezzo = Double.parseDouble(repCosto.getString("prezzo"));
+                System.out.println("ACCONTO TOTALE: "+accontos1);
+                
+           PreparedStatement prepStoDati = null;
+            ResultSet repStoDati = null;
+             String sqlDati = "select acconto,dente,dataora,id from storico_acc where dente = '"+dente+"' AND nome ='"+nomes+"' AND cliente ='"+scelta+"' and id='"+ids+"' group by id,dente,acconto,dataora";
+            prepStoDati=connStoDati.prepareStatement(sqlDati);
+            repStoDati=prepStoDati.executeQuery(); 
+          
                
             while(repStoDati.next()){
-                
-               PdfPTable ptable = new PdfPTable(3);
+                   
+              
                
                 accontos=repStoDati.getString("acconto");
-                accontoTot = Double.parseDouble(accontos)+accontoTot;
                
-                
-               String quandos=repStoDati.getString("dataora");
-                PdfPCell cellDe=new PdfPCell(new Paragraph(dente));
+                quandos=repStoDati.getString("dataora");
+                denteA = repStoDati.getString("dente");
+                accontoTot = accontoTot+Double.parseDouble(accontos);
+                 
+           resto = prezzo-accontoTot;
+            ptableh = new PdfPTable(3);
+               
+             PdfPTable ptable = new PdfPTable(3);
+            PdfPCell cellDe=new PdfPCell(new Paragraph(denteA));
                 PdfPCell cell2=new PdfPCell(new Paragraph("€"+accontos));
-                cell3=new PdfPCell(new Paragraph(quandos)); 
+                PdfPCell cell3g=new PdfPCell(new Paragraph(quandos)); 
                cell2.setBorderColor(new Color(0,0,0));
                 cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
                cellD.setBorderColor(new Color(0,0,0));
@@ -1613,17 +1656,18 @@ System.out.println(dateFormat.format(cal.getTime()));
                 cellD.setHorizontalAlignment(Element.ALIGN_CENTER);
                 ptable.addCell(cellDe);
                 ptable.addCell(cell2);
-                ptable.addCell(cell3);
-               
-                d.add(ptable);
-                
-            
+                ptable.addCell(cell3g);
+             d.add(ptable);
             
            }
+             
             
             
-              d.add(n);
-            Double resto = prezzo-accontoTot;
+               
+            }
+          
+                d.add(n);
+           
                System.out.println("ACCONTOS++: "+accontoTot);
                PdfPTable tableAcc=new PdfPTable(1);
                PdfPCell cellAcc=new PdfPCell(new Paragraph("Costo: €"+prezzo+"\nAcconto: €"+accontoTot+"\nResto: €"+resto));
@@ -1632,8 +1676,7 @@ System.out.println(dateFormat.format(cal.getTime()));
             tableAcc.addCell(cellAcc);
             d.add(tableAcc);
               
-               
-            }
+             d.add(n);d.add(n); 
             d.add(image1);
                             d.newPage();
 
@@ -1715,8 +1758,8 @@ System.out.println(dateFormat.format(cal.getTime()));
 
         } finally{
             try{
-                rscva.close();
-                pstva.close();
+               // rscva.close();
+                //pstva.close();
                 connva.close();
             }
             catch(SQLException e)
@@ -1774,7 +1817,7 @@ System.out.println(dateFormat.format(cal.getTime()));
                     Update_table();
                    pstUpd.execute();
                    
-                   String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto,dente) values(?,?,?,?,?)";
+                   String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto,dente,id) values(?,?,?,?,?,?)";
                    Connection furb = Db.db();
                    PreparedStatement psfurb = furb.prepareStatement(sqlfurb);
                    psfurb.setString(1, val1);
@@ -1782,6 +1825,7 @@ System.out.println(dateFormat.format(cal.getTime()));
                    psfurb.setString(3, dataora);
                    psfurb.setString(4, account);
                    psfurb.setString(5, denteSel);
+                   psfurb.setString(6, numero);
                    psfurb.execute();
                    Update_table();
                    PopulatePrest();
@@ -1897,6 +1941,8 @@ PopulatePrest();
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        Appuntamenti.getObj().combo_cliente.setText(combo_cliente.getText());
+        Appuntamenti.getObj().PopulateData();
         Appuntamenti.getObj().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -1971,6 +2017,7 @@ PopulatePrest();
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

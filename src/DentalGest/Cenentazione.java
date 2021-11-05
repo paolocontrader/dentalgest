@@ -401,6 +401,7 @@ public final  class Cenentazione extends javax.swing.JFrame {
         txtcerca = new javax.swing.JTextField();
         bt_cerca1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
@@ -433,12 +434,12 @@ public final  class Cenentazione extends javax.swing.JFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 20;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 22;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 753;
-        gridBagConstraints.ipady = 250;
+        gridBagConstraints.ipady = 190;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
@@ -450,9 +451,10 @@ public final  class Cenentazione extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 13;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(130, 20, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(60, 20, 0, 0);
         getContentPane().add(Tipologia, gridBagConstraints);
 
         txt_n.setEditable(false);
@@ -475,8 +477,8 @@ public final  class Cenentazione extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 10;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 49;
@@ -489,8 +491,8 @@ public final  class Cenentazione extends javax.swing.JFrame {
         combo_stato.setToolTipText("");
         combo_stato.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridy = 10;
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.ipadx = 41;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -509,13 +511,13 @@ public final  class Cenentazione extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = -155;
         gridBagConstraints.ipady = -1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 90, 38, 0);
+        gridBagConstraints.insets = new java.awt.Insets(20, 90, 33, 0);
         getContentPane().add(jButton5, gridBagConstraints);
 
         combo_stato1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Provvisoria", "Definitiva" }));
@@ -523,8 +525,8 @@ public final  class Cenentazione extends javax.swing.JFrame {
         combo_stato1.setToolTipText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.ipadx = 41;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(40, 80, 0, 0);
@@ -541,8 +543,8 @@ public final  class Cenentazione extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 21;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridx = 23;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(9, 0, 0, 8);
         getContentPane().add(jButton3, gridBagConstraints);
@@ -566,33 +568,34 @@ public final  class Cenentazione extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = 71;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(130, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(60, 0, 0, 0);
         getContentPane().add(txtpaz, gridBagConstraints);
 
         Tipologia1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Tipologia1.setText("Tipologia:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 9;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(130, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(60, 10, 0, 0);
         getContentPane().add(Tipologia1, gridBagConstraints);
 
         txtcerca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridwidth = 4;
         gridBagConstraints.ipadx = 194;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(130, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(60, 0, 0, 0);
         getContentPane().add(txtcerca, gridBagConstraints);
 
         bt_cerca1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -613,11 +616,11 @@ public final  class Cenentazione extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridheight = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(120, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(50, 0, 0, 0);
         getContentPane().add(bt_cerca1, gridBagConstraints);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
@@ -631,15 +634,30 @@ public final  class Cenentazione extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 13;
+        gridBagConstraints.gridx = 16;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.gridheight = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(120, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(50, 10, 0, 0);
         getContentPane().add(jButton2, gridBagConstraints);
 
-        setSize(new java.awt.Dimension(836, 585));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/headers/CEMENTAZIONE_220_x_80.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        jLabel1.setMaximumSize(new java.awt.Dimension(295, 80));
+        jLabel1.setMinimumSize(new java.awt.Dimension(295, 80));
+        jLabel1.setPreferredSize(new java.awt.Dimension(295, 80));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = -77;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        getContentPane().add(jLabel1, gridBagConstraints);
+
+        setSize(new java.awt.Dimension(836, 510));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1059,7 +1077,7 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             tb1.getColumnModel().getColumn(0).setPreferredWidth(350);
              tb1.getColumnModel().getColumn(1).setPreferredWidth(250);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tb1.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tb1.getColumnModel().getColumn(3).setPreferredWidth(100);
  
         } catch (SQLException e) {
 
@@ -5348,6 +5366,7 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tb1;
     private javax.swing.JTextField txt_n;

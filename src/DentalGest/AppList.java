@@ -205,6 +205,7 @@ public final  class AppList extends javax.swing.JFrame {
         txt_n = new javax.swing.JTextField();
         operacombo = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
@@ -236,17 +237,16 @@ public final  class AppList extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tb1);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 13;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridwidth = 20;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 753;
-        gridBagConstraints.ipady = 240;
+        gridBagConstraints.ipadx = 761;
+        gridBagConstraints.ipady = 270;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(8, 40, 100, 20);
+        gridBagConstraints.insets = new java.awt.Insets(8, 40, 42, 20);
         getContentPane().add(jScrollPane2, gridBagConstraints);
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -268,20 +268,21 @@ public final  class AppList extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(84, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(60, 10, 0, 0);
         getContentPane().add(bt_cerca, gridBagConstraints);
 
         calendar.setDateFormatString("dd-MM-yyyy");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 133;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(84, 40, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(60, 40, 0, 0);
         getContentPane().add(calendar, gridBagConstraints);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/visualizza-tutti-gli-appuntamenti_40x100.png"))); // NOI18N
@@ -296,13 +297,13 @@ public final  class AppList extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridx = 9;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = -1;
         gridBagConstraints.ipady = -1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(84, 30, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(60, 10, 0, 0);
         getContentPane().add(jButton1, gridBagConstraints);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
@@ -316,22 +317,21 @@ public final  class AppList extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 10;
+        gridBagConstraints.gridheight = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(84, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(60, 10, 0, 0);
         getContentPane().add(jButton2, gridBagConstraints);
 
         label1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label1.setText("Operatore:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(7, 40, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(9, 40, 0, 0);
         getContentPane().add(label1, gridBagConstraints);
 
         txt_n.setEditable(false);
@@ -341,9 +341,9 @@ public final  class AppList extends javax.swing.JFrame {
         txt_n.setOpaque(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = -16;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(28, 0, 0, 0);
         getContentPane().add(txt_n, gridBagConstraints);
 
         operacombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tutti", "Dott Pagliarulo", "Dott.ssa Calabrese", "Dott. Donnarumma", "Dott. Famiglietti" }));
@@ -360,11 +360,11 @@ public final  class AppList extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridwidth = 9;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 275;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(7, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(9, 10, 0, 0);
         getContentPane().add(operacombo, gridBagConstraints);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_stampa_40x40.png"))); // NOI18N
@@ -378,12 +378,26 @@ public final  class AppList extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(83, 9, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(60, 10, 0, 0);
         getContentPane().add(jButton3, gridBagConstraints);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/headers/APPUNTAMENTO_220_x_80.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        jLabel1.setMaximumSize(new java.awt.Dimension(295, 80));
+        jLabel1.setMinimumSize(new java.awt.Dimension(295, 80));
+        jLabel1.setPreferredSize(new java.awt.Dimension(295, 80));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = -77;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        getContentPane().add(jLabel1, gridBagConstraints);
 
         setSize(new java.awt.Dimension(856, 579));
         setLocationRelativeTo(null);
@@ -441,18 +455,19 @@ public final  class AppList extends javax.swing.JFrame {
          DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
    LocalDateTime now = LocalDateTime.now();  
    System.out.println(dtf.format(now));  
-  DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm");
-Calendar cal = Calendar.getInstance();
-System.out.println(dateFormat.format(cal.getTime()));
-           String adesso = dateFormat.format(cal.getTime());
+  DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+
+           String adesso = dateFormat.format(calendar.getDate());
+           System.out.println(dateFormat.format(calendar.getDate()));
          
-Date newDate = calendar.getDate();
+
         try{
-           int row = tb1.getSelectedRow();
-            //String scelta= (tb1.getValueAt(row, 0).toString());
-           String x = (tb1.getValueAt(row, 2).toString());
-             String sqlStampa = "select * from appuntamenti where data='"+x+"' or data='"+adesso+"'";
+          
+          
+             String sqlStampa = "select * from appuntamenti where data=?";
             PreparedStatement psStampa=connStampa.prepareStatement(sqlStampa);
+            psStampa.setString(1, adesso);
             ResultSet resStampa=psStampa.executeQuery();
             Document d=new Document(PageSize.A4);
             
@@ -501,23 +516,24 @@ Date newDate = calendar.getDate();
            while(resStampa.next())
             {   
                 
-                String datah="Data";
+                String datah="Data degli appuntamenti";
                 PdfPTable ptableD = new PdfPTable(1);
              PdfPCell cellD=new PdfPCell(new Paragraph(datah)); 
-              PdfPCell cellD1=new PdfPCell(new Paragraph(x)); 
-               cellD.setBorderColor(new Color(0,0,0));
+              PdfPCell cellD1=new PdfPCell(new Paragraph(adesso)); 
+               cellD.setBorderColor(new Color(255,255,255));
                 cellD.setBackgroundColor(new Color(255,255,255));
                 cellD.setHorizontalAlignment(Element.ALIGN_CENTER);
                 ptableD.addCell(cellD);
-                cellD1.setBorderColor(new Color(0,0,0));
+                cellD1.setBorderColor(new Color(255,255,255));
                 cellD1.setBackgroundColor(new Color(255,255,255));
                 cellD1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 ptableD.addCell(cellD1);
+              
                 d.add(ptableD);
                 d.add(n);
                 d.add(n);
             
-                PdfPTable ptableh = new PdfPTable(5);
+                PdfPTable ptableh = new PdfPTable(4);
                 
                String operatoreh="Operatore";
                String clienteh="Cliente";
@@ -527,7 +543,7 @@ Date newDate = calendar.getDate();
                
                String oraS = resStampa.getString("ora");
                 String clienteS = resStampa.getString("cliente");
-                String denteS = resStampa.getString("dente");
+                String denteS = /*resStampa.getString("dente");*/ null;
                 String operatoreS = resStampa.getString("operatore");
                 String descrizioneS = resStampa.getString("descrizionev");
                
@@ -559,7 +575,7 @@ Date newDate = calendar.getDate();
                 ptableh.addCell(cell2h);
                 ptableh.addCell(cell3h);
                 ptableh.addCell(cell4h);
-                ptableh.addCell(cell6h);
+               // ptableh.addCell(cell6h);
                 ptableh.addCell(cell5h);
                 d.add(ptableh);
                
@@ -588,11 +604,11 @@ Date newDate = calendar.getDate();
                 cell6h1.setBackgroundColor(new Color(255,255,255));
                cell6h1.setHorizontalAlignment(Element.ALIGN_CENTER);
                
-              PdfPTable ptableh1 = new PdfPTable(5);
+              PdfPTable ptableh1 = new PdfPTable(4);
                  ptableh1.addCell(cell2h1);
                 ptableh1.addCell(cell3h1);
                 ptableh1.addCell(cell4h1);
-                ptableh1.addCell(cell6h1);
+                //ptableh1.addCell(cell6h1);
                 ptableh1.addCell(cell5h1);
                 d.add(ptableh1);
                Image image1 = Image.getInstance("/dentalgest/footer.png");
@@ -743,10 +759,9 @@ Date date=new Date(millis);
    System.out.println("Oggi: "+adesso);      
      String terminato = "Terminato";
     String sql = "SELECT * FROM  appuntamenti where data = ? AND stato NOT IN ('"+terminato+"','Sospeso','Annullato') ORDER BY data DESC";
-    String sqlA = "select * from ore order by mezzore asc";    
+    
     try {
             psts = conn.prepareStatement(sql);
-            pstsApp = connApp.prepareStatement(sqlA);
             psts.setString(1, adesso);
             
             ResultSet rec = psts.executeQuery();
@@ -9465,6 +9480,7 @@ Date newDate = calendar.getDate();
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private java.awt.Label label1;
     private javax.swing.JComboBox<String> operacombo;
