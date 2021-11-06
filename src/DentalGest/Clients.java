@@ -227,9 +227,9 @@ public final class Clients extends javax.swing.JFrame {
 
     }
     
-     void DeleteDataStorico(String nome,String cliente,String dente) {
+     void DeleteDataStorico(String nome,String cliente,String dente,String id) {
 
-        String sql = "DELETE FROM storico_acc  WHERE nome = '" + nome + "' AND cliente = '" + cliente + "' AND dente = '"+dente+"'";
+        String sql = "DELETE FROM storico_acc  WHERE nome = '" + nome + "' AND id = '" + id + "' AND cliente = '" + cliente + "' AND dente = '"+dente+"'";
         try {
             pstsDelPrest = connAppDelPrest.createStatement();
             System.out.println("QUERY DI ELIMINAZIONE STORICO: "+nome+" "+cliente+" "+id);
@@ -1209,7 +1209,7 @@ int xD = randomD.nextInt(99)-100 ;
                    psfurb.setString(2, servizio);
                    psfurb.setString(3, dataora);
                    psfurb.setString(4, "0.0");
-                   psfurb.setString(5, "0");
+                   psfurb.setString(5, String.valueOf(xD));
                    psfurb.setString(6, generatedString);
                    psfurb.execute();
                     JOptionPane.showMessageDialog(null,"Prestazione salvata correttamente" );
@@ -1741,7 +1741,7 @@ System.out.println(dateFormat.format(cal.getTime()));
                 PreparedStatement prepCosto = null;
             ResultSet repCosto = null;
            
-             String sqlCosto = "select prezzo,dente  from prestazione_cliente where nome ='"+nomes+"' and cliente = '"+scelta+"'";
+             String sqlCosto = "select prezzo,dente  from prestazione_cliente where nome ='"+nomes+"' and cliente = '"+scelta+"' and id = '"+ids+"'";
             prepCosto=connStoDati.prepareStatement(sqlCosto);
             repCosto=prepCosto.executeQuery();   
               String accontoh="Acconti";
@@ -1786,7 +1786,7 @@ System.out.println(dateFormat.format(cal.getTime()));
               //dente = repStoDati.getString("dente");
                
                 accontos=repStoDati.getString("acconto");
-               
+                
                 quandos=repStoDati.getString("dataora");
                 denteA = repStoDati.getString("dente");
                 accontoTot = accontoTot+Double.parseDouble(accontos);
@@ -1951,7 +1951,7 @@ System.out.println(dateFormat.format(cal.getTime()));
                         //resto=Math.ceil(resto);
                         }
                     Double resto1 = costo - var_anticipo-Double.parseDouble(tb1.getValueAt(row,4 ).toString());
-                    String sql="update prestazione_cliente set prezzo=?,acconto=?,resto=? ,dataora=?,tipo=? where cliente=? and nome=? and id=?";
+                    String sql="update prestazione_cliente set prezzo=?,acconto=?,resto=? ,dataora=?,tipo=? where cliente=? and nome=? and id=? and dente = ?";
                     System.out.println("Query update: "+sql);
                     pstUpd=connUpd.prepareStatement(sql);
                     var_anticipo = Double.valueOf(txt_anticipo.getText())+Double.valueOf(ant1);
@@ -1963,6 +1963,7 @@ System.out.println(dateFormat.format(cal.getTime()));
                     pstUpd.setString(6, val1);
                     pstUpd.setString(7, servizio);
                     pstUpd.setString(8, numero);
+                    pstUpd.setString(9, denteSel);
                     Update_table();
                    pstUpd.execute();
                    
@@ -2039,7 +2040,7 @@ PopulatePrest();
                     String id = tb1.getValueAt(i, 1).toString();
                     int row = tb1.getSelectedRow();
                     DeleteDataPrest(nome,cliente,id); 
-                    DeleteDataStorico(nome,cliente,dente);
+                    DeleteDataStorico(nome,cliente,dente,id);
                     System.out.println("Cancello 3");
                     DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
                      decimalFormat.setRoundingMode(RoundingMode.HALF_UP);

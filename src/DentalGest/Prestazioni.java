@@ -430,16 +430,18 @@ dente =0;
                    
                 pst.execute();
                 Refresh();
+                combo_ser.setSelectedIndex(-1);
+                txt_prezzo.setText("");
+                txt_nome.setText("");
+                 Clients.getObj().prestazioni.removeItem(servizio);
                 JOptionPane.showMessageDialog(null,"Servizio cancellato correttamente" );
                 
 
 
-                combo_ser.removeAllItems();
-                txt_prezzo.setText("");
-                txt_nome.setText("");
+                
                 Refresh();
                    
-                    Clients.getObj().PopulatePrest(); 
+                   
 
             }catch(SQLException | HeadlessException e)
             {

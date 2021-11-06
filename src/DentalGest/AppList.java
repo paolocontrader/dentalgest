@@ -27,10 +27,19 @@ import java.awt.Desktop;
 import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,10 +49,21 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintException;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Sides;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -449,7 +469,7 @@ public final  class AppList extends javax.swing.JFrame {
     }//GEN-LAST:event_tb1MouseClicked
 
     
-    public void storico() throws FileNotFoundException, DocumentException, IOException
+    public void storico() throws FileNotFoundException, DocumentException, IOException, PrintException
     {
         
          DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
@@ -465,10 +485,15 @@ public final  class AppList extends javax.swing.JFrame {
         try{
           
           
-             String sqlStampa = "select * from appuntamenti where data=?";
+             String sqlStampa = "select * from appuntamenti where data=? order by ora";
             PreparedStatement psStampa=connStampa.prepareStatement(sqlStampa);
             psStampa.setString(1, adesso);
             ResultSet resStampa=psStampa.executeQuery();
+            
+             //Test stampa documento pdf
+            
+
+
             Document d=new Document(PageSize.A4);
             
             File f = new File("/dentalgest/appuntamenti/");
@@ -487,6 +512,8 @@ public final  class AppList extends javax.swing.JFrame {
             System.out.println("Directory non creata");
         }     
             PdfWriter.getInstance(d, new FileOutputStream("/dentalgest/appuntamenti/appuntamenti-"+adesso+".pdf"));
+            
+       
             d.open();
             d.newPage();
            
@@ -618,12 +645,10 @@ public final  class AppList extends javax.swing.JFrame {
                         d.close(); 
 
             //d.add(n);
-              
-             
-                
-            
             
             JOptionPane.showMessageDialog(null,"Appuntamenti creati correttamente");
+            
+       
          try{
         //Process exec = Runtime.getRuntime().exec("cmd.exe /C /dentalgest/utility/open.bat");
         File file = new File("/dentalgest/appuntamenti/appuntamenti-"+adesso+".pdf");
@@ -661,11 +686,16 @@ public final  class AppList extends javax.swing.JFrame {
         
     }
     
+    
+    
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             // TODO add your handling code here:
            storico();
         } catch (DocumentException | IOException ex) {
+            Logger.getLogger(AppList.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PrintException ex) {
             Logger.getLogger(AppList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed

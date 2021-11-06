@@ -1168,7 +1168,7 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
      String datanascita = null;
     
           
-    String sql = "SELECT * FROM cementazione WHERE cliente like ?   ORDER BY datanascita ASC";
+    String sql = "SELECT * FROM cementazione WHERE cliente like ?   ORDER BY data ASC";
         try {
 
                  
