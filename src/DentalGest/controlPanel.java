@@ -8,20 +8,13 @@ package DentalGest;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
+import org.apache.commons.io.FileUtils;
 /**
  *
  * @author Paolo
@@ -35,6 +28,7 @@ public class controlPanel extends javax.swing.JFrame {
 ResultSet rs=null;
 PreparedStatement pst=null;
 String value=oper.userN; 
+String lettera = null;
   
     
     public controlPanel()
@@ -45,7 +39,7 @@ String value=oper.userN;
         AnimationStation();//movimento jframe undecorate
         String directory = System.getProperty("user.dir");
         String[] pathDir = directory.split(":");
-        String lettera= pathDir[0];
+         lettera= pathDir[0];
         System.out.println("Working Directory = " + lettera);
         lettera_txt.setText(lettera);
         System.out.println(lettera+":/dentalgest/cartelle/");
@@ -91,7 +85,6 @@ String value=oper.userN;
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        btn9 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -116,7 +109,7 @@ String value=oper.userN;
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 240, -1, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
         jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -136,16 +129,6 @@ String value=oper.userN;
             }
         });
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 10, 20, 20));
-
-        btn9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_exit_130x130.png"))); // NOI18N
-        btn9.setBorder(null);
-        btn9.setContentAreaFilled(false);
-        btn9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn9ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn9, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 240, -1, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_appuntamenti_130x130.png"))); // NOI18N
         jButton2.setBorder(null);
@@ -175,7 +158,7 @@ String value=oper.userN;
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 240, -1, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 240, -1, -1));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/cementazione_130x130.png"))); // NOI18N
         jButton4.setBorder(null);
@@ -185,7 +168,7 @@ String value=oper.userN;
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, -1, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 240, -1, -1));
 
         lettera_txt.setEditable(false);
         lettera_txt.setBorder(null);
@@ -194,7 +177,7 @@ String value=oper.userN;
         getContentPane().add(lettera_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 0, -1));
 
         sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/main_800x400.png"))); // NOI18N
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 410));
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 410));
 
         setSize(new java.awt.Dimension(800, 402));
         setLocationRelativeTo(null);
@@ -204,33 +187,45 @@ String value=oper.userN;
         // TODO add your handling code here:
         setExtendedState( JFrame.ICONIFIED );
     }//GEN-LAST:event_jLabel3MouseClicked
-
+  
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
+        
         try {
+           
 			
 			Runtime.getRuntime().exec("cmd /C /MIN start C:/Database/bin/stopNetworkServer.bat");
+                        Runtime.getRuntime().exec("cmd /C /MIN start C:/Dentalgest/backup.bat");
+                                               File f = new File("c:/BackupDG");
+  
+        // check if the directory can be created
+        // using the abstract path name
+        if (f.mkdir()) {
+  
+            // display that the directory is created
+            // as the function returned true
+            System.out.println("Directory creata");
+        }
+        else {
+            // display that the directory cannot be created
+            // as the function returned false
+            System.out.println("Directory non creata");
+        }   
+                                  File sourceDirectory = new File(lettera+":/Database/bin/dentalsoft");
+        File destinationDirectory = new File("c:/BackupDG/dentalsoftdb");
+        
+        File sourceDirectoryD = new File(lettera+":/Dentalgest");
+        File destinationDirectoryD = new File("c:/BackupDG/dentalgest");
+
+        FileUtils.copyDirectory(sourceDirectoryD, destinationDirectoryD);  
+         FileUtils.copyDirectory(sourceDirectory, destinationDirectory);  
                          Runtime.getRuntime().exec("taskkill /f /im cmd.exe") ;
+                          
 		} catch (IOException ex) {
 		}
         System.exit(1);
 
     }//GEN-LAST:event_jLabel5MouseClicked
-
-    private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
-        // TODO add your handling code here:
-         int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler uscire dal programma?","Esci da DentalGest",JOptionPane.YES_NO_OPTION);
-        if(x==0){
-            
-            System.exit(0);
-            Prestazioni.getObj().setVisible(false);
-            Clients.getObj().setVisible(false);
-            report.getObj().setVisible(false);
-            dispose();
-            
-      }
-        
-    }//GEN-LAST:event_btn9ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -300,7 +295,6 @@ String value=oper.userN;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn9;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

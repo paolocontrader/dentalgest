@@ -367,6 +367,7 @@ public final  class AppList extends javax.swing.JFrame {
         getContentPane().add(txt_n, gridBagConstraints);
 
         operacombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tutti", "Dott Pagliarulo", "Dott.ssa Calabrese", "Dott. Donnarumma", "Dott. Famiglietti" }));
+        operacombo.setSelectedIndex(-1);
         operacombo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         operacombo.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -573,14 +574,14 @@ public final  class AppList extends javax.swing.JFrame {
                cell3h.setHorizontalAlignment(Element.ALIGN_CENTER);
                
                PdfPCell cell4h=new PdfPCell(new Paragraph(descrizioneh));
-               cell3h.setBorderColor(new Color(0,0,0));
-                cell3h.setBackgroundColor(new Color(255,255,255));
-               cell3h.setHorizontalAlignment(Element.ALIGN_CENTER);
+               cell4h.setBorderColor(new Color(0,0,0));
+                cell4h.setBackgroundColor(new Color(255,255,255));
+               cell4h.setHorizontalAlignment(Element.ALIGN_CENTER);
                
                PdfPCell cell5h=new PdfPCell(new Paragraph(orah));
-               cell3h.setBorderColor(new Color(0,0,0));
-                cell3h.setBackgroundColor(new Color(255,255,255));
-               cell3h.setHorizontalAlignment(Element.ALIGN_CENTER);
+               cell5h.setBorderColor(new Color(0,0,0));
+                cell5h.setBackgroundColor(new Color(255,255,255));
+               cell5h.setHorizontalAlignment(Element.ALIGN_CENTER);
                
                PdfPCell cell6h=new PdfPCell(new Paragraph(denteh));
                cell3h.setBorderColor(new Color(0,0,0));

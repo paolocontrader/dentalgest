@@ -180,6 +180,8 @@ public final  class ClientiListCem extends javax.swing.JFrame {
         combo_stato = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        nota_txt = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
@@ -211,14 +213,14 @@ public final  class ClientiListCem extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridwidth = 8;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 767;
         gridBagConstraints.ipady = 260;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 10, 0, 20);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
         getContentPane().add(jScrollPane2, gridBagConstraints);
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -232,14 +234,14 @@ public final  class ClientiListCem extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 15;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 34;
         gridBagConstraints.ipady = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(40, 82, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(10, 180, 0, 9);
         getContentPane().add(bt_cerca, gridBagConstraints);
 
         txt_cerca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -249,13 +251,13 @@ public final  class ClientiListCem extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 198;
         gridBagConstraints.ipady = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(50, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(20, 90, 0, 0);
         getContentPane().add(txt_cerca, gridBagConstraints);
 
         txt_nominativo.setEditable(false);
@@ -299,12 +301,11 @@ public final  class ClientiListCem extends javax.swing.JFrame {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 80, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 0, 0);
         getContentPane().add(jLabel3, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 113;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -323,13 +324,13 @@ public final  class ClientiListCem extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = -185;
         gridBagConstraints.ipady = -11;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 10, 20, 0);
+        gridBagConstraints.insets = new java.awt.Insets(20, 10, 0, 0);
         getContentPane().add(jButton5, gridBagConstraints);
 
         combo_stato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Provvisoria", "Definitiva" }));
@@ -337,7 +338,7 @@ public final  class ClientiListCem extends javax.swing.JFrame {
         combo_stato.setToolTipText("");
         combo_stato.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
+        gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 41;
@@ -348,10 +349,10 @@ public final  class ClientiListCem extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Scelta stato");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 35, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(20, 32, 0, 0);
         getContentPane().add(jLabel1, gridBagConstraints);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/headers/ANAGRAFICA_PAZIENTE_220_x_80.png"))); // NOI18N
@@ -363,10 +364,27 @@ public final  class ClientiListCem extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridheight = 4;
         gridBagConstraints.ipadx = -77;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         getContentPane().add(jLabel2, gridBagConstraints);
+
+        nota_txt.setColumns(20);
+        nota_txt.setRows(100);
+        jScrollPane1.setViewportView(nota_txt);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 14;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 763;
+        gridBagConstraints.ipady = 53;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 16, 14, 0);
+        getContentPane().add(jScrollPane1, gridBagConstraints);
 
         setSize(new java.awt.Dimension(832, 547));
         setLocationRelativeTo(null);
@@ -431,6 +449,7 @@ public final  class ClientiListCem extends javax.swing.JFrame {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date newDate = calendar.getDate();
         String data = dateFormat.format(newDate);
+        String nota = nota_txt.getText();
         //String cerca = calendar.getDate().toString();
         System.out.println("Data da cercare: "+data);
        
@@ -447,19 +466,20 @@ public final  class ClientiListCem extends javax.swing.JFrame {
         if (x == 0) {
             try {
 
-                String sql = "insert into cementazione (cliente,datanascita,tipologia,data) values (?,?,?,?)";
+                String sql = "insert into cementazione (cliente,datanascita,tipologia,data,nota) values (?,?,?,?,?)";
                 PreparedStatement pst = conn.prepareStatement(sql);
 
                 pst.setString(1, cliente);
                 pst.setString(2, datanascita);
                 pst.setString(3,  stato);
                 pst.setString(4, data);
+                pst.setString(5, nota);
 
                 pst.execute();
-                System.out.println("VALORI INSERIMENT PAZIENTE: " + cliente + " | " + stato + " | " + data + " | " + datanascita+ "");
+                System.out.println("VALORI INSERIMENT PAZIENTE: " + cliente + " | " + stato + " | " + data + " | " + datanascita+ " | " + nota + "");
  
                 JOptionPane.showMessageDialog(null, "Cementazione aggiunta correttamente");
-                
+                nota_txt.setText("");
                 PopulateData();
                 Cenentazione.getObj().txtpaz.setSelectedIndex(0);
 //Cenentazione.getObj().PopulateData();
@@ -549,10 +569,6 @@ public final  class ClientiListCem extends javax.swing.JFrame {
         
          model.addColumn("Data di Nascita");
 
-        
-      
-
-        
     String sql = "SELECT * FROM  pazienti ORDER BY cognome ASC";
         try {
 
@@ -2862,8 +2878,10 @@ void deleteDirectory(File file) throws IOException {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nom;
+    private javax.swing.JTextArea nota_txt;
     private javax.swing.JTable tb1;
     private javax.swing.JTextField txt_cerca;
     public javax.swing.JTextField txt_nominativo;
