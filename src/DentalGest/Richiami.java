@@ -519,6 +519,7 @@ public final  class Richiami extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jScrollPane2 = new javax.swing.JScrollPane();
         tb1 = new javax.swing.JTable();
@@ -541,7 +542,7 @@ public final  class Richiami extends javax.swing.JFrame {
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         setMinimumSize(new java.awt.Dimension(874, 725));
         setPreferredSize(new java.awt.Dimension(874, 1121));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -565,14 +566,31 @@ public final  class Richiami extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tb1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 760, 370));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 733;
+        gridBagConstraints.ipady = 360;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(9, 20, 0, 0);
+        getContentPane().add(jScrollPane2, gridBagConstraints);
 
         txt_n.setEditable(false);
         txt_n.setBorder(null);
         txt_n.setEnabled(false);
         txt_n.setFocusable(false);
         txt_n.setOpaque(false);
-        getContentPane().add(txt_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = -16;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        getContentPane().add(txt_n, gridBagConstraints);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/nuovo_150x40.png"))); // NOI18N
         jButton5.setText("Nuovo appuntamento");
@@ -584,7 +602,15 @@ public final  class Richiami extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 90, 40));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.ipadx = -185;
+        gridBagConstraints.ipady = -1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(30, 72, 0, 0);
+        getContentPane().add(jButton5, gridBagConstraints);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
         jButton3.setToolTipText("Selezionare gli appuntamenti da eliminare");
@@ -596,12 +622,32 @@ public final  class Richiami extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 160, -1, -1));
-        getContentPane().add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 140, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(9, 10, 0, 19);
+        getContentPane().add(jButton3, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 113;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(20, 49, 0, 0);
+        getContentPane().add(calendar, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Data: ");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 60, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 22;
+        gridBagConstraints.ipady = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(20, 9, 0, 0);
+        getContentPane().add(jLabel3, gridBagConstraints);
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_cerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_lente_ingrandimento_cerca_40x40.png"))); // NOI18N
@@ -620,7 +666,13 @@ public final  class Richiami extends javax.swing.JFrame {
                 bt_cercaActionPerformed(evt);
             }
         });
-        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 10, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 11;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
+        getContentPane().add(bt_cerca, gridBagConstraints);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
         jButton2.setBorder(null);
@@ -632,7 +684,14 @@ public final  class Richiami extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(30, 10, 0, 0);
+        getContentPane().add(jButton2, gridBagConstraints);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/visualizza-tutti-i-richiami_150x40.png"))); // NOI18N
         jButton1.setBorder(null);
@@ -645,7 +704,16 @@ public final  class Richiami extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, 150, 40));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.ipadx = -1;
+        gridBagConstraints.ipady = -1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(30, 9, 0, 0);
+        getContentPane().add(jButton1, gridBagConstraints);
 
         jButton6.setText("Modifica stato");
         jButton6.setToolTipText("Selezionare il richiamo da modificare");
@@ -655,20 +723,40 @@ public final  class Richiami extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 540, 146, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 49;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 122, 30, 0);
+        getContentPane().add(jButton6, gridBagConstraints);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/headers/RICHIAMO_220_x_80.png"))); // NOI18N
         jLabel1.setText("jLabel1");
         jLabel1.setMaximumSize(new java.awt.Dimension(295, 80));
         jLabel1.setMinimumSize(new java.awt.Dimension(295, 80));
         jLabel1.setPreferredSize(new java.awt.Dimension(295, 80));
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 218, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridheight = 5;
+        gridBagConstraints.ipadx = -77;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        getContentPane().add(jLabel1, gridBagConstraints);
 
         label1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label1.setText("Operatore:");
-        getContentPane().add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(40, 20, 0, 0);
+        getContentPane().add(label1, gridBagConstraints);
 
         operacombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tutti", "Da chiamare", "Chiamati" }));
+        operacombo.setSelectedIndex(-1);
         operacombo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         operacombo.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -679,7 +767,13 @@ public final  class Richiami extends javax.swing.JFrame {
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
             }
         });
-        getContentPane().add(operacombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(40, 10, 0, 0);
+        getContentPane().add(operacombo, gridBagConstraints);
 
         setSize(new java.awt.Dimension(837, 632));
         setLocationRelativeTo(null);

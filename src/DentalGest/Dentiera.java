@@ -300,7 +300,7 @@ public class Dentiera extends javax.swing.JFrame {
              System.out.println("Dente scelto: "+dente_check);
             try {
            
-            String sql="insert into prestazione_cliente (id,nome,cliente,acconto,resto,prezzo,dente,dataora,tipo) values (?,?,?,?,?,?,?,?,?)";
+            String sql="insert into prestazione_cliente (id,nome,cliente,acconto,resto,prezzo,dente,dataora,tipo,nota) values (?,?,?,?,?,?,?,?,?,?)";
             try {
                 pst=conn.prepareStatement(sql);
             } catch (SQLException ex) {
@@ -329,6 +329,7 @@ public class Dentiera extends javax.swing.JFrame {
             pst.setInt(7, dente_check);
              pst.setString(8, dataora);
               pst.setString(9, "inserimento");
+               pst.setString(10, "");
             System.out.println("valori dentiera: "+sql);
             pst.execute();
             

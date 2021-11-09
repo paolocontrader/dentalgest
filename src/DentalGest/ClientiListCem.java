@@ -369,8 +369,8 @@ public final  class ClientiListCem extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         getContentPane().add(jLabel2, gridBagConstraints);
 
-        nota_txt.setColumns(20);
-        nota_txt.setRows(100);
+        nota_txt.setColumns(5);
+        nota_txt.setRows(5);
         jScrollPane1.setViewportView(nota_txt);
 
         gridBagConstraints = new java.awt.GridBagConstraints();

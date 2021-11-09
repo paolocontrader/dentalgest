@@ -5,6 +5,7 @@
  */
 package DentalGest;
 
+import GUI.CalendarGUI;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Phrase;
@@ -328,7 +329,9 @@ public final class Clients extends javax.swing.JFrame {
           comb = n+" "+c;
         System.out.println("Nome da List: "+n+" "+c);
         combo_cliente.setText(comb);
-        String sql ="select * from prestazione_cliente where cliente='"+comb+"'";
+        
+        String client = combo_cliente.getText();
+        String sql ="select * from prestazione_cliente where cliente='"+client+"'";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -1690,6 +1693,7 @@ System.out.println(dateFormat.format(cal.getTime()));
         txt_servizio.setText(model.getValueAt(selectedRowIndex, 2).toString());
         txt_costo.setText(model.getValueAt(selectedRowIndex, 6).toString());
         txt_anticipo.setText(model.getValueAt(selectedRowIndex, 4).toString());
+        nota_txt.setText(model.getValueAt(selectedRowIndex, 7).toString());
            /* Double resto=0.0;
             Double costo=0.0;
             Double acconto=0.0;
@@ -1916,9 +1920,11 @@ PopulatePrest();
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Appuntamenti.getObj().combo_cliente.setText(combo_cliente.getText());
-        Appuntamenti.getObj().PopulateData();
-        Appuntamenti.getObj().setVisible(true);
+//        Appuntamenti.getObj().combo_cliente.setText(combo_cliente.getText());
+//        Appuntamenti.getObj().PopulateData();
+//        Appuntamenti.getObj().setVisible(true);
+
+ new CalendarGUI();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -1961,7 +1967,7 @@ PopulatePrest();
 
                     //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
 
-                    JOptionPane.showMessageDialog(null,"Nota modificato correttamente per la nota di "+cliente );
+                    JOptionPane.showMessageDialog(null,"Nota modificato correttamente per la nota della prestazione: "+prestazione );
                     PopulatePrest();
                     nota_txt.setText("");
 

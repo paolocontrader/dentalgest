@@ -1262,6 +1262,9 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         model.addColumn("Cementazione");
 
         model.addColumn("Data");
+         
+        model.addColumn("Nota");
+        
 
    
 DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -1305,6 +1308,8 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 
                 model.setValueAt(rec.getString("data"), row, 4);
                 
+                 model.setValueAt(rec.getString("nota"), row, 5);
+                
                row++;
 
                              
@@ -1312,12 +1317,12 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                    System.out.println("Numero righe tabella appuntamento: "+row);
                    
      
-            
-                    tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
-            tb1.getColumnModel().getColumn(0).setPreferredWidth(350);
-             tb1.getColumnModel().getColumn(1).setPreferredWidth(250);
+             tb1.removeColumn(tb1.getColumnModel().getColumn(0)); 
+            tb1.getColumnModel().getColumn(0).setPreferredWidth(200);
+             tb1.getColumnModel().getColumn(1).setPreferredWidth(200);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tb1.getColumnModel().getColumn(3).setPreferredWidth(100);
+             tb1.getColumnModel().getColumn(3).setPreferredWidth(100);
+               tb1.getColumnModel().getColumn(4).setPreferredWidth(300);
  
         } catch (SQLException e) {
 

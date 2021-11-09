@@ -5,6 +5,7 @@
  */
 package DentalGest;
 
+import GUI.CalendarGUI;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,6 +14,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import javax.swing.JFrame;
 import org.apache.commons.io.FileUtils;
 /**
@@ -83,13 +87,13 @@ String lettera = null;
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         lettera_txt = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -109,26 +113,7 @@ String lettera = null;
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 240, -1, -1));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
-        jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel5.setAlignmentY(1.0F);
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 10, 20, 20));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_minimizza_20x20.png"))); // NOI18N
-        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 10, 20, 20));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, -1, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_appuntamenti_130x130.png"))); // NOI18N
         jButton2.setBorder(null);
@@ -138,7 +123,7 @@ String lettera = null;
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, -1, -1));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_anagrafica_130x130.png"))); // NOI18N
         jButton5.setBorder(null);
@@ -158,7 +143,7 @@ String lettera = null;
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 240, -1, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 240, -1, -1));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/cementazione_130x130.png"))); // NOI18N
         jButton4.setBorder(null);
@@ -168,7 +153,7 @@ String lettera = null;
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 240, -1, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 240, -1, -1));
 
         lettera_txt.setEditable(false);
         lettera_txt.setBorder(null);
@@ -176,27 +161,91 @@ String lettera = null;
         lettera_txt.setOpaque(false);
         getContentPane().add(lettera_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 0, -1));
 
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/contabilità_130x130.png"))); // NOI18N
+        jButton6.setBorder(null);
+        jButton6.setContentAreaFilled(false);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, -1, -1));
+
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
+        jButton7.setBorder(null);
+        jButton7.setBorderPainted(false);
+        jButton7.setContentAreaFilled(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 20, -1));
+
         sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/main_800x400.png"))); // NOI18N
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 410));
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 800, 420));
 
         setSize(new java.awt.Dimension(800, 402));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        // TODO add your handling code here:
-        setExtendedState( JFrame.ICONIFIED );
-    }//GEN-LAST:event_jLabel3MouseClicked
   
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Prestazioni.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
+         Prestazioni.getObj().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+//        AppList.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
+//         AppList.getObj().setVisible(true);
+        
+    new CalendarGUI();
+    
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+     ClientiList.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
+       ClientiList.getObj().setVisible(true);
+       
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Richiami.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
+        Richiami.getObj().PopulateData();
+        Richiami.getObj().setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        Cenentazione.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
+        Cenentazione.getObj().setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         
+        Saldi.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
+        Saldi.getObj().PopulateData();
+        Saldi.getObj().setVisible(true);
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        
+         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
+   LocalDateTime now = LocalDateTime.now();  
+   System.out.println(dtf.format(now));  
+   long millis=System.currentTimeMillis();  
+Date date=new Date(millis);  
+ 
+           String adesso = dtf.format(now);
+        
         try {
-           
-			
-			Runtime.getRuntime().exec("cmd /C /MIN start C:/Database/bin/stopNetworkServer.bat");
-                        Runtime.getRuntime().exec("cmd /C /MIN start C:/Dentalgest/backup.bat");
-                                               File f = new File("c:/BackupDG");
+           File f = new File("c:/BackupDG");
   
         // check if the directory can be created
         // using the abstract path name
@@ -212,49 +261,20 @@ String lettera = null;
             System.out.println("Directory non creata");
         }   
                                   File sourceDirectory = new File(lettera+":/Database/bin/dentalsoft");
-        File destinationDirectory = new File("c:/BackupDG/dentalsoftdb");
+        File destinationDirectory = new File("c:/BackupDG/dentalsoftdb-"+adesso);
         
-        File sourceDirectoryD = new File(lettera+":/Dentalgest");
-        File destinationDirectoryD = new File("c:/BackupDG/dentalgest");
+//        File sourceDirectoryD = new File(lettera+":/Dentalgest");
+//        File destinationDirectoryD = new File("c:/BackupDG/dentalgest");
 
-        FileUtils.copyDirectory(sourceDirectoryD, destinationDirectoryD);  
+//        FileUtils.copyDirectory(sourceDirectoryD, destinationDirectoryD);  
          FileUtils.copyDirectory(sourceDirectory, destinationDirectory);  
                          Runtime.getRuntime().exec("taskkill /f /im cmd.exe") ;
                           
 		} catch (IOException ex) {
 		}
-        System.exit(1);
+        System.exit(0);
 
-    }//GEN-LAST:event_jLabel5MouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        Prestazioni.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
-         Prestazioni.getObj().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        AppList.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
-         AppList.getObj().setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-      ClientiList.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
-       ClientiList.getObj().setVisible(true);
-       
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        Richiami.getObj().setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        Cenentazione.getObj().setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,8 +320,8 @@ String lettera = null;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     public javax.swing.JTextField lettera_txt;
     private javax.swing.JLabel sfondo;
     // End of variables declaration//GEN-END:variables
