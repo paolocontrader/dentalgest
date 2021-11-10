@@ -16,9 +16,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.apache.commons.io.FileUtils;
+
 /**
  *
  * @author Paolo
@@ -28,55 +31,51 @@ public class controlPanel extends javax.swing.JFrame {
     /**
      * Creates new form controlPanel
      */
-    Connection conn=null;
-ResultSet rs=null;
-PreparedStatement pst=null;
-String value=oper.userN; 
-String lettera = null;
-  
-    
-    public controlPanel()
-    {
+    Connection conn = null;
+    ResultSet rs = null;
+    PreparedStatement pst = null;
+    String value = oper.userN;
+    String lettera = null;
+
+    public controlPanel() {
         super("controlPanel");
         initComponents();
-        conn= Db.db();
+        conn = Db.db();
         AnimationStation();//movimento jframe undecorate
         String directory = System.getProperty("user.dir");
         String[] pathDir = directory.split(":");
-         lettera= pathDir[0];
+        lettera = pathDir[0];
         System.out.println("Working Directory = " + lettera);
         lettera_txt.setText(lettera);
-        System.out.println(lettera+":/dentalgest/cartelle/");
-        System.out.println("Lettera: "+lettera_txt.getText());
+        System.out.println(lettera + ":/dentalgest/cartelle/");
+        System.out.println("Lettera: " + lettera_txt.getText());
     }
-    
-  
-    
+
     private void AnimationStation() {
-    MouseAdapter ma = new MouseAdapter() {
-        int lastX, lastY;
-   
-        @Override
-        public void mousePressed(MouseEvent e) {
-            lastX = e.getXOnScreen();
-            lastY = e.getYOnScreen();
-        }
-        
-        @Override
-        public void mouseDragged(MouseEvent e) {
-            int x = e.getXOnScreen();
-            int y = e.getYOnScreen();
-            // Move frame by the mouse delta
-            setLocation(getLocationOnScreen().x + x - lastX,
-                    getLocationOnScreen().y + y - lastY);
-            lastX = x;
-            lastY = y;
-        }
-    };
-    addMouseListener(ma);
-    addMouseMotionListener(ma);
-}
-    
+        MouseAdapter ma = new MouseAdapter() {
+            int lastX, lastY;
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                lastX = e.getXOnScreen();
+                lastY = e.getYOnScreen();
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                // Move frame by the mouse delta
+                setLocation(getLocationOnScreen().x + x - lastX,
+                        getLocationOnScreen().y + y - lastY);
+                lastX = x;
+                lastY = y;
+            }
+        };
+        addMouseListener(ma);
+        addMouseMotionListener(ma);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,6 +93,7 @@ String lettera = null;
         lettera_txt = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -182,99 +182,130 @@ String lettera = null;
         });
         getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 20, -1));
 
+        jButton9.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jButton9.setText("Backup");
+        jButton9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 370, -1, -1));
+
         sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/main_800x400.png"))); // NOI18N
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 800, 420));
 
         setSize(new java.awt.Dimension(800, 402));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-  
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Prestazioni.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
-         Prestazioni.getObj().setVisible(true);
+        Prestazioni.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png"));
+        Prestazioni.getObj().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
 //        AppList.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
 //         AppList.getObj().setVisible(true);
-        
-    new CalendarGUI();
-    
+
+        new CalendarGUI();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-     ClientiList.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
-       ClientiList.getObj().setVisible(true);
-       
+        ClientiList.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png"));
+        ClientiList.getObj().setVisible(true);
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Richiami.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
+        Richiami.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png"));
         Richiami.getObj().PopulateData();
         Richiami.getObj().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Cenentazione.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
+        Cenentazione.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png"));
         Cenentazione.getObj().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        
-        Saldi.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
+
+        Saldi.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png"));
         Saldi.getObj().PopulateData();
         Saldi.getObj().setVisible(true);
-        
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        
-         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
-   LocalDateTime now = LocalDateTime.now();  
-   System.out.println(dtf.format(now));  
-   long millis=System.currentTimeMillis();  
-Date date=new Date(millis);  
- 
-           String adesso = dtf.format(now);
-        
-        try {
-           File f = new File("c:/BackupDG");
-  
-        // check if the directory can be created
-        // using the abstract path name
-        if (f.mkdir()) {
-  
-            // display that the directory is created
-            // as the function returned true
-            System.out.println("Directory creata");
-        }
-        else {
-            // display that the directory cannot be created
-            // as the function returned false
-            System.out.println("Directory non creata");
-        }   
-                                  File sourceDirectory = new File(lettera+":/Database/bin/dentalsoft");
-        File destinationDirectory = new File("c:/BackupDG/dentalsoftdb-"+adesso);
-        
-//        File sourceDirectoryD = new File(lettera+":/Dentalgest");
-//        File destinationDirectoryD = new File("c:/BackupDG/dentalgest");
 
-//        FileUtils.copyDirectory(sourceDirectoryD, destinationDirectoryD);  
-         FileUtils.copyDirectory(sourceDirectory, destinationDirectory);  
-                         Runtime.getRuntime().exec("taskkill /f /im cmd.exe") ;
-                          
-		} catch (IOException ex) {
-		}
         System.exit(0);
 
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle("Salva Database");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        //
+        // disable the "All files" option.
+        //
+        chooser.setAcceptAllFileFilterUsed(false);
+        //    
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            System.out.println("getCurrentDirectory(): "
+                    + chooser.getCurrentDirectory());
+            System.out.println("getSelectedFile() : "
+                    + chooser.getSelectedFile());
+
+            try {
+                File f = new File("BackUpDG");
+
+                // check if the directory can be created
+                // using the abstract path name
+                if (f.mkdir()) {
+
+                    // display that the directory is created
+                    // as the function returned true
+                    System.out.println("Directory creata");
+                } else {
+                    // display that the directory cannot be created
+                    // as the function returned false
+                    System.out.println("Directory non creata");
+                }
+
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                LocalDateTime now = LocalDateTime.now();
+                System.out.println(dtf.format(now));
+                long millis = System.currentTimeMillis();
+                Date date = new Date(millis);
+
+                String adesso = dtf.format(now);
+                File sourceDirectory = new File(lettera + ":/Database/bin/dentalsoft");
+                File sourceDirectoryD = new File(lettera + ":/Dentalgest");
+                File destinationDirectory = new File(chooser.getSelectedFile() + "/" + f + "/dentalgestdb-" + adesso);
+                File destinationDirectoryD = new File(chooser.getSelectedFile() + "/" + f + "/dentalgest");
+
+                FileUtils.copyDirectory(sourceDirectoryD, destinationDirectoryD);
+                FileUtils.copyDirectory(sourceDirectory, destinationDirectory);
+                Runtime.getRuntime().exec("taskkill /f /im cmd.exe");
+
+            } catch (IOException ex) {
+            }
+        } else {
+            System.out.println("Directory non selezionata ");
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -309,7 +340,7 @@ Date date=new Date(millis);
             @Override
             public void run() {
                 new controlPanel().setVisible(true);
-                
+
             }
         });
     }
@@ -322,6 +353,7 @@ Date date=new Date(millis);
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton9;
     public javax.swing.JTextField lettera_txt;
     private javax.swing.JLabel sfondo;
     // End of variables declaration//GEN-END:variables

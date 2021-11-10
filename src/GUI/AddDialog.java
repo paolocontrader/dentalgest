@@ -20,6 +20,7 @@ public class AddDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtEventName;
         public JTextField txtCliente;
+        public JComboBox txtOper;
 	private JSpinner spFrom;
 	private JSpinner spTo;
 	private JTextField txtFrom;
@@ -51,14 +52,14 @@ public class AddDialog extends JDialog {
     }
         
 	public AddDialog(MemoDialog parent, int flag) {
-		setBounds(100, 100, 361, 180);
+		setBounds(100, 100, 361, 250);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(1, 1, 1, 1));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		setTitle(CalendarGUI.calDayOfMon + " - " + CalendarGUI.MONTH_NAME[CalendarGUI.calMonth]);
                 		gbl_contentPanel.columnWeights = new double[] { 1.0, 2.0 };
-		gbl_contentPanel.rowWeights = new double[] { 1.0, 1.0, 1.0 ,1.0};
+		gbl_contentPanel.rowWeights = new double[] { 1.0, 1.0, 1.0 ,1.0,1.0};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblEvent = new JLabel("Prestazione");
@@ -158,13 +159,42 @@ public class AddDialog extends JDialog {
                         
                         
                 }
+                {
+                        JLabel lblOper = new JLabel("Operatore");
+                       GridBagConstraints gbc_lblOper = new GridBagConstraints();
+			gbc_lblOper.fill = GridBagConstraints.VERTICAL;
+			gbc_lblOper.insets = new Insets(0, 0, 5, 5);
+			gbc_lblOper.gridx = 0;
+			gbc_lblOper.gridy = 2;
+                        contentPanel.add(lblOper, gbc_lblOper);
+                        
+                }
+                
+                {
+                        
+                        String[] operStrings = { "","Dott. Famiglietti", "Dott. Donnarumma", "Dott.ssa Calabrese", "Dott. Pagliarulo"};
+                       txtOper = new JComboBox(operStrings);
+                        txtOper.setLayout(new BorderLayout());
+			GridBagConstraints gbc_txtOper = new GridBagConstraints();
+			gbc_txtOper.fill = GridBagConstraints.BOTH;
+			gbc_txtOper.insets = new Insets(0, 0, 5, 5);
+			gbc_txtOper.gridx = 1;
+			gbc_txtOper.gridy = 2;
+                         
+			contentPanel.add(txtOper, gbc_txtOper);
+			txtOper.setSize(120, 50);
+                       
+                        
+                        
+                }
+                
 		{
 			JLabel lblFrom = new JLabel("Dalle ore: ");
 			GridBagConstraints gbc_lblFrom = new GridBagConstraints();
 			gbc_lblFrom.fill = GridBagConstraints.VERTICAL;
 			gbc_lblFrom.insets = new Insets(0, 0, 5, 5);
 			gbc_lblFrom.gridx = 0;
-			gbc_lblFrom.gridy = 2;
+			gbc_lblFrom.gridy = 3;
 			contentPanel.add(lblFrom, gbc_lblFrom);
 		}
 		{
@@ -172,11 +202,12 @@ public class AddDialog extends JDialog {
 			txtFrom.setLayout(new BorderLayout());
 			GridBagConstraints gbc_txtFrom = new GridBagConstraints();
 			gbc_txtFrom.fill = GridBagConstraints.BOTH;
-			gbc_txtFrom.insets = new Insets(0, 0, 5, 5);
+			gbc_txtFrom.insets = new Insets(0, 0, 0, 0);
 			gbc_txtFrom.gridx = 1;
-			gbc_txtFrom.gridy = 2;
+			gbc_txtFrom.gridy = 3;
 			contentPanel.add(txtFrom, gbc_txtFrom);
 			txtFrom.setColumns(10);
+                        txtFrom.setSize(120, 60);
 
 			spFrom = new JSpinner(new SpinnerDateModel());
 			JSpinner.DateEditor spinnerEditor = new JSpinner.DateEditor(spFrom, "HH:mm");
@@ -196,23 +227,24 @@ public class AddDialog extends JDialog {
 		}
 		{
 			JLabel lblTo = new JLabel("Alle ore: ");
-			GridBagConstraints gbc_lblTo = new GridBagConstraints();
-			gbc_lblTo.fill = GridBagConstraints.VERTICAL;
-			gbc_lblTo.insets = new Insets(0, 0, 5, 5);
-			gbc_lblTo.gridx = 0;
-			gbc_lblTo.gridy = 3;
-			contentPanel.add(lblTo, gbc_lblTo);
+			GridBagConstraints gbc_lblTo  = new GridBagConstraints();
+			gbc_lblTo .fill = GridBagConstraints.VERTICAL;
+			gbc_lblTo .insets = new Insets(0, 0, 5, 5);
+			gbc_lblTo .gridx = 0;
+			gbc_lblTo  .gridy = 4;
+			contentPanel.add(lblTo , gbc_lblTo );
 		}
 		{
 			txtTo = new JTextField();
 			txtTo.setLayout(new BorderLayout());
 			GridBagConstraints gbc_txtTo = new GridBagConstraints();
 			gbc_txtTo.fill = GridBagConstraints.BOTH;
-			gbc_txtTo.insets = new Insets(0, 0, 5, 5);
+			gbc_txtTo.insets = new Insets(0,0 , 0, 0);
 			gbc_txtTo.gridx = 1;
-			gbc_txtTo.gridy = 3;
+			gbc_txtTo.gridy = 4;
 			contentPanel.add(txtTo, gbc_txtTo);
 			txtTo.setColumns(10);
+                        txtTo.setSize(120, 60);
 
 			spTo = new JSpinner(new SpinnerDateModel());
 			JSpinner.DateEditor spinnerEditor = new JSpinner.DateEditor(spTo, "HH:mm");
@@ -222,8 +254,8 @@ public class AddDialog extends JDialog {
 
 			if (flag == 1) {
 				Calendar cal = Calendar.getInstance();
-				cal.set(Calendar.HOUR, toH);
-				cal.set(Calendar.MINUTE, toM);
+				cal.set(Calendar.HOUR, fromH);
+				cal.set(Calendar.MINUTE, fromM);
 				Date date = cal.getTime();
 				spTo.setValue(date);
 			}
@@ -250,6 +282,7 @@ public class AddDialog extends JDialog {
 
 						String event = txtEventName.getText();
                                                 String clie = ClientiListApp.getObj().getCliente();
+                                                String oper = txtOper.getSelectedItem().toString();
                                                 txtCliente.setText(clie);
 						int startHour = calendar.get(Calendar.HOUR);
 						int startMinute = calendar.get(Calendar.MINUTE);
@@ -279,7 +312,7 @@ public class AddDialog extends JDialog {
 								// save the data to file
 								ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName));
 								LinkedList<ToDo> tmp = new LinkedList<ToDo>();
-								tmp.add(new ToDo(event, startHour, startMinute, endHour, endMinute,clie));
+								tmp.add(new ToDo(event, startHour, startMinute, endHour, endMinute,clie,oper));
 								os.writeObject(tmp);
 								tmp.clear();
 								os.close();
@@ -292,7 +325,7 @@ public class AddDialog extends JDialog {
 								LinkedList<ToDo> tmp = (LinkedList<ToDo>) is.readObject();
 
 								// add new event to object tmp
-								tmp.add(new ToDo(event, startHour, startMinute, endHour, endMinute,clie));
+								tmp.add(new ToDo(event, startHour, startMinute, endHour, endMinute,clie,oper));
 
 								// sort events by time
 								Collections.sort(tmp);
@@ -349,7 +382,7 @@ public class AddDialog extends JDialog {
 					
 					}
 				});
-				okButton.setActionCommand("OK");
+                                okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}

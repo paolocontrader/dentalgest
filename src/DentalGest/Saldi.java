@@ -28,6 +28,7 @@ public final  class Saldi extends javax.swing.JFrame {
     Connection conna=null;
     Connection conne=null;
     Connection conn=null;
+    
      Connection connApp=null;
     Connection conn1=null;
     Connection conn2=null;
@@ -204,8 +205,8 @@ public final  class Saldi extends javax.swing.JFrame {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 761;
-        gridBagConstraints.ipady = 370;
+        gridBagConstraints.ipadx = 746;
+        gridBagConstraints.ipady = 348;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
@@ -235,7 +236,7 @@ public final  class Saldi extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = -77;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(32, 0, 0, 0);
         getContentPane().add(jLabel1, gridBagConstraints);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
@@ -254,10 +255,10 @@ public final  class Saldi extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 4;
         gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = -17;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(70, 462, 0, 35);
+        gridBagConstraints.insets = new java.awt.Insets(92, 462, 0, 35);
         getContentPane().add(jButton1, gridBagConstraints);
 
         setSize(new java.awt.Dimension(856, 579));
@@ -357,10 +358,7 @@ public final  class Saldi extends javax.swing.JFrame {
 // Add Column
 
          model.addColumn("");
-         
-        
-
-        model.addColumn("Cliente");
+         model.addColumn("Cliente");
         
           model.addColumn("Data di nascita");
 
@@ -370,46 +368,91 @@ public final  class Saldi extends javax.swing.JFrame {
         
         model.addColumn("Saldo");
 
-        model.addColumn("Stato");
+        //model.addColumn("Stato");
         
      
      String terminato = "Terminato";
     String resto = "0.0";
-    
+   
+     String nome = null;
+     String cognome = null;
+     String nascita = null;
+     String stato = null;
+     String concat = null;
+     Double tot=0.0;
+     Double ac=0.0;
+     Double res= 0.0;
+     Double toto = 0.0;
+     Double a= 0.0;
+     Double b= 0.0;
+     Double c= 0.0;
+     
     try {
-        String sql = "SELECT t1.datanascita,t2.cliente,t2.resto,t1.stato,t2.prezzo,t2.acconto FROM  pazienti as t1 JOIN  prestazione_cliente as t2 ON t2.resto  != '"+resto+"' WHERE t1.stato= '"+terminato+"'   ORDER BY cliente ASC";
-            psts = conn.prepareStatement(sql);
-            
-            
-            ResultSet recApp = psts.executeQuery();
-            
-
-            int rowApp = 0;
-            if(recApp!=null){
-                while (((recApp != null) && (recApp.next()))) {
-                
-                model.addRow(new Object[0]);
-
-                model.setValueAt(false, rowApp, 0); // Checkbox
-
-                model.setValueAt(recApp.getString("cliente"), rowApp, 1);
-                
-                  model.setValueAt(recApp.getString("datanascita"), rowApp, 2);
-                    
-                model.setValueAt(recApp.getString("prezzo"), rowApp, 3);
-                
-                model.setValueAt(recApp.getString("acconto"), rowApp, 4);
-                
-                 model.setValueAt(recApp.getString("resto"), rowApp, 5);
-                
-                model.setValueAt(recApp.getString("stato"), rowApp, 6);
-                
-                rowApp++;
-
+        String sql = "select nome,cognome,datanascita FROM  pazienti where stato = '"+terminato+"'";
+        String sql2 = "select cliente,resto,acconto,prezzo from prestazione_cliente where cliente = ? and resto != ? ";
+        String sql3 ="select  (SUM(CAST(prezzo as DECIMAL(5,2)))) as prezzo,(SUM(CAST(resto as DECIMAL(5,2)))) as resto,(SUM(CAST(acconto as DECIMAL(5,2)))) as acconto from prestazione_cliente where cliente = ?";
+        psts = conn.prepareStatement(sql);
+        
+         ResultSet recApp = psts.executeQuery();
+        PreparedStatement psts2 = conn2.prepareStatement(sql2);
+        PreparedStatement psts3 = conn3.prepareStatement(sql3);
+       
+            int row = 0;
                
-            }
+               while(recApp.next()) 
+               {
+                  
+                   nome = recApp.getString("nome");
+                    cognome = recApp.getString("cognome");
+                    nascita = recApp.getString("datanascita");
+                     concat = nome+" "+cognome;
+               model.addRow(new Object[0]);
+
+                model.setValueAt(false, row, 0); // Checkbox
+
+                model.setValueAt(concat, row, 1);
                 
-                   System.out.println("Numero righe tabella saldi: "+rowApp);
+                 model.setValueAt(nascita, row, 2);
+                psts2.setString(1, concat.toUpperCase());
+                psts2.setString(2, resto);
+                 ResultSet recApp2 = psts2.executeQuery();
+                  
+               psts3.setString(1, concat.toUpperCase());
+              ResultSet recApp3 = psts3.executeQuery();
+                
+               while(recApp2.next()&& recApp3.next()){
+                   
+                    
+               
+                     System.out.println("CLIENTE RECUPERATO: "+concat);
+                     System.out.println("DATA CLIENTE RECUPERATO: "+nascita);
+                   System.out.println("RESTO: "+resto);
+               System.out.println("CONCAT: "+concat);
+               
+              
+             
+                    a = Double.valueOf(recApp3.getString("prezzo"));
+              
+                System.out.println("TOTALE: "+a);
+                 b = Double.valueOf(recApp3.getString("acconto"));
+                System.out.println("ACCONTO: "+b);
+                 c = Double.valueOf(recApp3.getString("resto"));
+                
+               System.out.println("SALDO: "+c);
+//               tot = a+tot;
+//               ac= b+ac-b;
+//               res=c+res;
+                model.setValueAt(a, row, 3);
+              model.setValueAt(b, row, 4);
+                model.setValueAt(c, row, 5); 
+               
+             
+               }
+               
+                 row++;
+                 System.out.println("a: "+a+ "b: "+b+"c: "+c);
+               }
+               
               tb1.removeColumn(tb1.getColumnModel().getColumn(0));   
            tb1.getColumnModel().getColumn(0).setPreferredWidth(150);
               tb1.getColumnModel().getColumn(1).setPreferredWidth(150);
@@ -417,19 +460,10 @@ public final  class Saldi extends javax.swing.JFrame {
                        tb1.getColumnModel().getColumn(3).setPreferredWidth(150);
                         tb1.getColumnModel().getColumn(4).setPreferredWidth(150);
             
-            //tb1.getColumnModel().getColumn(5).setPreferredWidth(110);
-            }
-            else{
-                                   System.out.println(" tabella Vuota appuntamenti");
-
-                tb1.removeColumn(tb1.getColumnModel().getColumn(0));   
-           tb1.getColumnModel().getColumn(0).setPreferredWidth(150);
-              tb1.getColumnModel().getColumn(1).setPreferredWidth(150);
-            tb1.getColumnModel().getColumn(2).setPreferredWidth(150);
-             tb1.getColumnModel().getColumn(3).setPreferredWidth(150);
-              tb1.getColumnModel().getColumn(4).setPreferredWidth(150);
-            }
+//            tb1.getColumnModel().getColumn(5).setPreferredWidth(110);
             
+            
+              
 
         } catch (SQLException e) {
 

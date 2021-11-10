@@ -76,7 +76,7 @@ public class MemoDialog extends JDialog implements ActionListener {
 		super(parent, true);
 		startPoint = 1;
 		colorSelect = 0;
-		setBounds(100, 100, 800, 700);
+		setBounds(100, 100, 1000, 500);
 		getContentPane().setLayout(new BorderLayout());
 		pnDayView.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(pnDayView, BorderLayout.CENTER);
@@ -210,9 +210,9 @@ public class MemoDialog extends JDialog implements ActionListener {
 						panel = new JPanel();
 						pnEvents.add(panel, BorderLayout.NORTH);
 						GridBagLayout gbl_panel = new GridBagLayout();
-						gbl_panel.columnWidths = new int[] { 146, 146, 0 };
+						gbl_panel.columnWidths = new int[] { 146, 146, 146,0 };
 						gbl_panel.rowHeights = new int[] { 15, 0 };
-						gbl_panel.columnWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+						gbl_panel.columnWeights = new double[] { 0.0, 0.0,0.0, Double.MIN_VALUE };
 						gbl_panel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 						panel.setLayout(gbl_panel);
 						{
@@ -242,6 +242,16 @@ public class MemoDialog extends JDialog implements ActionListener {
                                                         gbc_lblclient.gridx = 1;
 							gbc_lblclient.gridy = 0;
 							panel.add(lblclient, gbc_lblclient);
+						}
+                                                
+                                                {
+							JLabel lblOper = new JLabel("Operatore");
+							GridBagConstraints gbc_lblOper = new GridBagConstraints();
+							gbc_lblOper.fill = GridBagConstraints.HORIZONTAL;
+                                                        gbc_lblOper.insets = new Insets(0, 0, 0, 0);
+                                                        gbc_lblOper.gridx = 4;
+							gbc_lblOper.gridy = 0;
+							panel.add(lblOper, gbc_lblOper);
 						}
 					}
 
@@ -311,14 +321,15 @@ public class MemoDialog extends JDialog implements ActionListener {
 					toHour = td.get(i).getToHour();
 					toMinute = td.get(i).getToMinute();
                                         String cliente = td.get(i).getTodo();
+                                        String operator = td.get(i).getOper();
 
-					listModel.addElement(new ToDo(cliente, fromHour, fromMinute, toHour, toMinute,to_do));
+					listModel.addElement(new ToDo(cliente, fromHour, fromMinute, toHour, toMinute,to_do,operator));
 
 					startPoint = fromHour;
 					length = toHour - startPoint-1;
 					if(length<1) length++;
 					String str = (listModel.getSize()*2+2)+", "+(startPoint*2+2)+", "+ 1 +", "+(length*2+1);
-					label[i] = new JLabel_1(fromHour,toHour,cliente,to_do);
+					label[i] = new JLabel_1(fromHour,toHour,cliente,to_do,operator);
                                         
 					pn.add(label[i],str);
 				}
@@ -383,7 +394,7 @@ public class MemoDialog extends JDialog implements ActionListener {
 	static class JLabel_1 extends JLabel 
 	{		// JLabel_1 can be painted. so it placed on time table to show what event is planed
 		public Color[] userColor = {new Color(232, 186, 171),new Color(238, 218, 149),new Color(183, 194, 126),new Color(208, 224, 235),new Color(223, 208, 235),new Color(249, 216, 172)};
-		JLabel_1(int from, int to, String event,String client){	
+		JLabel_1(int from, int to, String event,String client,String oper){	
 			super(event);
 			super.setOpaque(true);
 			super.setBackground(userColor[colorSelect%6]);	// random color

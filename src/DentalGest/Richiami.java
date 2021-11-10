@@ -747,7 +747,7 @@ public final  class Richiami extends javax.swing.JFrame {
         getContentPane().add(jLabel1, gridBagConstraints);
 
         label1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        label1.setText("Operatore:");
+        label1.setText("Tipologia:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;

@@ -1135,7 +1135,7 @@ PopulateData();
     
     void DeleteData(String strNome,String strCognome,String nascita) {
 
-        String sql = "DELETE FROM pazienti  WHERE nome = '" + strNome + "' AND cognome = '" + strCognome + "' and nascita = '"+nascita+"'";
+        String sql = "DELETE FROM pazienti  WHERE nome = '" + strNome + "' AND cognome = '" + strCognome + "' and datanascita = '"+nascita+"'";
         try {
             pstDel = connDel.createStatement();
             System.out.println("QUERY DI ELIMINAZIONE: "+strNome+" "+strCognome+" "+nascita);

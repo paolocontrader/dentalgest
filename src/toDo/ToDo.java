@@ -9,12 +9,14 @@ public class ToDo implements Serializable, Comparable<ToDo> {
 	private int fromMinute;
 	private int toHour;
 	private int toMinute;
+        private String oper; 
 
-	public ToDo(String client, int fromHour, int fromMinute, int toHour, int toMinute,String todo)
+	public ToDo(String cliente, int fromHour, int fromMinute, int toHour, int toMinute,String todo,String oper)
 			throws EmptyToDoException, TimeInputException {
 		super();
-                setClient(client);
+                setClient(cliente);
 		setTodo(todo);
+                setOper(oper);
 		setFromHour(fromHour);
 		setFromMinute(fromMinute);
 		setToHour(toHour);
@@ -30,6 +32,17 @@ public class ToDo implements Serializable, Comparable<ToDo> {
 			throw new EmptyToDoException();
 
 		this.todo = todo;
+	}
+        
+        public String getOper() {
+		return oper;
+	}
+
+	public void setOper(String oper) throws EmptyToDoException {
+		if (oper.length() < 1)
+			throw new EmptyToDoException();
+
+		this.oper = oper;
 	}
 
         public String getClient() {
@@ -93,7 +106,8 @@ public class ToDo implements Serializable, Comparable<ToDo> {
 		String time = addZero(fromHour) + ":" + addZero(fromMinute) + " - " + addZero(toHour) + ":" + addZero(toMinute) ;
 		String event = todo;
                 String clients = client;
-		return time+"\t                    "+clients+"\t                           "+event;
+                String opers = oper;
+		return time+"           \t                    "+clients+"                            \t "+event+"                           \t"+opers+"    \t            ";
 	}
 
 	@Override

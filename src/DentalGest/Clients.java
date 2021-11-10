@@ -371,13 +371,15 @@ public final class Clients extends javax.swing.JFrame {
      
             
             tb1.getColumnModel().getColumn(0).setPreferredWidth(5);
+tb1.getColumnModel().getColumn(1).setMinWidth(0);
+tb1.getColumnModel().getColumn(1).setMaxWidth(0); 
              tb1.getColumnModel().getColumn(1).setPreferredWidth(0);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(100);
              tb1.getColumnModel().getColumn(3).setPreferredWidth(50);
               tb1.getColumnModel().getColumn(4).setPreferredWidth(50);
                tb1.getColumnModel().getColumn(5).setPreferredWidth(50);
                 tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
-               tb1.getColumnModel().getColumn(7).setPreferredWidth(250);
+               tb1.getColumnModel().getColumn(7).setPreferredWidth(300);
                 
  
             
@@ -638,13 +640,15 @@ public final class Clients extends javax.swing.JFrame {
             
             
            tb1.getColumnModel().getColumn(0).setPreferredWidth(5);
+tb1.getColumnModel().getColumn(1).setMinWidth(0);
+tb1.getColumnModel().getColumn(1).setMaxWidth(0); 
              tb1.getColumnModel().getColumn(1).setPreferredWidth(0);
             tb1.getColumnModel().getColumn(2).setPreferredWidth(100);
              tb1.getColumnModel().getColumn(3).setPreferredWidth(50);
               tb1.getColumnModel().getColumn(4).setPreferredWidth(50);
                tb1.getColumnModel().getColumn(5).setPreferredWidth(50);
                 tb1.getColumnModel().getColumn(6).setPreferredWidth(50);
-               tb1.getColumnModel().getColumn(7).setPreferredWidth(250);
+               tb1.getColumnModel().getColumn(7).setPreferredWidth(300);
             
 
         } catch (SQLException e) {

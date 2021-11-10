@@ -84,7 +84,7 @@ public class CalendarGUI extends DateManager {
 		gbc_btnToday.gridy = 0;
 		//pnTop.add(btnToday, gbc_btnToday);
 		btnToday.addActionListener(lForCalOpButtons);
-		lblToday = new JLabel((today.get(Calendar.DAY_OF_MONTH)+1) +"/"+  (today.get(Calendar.MONTH) +1) + "/" + 
+		lblToday = new JLabel((today.get(Calendar.DAY_OF_MONTH)) +"/"+  (today.get(Calendar.MONTH) +1) + "/" + 
 				+ today.get(Calendar.YEAR));
 		GridBagConstraints gbc_lblToday = new GridBagConstraints();
 		gbc_lblToday.fill = GridBagConstraints.VERTICAL;
@@ -215,9 +215,9 @@ public class CalendarGUI extends DateManager {
 	// focus on current date
 	private void focusToday() {
 		if (today.get(Calendar.DAY_OF_WEEK) == 0)
-			dateButs[today.get(Calendar.WEEK_OF_MONTH) - 1][today.get(Calendar.DAY_OF_WEEK) - 1].requestFocusInWindow();
+			dateButs[today.get(Calendar.WEEK_OF_MONTH) - 1][today.get(Calendar.DAY_OF_WEEK) - 2].requestFocusInWindow();
 		else
-			dateButs[today.get(Calendar.WEEK_OF_MONTH) - 1][today.get(Calendar.DAY_OF_WEEK) - 1].requestFocusInWindow();
+			dateButs[today.get(Calendar.WEEK_OF_MONTH) - 1][today.get(Calendar.DAY_OF_WEEK) - 2].requestFocusInWindow();
 	}
 
 	// show to-do data to calendarGUI
@@ -238,12 +238,14 @@ public class CalendarGUI extends DateManager {
 
 					String to_do = new String("");
 					String client = new String("");
+                                       
 
 					try {
 						ObjectInputStream is = new ObjectInputStream(new FileInputStream(file));
 						LinkedList<ToDo> td = (LinkedList<ToDo>) is.readObject();
 						client = td.get(0).getClient();
                                                 to_do = td.get(0).getTodo();
+                                               
 						if (client.length() > 14) {
 							client = to_do.substring(0, 13);
 							client += "...";
@@ -262,7 +264,7 @@ public class CalendarGUI extends DateManager {
 						dateButs[i][j].setText(
 								"<html><p font color=green style=\"text-align:right\"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "
 										+ "&nbsp; &nbsp; &nbsp; &nbsp;<b>" + calDates[i][j] + "</b></p>" + to_do
-										+ " "+ client + "<br></html>");
+										+ " "+ client +  "<br></html>");
 					} else {
 						dateButs[i][j].setText("<html><p font color=" + fontColor
 								+ " style=\"text-align:right\"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "
