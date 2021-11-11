@@ -107,8 +107,10 @@ public class ToDo implements Serializable, Comparable<ToDo> {
 		String event = todo;
                 String clients = client;
                 String opers = oper;
-		return time+"           \t                    "+clients+"                            \t "+event+"                           \t"+opers+"    \t            ";
-	}
+                
+		return time+"\t                                "+clients+               "\t                   "+event+                 "\t          "+opers;
+	
+        }
 
 	@Override
 	public int compareTo(ToDo o) {

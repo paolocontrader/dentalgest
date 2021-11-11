@@ -147,9 +147,9 @@ public class AddDialog extends JDialog {
                         txtCliente.setLayout(new BorderLayout());
 			GridBagConstraints gbc_txtCliente = new GridBagConstraints();
 			gbc_txtCliente.fill = GridBagConstraints.BOTH;
-			gbc_txtCliente.insets = new Insets(0, 0, 5, 5);
+			gbc_txtCliente.insets = new Insets(0, 0, 0, 0);
 			gbc_txtCliente.gridx = 1;
-			gbc_txtCliente.gridy = 0;
+			gbc_txtCliente.gridy = 1;
                          txtCliente.setSize(0,0);
                          txtCliente.setBorder(null);
                          txtCliente.setBackground(null);
@@ -281,8 +281,11 @@ public class AddDialog extends JDialog {
 						calendar.setTime(time);
 
 						String event = txtEventName.getText();
+                                                
                                                 String clie = ClientiListApp.getObj().getCliente();
+                                               
                                                 String oper = txtOper.getSelectedItem().toString();
+                                                
                                                 txtCliente.setText(clie);
 						int startHour = calendar.get(Calendar.HOUR);
 						int startMinute = calendar.get(Calendar.MINUTE);

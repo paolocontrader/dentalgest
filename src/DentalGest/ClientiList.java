@@ -691,7 +691,7 @@ public final  class ClientiList extends javax.swing.JFrame {
                             .toString(); 
                     strCognome = tb1.getValueAt(i, 2)
                             .toString(); 
-                    nascita = tb1.getValueAt(i, 3).toString();
+                    nascita = tb1.getValueAt(i, 4).toString();
                     cliente = strNome+" "+strCognome;
                     System.out.println("Il cliente che viene terminato "+cliente);
                     

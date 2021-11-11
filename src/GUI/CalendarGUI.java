@@ -243,12 +243,13 @@ public class CalendarGUI extends DateManager {
 					try {
 						ObjectInputStream is = new ObjectInputStream(new FileInputStream(file));
 						LinkedList<ToDo> td = (LinkedList<ToDo>) is.readObject();
-						client = td.get(0).getClient();
+						  
+                                                client = td.get(0).getClient();
                                                 to_do = td.get(0).getTodo();
-                                               
-						if (client.length() > 14) {
-							client = to_do.substring(0, 13);
-							client += "...";
+                                                
+						if (to_do.length() > 100) {
+							to_do = to_do.substring(0, 25);
+							to_do += "...";
 						}
 						
 						is.close();
@@ -263,12 +264,12 @@ public class CalendarGUI extends DateManager {
 							&& calDates[i][j] == today.get(Calendar.DAY_OF_MONTH)) {
 						dateButs[i][j].setText(
 								"<html><p font color=green style=\"text-align:right\"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "
-										+ "&nbsp; &nbsp; &nbsp; &nbsp;<b>" + calDates[i][j] + "</b></p>" + to_do
-										+ " "+ client +  "<br></html>");
+										+ "&nbsp; &nbsp; &nbsp; &nbsp;<b>" + calDates[i][j] + "</b></p>" 
+										+to_do+   "<br></html>");
 					} else {
 						dateButs[i][j].setText("<html><p font color=" + fontColor
 								+ " style=\"text-align:right\"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "
-								+ "&nbsp; &nbsp; &nbsp; &nbsp;<b>" + calDates[i][j] + "</b></p>" + to_do +  "<br></html>");
+								+ "&nbsp; &nbsp; &nbsp; &nbsp;<b>" + calDates[i][j] + "</b></p>" + to_do +   "<br></html>");
 					}
 
 				} else {

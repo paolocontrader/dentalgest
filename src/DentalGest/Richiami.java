@@ -5,26 +5,9 @@
  */
 package DentalGest;
 
-import com.itextpdf.text.Element;
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.Image;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
-import java.awt.Color;
-import java.awt.Desktop;
 import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,13 +17,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
@@ -422,9 +399,9 @@ public final  class Richiami extends javax.swing.JFrame {
         model.addColumn("Stato");
 
         
-      String terminato = "Chiamato";
+      String chiamato = "Chiamato";
 
-    String sql = "SELECT * FROM  richiami WHERE intervento NOT IN ('"+terminato+"') ORDER BY data ASC";
+    String sql = "SELECT * FROM  richiami WHERE intervento NOT IN ('"+chiamato+"') ORDER BY data ASC";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -442,7 +419,12 @@ public final  class Richiami extends javax.swing.JFrame {
                 
                 model.setValueAt(rec.getString("datanascita"), row, 2);
 
-                model.setValueAt(rec.getString("data"), row, 3);
+               Date dataApp =rec.getDate("data");
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                java.util.Date utilDate = new java.util.Date(dataApp.getTime());
+                
+                String dataPresa = format.format(utilDate);
+                model.setValueAt(dataPresa, row, 3);
 
                 model.setValueAt(rec.getString("intervento"), row, 4);
                 
@@ -791,6 +773,7 @@ public final  class Richiami extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        setVisible(false);
         ClientiListRichiamo.getObj().setVisible(true);
 
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -1022,7 +1005,12 @@ Date newDate = calendar.getDate();
 
                 model.setValueAt(rec.getString("datanascita"), row, 2);
 
-                model.setValueAt(rec.getString("data"), row, 3);
+               Date dataApp =rec.getDate("data");
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                java.util.Date utilDate = new java.util.Date(dataApp.getTime());
+                
+                String dataPresa = format.format(utilDate);
+                model.setValueAt(dataPresa, row, 3);
 
                 model.setValueAt(rec.getString("intervento"), row, 4);
                 
@@ -1124,20 +1112,20 @@ Date newDate = calendar.getDate();
         
         model.addColumn("Stato");
       
-DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
+DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
    LocalDateTime now = LocalDateTime.now();  
    System.out.println(dtf.format(now));  
    long millis=System.currentTimeMillis();  
-Date date=new Date(millis);  
- 
+   
            String adesso = dtf.format(now);
+          
+         
    System.out.println("Oggi: "+adesso);      
-     String terminato = "Terminato";
-    String sql = "SELECT * FROM  richiami  where data <= '"+adesso+"' and intervento  NOT IN ('Chiamato') order by data asc";
+    String sql = "SELECT * FROM  richiami  where data <= '"+adesso+"' AND intervento NOT IN ('Chiamato') order by data ASC";
         try {
 
             psts = conn.prepareStatement(sql);
-            
+           
             ResultSet rec = psts.executeQuery();
 
              int row = 0;
@@ -1153,9 +1141,13 @@ Date date=new Date(millis);
                  model.setValueAt(rec.getString("cliente"), row, 1);
                 
                 model.setValueAt(rec.getString("datanascita"), row, 2);
-
-                model.setValueAt(rec.getString("data"), row, 3);
-
+                Date dataApp =rec.getDate("data");
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                java.util.Date utilDate = new java.util.Date(dataApp.getTime());
+                
+                String dataPresa = format.format(utilDate);
+                model.setValueAt(dataPresa, row, 3);
+                
                 model.setValueAt(rec.getString("intervento"), row, 4);
                 
                 row++;
@@ -1206,16 +1198,10 @@ Date date=new Date(millis);
      
     private  void Search() {
 
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-Date newDate = calendar.getDate();
-  String x = dateFormat.format(newDate);
-     //String cerca = calendar.getDate().toString();
-  LocalDateTime now = LocalDateTime.now();  
-   
-   long millis=System.currentTimeMillis();  
-Date date=new Date(millis);  
- 
-         System.out.println("DARA: "+x);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date newDate = calendar.getDate();
+       String data =dateFormat.format(newDate);
+       java.sql.Date sqlDate = new java.sql.Date(newDate.getTime());
     String sql = null;
           
 // Clear table
@@ -1291,7 +1277,7 @@ Date date=new Date(millis);
 
            sql = "SELECT * FROM  richiami WHERE data = ?  ORDER BY data ASC";
            psts = conn.prepareStatement(sql);
-            psts.setString(1, x);
+            psts.setDate(1, sqlDate);
           
 
            
@@ -1311,7 +1297,12 @@ Date date=new Date(millis);
                 
                 model.setValueAt(rec.getString("datanascita"), row, 2);
 
-                model.setValueAt(rec.getString("data"), row, 3);
+             Date dataApp =rec.getDate("data");
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                java.util.Date utilDate = new java.util.Date(dataApp.getTime());
+                
+                String dataPresa = format.format(utilDate);
+                model.setValueAt(dataPresa, row, 3);
 
                 model.setValueAt(rec.getString("intervento"), row, 4);
                 

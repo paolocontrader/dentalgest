@@ -1,6 +1,8 @@
 package GUI;
 
 import DentalGest.ClientiListApp;
+import static GUI.DateManager.calMonth;
+import static GUI.DateManager.calYear;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.DefaultListModel;
@@ -27,6 +29,8 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
 import com.jgoodies.forms.factories.FormFactory;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -42,6 +46,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import javax.swing.BorderFactory;
 
 public class MemoDialog extends JDialog implements ActionListener {
 
@@ -50,6 +57,7 @@ public class MemoDialog extends JDialog implements ActionListener {
 	JList<ToDo> list;
 	static public DefaultListModel listModel;
 	private JScrollPane spLeft;
+        private JScrollPane spRight;
 	private JPanel pnRight;
 	private JPanel pnButtons;
 	private JButton btnAdd;
@@ -76,12 +84,12 @@ public class MemoDialog extends JDialog implements ActionListener {
 		super(parent, true);
 		startPoint = 1;
 		colorSelect = 0;
-		setBounds(100, 100, 1000, 500);
+		setBounds(0, 1, 600, 540);
 		getContentPane().setLayout(new BorderLayout());
 		pnDayView.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(pnDayView, BorderLayout.CENTER);
 		setTitle(CalendarGUI.calDayOfMon +" - " +CalendarGUI.MONTH_NAME[CalendarGUI.calMonth ]);
-		pnDayView.setLayout(new GridLayout(0, 2, 0, 0));
+		pnDayView.setLayout(new GridLayout(0, 1, 0, 0));
 		{
 			spLeft = new JScrollPane(pn);
 			spLeft.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -180,7 +188,10 @@ public class MemoDialog extends JDialog implements ActionListener {
 
 			{
 				pnRight = new JPanel();
+                               
+                                pnRight.setBounds(0, 0, 0, 0);
 				pnDayView.add(pnRight);
+                                
 				pnRight.setLayout(new BorderLayout(0, 0));
 				{
 					pnButtons = new JPanel();
@@ -208,17 +219,18 @@ public class MemoDialog extends JDialog implements ActionListener {
 					pnEvents.setLayout(new BorderLayout(0, 0));
 					{
 						panel = new JPanel();
+                                                panel.setBorder(BorderFactory.createLineBorder(Color.black));
 						pnEvents.add(panel, BorderLayout.NORTH);
 						GridBagLayout gbl_panel = new GridBagLayout();
-						gbl_panel.columnWidths = new int[] { 146, 146, 146,0 };
+						gbl_panel.columnWidths = new int[] { 106, 106, 106, 106 };
 						gbl_panel.rowHeights = new int[] { 15, 0 };
-						gbl_panel.columnWeights = new double[] { 0.0, 0.0,0.0, Double.MIN_VALUE };
-						gbl_panel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+						gbl_panel.columnWeights = new double[] { 1.0, 1.0,1.0,1.0, Double.MIN_VALUE };
+						gbl_panel.rowWeights = new double[] { 0.0,0.0,0.0, Double.MIN_VALUE };
 						panel.setLayout(gbl_panel);
 						{
 							JLabel lblToDo = new JLabel("Ora");
 							GridBagConstraints gbc_lblToDo = new GridBagConstraints();
-							gbc_lblToDo.fill = GridBagConstraints.HORIZONTAL;
+							gbc_lblToDo.fill = GridBagConstraints.CENTER;
 							gbc_lblToDo.insets = new Insets(0, 0, 5, 5);
 							gbc_lblToDo.gridx = 0;
 							gbc_lblToDo.gridy = 0;
@@ -227,7 +239,7 @@ public class MemoDialog extends JDialog implements ActionListener {
 						{
 							JLabel lblTime = new JLabel("Prestazione");
 							GridBagConstraints gbc_lblTime = new GridBagConstraints();
-							gbc_lblTime.fill = GridBagConstraints.HORIZONTAL;
+							gbc_lblTime.fill = GridBagConstraints.CENTER;
                                                         gbc_lblTime.insets = new Insets(0, 0, 0, 0);
 							gbc_lblTime.gridx = 2;
 							gbc_lblTime.gridy = 0;
@@ -237,7 +249,7 @@ public class MemoDialog extends JDialog implements ActionListener {
                                                 {
 							JLabel lblclient = new JLabel("Paziente");
 							GridBagConstraints gbc_lblclient = new GridBagConstraints();
-							gbc_lblclient.fill = GridBagConstraints.HORIZONTAL;
+							gbc_lblclient.fill = GridBagConstraints.CENTER;
                                                         gbc_lblclient.insets = new Insets(0, 0, 0, 0);
                                                         gbc_lblclient.gridx = 1;
 							gbc_lblclient.gridy = 0;
@@ -247,9 +259,9 @@ public class MemoDialog extends JDialog implements ActionListener {
                                                 {
 							JLabel lblOper = new JLabel("Operatore");
 							GridBagConstraints gbc_lblOper = new GridBagConstraints();
-							gbc_lblOper.fill = GridBagConstraints.HORIZONTAL;
+							gbc_lblOper.fill = GridBagConstraints.CENTER;
                                                         gbc_lblOper.insets = new Insets(0, 0, 0, 0);
-                                                        gbc_lblOper.gridx = 4;
+                                                        gbc_lblOper.gridx = 3;
 							gbc_lblOper.gridy = 0;
 							panel.add(lblOper, gbc_lblOper);
 						}
@@ -258,10 +270,13 @@ public class MemoDialog extends JDialog implements ActionListener {
 					{
 
 						listModel = new DefaultListModel<ToDo>();
+                                                
 						readTodo();
 						list = new JList<ToDo>(listModel);
-
-						pnEvents.add(list, BorderLayout.WEST);
+                                                list.setBorder(BorderFactory.createLineBorder(Color.black));
+                                                list.setPreferredSize( new Dimension(100,25));
+                                                pnEvents.setBorder(BorderFactory.createLineBorder(Color.black));
+						pnEvents.add(list,BorderLayout.CENTER);
 					}
 				}
 			}
@@ -330,6 +345,16 @@ public class MemoDialog extends JDialog implements ActionListener {
 					if(length<1) length++;
 					String str = (listModel.getSize()*2+2)+", "+(startPoint*2+2)+", "+ 1 +", "+(length*2+1);
 					label[i] = new JLabel_1(fromHour,toHour,cliente,to_do,operator);
+//                                        String[] spString = td.toString().split(",");
+//                                         str = spString.subString(IndexOf("[")+1);
+//                                         for(int h=0;h<td.size();h++){
+//                                         
+//                                              System.out.println(spString[h]);
+//                                         
+//                                         }
+
+    
+
                                         
 					pn.add(label[i],str);
 				}
@@ -426,8 +451,7 @@ public class MemoDialog extends JDialog implements ActionListener {
 			dlgAdd.setVisible(true);
 			readTodo();
 			dispose();
-			
-//		} else if (e.getSource() == btnEdit) {
+			//} else if (e.getSource() == btnEdit) {
 //		
 //			flag = 1;
 //			
@@ -467,4 +491,5 @@ public class MemoDialog extends JDialog implements ActionListener {
 	public int getIndex() {
 		return index;
 	}
+        
 }
