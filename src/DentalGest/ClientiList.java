@@ -696,6 +696,7 @@ public final  class ClientiList extends javax.swing.JFrame {
                     System.out.println("Il cliente che viene terminato "+cliente);
                     
 DeleteData(strNome,strCognome,nascita); 
+DeleteDataRich(cliente,nascita); 
                     DeleteDataPrest(cliente.toUpperCase()); 
                     DeleteDataApp(cliente.toUpperCase());
                     DeleteDataCart(cliente.toUpperCase());
@@ -1139,6 +1140,22 @@ PopulateData();
         try {
             pstDel = connDel.createStatement();
             System.out.println("QUERY DI ELIMINAZIONE: "+strNome+" "+strCognome+" "+nascita);
+            pstDel.execute(sql);
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+        }
+
+    }
+    
+     void DeleteDataRich(String cliente,String nascita) {
+
+        String sql = "DELETE FROM richiami  WHERE cliente = '" + cliente + "' and datanascita = '"+nascita+"'";
+        try {
+            pstDel = connDel.createStatement();
+            System.out.println("QUERY DI ELIMINAZIONE: "+cliente+" - "+nascita);
             pstDel.execute(sql);
 
         } catch (SQLException e) {
