@@ -113,9 +113,11 @@ public class Dentiera extends javax.swing.JFrame {
         check47 = new javax.swing.JCheckBox();
         check48 = new javax.swing.JCheckBox();
         sceltabnt = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(check11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
         getContentPane().add(check12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, -1, -1));
@@ -180,12 +182,23 @@ public class Dentiera extends javax.swing.JFrame {
                 sceltabntActionPerformed(evt);
             }
         });
-        getContentPane().add(sceltabnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 670, -1, -1));
+        getContentPane().add(sceltabnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 490, -1, -1));
+
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_chiudi_20x20.png"))); // NOI18N
+        jButton7.setBorder(null);
+        jButton7.setBorderPainted(false);
+        jButton7.setContentAreaFilled(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 0, 20, -1));
 
         sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/schema-denti_440_630.png"))); // NOI18N
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 560, 620));
 
-        setSize(new java.awt.Dimension(606, 760));
+        setSize(new java.awt.Dimension(598, 663));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -400,6 +413,12 @@ public class Dentiera extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_check13ActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+
+     dispose();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -469,6 +488,7 @@ public class Dentiera extends javax.swing.JFrame {
     private javax.swing.JCheckBox check46;
     private javax.swing.JCheckBox check47;
     private javax.swing.JCheckBox check48;
+    private javax.swing.JButton jButton7;
     private javax.swing.JButton sceltabnt;
     private javax.swing.JLabel sfondo;
     // End of variables declaration//GEN-END:variables

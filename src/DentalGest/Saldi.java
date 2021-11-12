@@ -202,7 +202,7 @@ public final  class Saldi extends javax.swing.JFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 746;
@@ -210,7 +210,7 @@ public final  class Saldi extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 40, 42, 35);
+        gridBagConstraints.insets = new java.awt.Insets(10, 30, 0, 35);
         getContentPane().add(jScrollPane2, gridBagConstraints);
 
         txt_n.setEditable(false);
@@ -220,9 +220,10 @@ public final  class Saldi extends javax.swing.JFrame {
         txt_n.setOpaque(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = -16;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.ipady = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 12, 0);
         getContentPane().add(txt_n, gridBagConstraints);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/headers/contabilita_logo_window_220x80.png"))); // NOI18N
@@ -232,7 +233,7 @@ public final  class Saldi extends javax.swing.JFrame {
         jLabel1.setPreferredSize(new java.awt.Dimension(295, 80));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = -77;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -254,7 +255,7 @@ public final  class Saldi extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = -17;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -268,7 +269,7 @@ public final  class Saldi extends javax.swing.JFrame {
     private void tb1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb1MouseClicked
 
         int row = tb1.getSelectedRow();
-        txt_n.setText(tb1.getValueAt(row, 0).toString());
+        txt_n.setText(tb1.getValueAt(row, 0).toString().toUpperCase());
         String t = txt_n.getText();
 
         System.out.println("Saldi cliente: "+txt_n.getText());
@@ -278,8 +279,7 @@ public final  class Saldi extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int row = tb1.getSelectedRow();
-        String msg = tb1.getValueAt(row, 0).toString();
+        String msg = txt_n.getText();
 
         if(msg.equals(""))
         {

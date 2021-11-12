@@ -512,7 +512,6 @@ public final  class Richiami extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         bt_cerca = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         label1 = new java.awt.Label();
@@ -675,28 +674,6 @@ public final  class Richiami extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(30, 10, 0, 0);
         getContentPane().add(jButton2, gridBagConstraints);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/visualizza-tutti-i-richiami_150x40.png"))); // NOI18N
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setDefaultCapable(false);
-        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.ipadx = -1;
-        gridBagConstraints.ipady = -1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(30, 9, 0, 0);
-        getContentPane().add(jButton1, gridBagConstraints);
-
         jButton6.setText("Modifica stato");
         jButton6.setToolTipText("Selezionare il richiamo da modificare");
         jButton6.setMargin(new java.awt.Insets(2, 0, 2, 14));
@@ -836,11 +813,6 @@ public final  class Richiami extends javax.swing.JFrame {
         }
         txt_n.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        PopulateDataAll();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try{
@@ -9564,7 +9536,6 @@ DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_cerca;
     private com.toedter.calendar.JDateChooser calendar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;

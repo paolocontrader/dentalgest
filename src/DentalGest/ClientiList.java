@@ -567,9 +567,14 @@ public final  class ClientiList extends javax.swing.JFrame {
             {
                 int row = tb1.getSelectedRow();
                 String tbclick =(tb1.getModel().getValueAt(row, 1).toString());
-                String sql = "SELECT * FROM pazienti WHERE nome = ?";
+                 String tbclick1 =(tb1.getModel().getValueAt(row, 2).toString());
+                 
+                   String tbclick3 =(tb1.getModel().getValueAt(row, 4).toString());
+                String sql = "SELECT * FROM pazienti WHERE nome = ? and cognome = ? and datanascita =?";
                 psclick = connClick.prepareStatement(sql);
                 psclick.setString(1, tbclick);
+                 psclick.setString(2, tbclick1);
+                 psclick.setString(3, tbclick3);
                 rsclick = psclick.executeQuery();
                 if(rsclick.next())
                 {
