@@ -816,7 +816,7 @@ public final  class Richiami extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try{
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
    LocalDateTime now = LocalDateTime.now();  
    System.out.println(dtf.format(now));  
    long millis=System.currentTimeMillis();  

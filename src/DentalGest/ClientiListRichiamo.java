@@ -439,15 +439,15 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
 
                 calendar.setDate(null);
                 txt_cerca.setText("");
-               Richiami.getObj().PopulateData();
+               Richiami.getObj().PopulateDataAll();
                 setVisible(false);
                 Richiami.getObj().setVisible(true);
-              Richiami.getObj().PopulateData();
+              Richiami.getObj().PopulateDataAll();
 
             } catch (SQLException ex) {
                 Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
             }
-Richiami.getObj().PopulateData();
+Richiami.getObj().PopulateDataAll();
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
