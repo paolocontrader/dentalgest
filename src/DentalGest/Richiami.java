@@ -14,10 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
@@ -758,7 +761,7 @@ public final  class Richiami extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         Object[] options = {"Si", "No"};
-
+ 
         int n = JOptionPane
         .showOptionDialog(null, "Sei sicuro di voler cancellare il seguente richiamo?",
             "Conferma cancellazione?",
@@ -772,20 +775,22 @@ public final  class Richiami extends javax.swing.JFrame {
            int i = tb1.getSelectedRow();
 
                  String data = tb1.getValueAt(i, 2).toString();
+               
+            
                     String datanascita = tb1.getValueAt(i, 1).toString();
                     String cliente = tb1.getValueAt(i, 0).toString();
                     String intervento = tb1.getValueAt(i, 3).toString();
 
-                    DeleteData(cliente,datanascita,intervento,data);
-                    Richiami.getObj().PopulateData();
+                    DeleteData(cliente,datanascita,intervento);
+                    Richiami.getObj().PopulateDataAll();
                 }
 
             
 
             JOptionPane.showMessageDialog(null, "Richiamo/i cancallati correttamente");
 
-            PopulateData(); // Reload Table
-            PopulateData(); // Reload Table
+            PopulateDataAll(); // Reload Table
+            PopulateDataAll(); // Reload Table
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -816,14 +821,27 @@ public final  class Richiami extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try{
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+//            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
    LocalDateTime now = LocalDateTime.now();  
-   System.out.println(dtf.format(now));  
+//   System.out.println(dtf.format(now));  
    long millis=System.currentTimeMillis();  
 Date date=new Date(millis);  
+
  
-           String adesso = dtf.format(now);
-   System.out.println("Oggi: "+adesso);   
+            
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String data =dateFormat.format(date);
+            Date fd = null;
+            try {
+                fd = dateFormat.parse(data);
+            } catch (ParseException ex) {
+                Logger.getLogger(Richiami.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            java.sql.Date sqlDate = new java.sql.Date(fd.getTime());
+ 
+           //String adesso = dtf.format(now);
+           
+   
             String stato = "Chiamato";
             if(stato.isEmpty()){JOptionPane.showMessageDialog(null, "Nessuno Stato selezionato");}
             else{
@@ -832,36 +850,40 @@ Date date=new Date(millis);
                     int row = tb1.getSelectedRow();
 
                     String cliente = tb1.getValueAt(row, 0).toString();
-                    String data = tb1.getValueAt(row, 2).toString();
+                  
                     String datanascita = tb1.getValueAt(row, 1).toString();
-                    System.out.println("data "+data);
+                  
+                    String dataA = tb1.getValueAt(row, 2).toString();
                     System.out.println("datanascita "+datanascita);
                     System.out.println("stato "+stato);
-                    System.out.print("qui arrivo");
-                    String sql="update richiami set data = '"+adesso+"',intervento='"+stato+"' where cliente='"+cliente+"' and data='"+data+"' and datanascita='"+datanascita+"'";
+                    System.out.print("qui arrivo\n");
+                    String sql="update richiami set data = ? ,intervento='"+stato+"' where cliente='"+cliente+"' and datanascita='"+datanascita+"'";
                     PreparedStatement pstUpdStato = connUpdStato.prepareStatement(sql);
+                    
+                    pstUpdStato.setDate(1, sqlDate);
                     pstUpdStato.execute();
-                    System.out.print("anche qui arrivo");
+                    System.out.print("anche qui arrivo\n");
                     //tb1.removeColumn(tb1.getColumnModel().getColumn(1));
                     //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
 
                     //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
 
-                    JOptionPane.showMessageDialog(null,"Stato modificato correttamente per il richiamo di "+cliente+" del "+data );
-                    //PopulateData();
+                    JOptionPane.showMessageDialog(null,"Stato modificato correttamente per il richiamo di "+cliente+" del "+dataA );
+                    PopulateData();
                     //PopulateDataAll();
 
                     //AppList.getObj().PopulateDataAll();
 
                 }}
 
-                Search(); // Reload Table
+                //Search(); // Reload Table
                
             }
             catch(SQLException | HeadlessException e)
             {
                 JOptionPane.showMessageDialog(null,"Errore modifica stato");
-            }
+            } 
+        
             // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -1084,18 +1106,26 @@ Date newDate = calendar.getDate();
         
         model.addColumn("Stato");
       
-DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
-   LocalDateTime now = LocalDateTime.now();  
-   System.out.println(dtf.format(now));  
+DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+  LocalDateTime now = LocalDateTime.now();  
+//   System.out.println(dtf.format(now));  
    long millis=System.currentTimeMillis();  
-   
-           String adesso = dtf.format(now);
-          
-         
-   System.out.println("Oggi: "+adesso);      
-    String sql = "SELECT * FROM  richiami  where data <= '"+adesso+"' AND intervento NOT IN ('Chiamato') order by data ASC";
-        try {
+Date date=new Date(millis);  
 
+ 
+            
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String data =dateFormat.format(date);
+            Date fd = null;
+            try {
+                fd = dateFormat.parse(data);
+            } catch (ParseException ex) {
+                Logger.getLogger(Richiami.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            java.sql.Date sqlDate = new java.sql.Date(fd.getTime());    
+    
+        try {
+String sql = "SELECT * FROM  richiami  where data <= '"+sqlDate+"' AND intervento NOT IN ('Chiamato') order by data ASC";
             psts = conn.prepareStatement(sql);
            
             ResultSet rec = psts.executeQuery();
@@ -1150,12 +1180,12 @@ DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     }
     
-     void DeleteData(String cliente,String datanascita,String intervento,String data) {
+     void DeleteData(String cliente,String datanascita,String intervento) {
 
-        String sql = "DELETE FROM richiami  WHERE cliente = '" + cliente + "' AND datanascita = '" + datanascita + "' AND data = '" + data + "' AND intervento = '" + intervento + "'";
+        String sql = "DELETE FROM richiami  WHERE cliente = '" + cliente + "' AND datanascita = '" + datanascita +  "' AND intervento = '" + intervento + "'";
         try {
             Statement pstDel = connDel.createStatement();
-            System.out.println("QUERY DI ELIMINAZIONE: "+cliente+" "+datanascita+" "+data+" "+intervento);
+            System.out.println("QUERY DI ELIMINAZIONE: "+cliente+" "+datanascita+" "+intervento);
             pstDel.execute(sql);
 
         } catch (SQLException e) {

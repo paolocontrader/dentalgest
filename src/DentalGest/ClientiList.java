@@ -30,6 +30,7 @@ import net.proteanit.sql.DbUtils;
 public final  class ClientiList extends javax.swing.JFrame {
   
     String msg1 = null;
+     String msg3 = null;
     String msg2 = null;
     Connection conn=null;
     Connection connUpd=null;
@@ -544,7 +545,7 @@ public final  class ClientiList extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(11, 20, 27, 0);
         getContentPane().add(jButton6, gridBagConstraints);
 
-        combo_stato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In corso", "Terminato" }));
+        combo_stato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In corso", "Terminato", "Pagato" }));
         combo_stato.setSelectedIndex(-1);
         combo_stato.setToolTipText("");
         combo_stato.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -593,8 +594,10 @@ public final  class ClientiList extends javax.swing.JFrame {
                     combo_stato.setSelectedItem(rsclick.getString("stato"));
                    msg1 = txt_nome.getText();
                    msg2 = txt_cognome.getText();
+                   msg3 = txt_recapito.getText();
                    System.out.println("Nome da passare: "+msg1);
                    System.out.println("Cognome da passare: "+msg2);
+                   System.out.println("cf da passare: "+msg3);
                     
                     
                 }
@@ -801,8 +804,10 @@ PopulateData();
       {
           Clients.getObj().txt_n.setText(msg1);
       Clients.getObj().txt_c.setText(msg2);
+      Clients.getObj().txt_d.setText(msg3);
       System.out.println("passaggio nome: "+msg1);
       System.out.println("passaggio cognome: "+msg2);
+       System.out.println("passaggio data nascita: "+msg3);
       Clients.getObj().Update_table();
       Clients.getObj().PopulatePrest();
       Clients.getObj().setVisible(true);

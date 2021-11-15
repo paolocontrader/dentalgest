@@ -2,6 +2,8 @@ package GUI;
 
 import DentalGest.ClientiListApp;
 import DentalGest.ClientiListCem;
+import DentalGest.Db;
+import DentalGest.Operatori;
 import GUI.CalendarGUI;
 import java.awt.*;
 import javax.swing.*;
@@ -13,7 +15,13 @@ import toDo.ToDo;
 
 import java.awt.event.*;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AddDialog extends JDialog {
 
@@ -34,7 +42,7 @@ public class AddDialog extends JDialog {
 	private int fromM;
 	private int toH;
 	private int toM;
-
+        Connection conn = null;
 	/**
 	 * Create the dialog.
 	 */
@@ -48,10 +56,11 @@ public class AddDialog extends JDialog {
     } 
         
     public AddDialog(){
-        
+       
     }
         
 	public AddDialog(MemoDialog parent, int flag) {
+             conn = Db.db();
 		setBounds(100, 100, 361, 250);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(1, 1, 1, 1));
@@ -120,8 +129,8 @@ public class AddDialog extends JDialog {
                         cliebtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
                                                 
-                                               
-                                               ClientiListApp.getObj().setFocusableWindowState(true);
+                                               ClientiListApp.getObj().PopulateData();
+                                                       ClientiListApp.getObj().setFocusableWindowState(true);
 						ClientiListApp.getObj().setVisible(true);
                                                 ClientiListApp.getObj().setAlwaysOnTop(true);
                                                
@@ -171,9 +180,29 @@ public class AddDialog extends JDialog {
                 }
                 
                 {
-                        
-                        String[] operStrings = { "","Dott. Famiglietti", "Dott. Donnarumma", "Dott.ssa Calabrese", "Dott. Pagliarulo"};
-                       txtOper = new JComboBox(operStrings);
+                       txtOper = new JComboBox();
+        String sql="select * from operatori ORDER BY nome ASC "; 
+        PreparedStatement psPrest = null;
+        
+        try {
+            psPrest=conn.prepareStatement(sql);
+            ResultSet rsPrest=psPrest.executeQuery();
+            while(rsPrest.next()){
+            txtOper.addItem(rsPrest.getString("nome"));
+            
+        }
+        } catch (SQLException ex) {
+            Logger.getLogger(Operatori.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                psPrest.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Operatori.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
                         txtOper.setLayout(new BorderLayout());
 			GridBagConstraints gbc_txtOper = new GridBagConstraints();
 			gbc_txtOper.fill = GridBagConstraints.BOTH;
@@ -334,7 +363,7 @@ public class AddDialog extends JDialog {
 								Collections.sort(tmp);
 
 								// Check for events that have the same start and end times
-								for (int i = 0; i < tmp.size() - 1; i++) {
+								/*for (int i = 0; i < tmp.size() - 1; i++) {
 									if (tmp.get(i).isSame(tmp.get(i + 1))) {
 
 										JOptionPane.showMessageDialog(null,
@@ -345,7 +374,8 @@ public class AddDialog extends JDialog {
 										hasSameTime = true;
 										break;
 									}
-								}
+								}*/
+                                                                
 								is.close();
 
 								if (!hasSameTime) {
@@ -393,7 +423,7 @@ public class AddDialog extends JDialog {
 				JButton cancelButton = new JButton("Cancella");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						setVisible(false);
+						//setVisible(false);
 					}
 				});
 				cancelButton.setActionCommand("Cancel");

@@ -153,9 +153,9 @@ public class CalendarGUI extends DateManager {
 		weekDaysName = new JButton[7];
 		for (int i = 0; i < COLUMN; i++) {
 			weekDaysName[i] = new JButton(WEEK_DAY_NAME[i]);
-			weekDaysName[i].setBorderPainted(false);
-			weekDaysName[i].setContentAreaFilled(false);
-			weekDaysName[i].setEnabled(false);
+			weekDaysName[i].setBorderPainted(true);
+			weekDaysName[i].setContentAreaFilled(true);
+			weekDaysName[i].setEnabled(true);
 			weekDaysName[i].setForeground(Color.WHITE);
 			if (i == 6)
 				weekDaysName[i].setBackground(new Color(232, 186, 171));
@@ -217,7 +217,7 @@ public class CalendarGUI extends DateManager {
 		if (today.get(Calendar.DAY_OF_WEEK) == 0)
 			dateButs[today.get(Calendar.WEEK_OF_MONTH) - 1][today.get(Calendar.DAY_OF_WEEK) - 2].requestFocusInWindow();
 		else
-			dateButs[today.get(Calendar.WEEK_OF_MONTH) - 1][today.get(Calendar.DAY_OF_WEEK) - 2].requestFocusInWindow();
+			dateButs[today.get(Calendar.WEEK_OF_MONTH)-1][today.get(Calendar.DAY_OF_WEEK)-2].requestFocusInWindow();
 	}
 
 	// show to-do data to calendarGUI

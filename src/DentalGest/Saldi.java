@@ -167,9 +167,7 @@ public final  class Saldi extends javax.swing.JFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         tb1 = new javax.swing.JTable();
-        txt_n = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
@@ -201,30 +199,17 @@ public final  class Saldi extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tb1);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 746;
-        gridBagConstraints.ipady = 348;
+        gridBagConstraints.ipadx = 756;
+        gridBagConstraints.ipady = 330;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 30, 0, 35);
+        gridBagConstraints.insets = new java.awt.Insets(30, 30, 60, 35);
         getContentPane().add(jScrollPane2, gridBagConstraints);
-
-        txt_n.setEditable(false);
-        txt_n.setBorder(null);
-        txt_n.setEnabled(false);
-        txt_n.setFocusable(false);
-        txt_n.setOpaque(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.ipady = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 12, 0);
-        getContentPane().add(txt_n, gridBagConstraints);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/headers/contabilita_logo_window_220x80.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -234,68 +219,26 @@ public final  class Saldi extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = -77;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(32, 0, 0, 0);
         getContentPane().add(jLabel1, gridBagConstraints);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setFocusPainted(false);
-        jButton1.setFocusable(false);
-        jButton1.setRequestFocusEnabled(false);
-        jButton1.setRolloverEnabled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -17;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(92, 462, 0, 35);
-        getContentPane().add(jButton1, gridBagConstraints);
-
-        setSize(new java.awt.Dimension(856, 579));
+        setSize(new java.awt.Dimension(856, 584));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tb1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb1MouseClicked
+       
+//        int row = tb1.getSelectedRow();
+//        
+//        txt_n.setText(tb1.getValueAt(row, 0).toString().toUpperCase());
+    
 
-        int row = tb1.getSelectedRow();
-        txt_n.setText(tb1.getValueAt(row, 0).toString().toUpperCase());
-        String t = txt_n.getText();
-
-        System.out.println("Saldi cliente: "+txt_n.getText());
-        Clients.getObj().combo_cliente.setText(t);
+//        System.out.println("Saldi cliente: "+txt_n.getText());
+//        Clients.getObj().combo_cliente.setText(txt_n.getText());
 
     }//GEN-LAST:event_tb1MouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        String msg = txt_n.getText();
-
-        if(msg.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Selezionare paziente");
-        }
-        else
-        {
-            Clients.getObj().combo_cliente.setText(msg);
-           
-            System.out.println("passaggio cognome: "+msg);
-            Clients.getObj().Update_table();
-            Clients.getObj().PopulatePrest();
-            Clients.getObj().setVisible(true);
-        }
-
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     
     
@@ -386,11 +329,11 @@ public final  class Saldi extends javax.swing.JFrame {
      Double a= 0.0;
      Double b= 0.0;
      Double c= 0.0;
-     
+     String cell = null;
     try {
-        String sql = "select nome,cognome,datanascita FROM  pazienti where stato = '"+terminato+"'";
-        String sql2 = "select cliente,resto,acconto,prezzo from prestazione_cliente where cliente = ? and resto != ? ";
-        String sql3 ="select  (SUM(CAST(prezzo as DECIMAL(5,2)))) as prezzo,(SUM(CAST(resto as DECIMAL(5,2)))) as resto,(SUM(CAST(acconto as DECIMAL(5,2)))) as acconto from prestazione_cliente where cliente = ?";
+        String sql = "select nome,cognome,datanascita,cell FROM  pazienti where stato = '"+terminato+"'";
+        String sql2 = "select * from prestazione_cliente where cliente = ? and resto != ? and cell =?";
+        String sql3 ="select  (SUM(CAST(prezzo as DECIMAL(10,2)))) as prezzo,(SUM(CAST(resto as DECIMAL(10,2)))) as resto,(SUM(CAST(acconto as DECIMAL(10,2)))) as acconto from prestazione_cliente where cliente = ? and cell = ?" ;
         psts = conn.prepareStatement(sql);
         
          ResultSet recApp = psts.executeQuery();
@@ -405,7 +348,8 @@ public final  class Saldi extends javax.swing.JFrame {
                    nome = recApp.getString("nome");
                     cognome = recApp.getString("cognome");
                     nascita = recApp.getString("datanascita");
-                     concat = nome+" "+cognome;
+                    cell = recApp.getString("cell");
+                     concat = nome.toUpperCase()+" "+cognome.toUpperCase();
                model.addRow(new Object[0]);
 
                 model.setValueAt(false, row, 0); // Checkbox
@@ -415,9 +359,12 @@ public final  class Saldi extends javax.swing.JFrame {
                  model.setValueAt(nascita, row, 2);
                 psts2.setString(1, concat.toUpperCase());
                 psts2.setString(2, resto);
+                psts2.setString(3, cell);
+               
                  ResultSet recApp2 = psts2.executeQuery();
                   
                psts3.setString(1, concat.toUpperCase());
+                psts3.setString(2, cell);
               ResultSet recApp3 = psts3.executeQuery();
                 
                while(recApp2.next()&& recApp3.next()){
@@ -16892,10 +16839,8 @@ public final  class Saldi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tb1;
-    private javax.swing.JTextField txt_n;
     // End of variables declaration//GEN-END:variables
 }

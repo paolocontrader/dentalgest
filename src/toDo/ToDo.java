@@ -1,6 +1,15 @@
 package toDo;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.image.ImageObserver;
 import java.io.Serializable;
+import java.text.AttributedCharacterIterator;
 
 public class ToDo implements Serializable, Comparable<ToDo> {
 	private String todo;
@@ -108,7 +117,7 @@ public class ToDo implements Serializable, Comparable<ToDo> {
                 String clients = client;
                 String opers = oper;
                 
-		return time+"\t                                "+clients+               "\t                   "+event+                 "\t          "+opers;
+		return time+"\t -       "+clients+"\t -           "+event+"\t -             "+opers;
 	
         }
 

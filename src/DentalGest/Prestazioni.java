@@ -359,7 +359,7 @@ dente =0;
                    txt_prezzo.setText("");
                 txt_nome.setText("");
                 combo_ser.setSelectedIndex(-1);
-                
+                Clients.getObj().PopulatePrest();
                // Clients.getObj().prestazioni.addItem(servizio);
                if(Clients.getObj().isVisible()){
                     Clients.getObj().setVisible(false);

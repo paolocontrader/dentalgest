@@ -149,6 +149,7 @@ public final class Clients extends javax.swing.JFrame {
          connAppDelPrest = Db.db();
          combo_cliente.setText(comb);
         PopulateData();
+        
     AnimationStation();
     
     }
@@ -209,12 +210,12 @@ public final class Clients extends javax.swing.JFrame {
 
     }
     
-    void DeleteDataPrest(String nome,String cliente,String id) {
+    void DeleteDataPrest(String nome,String cliente,String id,String cell) {
 
-        String sql = "DELETE FROM prestazione_cliente  WHERE nome = '" + nome + "' AND cliente = '" + cliente + "' AND id = '" + id + "'";
+        String sql = "DELETE FROM prestazione_cliente  WHERE nome = '" + nome + "' AND cliente = '" + cliente + "' AND id = '" + id + "' AND cell = '" + cell + "' ";
         try {
             pstsDelPrest = connAppDelPrest.createStatement();
-            System.out.println("QUERY DI ELIMINAZIONE: "+nome+" "+cliente+" "+id);
+            System.out.println("QUERY DI ELIMINAZIONE: "+nome+" "+cliente+" "+id+" "+cell);
             pstsDelPrest.execute(sql);
 
         } catch (SQLException e) {
@@ -228,12 +229,12 @@ public final class Clients extends javax.swing.JFrame {
 
     }
     
-     void DeleteDataStorico(String nome,String cliente,String dente,String id) {
+     void DeleteDataStorico(String nome,String cliente,String dente,String id,String cell) {
 
-        String sql = "DELETE FROM storico_acc  WHERE nome = '" + nome + "' AND id = '" + id + "' AND cliente = '" + cliente + "' AND dente = '"+dente+"'";
+        String sql = "DELETE FROM storico_acc  WHERE nome = '" + nome + "' AND id = '" + id + "' AND cliente = '" + cliente + "' AND dente = '"+dente+"' AND cell = '" + cell + "'";
         try {
             pstsDelPrest = connAppDelPrest.createStatement();
-            System.out.println("QUERY DI ELIMINAZIONE STORICO: "+nome+" "+cliente+" "+id);
+            System.out.println("QUERY DI ELIMINAZIONE STORICO: "+nome+" "+cliente+" "+id+" "+cell);
             pstsDelPrest.execute(sql);
 
         } catch (SQLException e) {
@@ -248,6 +249,11 @@ public final class Clients extends javax.swing.JFrame {
     }
     
      public  void PopulateData() {
+nota_txt.setText("");
+prestazioni.setSelectedIndex(-1);
+txt_servizio.setText("");
+txt_costo.setText("");
+txt_anticipo.setText("");
 
 // Clear table
         tb1.setModel(new DefaultTableModel());
@@ -314,24 +320,24 @@ public final class Clients extends javax.swing.JFrame {
           
           model.addColumn("Dente");
           
+          model.addColumn("Costo");
+          
         model.addColumn("Acconto");
 
         model.addColumn("Saldo");
-        
-         model.addColumn("Costo");
-          
+                  
          model.addColumn("Nota");
 
        
    
    String n = txt_n.getText().toUpperCase();
          String c = txt_c.getText().toUpperCase();
-          comb = n+" "+c;
+          comb = n+""+c;
         System.out.println("Nome da List: "+n+" "+c);
         combo_cliente.setText(comb);
-        
+        String cell = txt_d.getText();
         String client = combo_cliente.getText();
-        String sql ="select * from prestazione_cliente where cliente='"+client+"'";
+        String sql ="select * from prestazione_cliente where cliente='"+client+"' and cell ='"+cell+"'";
         try {
 
             psts = conn.prepareStatement(sql);
@@ -353,13 +359,13 @@ public final class Clients extends javax.swing.JFrame {
                   model.setValueAt(rec.getString("nome"), row, 2);
                   
                   model.setValueAt(rec.getString("dente"), row, 3);
-                 
-                model.setValueAt(rec.getString("acconto"), row, 4);
-
-                model.setValueAt(rec.getString("resto"), row, 5);
-                
-                model.setValueAt(rec.getString("prezzo"), row, 6);
-                
+                  
+                  model.setValueAt(rec.getString("prezzo"), row, 4);
+                  
+                   model.setValueAt(rec.getString("acconto"), row, 5);
+                              
+                model.setValueAt(rec.getString("resto"), row, 6);
+               
                  model.setValueAt(rec.getString("nota"), row, 7);
                 
                row++;
@@ -406,9 +412,10 @@ tb1.getColumnModel().getColumn(3).setMaxWidth(0);
         String n = txt_n.getText().toUpperCase();
          String c = txt_c.getText().toUpperCase();
           comb = n+" "+c;
+          String cell = txt_d.getText();
         System.out.println("Nome da List: "+n+" "+c);
         combo_cliente.setText(comb);
-        String sql ="select * from prestazione_cliente where cliente='"+comb+"'";
+        String sql ="select * from prestazione_cliente where cliente='"+comb+"' and cell = '"+cell+"'";
        
         pst=conn.prepareStatement(sql);
         rs=pst.executeQuery();
@@ -473,7 +480,8 @@ tb1.getColumnModel().getColumn(3).setMaxWidth(0);
          try{
         
           comb = combo_cliente.getText();
-        String sql ="select * from prestazione_cliente where cliente='"+comb+"'";
+          String cell = txt_d.getText();
+        String sql ="select * from prestazione_cliente where cliente='"+comb+"' and cell = '"+cell+"'";
        
         pst=conn.prepareStatement(sql);
         rs=pst.executeQuery();
@@ -504,7 +512,7 @@ tb1.getColumnModel().getColumn(3).setMaxWidth(0);
                 
                 accu =  accu + Double.parseDouble(tb1.getValueAt(i, 3).toString());
                
-                ttt=ttt+Double.parseDouble(tb1.getValueAt(i,5).toString());
+                ttt=ttt+Double.parseDouble(tb1.getValueAt(i,4).toString());
                 resu = ttt - accu;
             }
            
@@ -587,12 +595,12 @@ tb1.getColumnModel().getColumn(3).setMaxWidth(0);
         model3.addColumn("Prestazione");
         
           model3.addColumn("Dente");
+          
+           model3.addColumn("Costo");
 
         model3.addColumn("Acconto");
 
-        model3.addColumn("Resto");
-
-        model3.addColumn("Costo");
+        model3.addColumn("Saldo");
         
         model3.addColumn("Nota");
         
@@ -600,8 +608,8 @@ tb1.getColumnModel().getColumn(3).setMaxWidth(0);
         
        // tb2.getColumnModel().removeColumn(tb2.getColumnModel().getColumn(4));
 
-        
-    String sql = "SELECT * FROM  prestazione_cliente where cliente ='"+cliente+"' ORDER BY nome DESC";
+        String cell = txt_d.getText();
+    String sql = "SELECT * FROM  prestazione_cliente where cliente ='"+cliente+"' and cell='"+cell+"' ORDER BY nome DESC";
         try {
 
             pstApp = connApp.prepareStatement(sql);
@@ -624,11 +632,11 @@ tb1.getColumnModel().getColumn(3).setMaxWidth(0);
                 
                 model3.setValueAt(recApp.getString("dente"), row, 3);
                 
-                model3.setValueAt(recApp.getString("acconto"), row, 4);
+                 model3.setValueAt(recApp.getString("prezzo"), row, 4);
+                
+                model3.setValueAt(recApp.getString("acconto"), row, 5);
 
-                model3.setValueAt(recApp.getString("resto"), row, 5);
-
-                model3.setValueAt(recApp.getString("prezzo"), row, 6);
+                model3.setValueAt(recApp.getString("resto"), row, 6);
                 
                 model3.setValueAt(recApp.getString("nota"), row, 7);
                 
@@ -698,6 +706,7 @@ tb1.getColumnModel().getColumn(3).setMaxWidth(0);
         txt_n = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        txt_d = new javax.swing.JTextField();
         txt_resto = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -896,6 +905,17 @@ tb1.getColumnModel().getColumn(3).setMaxWidth(0);
         });
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 160, -1, -1));
 
+        txt_d.setEditable(false);
+        txt_d.setAutoscrolls(false);
+        txt_d.setBorder(null);
+        txt_d.setEnabled(false);
+        txt_d.setFocusable(false);
+        txt_d.setOpaque(false);
+        txt_d.setPreferredSize(new java.awt.Dimension(0, 0));
+        txt_d.setRequestFocusEnabled(false);
+        txt_d.setVerifyInputWhenFocusTarget(false);
+        getContentPane().add(txt_d, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         txt_resto.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         txt_resto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_resto.setEnabled(false);
@@ -1005,7 +1025,7 @@ tb1.getColumnModel().getColumn(3).setMaxWidth(0);
                     else{
                     
                         System.out.println("costo: "+costoIns);
-                    String sql="insert into prestazione_cliente (id,nome,cliente,acconto,resto,prezzo,dente,dataora,tipo,nota) values (?,?,?,?,?,?,?,?,?,?)";
+                    String sql="insert into prestazione_cliente (id,nome,cliente,acconto,resto,prezzo,dente,dataora,tipo,nota,cell) values (?,?,?,?,?,?,?,?,?,?,?)";
                     pst=conn.prepareStatement(sql);
                     //Random rand = new Random(); //instance of random class
                      int leftLimit = 97; // letter 'a'
@@ -1036,9 +1056,10 @@ int xD = randomD.nextInt(99)-100 ;
                     pst.setString(8,dataora);
                     pst.setString(9,"inserimento");
                     pst.setString(10,"");
+                    pst.setString(11, txt_d.getText());
                     pst.execute();
                     
-                     String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto,dente,id) values(?,?,?,?,?,?)";
+                     String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto,dente,id,cell) values(?,?,?,?,?,?,?)";
                    Connection furb = Db.db();
                    PreparedStatement psfurb = furb.prepareStatement(sqlfurb);
                    psfurb.setString(1, cliente);
@@ -1047,6 +1068,7 @@ int xD = randomD.nextInt(99)-100 ;
                    psfurb.setString(4, "0.0");
                    psfurb.setString(5, String.valueOf(xD));
                    psfurb.setString(6, generatedString);
+                   psfurb.setString(7, Clients.getObj().txt_d.getText());
                    psfurb.execute();
                     JOptionPane.showMessageDialog(null,"Prestazione salvata correttamente" );
                 }
@@ -1301,7 +1323,9 @@ int xD = randomD.nextInt(99)-100 ;
     
     public void listFiles() throws IOException{
         String scelta = combo_cliente.getText();
-        String folder = "/Dentalgest/reports/"+scelta+"/";
+        String dataN =txt_d.getText();
+        System.out.println("data o nn data: "+dataN);
+        String folder = "/dentalgest/reports/"+scelta+"-"+dataN+"/";
 Desktop.getDesktop().open(new File(folder));
     }
     
@@ -1329,16 +1353,18 @@ System.out.println(dateFormat.format(cal.getTime()));
          String denteA = null;
                 PdfPCell cellD=null;
          PopulatePrest();
+        
         try{
            
             String scelta= combo_cliente.getText();
-           
-             String sqlAcc = "select nome,id from storico_acc where cliente='"+scelta+"' group by nome,id";
+            String dataN = txt_d.getText();
+          
+             String sqlAcc = "select nome,id from storico_acc where cliente='"+scelta+"' and cell ='"+dataN+"' group by nome,id";
             prepSto=connSto.prepareStatement(sqlAcc);
             repSto=prepSto.executeQuery();
             Document d=new Document(PageSize.A4);
             
-            File f = new File("/dentalgest/reports/"+scelta+"/");
+            File f = new File("/dentalgest/reports/"+scelta+"-"+dataN+"/");
   
         // check if the directory can be created
         // using the abstract path name
@@ -1353,7 +1379,7 @@ System.out.println(dateFormat.format(cal.getTime()));
             // as the function returned false
             System.out.println("Directory non creata");
         }     
-            PdfWriter.getInstance(d, new FileOutputStream("/dentalgest/reports/"+scelta+"/storico-"+scelta+"-"+adesso+".pdf"));
+            PdfWriter.getInstance(d, new FileOutputStream("/dentalgest/reports/"+scelta+"-"+dataN+"/storico-"+scelta+"-"+adesso+".pdf"));
             d.open();
             Double prezzo = 0.0;
              Font font=new Font();
@@ -1410,7 +1436,7 @@ System.out.println(dateFormat.format(cal.getTime()));
             System.out.println(dateFormat.format(cal.getTime()));
              scelta= combo_cliente.getText();
             adesso = dateFormat.format(cal.getTime());
-            String sql = "select * from prestazione_cliente where cliente='"+scelta+"'";
+            String sql = "select * from prestazione_cliente where cliente='"+scelta+"' and cell ='"+dataN+"'";
             prep=repo.prepareStatement(sql);
             rep=prep.executeQuery();
             
@@ -1432,7 +1458,7 @@ System.out.println(dateFormat.format(cal.getTime()));
                String nomeha="Prestazione";
                String prezzoh="Acconto";
                //String ivah="Iva Applicata";
-               String nettoh="Resto";
+               String nettoh="Saldo";
                String ivatoh="Totale";  
                PdfPCell cell1ha=new PdfPCell(new Paragraph(nomeha));
                cell1ha.setBorderColor(new Color(0,0,0));
@@ -1455,10 +1481,11 @@ System.out.println(dateFormat.format(cal.getTime()));
                  cell5h.setBackgroundColor(new Color(255,255,255));
                 cell5h.setHorizontalAlignment(Element.ALIGN_CENTER);
                 ptableh.addCell(cell1ha);
+                ptableh.addCell(cell3h);
                 ptableh.addCell(cell2h);
                 ptableh.addCell(cell5h);
                 //ptableh.addCell(cell4h);
-                ptableh.addCell(cell3h);
+                
                 d.add(ptableh);
                 String nome = null;
             while(rep.next()){
@@ -1487,10 +1514,11 @@ System.out.println(dateFormat.format(cal.getTime()));
                 cell5.setBorderColor(new Color(0,0,0));
                 cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
                 ptable.addCell(cell1a);
+                ptable.addCell(cell5);
                 ptable.addCell(cell2);
                 ptable.addCell(cell3);
                 //ptable.addCell(cell4);
-                ptable.addCell(cell5);
+                
                 d.add(ptable);
             }
                 d.add(n);
@@ -1577,7 +1605,7 @@ System.out.println(dateFormat.format(cal.getTime()));
                 PreparedStatement prepCosto = null;
             ResultSet repCosto = null;
            
-             String sqlCosto = "select prezzo,dente  from prestazione_cliente where nome ='"+nomes+"' and cliente = '"+scelta+"' and id = '"+ids+"'";
+             String sqlCosto = "select prezzo,dente  from prestazione_cliente where nome ='"+nomes+"' and cliente = '"+scelta+"' and id = '"+ids+"' and cell = '"+dataN+"'";
             prepCosto=connStoDati.prepareStatement(sqlCosto);
             repCosto=prepCosto.executeQuery();   
               String accontoh="Acconti";
@@ -1611,7 +1639,7 @@ System.out.println(dateFormat.format(cal.getTime()));
                 
            PreparedStatement prepStoDati = null;
             ResultSet repStoDati = null;
-             String sqlDati = "select acconto,dataora,id,dente from storico_acc where dente = ? AND nome ='"+nomes+"' AND cliente ='"+scelta+"' and id='"+ids+"' group by id,dente,acconto,dataora";
+             String sqlDati = "select acconto,dataora,id,dente from storico_acc where dente = ? AND nome ='"+nomes+"' AND cliente ='"+scelta+"' and id='"+ids+"' and cell = '"+dataN+"'group by id,dente,acconto,dataora";
             prepStoDati=connStoDati.prepareStatement(sqlDati);
             prepStoDati.setString(1, dente);
             repStoDati=prepStoDati.executeQuery(); 
@@ -1655,7 +1683,7 @@ System.out.println(dateFormat.format(cal.getTime()));
            
                System.out.println("ACCONTOS++: "+accontoTot);
                PdfPTable tableAcc=new PdfPTable(1);
-               PdfPCell cellAcc=new PdfPCell(new Paragraph("Costo: €"+prezzo+"\nAcconto: €"+accontoTot+"\nResto: €"+resto));
+               PdfPCell cellAcc=new PdfPCell(new Paragraph("Totale: €"+prezzo+"\nAcconto: €"+accontoTot+"\nSaldo: €"+resto));
                  cellAcc.setBorder(0);
             cellAcc.setHorizontalAlignment(Element.ALIGN_RIGHT);
             tableAcc.addCell(cellAcc);
@@ -1672,11 +1700,13 @@ System.out.println(dateFormat.format(cal.getTime()));
            JOptionPane.showMessageDialog(null,"Storico creato correttamente");
          try{
         //Process exec = Runtime.getRuntime().exec("cmd.exe /C /dentalgest/utility/open.bat");
-        File file = new File("/dentalgest/reports/"+scelta+"/storico-"+scelta+"-"+adesso+".pdf");
-    if (file.toString().endsWith(".pdf")) 
-       Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file);
-   else {
-       Desktop desktop = Desktop.getDesktop();
+        File file = new File("/dentalgest/reports/"+scelta+"-"+dataN+"/storico-"+scelta+"-"+adesso+".pdf");
+    if (file.toString().endsWith(".pdf")) {
+      // Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file);
+    Desktop desktop = Desktop.getDesktop();
+       desktop.open(file);
+    }else {
+        Desktop desktop = Desktop.getDesktop();
        desktop.open(file);
 }
          }    // File myFile = new File("/dentalgest/reports/saldo-"+scelta+"_"+adesso+".pdf");
@@ -1699,8 +1729,8 @@ System.out.println(dateFormat.format(cal.getTime()));
 
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
         txt_servizio.setText(model.getValueAt(selectedRowIndex, 2).toString());
-        txt_costo.setText(model.getValueAt(selectedRowIndex, 6).toString());
-        txt_anticipo.setText(model.getValueAt(selectedRowIndex, 4).toString());
+        txt_costo.setText(model.getValueAt(selectedRowIndex, 4).toString());
+        txt_anticipo.setText(model.getValueAt(selectedRowIndex, 5).toString());
         nota_txt.setText(model.getValueAt(selectedRowIndex, 7).toString());
            /* Double resto=0.0;
             Double costo=0.0;
@@ -1770,10 +1800,11 @@ System.out.println(dateFormat.format(cal.getTime()));
                 if(x==0){
                     String account = txt_anticipo.getText();
                     String servizio = txt_servizio.getText();
+                    String cell = txt_d.getText();
                     Double var_anticipo = Double.valueOf(txt_anticipo.getText());
                     Double costo = Double.valueOf(txt_costo.getText());
                     int row = tb1.getSelectedRow();
-                    String ant1 = tb1.getValueAt(row, 4).toString();
+                    String ant1 = tb1.getValueAt(row, 5).toString();
                     String denteSel = tb1.getValueAt(row, 3).toString();
                     Double resto=0.00;
                     Double sum=0.00;
@@ -1781,14 +1812,14 @@ System.out.println(dateFormat.format(cal.getTime()));
                     Double nett=0.00;
                     Double ttot=0.00;
                     for(int i=0;i < tb1.getRowCount();i++){
-                        sum =  sum + Double.parseDouble(tb1.getValueAt(i, 6).toString());
-                        anti =  anti + Double.parseDouble(tb1.getValueAt(i,4 ).toString());
-                        ttot=ttot + Double.parseDouble(tb1.getValueAt(i, 6).toString());
+                        sum =  sum + Double.parseDouble(tb1.getValueAt(i, 4).toString());
+                        anti =  anti + Double.parseDouble(tb1.getValueAt(i,5 ).toString());
+                        ttot=ttot + Double.parseDouble(tb1.getValueAt(i, 4).toString());
                         resto = (ttot - anti);
                         //resto=Math.ceil(resto);
                         }
-                    Double resto1 = costo - var_anticipo-Double.parseDouble(tb1.getValueAt(row,4 ).toString());
-                    String sql="update prestazione_cliente set prezzo=?,acconto=?,resto=? ,dataora=?,tipo=? where cliente=? and nome=? and id=? and dente = ?";
+                    Double resto1 = costo - var_anticipo-Double.parseDouble(tb1.getValueAt(row,5 ).toString());
+                    String sql="update prestazione_cliente set prezzo=?,acconto=?,resto=? ,dataora=?,tipo=? where cliente=? and nome=? and id=? and dente = ? and cell = ?";
                     System.out.println("Query update: "+sql);
                     pstUpd=connUpd.prepareStatement(sql);
                     var_anticipo = Double.valueOf(txt_anticipo.getText())+Double.valueOf(ant1);
@@ -1801,10 +1832,11 @@ System.out.println(dateFormat.format(cal.getTime()));
                     pstUpd.setString(7, servizio);
                     pstUpd.setString(8, numero);
                     pstUpd.setString(9, denteSel);
+                     pstUpd.setString(10, cell);
                     Update_table();
                    pstUpd.execute();
                    
-                   String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto,dente,id) values(?,?,?,?,?,?)";
+                   String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto,dente,id,cell) values(?,?,?,?,?,?,?)";
                    Connection furb = Db.db();
                    PreparedStatement psfurb = furb.prepareStatement(sqlfurb);
                    psfurb.setString(1, val1);
@@ -1813,6 +1845,7 @@ System.out.println(dateFormat.format(cal.getTime()));
                    psfurb.setString(4, account);
                    psfurb.setString(5, denteSel);
                    psfurb.setString(6, numero);
+                   psfurb.setString(7, cell);
                    psfurb.execute();
                    Update_table();
                    PopulatePrest();
@@ -1876,8 +1909,9 @@ PopulatePrest();
                      String cliente = combo_cliente.getText();
                     String id = tb1.getValueAt(i, 1).toString();
                     int row = tb1.getSelectedRow();
-                    DeleteDataPrest(nome,cliente,id); 
-                    DeleteDataStorico(nome,cliente,dente,id);
+                    String cell = txt_d.getText();
+                    DeleteDataPrest(nome,cliente,id,cell); 
+                    DeleteDataStorico(nome,cliente,dente,id,cell);
                     System.out.println("Cancello 3");
                     DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
                      decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
@@ -1921,6 +1955,7 @@ PopulatePrest();
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         CartellaClinica.getObj().paziente.setText(comb);
+        CartellaClinica.getObj().cf.setText(txt_d.getText());
         CartellaClinica.getObj().PopulateData();
       CartellaClinica.getObj().setVisible(true);
         
@@ -1957,7 +1992,7 @@ PopulatePrest();
                 int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler aggiornare la seguente nota?","Aggiorna Nota",JOptionPane.YES_NO_OPTION);
                 if(x==0){
                     int row = tb1.getSelectedRow();
-
+                        String dataN = txt_d.getText();
                     String cliente = combo_cliente.getText();
                     String prestazione = tb1.getValueAt(row, 2).toString();
                     String id = tb1.getValueAt(row, 1).toString();
@@ -1966,7 +2001,7 @@ PopulatePrest();
                     System.out.println("id "+id);
                     System.out.println("nota "+nota);
                     System.out.print("qui arrivo");
-                    String sql="update prestazione_cliente set nota='"+nota+"' where cliente='"+cliente+"' and nome='"+prestazione+"' and id='"+id+"'";
+                    String sql="update prestazione_cliente set nota='"+nota+"' where cliente='"+cliente+"' and nome='"+prestazione+"' and id='"+id+"' and cell = '"+dataN+"'";
                     PreparedStatement pstUpdStato = connUpdStato.prepareStatement(sql);
                     pstUpdStato.execute();
                     System.out.print("anche qui arrivo");
@@ -2069,6 +2104,7 @@ PopulatePrest();
     private javax.swing.JTextField txt_anticipo;
     public javax.swing.JTextField txt_c;
     private javax.swing.JTextField txt_costo;
+    public javax.swing.JTextField txt_d;
     public javax.swing.JTextField txt_n;
     private javax.swing.JLabel txt_resto;
     private javax.swing.JLabel txt_servizio;

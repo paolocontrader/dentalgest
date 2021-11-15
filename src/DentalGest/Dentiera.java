@@ -313,7 +313,7 @@ public class Dentiera extends javax.swing.JFrame {
              System.out.println("Dente scelto: "+dente_check);
             try {
            
-            String sql="insert into prestazione_cliente (id,nome,cliente,acconto,resto,prezzo,dente,dataora,tipo,nota) values (?,?,?,?,?,?,?,?,?,?)";
+            String sql="insert into prestazione_cliente (id,nome,cliente,acconto,resto,prezzo,dente,dataora,tipo,nota,cell) values (?,?,?,?,?,?,?,?,?,?,?)";
             try {
                 pst=conn.prepareStatement(sql);
             } catch (SQLException ex) {
@@ -343,10 +343,11 @@ public class Dentiera extends javax.swing.JFrame {
              pst.setString(8, dataora);
               pst.setString(9, "inserimento");
                pst.setString(10, "");
+               pst.setString(11, Clients.getObj().txt_d.getText());
             System.out.println("valori dentiera: "+sql);
             pst.execute();
             
-            String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto,dente,id) values(?,?,?,?,?,?)";
+            String sqlfurb = "insert into storico_acc (cliente,nome,dataora,acconto,dente,id,cell) values(?,?,?,?,?,?,?)";
                    Connection furb = Db.db();
                    PreparedStatement psfurb = furb.prepareStatement(sqlfurb);
                    psfurb.setString(1, Clients.getObj().cliente);
@@ -355,6 +356,7 @@ public class Dentiera extends javax.swing.JFrame {
                    psfurb.setString(4, "0.0");
                    psfurb.setString(5, String.valueOf(dente_check));
                    psfurb.setString(6, generatedString);
+                    psfurb.setString(7, Clients.getObj().txt_d.getText());
                    psfurb.execute();
             JOptionPane.showMessageDialog(null,"Prestazione salvata correttamente" );
             check11.setSelected(false);

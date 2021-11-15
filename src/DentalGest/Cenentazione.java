@@ -493,6 +493,11 @@ public final  class Cenentazione extends javax.swing.JFrame {
         combo_stato.setSelectedIndex(-1);
         combo_stato.setToolTipText("");
         combo_stato.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        combo_stato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_statoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 10;
@@ -886,9 +891,13 @@ Date date=new Date(millis);
             }
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void combo_statoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_statoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combo_statoActionPerformed
+
     
     public  void PopulateData() {
-
+        nota_txt.setText("");
 // Clear table
         tb1.setModel(new DefaultTableModel());
          //calendar.setDate(null);

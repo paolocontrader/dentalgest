@@ -5,16 +5,11 @@
  */
 package DentalGest;
 
-import java.awt.Desktop;
 import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Connection;
@@ -22,17 +17,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
@@ -158,7 +146,6 @@ public final  class CartellaClinica extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jScrollPane2 = new javax.swing.JScrollPane();
         tb1 = new javax.swing.JTable();
@@ -174,12 +161,13 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         open = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        cf = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -204,19 +192,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tb1);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.gridwidth = 14;
-        gridBagConstraints.gridheight = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 660;
-        gridBagConstraints.ipady = 140;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(18, 40, 30, 0);
-        getContentPane().add(jScrollPane2, gridBagConstraints);
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 269, 687, 180));
 
         bt_cerca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bt_cerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_lente_ingrandimento_cerca_40x40.png"))); // NOI18N
@@ -229,15 +205,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 bt_cercaActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -1;
-        gridBagConstraints.ipady = -1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(11, 20, 0, 0);
-        getContentPane().add(bt_cerca, gridBagConstraints);
+        getContentPane().add(bt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(316, 150, 40, 40));
 
         paziente.setEditable(false);
         paziente.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -248,24 +216,10 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 pazienteActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.ipadx = 450;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(110, 71, 0, 0);
-        getContentPane().add(paziente, gridBagConstraints);
+        getContentPane().add(paziente, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 450, -1));
 
         txt_cerca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipadx = 244;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(21, 50, 0, 0);
-        getContentPane().add(txt_cerca, gridBagConstraints);
+        getContentPane().add(txt_cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 246, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/Scegli-file_40x100.png"))); // NOI18N
         jButton1.setBorder(null);
@@ -276,36 +230,14 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.gridheight = 4;
-        gridBagConstraints.ipadx = -41;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 10, 0, 0);
-        getContentPane().add(jButton1, gridBagConstraints);
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(536, 210, 110, -1));
 
         doc_n.setEditable(false);
         doc_n.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.gridheight = 5;
-        gridBagConstraints.ipadx = 394;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(8, 11, 0, 0);
-        getContentPane().add(doc_n, gridBagConstraints);
+        getContentPane().add(doc_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 226, 396, -1));
 
         jLabel1.setText("Documento:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 50, 0, 0);
-        getContentPane().add(jLabel1, gridBagConstraints);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
         nome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         nome.addActionListener(new java.awt.event.ActionListener() {
@@ -313,15 +245,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 nomeActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 394;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 11, 0, 0);
-        getContentPane().add(nome, gridBagConstraints);
+        getContentPane().add(nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 396, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/Carica-file_40x100.png"))); // NOI18N
         jButton2.setBorder(null);
@@ -331,23 +255,10 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 13;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 15;
-        gridBagConstraints.gridheight = 4;
-        gridBagConstraints.ipadx = -51;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 10, 0, 0);
-        getContentPane().add(jButton2, gridBagConstraints);
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(656, 210, 92, -1));
 
         jLabel2.setText("Path:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(8, 50, 0, 0);
-        getContentPane().add(jLabel2, gridBagConstraints);
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 226, -1, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/icona_cestino_cancella_20x20.png"))); // NOI18N
         jButton3.setBorder(null);
@@ -356,12 +267,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 26;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 0, 0, 0);
-        getContentPane().add(jButton3, gridBagConstraints);
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(727, 269, -1, -1));
 
         open.setEditable(false);
         open.setAutoscrolls(false);
@@ -374,14 +280,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 openActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(39, 30, 0, 0);
-        getContentPane().add(open, gridBagConstraints);
+        getContentPane().add(open, new org.netbeans.lib.awtextra.AbsoluteConstraints(556, 329, 10, -1));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri_file_86x40.png"))); // NOI18N
         jButton4.setBorder(null);
@@ -398,29 +297,17 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 26;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 16;
-        gridBagConstraints.ipadx = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 10, 0, 2);
-        getContentPane().add(jButton4, gridBagConstraints);
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(737, 299, 90, -1));
+
+        cf.setFont(new java.awt.Font("Tahoma", 0, 1)); // NOI18N
+        getContentPane().add(cf, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 40, 0, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/headers/CARTELLA_CLINICA_220_x_80.png"))); // NOI18N
         jLabel3.setText("jLabel1");
         jLabel3.setMaximumSize(new java.awt.Dimension(295, 80));
         jLabel3.setMinimumSize(new java.awt.Dimension(295, 80));
         jLabel3.setPreferredSize(new java.awt.Dimension(295, 80));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -77;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        getContentPane().add(jLabel3, gridBagConstraints);
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, 218, -1));
 
         setSize(new java.awt.Dimension(837, 516));
         setLocationRelativeTo(null);
@@ -483,9 +370,10 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         String nom = nome.getText();
         String pat = doc_n.getText();
         String paz = paziente.getText();
+        String cell = cf.getText();
          
         System.out.println("Dati: "+nom+" "+pat+" "+paz);
-        String sql = "insert into cartella (paziente,path,nome) values (?,?,?)";
+        String sql = "insert into cartella (paziente,path,nome,cell) values (?,?,?,?)";
         controlPanel cp = new controlPanel();
        String lettera = cp.lettera_txt.getText();
        String extension = "";
@@ -496,18 +384,19 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         }
         System.out.println("Estensione: "+extension);
        
-       String newPath = lettera+":/dentalgest/cartelle/"+paz+"/"+nom+"."+extension;
+       String newPath = lettera+":/dentalgest/cartelle/"+paz+"-"+cell+"/"+nom+"."+extension;
        System.out.println("newPath: "+newPath);
          try{
             psAll = connAll.prepareStatement(sql);
             psAll.setString(1,paz);
             psAll.setString(2, newPath );
             psAll.setString(3, nom);
+            psAll.setString(4, cell);
             psAll.execute();
               
       //Creating a folder using mkdirs() method  
       
-      File f = new File("/dentalgest/cartelle/"+paz+"/");
+      File f = new File("/dentalgest/cartelle/"+paz+"-"+cell+"/");
   
         // check if the directory can be created
         // using the abstract path name
@@ -526,7 +415,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         Path root = currDir.toPath().getRoot();
         System.out.println("Path cartella: "+root.toString());
            File dirFrom = new File(pat);
-            File dirTo = new File(root.toString()+"/dentalgest/cartelle/"+paz+"/"+nom+"."+extension);
+            File dirTo = new File(root.toString()+"/dentalgest/cartelle/"+paz+"-"+cell+"/"+nom+"."+extension);
 //            boolean boole2 = dirTo.mkdir();
 //    if(boole2){  
 //         System.out.println("Folder is created successfully");  
@@ -598,6 +487,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
 
                     String path = tb1.getValueAt(i, 2).toString();
                      String cliente = paziente.getText();
+                     String cfs = cf.getText();
                     String nome = tb1.getValueAt(i, 1).toString();
                     File currDir = new File(System.getProperty("user.dir", "."));
                     String extension = "";
@@ -609,9 +499,9 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         }
        
         System.out.println("Estensione cancella: "+extension);
-                    File file= new File(lettera+":/dentalgest/cartelle/"+cliente+"/"+nome+extension);
+                    File file= new File(lettera+":/dentalgest/cartelle/"+cliente+"-"+cfs+"/"+nome+extension);
                      System.out.println("path da cancellare: "+file.toString());
-                    DeleteData(cliente,path,nome); 
+                    DeleteData(cliente,path,nome,cfs); 
                     try {
                         deleteDirectory(file);
                     } catch (IOException ex) {
@@ -639,9 +529,9 @@ public final  class CartellaClinica extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     
-    void DeleteData(String paziente,String path,String nome) {
+    void DeleteData(String paziente,String path,String nome,String cell) {
 
-        String sql = "DELETE FROM cartella  WHERE paziente = '" + paziente + "' AND path = '" + path + "' AND nome = '" + nome + "'";
+        String sql = "DELETE FROM cartella  WHERE paziente = '" + paziente + "' AND path = '" + path + "' AND nome = '" + nome + "' and cell = '"+cell+"'";
         try {
             Statement pstsDel = connAppDel.createStatement();
             System.out.println("QUERY DI ELIMINAZIONE: "+paziente+" "+path+" "+nome);
@@ -703,12 +593,13 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         model.addColumn("Path");
 
         
-    String sql = "SELECT * FROM  cartella where paziente =? ORDER BY nome DESC";
+    String sql = "SELECT * FROM  cartella where paziente =? and cell = ? ORDER BY nome ASC";
         try {
 
             pstPop = connPop.prepareStatement(sql);
             pstPop.setString(1, paziente.getText());
-            System.out.println("Paziente recuperato: "+paziente.getText());
+            pstPop.setString(2, cf.getText());
+            System.out.println("Paziente recuperato: "+paziente.getText()+" "+cf.getText());
 
             ResultSet recPop = pstPop.executeQuery();
 
@@ -803,7 +694,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
      {
          PopulateData();
      }
-    String sql = "SELECT * FROM  cartella WHERE nome LIKE ? ORDER BY nome DESC";
+    String sql = "SELECT * FROM  cartella WHERE nome LIKE ? ORDER BY nome ASC";
         try {
 
             psCerca = connCerca.prepareStatement(sql);
@@ -4983,6 +4874,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_cerca;
+    public javax.swing.JTextField cf;
     private javax.swing.JTextField doc_n;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

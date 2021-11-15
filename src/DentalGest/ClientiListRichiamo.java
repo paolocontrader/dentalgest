@@ -398,56 +398,68 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_cercaMouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            Date newDate = calendar.getDate();
+            
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String data =dateFormat.format(newDate);
+            Date fd = dateFormat.parse(data);
+            java.sql.Date sqlDate = new java.sql.Date(fd.getTime());
+           
+            
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//        Date newDate = calendar.getDate();
+//String data =dateFormat.format(newDate);
+//java.sql.Date sqlDate = new java.sql.Date(newDate.getTime());
+//       dateFormat.format(sqlDate);
+//        //String cerca = calendar.getDate().toString();
+//        System.out.println("Data da cercare: "+newDate);
+int row = tb1.getSelectedRow();
+String cliente = tb1.getValueAt(row, 0)
+        .toString()+" "+tb1.getValueAt(row, 1)
+                .toString();
+String datanascita = tb1.getValueAt(row, 3).toString();
+String intervento = "Da chiamare";
+
+
+
+System.out.println("Cliens cliente: "+cliente);
+int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiugere il seguente richiamo?", "Aggiungi richiamo", JOptionPane.YES_NO_OPTION);
+if (x == 0) {
+    try {
         
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date newDate = calendar.getDate();
-       String data =dateFormat.format(newDate);
-       java.sql.Date sqlDate = new java.sql.Date(newDate.getTime());
-        //String cerca = calendar.getDate().toString();
-        System.out.println("Data da cercare: "+newDate);
-        int row = tb1.getSelectedRow();
-        String cliente = tb1.getValueAt(row, 0)
-                            .toString()+" "+tb1.getValueAt(row, 1)
-                            .toString();  
-        String datanascita = tb1.getValueAt(row, 3).toString();
-        String intervento = "Da chiamare";
-       
-       
-      
-        System.out.println("Cliens cliente: "+cliente);
-        int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiugere il seguente richiamo?", "Aggiungi richiamo", JOptionPane.YES_NO_OPTION);
-        if (x == 0) {
-            try {
-
-                String sql = "insert into richiami (cliente,datanascita,intervento,data) values (?,?,?,?)";
-                PreparedStatement pst = conn.prepareStatement(sql);
-                pst.setString(1, cliente);
-                pst.setString(2, datanascita);
-                pst.setString(3,  intervento);
-                pst.setDate(4, sqlDate);
-
-                pst.execute();
-                System.out.println("VALORI INSERIMENT PAZIENTE: " + cliente + " | " + intervento + " | " + sqlDate + " | " + datanascita+ "");
-                Richiami.getObj().PopulateData();
-                JOptionPane.showMessageDialog(null, "Richiamo aggiunto correttamente");
-                
-                PopulateData();
-                 
-               
-                // AppList.getObj().PopulateDataAll();
-
-                calendar.setDate(null);
-                txt_cerca.setText("");
-               Richiami.getObj().PopulateDataAll();
-                setVisible(false);
-                Richiami.getObj().setVisible(true);
-              Richiami.getObj().PopulateDataAll();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
-            }
-Richiami.getObj().PopulateDataAll();
+        String sql = "insert into richiami (cliente,datanascita,intervento,data) values (?,?,?,?)";
+        PreparedStatement pst = conn.prepareStatement(sql);
+        pst.setString(1, cliente);
+        pst.setString(2, datanascita);
+        pst.setString(3,  intervento);
+        pst.setDate(4, sqlDate);
+        
+        pst.execute();
+        System.out.println("VALORI INSERIMENT PAZIENTE: " + cliente + " | " + intervento + " | " + sqlDate + " | " + datanascita+ "");
+       // Richiami.getObj().PopulateData();
+        JOptionPane.showMessageDialog(null, "Richiamo aggiunto correttamente");
+        
+        PopulateData();
+        
+        
+        // AppList.getObj().PopulateDataAll();
+        
+        calendar.setDate(null);
+        txt_cerca.setText("");
+        Richiami.getObj().PopulateDataAll();
+        setVisible(false);
+        Richiami.getObj().setVisible(true);
+        Richiami.getObj().PopulateDataAll();
+        
+    } catch (SQLException ex) {
+        Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    Richiami.getObj().PopulateDataAll();
+}
+        } catch (ParseException ex) {
+            Logger.getLogger(ClientiListRichiamo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
