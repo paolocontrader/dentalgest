@@ -117,7 +117,7 @@ public class ToDo implements Serializable, Comparable<ToDo> {
                 String clients = client;
                 String opers = oper;
                 
-		return time+"\t -       "+clients+"\t -           "+event+"\t -             "+opers;
+		return time+"\t -    "+clients+"\t -        "+event+"\t -          "+opers;
 	
         }
 

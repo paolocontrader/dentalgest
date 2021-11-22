@@ -1345,7 +1345,7 @@ public class MemoDialog extends JDialog implements ActionListener {
                     }
                     String str = (listModel.getSize() * 2 + 2) + ", " + (startPoint * 2 + 2) + ", " + 1 + ", " + (length * 2 + 2);
                     label[i] = new JLabel_1(fromHour, toHour, cliente, to_do, operator);
-                    label[i].setFont(new Font("TimesRoman", Font.PLAIN, 13));
+                    label[i].setFont(new Font("TimesRoman", Font.PLAIN, 12));
 //                                       spString = listModel.toString().split(",");
 
                     pn.add(label[i], str);
@@ -1412,7 +1412,7 @@ public class MemoDialog extends JDialog implements ActionListener {
     //create colored label
     static class JLabel_1 extends JLabel {		// JLabel_1 can be painted. so it placed on time table to show what event is planed
 
-        public Color[] userColor = {new Color(182, 136, 151), new Color(232, 186, 171), new Color(238, 218, 149), new Color(183, 194, 126), new Color(208, 224, 235), new Color(223, 208, 235), new Color(249, 216, 172), new Color(13, 37, 255)};
+        public Color[] userColor = {new Color(255, 240, 97), new Color(247, 159, 72), new Color(249, 100, 100), new Color(183, 249, 241), new Color(141, 249, 138), new Color(244, 103, 244), new Color(244, 203, 149), new Color(207, 187, 255)};
 
         JLabel_1(int from, int to, String event, String client, String oper) {
             super(event);
@@ -1482,6 +1482,7 @@ public class MemoDialog extends JDialog implements ActionListener {
 //}
 String nomeha = CalendarGUI.calDayOfMon+"-"+(CalendarGUI.calMonth+1)+"-"+CalendarGUI.calYear;
             Document d = new Document(PageSize.A4);
+            d.setMargins(0,0,0,0);
             File f = new File("/dentalgest/calendario/");
 // check if the directory can be created
 // using the abstract path name
@@ -1516,9 +1517,9 @@ String nomeha = CalendarGUI.calDayOfMon+"-"+(CalendarGUI.calMonth+1)+"-"+Calenda
             image.setBorderColor(new Color(0, 0, 0));
             PdfPCell cell = new PdfPCell();
 // d.add(image);
-            cell.setColspan(2);
+            cell.setColspan(0);
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cell.setPadding(8.0f);
+            cell.setPadding(0);
             font.setColor(0, 0, 0);
             font.setSize(28);
             int indentation = 0;
@@ -1541,28 +1542,28 @@ String nomeha = CalendarGUI.calDayOfMon+"-"+(CalendarGUI.calMonth+1)+"-"+Calenda
             }
             String nome = null;
             int h =0;
-            String[] spString = listModel.toString().split(",");
+            String text = listModel.toString().replace("[", "").replace("]", "");
+            String[] spString = text.split(",");
+           
             for (h = 0; h < td.size(); h++) {
-                
+              
                 PdfPTable ptable = new PdfPTable(1);
-               if(spString[h].contains("Dott. Famiglietti")){
-                PdfPCell cell1a = new PdfPCell(new Paragraph("\t"+spString[h] + "\n"));
-                cell1a.setBorderColor(new Color(145, 89, 128));
+              
+                    Paragraph paragr = new Paragraph(spString[h]);
+                    paragr.setAlignment(Element.ALIGN_LEFT);
+                PdfPCell cell1a = new PdfPCell(paragr);
+                font.setSize(9);
+                cell1a.setBorderColor(new Color(255, 255, 255));
+                cell1a.setBorder(0);
+                 cell1a.setHorizontalAlignment(Element.ALIGN_LEFT);
                 ptable.addCell(cell1a);
-               }
-               else{
-                   PdfPCell cell1av = new PdfPCell(new Paragraph("\t"+spString[h] + "\n"));
-                cell1av.setBorderColor(new Color(0, 0, 0));
-                ptable.addCell(cell1av);
-               }
-                
-
+             
                 try {
                     d.add(ptable);
                 } catch (DocumentException ex) {
                     Logger.getLogger(MemoDialog.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                Paragraph n = new Paragraph("\n");
+              //  Paragraph n = new Paragraph("\n");
             }
             Image image1 = null;
             try {

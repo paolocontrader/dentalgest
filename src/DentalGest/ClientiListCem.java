@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -444,59 +445,73 @@ public final  class ClientiListCem extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_cercaMouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            
+            Date newDate = calendar.getDate();
+            
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String data =dateFormat.format(newDate);
+            Date fd = null;
         
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date newDate = calendar.getDate();
-        String data = dateFormat.format(newDate);
-        String nota = nota_txt.getText();
-        //String cerca = calendar.getDate().toString();
-        System.out.println("Data da cercare: "+data);
+            fd = dateFormat.parse(data);
        
-        int row = tb1.getSelectedRow();
-        String cliente = tb1.getValueAt(row, 0)
-                            .toString()+" "+tb1.getValueAt(row, 1)
-                            .toString();  
-        String stato = combo_stato.getSelectedItem().toString();
-        String datanascita = tb1.getValueAt(row, 3).toString();
-       
-       System.out.println("data di nascita: "+datanascita );
-        System.out.println("Cliens cliente: "+cliente);
-        int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiugere la seguente cementazione?", "Aggiungi cementazione", JOptionPane.YES_NO_OPTION);
-        if (x == 0) {
-            try {
+            java.sql.Date sqlDate = new java.sql.Date(fd.getTime());
+        
+//        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+//        Date newDate = calendar.getDate();
+//        String data = dateFormat.format(newDate);
+String nota = nota_txt.getText();
+//String cerca = calendar.getDate().toString();
+System.out.println("Data da cercare: "+sqlDate);
 
-                String sql = "insert into cementazione (cliente,datanascita,tipologia,data,nota) values (?,?,?,?,?)";
-                PreparedStatement pst = conn.prepareStatement(sql);
+int row = tb1.getSelectedRow();
+String cliente = tb1.getValueAt(row, 0)
+        .toString()+" "+tb1.getValueAt(row, 1)
+                .toString();
+String stato = combo_stato.getSelectedItem().toString();
+String datanascita = tb1.getValueAt(row, 3).toString();
 
-                pst.setString(1, cliente);
-                pst.setString(2, datanascita);
-                pst.setString(3,  stato);
-                pst.setString(4, data);
-                pst.setString(5, nota);
-
-                pst.execute();
-                System.out.println("VALORI INSERIMENT PAZIENTE: " + cliente + " | " + stato + " | " + data + " | " + datanascita+ " | " + nota + "");
- 
-                JOptionPane.showMessageDialog(null, "Cementazione aggiunta correttamente");
-                nota_txt.setText("");
-                PopulateData();
-                Cenentazione.getObj().txtpaz.setSelectedIndex(0);
-//Cenentazione.getObj().PopulateData();
- 
-               
-                // AppList.getObj().PopulateDataAll();
-
-                calendar.setDate(null);
-                txt_cerca.setText("");
-                combo_stato.setSelectedIndex(-1);
-                
-                //setVisible(false);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+System.out.println("data di nascita: "+datanascita );
+System.out.println("Cliens cliente: "+cliente);
+int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiugere la seguente cementazione?", "Aggiungi cementazione", JOptionPane.YES_NO_OPTION);
+if (x == 0) {
+    try {
+        
+        String sql = "insert into cementazione (cliente,datanascita,tipologia,data,nota) values (?,?,?,?,?)";
+        PreparedStatement pst = conn.prepareStatement(sql);
+        
+        pst.setString(1, cliente);
+        pst.setString(2, datanascita);
+        pst.setString(3,  stato);
+        pst.setString(4, data);
+        pst.setString(5, nota);
+        
+        pst.execute();
+        System.out.println("VALORI INSERIMENT PAZIENTE: " + cliente + " | " + stato + " | " + data + " | " + datanascita+ " | " + nota + "");
+        
+        JOptionPane.showMessageDialog(null, "Cementazione aggiunta correttamente");
+        nota_txt.setText("");
+        PopulateData();
+        Cenentazione.getObj().txtpaz.setSelectedIndex(0);
+        Cenentazione.getObj().PopulateData();
+        setVisible(false);
+        Cenentazione.getObj().setVisible(true);
+        // AppList.getObj().PopulateDataAll();
+        
+        calendar.setDate(null);
+        txt_cerca.setText("");
+        combo_stato.setSelectedIndex(-1);
+        
+        //setVisible(false);
+        
+    } catch (SQLException ex) {
+        Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+}
+        } catch (ParseException ex) {
+            Logger.getLogger(ClientiListCem.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 

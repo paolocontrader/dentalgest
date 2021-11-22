@@ -31,6 +31,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -406,7 +407,7 @@ public final  class Cenentazione extends javax.swing.JFrame {
         nota_txt = new javax.swing.JTextArea();
         jButton7 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DentalGest");
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -713,13 +714,31 @@ public final  class Cenentazione extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
+//   LocalDateTime now = LocalDateTime.now();  
+//   System.out.println(dtf.format(now));  
+//   long millis=System.currentTimeMillis();  
+//Date date=new Date(millis);  
+// 
+//           String adesso = dtf.format(now);
+           
+           //            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
    LocalDateTime now = LocalDateTime.now();  
-   System.out.println(dtf.format(now));  
+//   System.out.println(dtf.format(now));  
    long millis=System.currentTimeMillis();  
 Date date=new Date(millis);  
+
  
-           String adesso = dtf.format(now);
+            
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String data =dateFormat.format(date);
+            Date fd = null;
+            try {
+                fd = dateFormat.parse(data);
+            } catch (ParseException ex) {
+                Logger.getLogger(Richiami.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            java.sql.Date sqlDate = new java.sql.Date(fd.getTime());
         try{
 
             String stato = combo_stato.getSelectedItem().toString();
@@ -730,14 +749,15 @@ Date date=new Date(millis);
                     int row = tb1.getSelectedRow();
                         
                             String cliente = tb1.getValueAt(row, 0).toString();
-                            String data = tb1.getValueAt(row, 3).toString();
+                            String dataOld = tb1.getValueAt(row, 3).toString();
                             String datanascita = tb1.getValueAt(row, 1).toString();
                             System.out.println("data "+data);
                             System.out.println("datanascita "+datanascita);
                             System.out.println("stato "+stato);
                             System.out.print("qui arrivo");
-                            String sql="update cementazione set tipologia='"+stato+"', data='"+adesso+"' where cliente='"+cliente+"' and data='"+data+"' and datanascita='"+datanascita+"'";
+                            String sql="update cementazione set tipologia='"+stato+"', data=? where cliente='"+cliente+"' and datanascita='"+datanascita+"'";
                             PreparedStatement pstUpdStato = connUpdStato.prepareStatement(sql);
+                            pstUpdStato.setDate(1, sqlDate);
                             pstUpdStato.execute();
                             System.out.print("anche qui arrivo");
                             //tb1.removeColumn(tb1.getColumnModel().getColumn(1));
@@ -745,7 +765,7 @@ Date date=new Date(millis);
 
                             //tb1.removeColumn(tb1.getColumnModel().getColumn(5));
                             
-                            JOptionPane.showMessageDialog(null,"Stato modificato correttamente per la cementazione di "+cliente+" del "+data );
+                            JOptionPane.showMessageDialog(null,"Stato modificato correttamente per la cementazione di "+cliente+" del "+dataOld );
                             PopulateData();
                            
                             //AppList.getObj().PopulateDataAll();
@@ -768,6 +788,7 @@ Date date=new Date(millis);
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         ClientiListCem.getObj().setVisible(true);
+        setVisible(false);
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -787,12 +808,18 @@ Date date=new Date(millis);
 
            int i = tb1.getSelectedRow();
 
-                 String data = tb1.getValueAt(i, 3).toString();
-                   
+                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date fd = null;
+            try {
+                fd = dateFormat.parse(tb1.getValueAt(i, 3).toString());
+            } catch (ParseException ex) {
+                Logger.getLogger(Richiami.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            java.sql.Date sqlDate = new java.sql.Date(fd.getTime());   
                     String cliente = tb1.getValueAt(i, 0).toString();
                     String tipologia = tb1.getValueAt(i, 2).toString();
                     String datanascita = tb1.getValueAt(i, 1).toString();
-                    DeleteData(cliente,datanascita,tipologia,data);
+                    DeleteData(cliente,datanascita,tipologia,sqlDate);
                     Cenentazione.getObj().PopulateData();
                 }
 
@@ -862,7 +889,7 @@ Date date=new Date(millis);
                             System.out.println("datanascita "+datanascita);
                             System.out.println("stato "+nota);
                             System.out.print("qui arrivo");
-                            String sql="update cementazione set nota='"+nota+"' where cliente='"+cliente+"' and data='"+data+"' and datanascita='"+datanascita+"'";
+                            String sql="update cementazione set nota='"+nota+"' where cliente='"+cliente+"' and datanascita='"+datanascita+"'";
                             PreparedStatement pstUpdStato = connUpdStato.prepareStatement(sql);
                             pstUpdStato.execute();
                             System.out.print("anche qui arrivo");
@@ -1002,7 +1029,12 @@ Date date=new Date(millis);
                  
                 model.setValueAt(rec.getString("tipologia"), row, 3);
 
-                model.setValueAt(rec.getString("data"), row, 4);
+               Date dataApp =rec.getDate("data");
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                java.util.Date utilDate = new java.util.Date(dataApp.getTime());
+                
+                String dataPresa = format.format(utilDate);
+                model.setValueAt(dataPresa, row, 4);
                 
                 model.setValueAt(rec.getString("nota"), row, 5);
                 
@@ -1039,7 +1071,7 @@ Date date=new Date(millis);
 
     }
     
-     void DeleteData(String cliente,String datanascita,String stato,String data) {
+     void DeleteData(String cliente,String datanascita,String stato,Date data) {
 
         String sql = "DELETE FROM cementazione  WHERE cliente = '" + cliente + "' AND datanascita = '"+datanascita+ "' AND tipologia = '" + stato + "' AND data = '" + data + "'";
         try {
@@ -1170,8 +1202,12 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 
                 model.setValueAt(rec.getString("tipologia"), row, 3);
 
-                model.setValueAt(rec.getString("data"), row, 4);
+                Date dataApp =rec.getDate("data");
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                java.util.Date utilDate = new java.util.Date(dataApp.getTime());
                 
+                String dataPresa = format.format(utilDate);
+                model.setValueAt(dataPresa, row, 4);
                  model.setValueAt(rec.getString("nota"), row, 5);
                  
 
@@ -1315,7 +1351,12 @@ DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                model.setValueAt(rec.getString("datanascita"), row, 2);
                 model.setValueAt(rec.getString("tipologia"), row, 3);
                 
-                model.setValueAt(rec.getString("data"), row, 4);
+                Date dataApp =rec.getDate("data");
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                java.util.Date utilDate = new java.util.Date(dataApp.getTime());
+                
+                String dataPresa = format.format(utilDate);
+                model.setValueAt(dataPresa, row, 4);
                 
                  model.setValueAt(rec.getString("nota"), row, 5);
                 

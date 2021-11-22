@@ -406,7 +406,11 @@ tb1.getColumnModel().getColumn(3).setMaxWidth(0);
     }
      
     void Update_table() {
-    
+    nota_txt.setText("");
+prestazioni.setSelectedIndex(-1);
+txt_servizio.setText("");
+txt_costo.setText("");
+txt_anticipo.setText("");
         
          try{
         String n = txt_n.getText().toUpperCase();
@@ -718,7 +722,7 @@ tb1.getColumnModel().getColumn(3).setMaxWidth(0);
         nota_txt = new javax.swing.JTextArea();
         jButton7 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DentalGest - Gestione Clienti");
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         setPreferredSize(new java.awt.Dimension(1436, 983));

@@ -550,6 +550,9 @@ public final  class CartellaClinica extends javax.swing.JFrame {
     
     public  void PopulateData() {
 
+        nome.setText("");
+        doc_n.setText("");
+        txt_cerca.setText("");
 // Clear table
         tb1.setModel(new DefaultTableModel());
          

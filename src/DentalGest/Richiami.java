@@ -514,7 +514,6 @@ public final  class Richiami extends javax.swing.JFrame {
         calendar = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         bt_cerca = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         label1 = new java.awt.Label();
@@ -658,25 +657,6 @@ public final  class Richiami extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
         getContentPane().add(bt_cerca, gridBagConstraints);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
-        jButton2.setBorder(null);
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.setDefaultCapable(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(30, 10, 0, 0);
-        getContentPane().add(jButton2, gridBagConstraints);
-
         jButton6.setText("Modifica stato");
         jButton6.setToolTipText("Selezionare il richiamo da modificare");
         jButton6.setMargin(new java.awt.Insets(2, 0, 2, 14));
@@ -737,7 +717,7 @@ public final  class Richiami extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(40, 10, 0, 0);
         getContentPane().add(operacombo, gridBagConstraints);
 
-        setSize(new java.awt.Dimension(837, 632));
+        setSize(new java.awt.Dimension(837, 528));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -800,24 +780,6 @@ public final  class Richiami extends javax.swing.JFrame {
             Search();
         
     }//GEN-LAST:event_bt_cercaActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-
-        if(t.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Selezionare paziente");
-        }
-        else
-        {
-
-            Clients.getObj().Update_table1();
-            Clients.getObj().PopulatePrest();
-            Clients.getObj().setVisible(true);
-
-        }
-        txt_n.setText("");
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try{
@@ -9566,7 +9528,6 @@ String sql = "SELECT * FROM  richiami  where data <= '"+sqlDate+"' AND intervent
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_cerca;
     private com.toedter.calendar.JDateChooser calendar;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
