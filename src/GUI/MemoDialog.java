@@ -87,9 +87,11 @@ public class MemoDialog extends JDialog implements ActionListener {
     private JPanel pnRight;
     private JPanel pnButtons;
     private JButton btnAdd;
+    private JButton btnAddGuest;
     private JButton btnPrint;
     private JButton btnDelete;
     private AddDialog dlgAdd;
+      private AddDialogNoAnagr dlgAddNoAnagr;
     private JTextPane tpDayRows[];
     private JLabel_1[] label;
     private int index;
@@ -97,10 +99,8 @@ public class MemoDialog extends JDialog implements ActionListener {
     static int length;
     static int colorSelect;
     LinkedList<ToDo> td = null;
-
-    String fileName = "/dentalgest/TodoData/" + CalendarGUI.calYear + ((CalendarGUI.calMonth + 1) < 10 ? "0" : "")
-            + (CalendarGUI.calMonth + 1) + (CalendarGUI.calDayOfMon < 10 ? "0" : "") + CalendarGUI.calDayOfMon
-            + ".dat";
+    
+    String fileName = null;
     private static JPanel pn;
 
     /**
@@ -110,11 +110,11 @@ public class MemoDialog extends JDialog implements ActionListener {
         super(parent, true);
         startPoint = 1;
         colorSelect = 0;
-        setBounds(0, 1, 400, 500);
+        setBounds(0, 1, 1000, 600);
         getContentPane().setLayout(new BorderLayout());
         pnDayView.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(pnDayView, BorderLayout.CENTER);
-        setTitle(CalendarGUI.calDayOfMon + " - " + CalendarGUI.MONTH_NAME[CalendarGUI.calMonth]);
+        setTitle(CalendarGUI.calDayOfMon + " - " + CalendarGUI.MONTH_NAME[CalendarGUI.calMonth] +" - "+CalendarGUI.comboOper.getSelectedItem().toString());
         pnDayView.setLayout(new GridLayout(0, 1, 0, 0));
         {
             spLeft = new JScrollPane(pn);
@@ -1171,12 +1171,14 @@ public class MemoDialog extends JDialog implements ActionListener {
                     // we can painting time table per hour
                     JLabel newlbl = new JLabel("0" + (i - 1) + ":00");
                     pn.add(newlbl, "2, " + (i * 2));
+                    newlbl.setFont(new Font("TimesRoman", Font.PLAIN, 16));
                 }
 
                 for (int i = 11; i < 24; i++) {
 
                     JLabel newlbl = new JLabel((i - 1) + ":00");
                     pn.add(newlbl, "2, " + (i * 2));
+                    newlbl.setFont(new Font("TimesRoman", Font.PLAIN, 16));
                 }
                 pnDayView.add(spLeft);
             }
@@ -1192,6 +1194,11 @@ public class MemoDialog extends JDialog implements ActionListener {
                     pnButtons = new JPanel();
                     pnRight.add(pnButtons, BorderLayout.NORTH);
                     pnButtons.setLayout(new GridLayout(0, 3, 0, 0));
+                     {
+                        btnAddGuest = new JButton("Ospite");
+                        btnAddGuest.addActionListener(this);
+                        pnButtons.add(btnAddGuest);
+                    }
                     {
                         btnAdd = new JButton("Nuovo");
                         btnAdd.addActionListener(this);
@@ -1253,15 +1260,15 @@ public class MemoDialog extends JDialog implements ActionListener {
                             panel.add(lblclient, gbc_lblclient);
                         }
 
-                        {
-                            JLabel lblOper = new JLabel("Operatore");
-                            GridBagConstraints gbc_lblOper = new GridBagConstraints();
-                            gbc_lblOper.fill = GridBagConstraints.CENTER;
-                            gbc_lblOper.insets = new Insets(0, 0, 0, 0);
-                            gbc_lblOper.gridx = 3;
-                            gbc_lblOper.gridy = 0;
-                            panel.add(lblOper, gbc_lblOper);
-                        }
+//                        {
+//                            JLabel lblOper = new JLabel("Operatore");
+//                            GridBagConstraints gbc_lblOper = new GridBagConstraints();
+//                            gbc_lblOper.fill = GridBagConstraints.CENTER;
+//                            gbc_lblOper.insets = new Insets(0, 0, 0, 0);
+//                            gbc_lblOper.gridx = 3;
+//                            gbc_lblOper.gridy = 0;
+//                            panel.add(lblOper, gbc_lblOper);
+//                        }
                     }
 
                     {
@@ -1270,10 +1277,11 @@ public class MemoDialog extends JDialog implements ActionListener {
 
                         readTodo();
                         list = new JList<ToDo>(listModel);
+                        list.setFont(new Font("TimesRoman", Font.PLAIN, 16));
                         list.setBorder(BorderFactory.createLineBorder(Color.black));
-                        list.setPreferredSize(new Dimension(100, 25));
+                        list.setPreferredSize(new Dimension(1000, 600));
                         pnEvents.setBorder(BorderFactory.createLineBorder(Color.black));
-                        pnEvents.add(list, BorderLayout.CENTER);
+                        pnEvents.add(list, BorderLayout.WEST);
                     }
                 }
             }
@@ -1286,8 +1294,11 @@ public class MemoDialog extends JDialog implements ActionListener {
      * @return number of to do list
      */
     public int todoNum() {
+        String selectOper = CalendarGUI.comboOper.getSelectedItem().toString().replace(".","");
         int numOfTodo = 0;
-
+        fileName = "/dentalgest/TodoData/"+selectOper+"/" + CalendarGUI.calYear + ((CalendarGUI.calMonth + 1) < 10 ? "0" : "")
+            + (CalendarGUI.calMonth + 1) + (CalendarGUI.calDayOfMon < 10 ? "0" : "") + CalendarGUI.calDayOfMon
+            + ".dat";
         File f = new File(fileName);
         if (f.exists()) {
 
@@ -1315,7 +1326,12 @@ public class MemoDialog extends JDialog implements ActionListener {
         int toHour;
         int toMinute;
         label = new JLabel_1[todoNum()];
-        pn.updateUI();
+        String selectOper = CalendarGUI.comboOper.getSelectedItem().toString().replace(".", "");
+       
+        fileName =  "/dentalgest/TodoData/"+selectOper+"/" + CalendarGUI.calYear + ((CalendarGUI.calMonth + 1) < 10 ? "0" : "")
+            + (CalendarGUI.calMonth + 1) + (CalendarGUI.calDayOfMon < 10 ? "0" : "") + CalendarGUI.calDayOfMon
+            + ".dat";
+         pn.updateUI();
         try {
             File f = new File(fileName);
 
@@ -1344,11 +1360,14 @@ public class MemoDialog extends JDialog implements ActionListener {
                         length++;
                     }
                     String str = (listModel.getSize() * 2 + 2) + ", " + (startPoint * 2 + 2) + ", " + 1 + ", " + (length * 2 + 2);
-                    label[i] = new JLabel_1(fromHour, toHour, cliente, to_do, operator);
-                    label[i].setFont(new Font("TimesRoman", Font.PLAIN, 12));
+                    
+                    label[i] = new JLabel_1(fromHour, toHour, cliente, to_do,operator);
+                    label[i].setFont(new Font("TimesRoman", Font.PLAIN, 16));
 //                                       spString = listModel.toString().split(",");
 
                     pn.add(label[i], str);
+                    
+                    label[i].setFont(new Font("TimesRoman", Font.PLAIN, 16));
                 }
 //                                 for(int h=0;h<td.size();h++){
 //                                                    System.out.print(spString[h]);
@@ -1466,6 +1485,15 @@ public class MemoDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         int flag;
 
+         if (e.getSource() == btnAddGuest) {
+            // create and show the dialog
+            flag = 0;
+
+            dlgAddNoAnagr = new AddDialogNoAnagr((MemoDialog) this, flag);
+            dlgAddNoAnagr.setVisible(true);
+            readTodo();
+            dispose();
+        } else
         if (e.getSource() == btnAdd) {
             // create and show the dialog
             flag = 0;
@@ -1481,6 +1509,7 @@ public class MemoDialog extends JDialog implements ActionListener {
 
 //}
 String nomeha = CalendarGUI.calDayOfMon+"-"+(CalendarGUI.calMonth+1)+"-"+CalendarGUI.calYear;
+String operato = CalendarGUI.comboOper.getSelectedItem().toString();
             Document d = new Document(PageSize.A4);
             d.setMargins(0,0,0,0);
             File f = new File("/dentalgest/calendario/");
@@ -1523,6 +1552,7 @@ String nomeha = CalendarGUI.calDayOfMon+"-"+(CalendarGUI.calMonth+1)+"-"+Calenda
             font.setColor(0, 0, 0);
             font.setSize(28);
             int indentation = 0;
+            
             try {
                 d.add(image);
             } catch (DocumentException ex) {
@@ -1530,7 +1560,7 @@ String nomeha = CalendarGUI.calDayOfMon+"-"+(CalendarGUI.calMonth+1)+"-"+Calenda
             }
             PdfPTable ptableh = new PdfPTable(1);
             
-            PdfPCell cell1ha = new PdfPCell(new Paragraph(nomeha));
+            PdfPCell cell1ha = new PdfPCell(new Paragraph(nomeha + "\n\nOperatore: "+operato));
             cell1ha.setBorderColor(new Color(0, 0, 0));
             cell1ha.setBackgroundColor(new Color(255, 255, 255));
             cell1ha.setHorizontalAlignment(Element.ALIGN_CENTER);

@@ -8,6 +8,7 @@ package DentalGest;
 import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -100,7 +101,7 @@ Connection connUpd=null;
     void Refresh(){
         combo_ser.removeAllItems();
         try {
-        String sql = "SELECT * FROM  prestazioni";
+        String sql = "SELECT * FROM  operatori";
        pstd = connel.prepareStatement(sql);
         rscd = pstd.executeQuery();
        
@@ -312,7 +313,21 @@ combo_ser.addItem(rscd.getString("nome"));
                    
                     pst.execute();
                     JOptionPane.showMessageDialog(null,"Operatore aggiunto correttamente" );
-
+                    File f = new File("/dentalgest/TodoData/"+txt_nome.getText().replace(".", ""));
+  
+        // check if the directory can be created
+        // using the abstract path name
+        if (f.mkdir()) {
+  
+            // display that the directory is created
+            // as the function returned true
+            System.out.println("Directory creata");
+        }
+        else {
+            // display that the directory cannot be created
+            // as the function returned false
+            System.out.println("Directory non creata");
+        }     
                    combo_ser.removeAllItems();
                 
                     Refresh();
@@ -320,6 +335,8 @@ combo_ser.addItem(rscd.getString("nome"));
                    
                 txt_nome.setText("");
                 combo_ser.setSelectedIndex(-1);
+                
+                 
                
                         }
                 
@@ -354,6 +371,15 @@ combo_ser.addItem(rscd.getString("nome"));
                 pstUpd.execute();
 
                 JOptionPane.showMessageDialog(null,"Operatore aggiornato Correttamente" );
+                
+                File sourceFile = new File("/dentalgest/TodoData/"+val1.replace(".", ""));
+                File destFile = new File("/dentalgest/TodoData/"+nome.replace(".", ""));
+
+                if (sourceFile.renameTo(destFile)) {
+                    System.out.println("Directory rinominata correttamente");
+                } else {
+                    System.out.println("Errore rinominazione directory");
+                }
                 combo_ser.removeAllItems();
                 txt_nome.setText("");
             }   

@@ -1,13 +1,21 @@
 package GUI;
 
+import DentalGest.Db;
+import DentalGest.Operatori;
 import static com.sun.glass.ui.Cursor.setVisible;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -29,11 +37,15 @@ public class CalendarGUI extends DateManager {
 	private JLabel lblCurrentDate;
 	private JButton btnNextMonth;
 	private JButton btnNextYear;
+        private JButton btnScegli;
+        public static JComboBox comboOper = null;
 	private ListenForCalOpButtons lForCalOpButtons = new ListenForCalOpButtons();
+        private ListenForCalOpButtons lForCalScegliButtons = new ListenForCalOpButtons();
 	private JPanel pnCal;
 	private JButton weekDaysName[];
 	private JButton dateButs[][] = new JButton[6][7];
 	private JLabel dateLabs[][] = new JLabel[7][6];
+        private JLabel operLab = null;
 	private listenForDateButs lForDateButs = new listenForDateButs();
 	private JLabel Clock;
 
@@ -41,17 +53,29 @@ public class CalendarGUI extends DateManager {
 	final String title = "Dentalgest";
 	private JPanel pnTop;
 	private JPanel pnBottom;
-
+        Connection conn = null;
         
+        
+         private static CalendarGUI obj=null;
+    
+    public static  CalendarGUI getObj(){
+        if(obj==null){
+            obj=new CalendarGUI();
+        }return obj;
+    } 
         
 	public CalendarGUI() {
+            conn = Db.db();
 		initialize();
+                
+                
 	}
 
 	/**
 	 * initialize calendar GUI
 	 */
 	private void initialize() {
+             
 		mainFrame = new JFrame(title);
 		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		mainFrame.setSize(815, 560);
@@ -64,7 +88,7 @@ public class CalendarGUI extends DateManager {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-
+                 
 		pnCalOption = new JPanel();
 		pnCalOption.setLayout(new GridLayout(0, 1, 0, 0));
 
@@ -99,7 +123,57 @@ public class CalendarGUI extends DateManager {
 		gbc_Clock.gridy = 0;
 		pnTop.add(Clock, gbc_Clock);
 		Clock.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
+                                
+                {  
+                    comboOper = new JComboBox();
+        String sql="select * from operatori ORDER BY nome ASC "; 
+        PreparedStatement psPrest = null;
+       
+        try {
+            psPrest=conn.prepareStatement(sql);
+            ResultSet rsPrest=psPrest.executeQuery();
+            while(rsPrest.next()){
+            comboOper.addItem(rsPrest.getString("nome"));
+            
+            
+        }
+        } catch (SQLException ex) {
+            Logger.getLogger(Operatori.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                psPrest.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Operatori.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+                        
+                        comboOper.setLayout(new BorderLayout());
+			GridBagConstraints gbc_txtOper = new GridBagConstraints();
+			gbc_txtOper.fill = GridBagConstraints.BOTH;
+			gbc_txtOper.insets = new Insets(0, 0, 5, 5);
+			gbc_txtOper.gridx = 1;
+			gbc_txtOper.gridy = 2;
+                         
+			pnTop.add(comboOper, gbc_txtOper);
+			comboOper.setSize(120, 50);
+                }
+                {
+                 btnScegli = new JButton("Carica");
+		GridBagConstraints gbc_btnScegli = new GridBagConstraints();
+		gbc_btnScegli.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnScegli.insets = new Insets(0, 0, 0, 5);
+		gbc_btnScegli.gridx = 3;
+		gbc_btnScegli.gridy = 2;
+		pnTop.add(btnScegli, gbc_btnScegli);
+                btnScegli.setSize(60, 40);
+		btnScegli.addActionListener(lForCalScegliButtons);
+                       
+        }               
+                     
+                
 		pnBottom = new JPanel();
 		pnCalOption.add(pnBottom);
 		GridBagLayout gbl_pnBottom = new GridBagLayout();
@@ -184,7 +258,7 @@ public class CalendarGUI extends DateManager {
 		}
 		pnCal.setLayout(new GridLayout(0, 7, 2, 2));
 		pnCal.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
-		showCal();
+		showCal(comboOper.getSelectedItem().toString());
 
 		JPanel pnCalender = new JPanel();
 		Dimension calOpPanelSize = pnCalOption.getPreferredSize();
@@ -205,7 +279,7 @@ public class CalendarGUI extends DateManager {
 		mainFrame.setVisible(true);
 
 		// focus on current date
-		focusToday();
+//		focusToday();
 
 		// Thread (clock)
 		ClockThread ckThread = new ClockThread();
@@ -215,22 +289,36 @@ public class CalendarGUI extends DateManager {
 	// focus on current date
 	private void focusToday() {
 		if (today.get(Calendar.DAY_OF_WEEK) == 0)
-			dateButs[today.get(Calendar.WEEK_OF_MONTH) - 1][today.get(Calendar.DAY_OF_WEEK) - 2].requestFocusInWindow();
+			dateButs[today.get(Calendar.WEEK_OF_MONTH) - 2][today.get(Calendar.DAY_OF_WEEK) - 2].requestFocusInWindow();
 		else
-			dateButs[today.get(Calendar.WEEK_OF_MONTH)-1][today.get(Calendar.DAY_OF_WEEK)-2].requestFocusInWindow();
+			dateButs[today.get(Calendar.WEEK_OF_MONTH)-2][today.get(Calendar.DAY_OF_WEEK)-2].requestFocusInWindow();
 	}
 
+        private void comboOperPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {                                                       
+        // TODO add your handling code here:
+        
+        String scelta=comboOper.getSelectedItem().toString();
+        
+         showCal(scelta);  
+        
+    } 
+        
 	// show to-do data to calendarGUI
-	private void showCal() {
-		for (int i = 0; i < ROW; i++) {
+	private void showCal(String txtOper) {
+            txtOper  = comboOper.getSelectedItem().toString().replace(".", "");
+            
+        
+                    
+             for (int i = 0; i < ROW; i++) {
 			for (int j = 0; j < COLUMN; j++) {
 				String fontColor = "black";
 				if (j == 6)
 					fontColor = "red";
 				else if (j == 5)
 					fontColor = "blue";
-
-				String file = "/dentalgest/TodoData/" + calYear + ((calMonth + 1) < 10 ? "0" : "") + (calMonth + 1)
+                                
+                               
+				String file = "/dentalgest/TodoData/"+txtOper+"/" + calYear + ((calMonth + 1) < 10 ? "0" : "") + (calMonth + 1)
 						+ (calDates[i][j] < 10 ? "0" : "") + calDates[i][j] + ".dat";
 				File f = new File(file);
 
@@ -252,7 +340,7 @@ public class CalendarGUI extends DateManager {
 							to_do += "...";
 						}
 						
-						is.close();
+						//is.close();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -277,7 +365,7 @@ public class CalendarGUI extends DateManager {
 							+ " style=\"text-align:right\"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "
 							+ "&nbsp; &nbsp; &nbsp; &nbsp;" + calDates[i][j] + "</p><br><br></html>");
 				}
-
+                                  
 				dateButs[i][j].removeAll();
 
 				if (calDates[i][j] == 0) {
@@ -288,8 +376,15 @@ public class CalendarGUI extends DateManager {
 				}
 			}
 		}
+            
 	}
 
+        private class ListenForCalScegliButtons implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+                showCal(comboOper.getSelectedItem().toString());
+                }
+        }
+        
 	private class ListenForCalOpButtons implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnToday) {
@@ -308,7 +403,7 @@ public class CalendarGUI extends DateManager {
 			lblCurrentDate
 					.setText("<html><table width=100><tr><th><font size=4>" + ((calMonth + 1) < 10 ? "&nbsp;" : "")
 							+ (calMonth + 1) + " / " + calYear + "</th></tr></table></html>");
-			showCal();
+			showCal(comboOper.getSelectedItem().toString());
 		}
 	}
 
@@ -330,7 +425,7 @@ public class CalendarGUI extends DateManager {
 				// create and show the dialog
 				MemoDialog dlg = new MemoDialog(mainFrame);
 				dlg.setVisible(true);
-				showCal();
+				showCal(comboOper.getSelectedItem().toString());
 			}
 			cal = new GregorianCalendar(calYear, calMonth, calDayOfMon);
 

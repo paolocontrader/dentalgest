@@ -346,7 +346,7 @@ dente =0;
 }
                     String sql="insert into prestazioni (nome,prezzo,dente) values (?,?,?)";
                     pst=conn.prepareStatement(sql);
-                    pst.setString(1,txt_nome.getText().toLowerCase());
+                    pst.setString(1,txt_nome.getText());
                     pst.setString(2,txt_prezzo.getText());
                      pst.setInt(3,dente);
                     pst.execute();
@@ -398,7 +398,7 @@ dente =0;
 
             try{
                 String val1 = combo_ser.getSelectedItem().toString();
-                String nome = txt_nome.getText().toLowerCase();
+                String nome = txt_nome.getText();
                 String prezzo = txt_prezzo.getText();
                 System.out.println("dente: "+dente);
                 String sql="update prestazioni set nome='"+nome+"',prezzo='"+prezzo+"', dente=? where nome='"+val1+"'";

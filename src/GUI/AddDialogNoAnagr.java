@@ -23,7 +23,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AddDialog extends JDialog {
+public class AddDialogNoAnagr extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtEventName;
@@ -54,11 +54,11 @@ public class AddDialog extends JDialog {
         }return obj;
     } 
         
-    public AddDialog(){
+    public AddDialogNoAnagr(){
        
     }
         
-	public AddDialog(MemoDialog parent, int flag) {
+	public AddDialogNoAnagr(MemoDialog parent, int flag) {
              conn = Db.db();
 		setBounds(100, 100, 361, 250);
 		getContentPane().setLayout(new BorderLayout());
@@ -124,17 +124,7 @@ public class AddDialog extends JDialog {
 		}
                 {
                         JLabel lblEventN = new JLabel("Paziente");
-                        JButton cliebtn = new JButton("Seleziona");
-                        cliebtn.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-                                                
-                                               ClientiListApp.getObj().PopulateData();
-                                                       ClientiListApp.getObj().setFocusableWindowState(true);
-						ClientiListApp.getObj().setVisible(true);
-                                                ClientiListApp.getObj().setAlwaysOnTop(true);
-                                               
-					}
-				});
+                        
 			GridBagConstraints gbc_lblEventN = new GridBagConstraints();
 			gbc_lblEventN.fill = GridBagConstraints.VERTICAL;
 			gbc_lblEventN.insets = new Insets(0, 0, 5, 5);
@@ -146,7 +136,7 @@ public class AddDialog extends JDialog {
 			gbc_lblEventB.gridx = 1;
 			gbc_lblEventB.gridy = 0;
                         contentPanel.add(lblEventN, gbc_lblEventN);
-                        contentPanel.add(cliebtn, gbc_lblEventB);
+                     
                         
                 }
                 
@@ -157,12 +147,9 @@ public class AddDialog extends JDialog {
 			gbc_txtCliente.fill = GridBagConstraints.BOTH;
 			gbc_txtCliente.insets = new Insets(0, 0, 0, 0);
 			gbc_txtCliente.gridx = 1;
-			gbc_txtCliente.gridy = 1;
-                         txtCliente.setSize(0,0);
-                         txtCliente.setBorder(null);
-                         txtCliente.setBackground(null);
+			gbc_txtCliente.gridy = 0;
+                         txtCliente.setSize(140,50);
 			contentPanel.add(txtCliente, gbc_txtCliente);
-			txtCliente.setColumns(0);
                        
                         
                         
@@ -310,11 +297,11 @@ public class AddDialog extends JDialog {
 
 						String event = txtEventName.getText();
                                                 
-                                                String clie = ClientiListApp.getObj().getCliente();
+                                                String clie = txtCliente.getText();
                                                
                                                 String oper = txtOper.getSelectedItem().toString();
                                                 
-                                                txtCliente.setText(clie);
+                                                
 						int startHour = calendar.get(Calendar.HOUR);
 						int startMinute = calendar.get(Calendar.MINUTE);
 						int amPm = calendar.get(Calendar.AM_PM);
