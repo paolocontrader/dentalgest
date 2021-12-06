@@ -722,7 +722,7 @@ tb1.getColumnModel().getColumn(3).setMaxWidth(50);
         nota_txt = new javax.swing.JTextArea();
         jButton7 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest - Gestione Clienti");
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         setPreferredSize(new java.awt.Dimension(1436, 983));

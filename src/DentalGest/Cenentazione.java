@@ -407,7 +407,7 @@ public final  class Cenentazione extends javax.swing.JFrame {
         nota_txt = new javax.swing.JTextArea();
         jButton7 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("DentalGest");
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

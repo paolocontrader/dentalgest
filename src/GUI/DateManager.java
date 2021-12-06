@@ -35,7 +35,7 @@ public class DateManager{
 	 * Find the location of the first date and calculate the last date. 
 	 */
 	private void makeCalData(Calendar cal){
-		int calStartingPos = (cal.get(Calendar.DAY_OF_WEEK)-1-(cal.get(Calendar.DAY_OF_MONTH))%7)%6;
+		int calStartingPos = (cal.get(Calendar.DAY_OF_WEEK)+6-(cal.get(Calendar.DAY_OF_MONTH))%7)%7;
 		if(calMonth == 1) calLastDate = calLastDateOfMonth[calMonth] + isLeap(calYear);
 		else calLastDate = calLastDateOfMonth[calMonth];
 		// Initializing calendar array

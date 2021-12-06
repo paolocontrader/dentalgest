@@ -281,7 +281,7 @@ public final  class ClientiList extends javax.swing.JFrame {
 
         lab_mail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lab_mail.setText("Nome:");
-        getContentPane().add(lab_mail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, -1, -1));
+        getContentPane().add(lab_mail, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 400, -1, -1));
 
         txt_nome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_nome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -290,11 +290,11 @@ public final  class ClientiList extends javax.swing.JFrame {
                 txt_nomeActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 400, 160, -1));
+        getContentPane().add(txt_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, 160, -1));
 
         lab_pec.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lab_pec.setText("Cognome:");
-        getContentPane().add(lab_pec, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 400, -1, -1));
+        getContentPane().add(lab_pec, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, -1, -1));
 
         txt_cognome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_cognome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -303,7 +303,7 @@ public final  class ClientiList extends javax.swing.JFrame {
                 txt_cognomeActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_cognome, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 400, 160, -1));
+        getContentPane().add(txt_cognome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 160, -1));
 
         lab_codfisc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lab_codfisc.setText("Codice Fiscale:");
@@ -388,6 +388,11 @@ public final  class ClientiList extends javax.swing.JFrame {
 
         id.setFont(new java.awt.Font("Tahoma", 0, 1)); // NOI18N
         id.setBorder(null);
+        id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idActionPerformed(evt);
+            }
+        });
         getContentPane().add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 0, -1, 10));
 
         combo_stato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In corso", "Terminato", "Pagato" }));
@@ -405,10 +410,10 @@ public final  class ClientiList extends javax.swing.JFrame {
             try
             {
                 int row = tb1.getSelectedRow();
-                String tbclick =(tb1.getModel().getValueAt(row, 1).toString());
-                 String tbclick1 =(tb1.getModel().getValueAt(row, 2).toString());
+                String tbclick =(tb1.getModel().getValueAt(row, 2).toString());
+                 String tbclick1 =(tb1.getModel().getValueAt(row, 1).toString());
                  
-                   String tbclick3 =(tb1.getModel().getValueAt(row, 4).toString());
+                   String tbclick3 =(tb1.getModel().getValueAt(row, 3).toString());
                 String sql = "SELECT * FROM pazienti WHERE nome = ? and cognome = ? and datanascita =?";
                 psclick = connClick.prepareStatement(sql);
                 psclick.setString(1, tbclick);
@@ -548,11 +553,11 @@ public final  class ClientiList extends javax.swing.JFrame {
                 if(chkDel) // Checked to Delete
                 {
 
-                    strNome = tb1.getValueAt(i, 1)
+                    strNome = tb1.getValueAt(i, 2)
                             .toString(); 
-                    strCognome = tb1.getValueAt(i, 2)
+                    strCognome = tb1.getValueAt(i, 1)
                             .toString(); 
-                    nascita = tb1.getValueAt(i, 4).toString();
+                    nascita = tb1.getValueAt(i, 3).toString();
                     cliente = strNome+" "+strCognome;
                     id= tb1.getValueAt(i, 6).toString();
                     System.out.println("Il cliente che viene terminato "+cliente);
@@ -687,15 +692,15 @@ PopulateData();
                 if(x==0){
                     int row = tb1.getSelectedRow();
 
-                    String nome = tb1.getValueAt(row, 1).toString();
-                    String cognome = tb1.getValueAt(row, 2).toString();
-                    String datanascita = tb1.getValueAt(row, 4).toString();
-                    String cf = tb1.getValueAt(row, 1).toString();
+                    String nome = tb1.getValueAt(row, 2).toString();
+                    String cognome = tb1.getValueAt(row, 1).toString();
+                    String datanascita = tb1.getValueAt(row, 3).toString();
+                    String id = tb1.getValueAt(row, 6).toString();
                     System.out.println("nome "+nome+" "+cognome);
                     System.out.println("datanascita "+datanascita);
                     System.out.println("stato "+stato);
                     System.out.print("qui arrivo");
-                    String sql="update pazienti set stato='"+stato+"' where nome='"+nome+"' and cognome='"+cognome+"' and datanascita='"+datanascita+"'";
+                    String sql="update pazienti set stato='"+stato+"' where id = '"+id+"'";
                     PreparedStatement pstUpdStato = connUpdStato.prepareStatement(sql);
                     pstUpdStato.execute();
                     System.out.print("anche qui arrivo");
@@ -713,6 +718,7 @@ PopulateData();
                 txt_recapito.setText("");
                 txtdataN.setText("");
                 combo_stato.setSelectedIndex(-1);
+                
 
                     //AppList.getObj().PopulateDataAll();
 
@@ -728,6 +734,10 @@ PopulateData();
             }
             // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idActionPerformed
 
     
     public  void PopulateData() {
@@ -792,14 +802,14 @@ PopulateData();
         
 // Add Column
         model.addColumn("");
-
-        model.addColumn("Nome");
-
+        
         model.addColumn("Cognome");
-
-        model.addColumn("Recapito");
+        
+        model.addColumn("Nome");
         
          model.addColumn("Data di Nascita");
+        
+          model.addColumn("Recapito");
          
          model.addColumn("Stato");
          
@@ -827,13 +837,13 @@ PopulateData();
 
                 model.setValueAt(false, row, 0); // Checkbox
 
-                model.setValueAt(rsPop.getString("nome"), row, 1);
-
-                model.setValueAt(rsPop.getString("cognome"), row, 2);
-
-                model.setValueAt(rsPop.getString("cell"), row, 3);
+                model.setValueAt(rsPop.getString("cognome"), row, 1);
                 
-                model.setValueAt(rsPop.getString("datanascita"), row, 4);
+                 model.setValueAt(rsPop.getString("nome"), row, 2);
+                 
+                  model.setValueAt(rsPop.getString("datanascita"), row, 3);
+
+                model.setValueAt(rsPop.getString("cell"), row, 4);
                 
                 model.setValueAt(rsPop.getString("stato"), row, 5);
                 
@@ -933,13 +943,15 @@ tb1.getColumnModel().getColumn(6).setMaxWidth(0);
 // Add Column
         model.addColumn("");
 
-        model.addColumn("Nome");
+        
 
         model.addColumn("Cognome");
-
-        model.addColumn("Recapito");
+        
+        model.addColumn("Nome");
         
          model.addColumn("Data di Nascita");
+         
+          model.addColumn("Recapito");
          
           model.addColumn("Stato");
            model.addColumn("");
@@ -970,13 +982,15 @@ tb1.getColumnModel().getColumn(6).setMaxWidth(0);
 
                 model.setValueAt(false, row, 0); // Checkbox
 
-                model.setValueAt(rsSearch.getString("nome"), row, 1);
+               
 
-                model.setValueAt(rsSearch.getString("cognome"), row, 2);
-
-                model.setValueAt(rsSearch.getString("cell"), row, 3);
+                model.setValueAt(rsSearch.getString("cognome"), row, 1);
                 
-                model.setValueAt(rsSearch.getString("datanascita"), row, 4);
+                 model.setValueAt(rsSearch.getString("nome"), row, 2);
+                 
+                  model.setValueAt(rsSearch.getString("datanascita"), row, 3);
+
+                model.setValueAt(rsSearch.getString("cell"), row, 4);
                 
                  model.setValueAt(rsSearch.getString("stato"), row, 5);
                  
