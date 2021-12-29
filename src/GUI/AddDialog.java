@@ -1,10 +1,8 @@
 package GUI;
 
 import DentalGest.ClientiListApp;
-import DentalGest.ClientiListCem;
 import DentalGest.Db;
 import DentalGest.Operatori;
-import GUI.CalendarGUI;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -156,8 +154,8 @@ public class AddDialog extends JDialog {
 			GridBagConstraints gbc_txtCliente = new GridBagConstraints();
 			gbc_txtCliente.fill = GridBagConstraints.BOTH;
 			gbc_txtCliente.insets = new Insets(0, 0, 0, 0);
-			gbc_txtCliente.gridx = 1;
-			gbc_txtCliente.gridy = 1;
+			gbc_txtCliente.gridx = 2;
+			gbc_txtCliente.gridy = 0;
                          txtCliente.setSize(0,0);
                          txtCliente.setBorder(null);
                          txtCliente.setBackground(null);

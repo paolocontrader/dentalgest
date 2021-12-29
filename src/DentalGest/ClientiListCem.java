@@ -466,8 +466,8 @@ String nota = nota_txt.getText();
 System.out.println("Data da cercare: "+sqlDate);
 
 int row = tb1.getSelectedRow();
-String cliente = tb1.getValueAt(row, 0)
-        .toString()+" "+tb1.getValueAt(row, 1)
+String cliente = tb1.getValueAt(row, 1)
+        .toString()+" "+tb1.getValueAt(row, 0)
                 .toString();
 String stato = combo_stato.getSelectedItem().toString();
 String datanascita = tb1.getValueAt(row, 3).toString();
@@ -708,7 +708,7 @@ if (x == 0) {
 
        
          String sql = null;
-     String cerca = txt_cerca.getText().toLowerCase();
+     String cerca = txt_cerca.getText();
      if(cerca.equals(""))
      {
           sql = "SELECT * FROM  pazienti ORDER BY nome ASC";

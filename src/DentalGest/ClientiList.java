@@ -477,10 +477,10 @@ public final  class ClientiList extends javax.swing.JFrame {
       .toString();
      System.out.println("id utente: "+generatedString);
         String query_check = "select * from pazienti where codice_fiscale=?";
-        String val1 = txt_nome.getText().toLowerCase();
-        String val2 = txt_cognome.getText().toLowerCase();
-        String val3 = txt_codfisc.getText().toLowerCase();
-        String val4 = txt_recapito.getText().toLowerCase();
+        String val1 = txt_nome.getText();
+        String val2 = txt_cognome.getText();
+        String val3 = txt_codfisc.getText();
+        String val4 = txt_recapito.getText();
         String val5 = txtdataN.getText();
         String val6 = "In corso";
         int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiugere il seguente paziente?", "Aggiungi Paziente", JOptionPane.YES_NO_OPTION);
@@ -564,8 +564,8 @@ public final  class ClientiList extends javax.swing.JFrame {
                     
                     DeleteData(strNome, strCognome, nascita, id);
                     DeleteDataRich(cliente, nascita);
-                    DeleteDataPrest(cliente.toUpperCase(), id);
-                    DeleteDataCart(cliente.toUpperCase(), id);
+                    DeleteDataPrest(cliente, id);
+                    DeleteDataCart(cliente, id);
                 }
                 
                     
@@ -599,13 +599,13 @@ PopulateData();
        int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiornare l'anagrafica del seguente paziente?", "Aggiorna Anagrafica Paziente", JOptionPane.YES_NO_OPTION);
         if (x == 0) {
             try {
-                String val1 = txt_nome.getText().toLowerCase();
-                String val2 = txt_cognome.getText().toLowerCase();
-                String val3 = txt_codfisc.getText().toLowerCase();
-                String val4 = txt_recapito.getText().toLowerCase();
-                String val5 = nom.getText().toLowerCase();
-                String val6 = cogn.getText().toLowerCase();
-                String val7 = txtdataN.getText().toLowerCase();
+                String val1 = txt_nome.getText();
+                String val2 = txt_cognome.getText();
+                String val3 = txt_codfisc.getText();
+                String val4 = txt_recapito.getText();
+                String val5 = nom.getText();
+                String val6 = cogn.getText();
+                String val7 = txtdataN.getText();
                 String val8 = id.getText();
                 
                 String sql = "update pazienti set nome=?,cognome=?,codice_fiscale=?,cell=?,datanascita=? where nome=? and cognome=? and id=?";
@@ -1109,14 +1109,14 @@ tb1.getColumnModel().getColumn(6).setMaxWidth(0);
     
     void DeleteDataCart(String cliente,String id) {
 
-        String sql = "DELETE FROM cartella  WHERE paziente = '" + cliente.toUpperCase() + "' and cell = '"+id+"'";
+        String sql = "DELETE FROM cartella  WHERE paziente = '" + cliente + "' and cell = '"+id+"'";
         try {
             pstDelCli = connDelCli.createStatement();
             System.out.println("QUERY DI ELIMINAZIONE CARTELLA: "+cliente);
             pstDelCli.execute(sql);
             //JOptionPane.showMessageDialog(null, "Cartella clinica del paziente "+cliente+" eliminata correttamente");
             File file = new File("/dentalgest/cartelle/"+cliente+"-"+id);
-            File file1 = new File("/dentalgest/reports/"+cliente.toUpperCase()+"-"+id);
+            File file1 = new File("/dentalgest/reports/"+cliente+"-"+id);
             System.out.println("FIle 1: "+file1);
             deleteDirectory(file1);
             deleteDirectory(file);

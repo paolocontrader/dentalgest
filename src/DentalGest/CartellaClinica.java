@@ -690,7 +690,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
        
    
 
-  String cerca = txt_cerca.getText().toLowerCase();
+  String cerca = txt_cerca.getText();
      //String cerca = calendar.getDate().toString();
      System.out.println("Data da cercare: "+cerca);
      if(cerca.isEmpty())

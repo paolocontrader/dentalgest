@@ -416,8 +416,8 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
 //        //String cerca = calendar.getDate().toString();
 //        System.out.println("Data da cercare: "+newDate);
 int row = tb1.getSelectedRow();
-String cliente = tb1.getValueAt(row, 0)
-        .toString()+" "+tb1.getValueAt(row, 1)
+String cliente = tb1.getValueAt(row, 1)
+        .toString()+" "+tb1.getValueAt(row, 0)
                 .toString();
 String datanascita = tb1.getValueAt(row, 3).toString();
 String intervento = "Da chiamare";
@@ -660,7 +660,7 @@ if (x == 0) {
 
        
 
-     String cerca = txt_cerca.getText().toLowerCase();
+     String cerca = txt_cerca.getText();
     String sql = null;
      if(cerca.equals(""))
      {

@@ -6,7 +6,6 @@
 package DentalGest;
 
 
-import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
@@ -16,7 +15,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import net.proteanit.sql.DbUtils;
 
 
 /**
@@ -127,34 +125,6 @@ public final  class Saldi extends javax.swing.JFrame {
         }return obj;
     }
         
-    void Refresh() {
-       
-        int i = 0;
-         int j=0; 
-        String sql = "SELECT * FROM  appuntamenti ORDER BY nome ASC";
-               
-
-       try{
-            pstd = connel.createStatement();
-            rscd = pstd.executeQuery(sql);
-            tb1.setModel(DbUtils.resultSetToTableModel(rscd));
-           
-            i =tb1.getRowCount();
-          
-            System.out.println("Numero righe tabella appuntamenti: "+(i));
-            
-            if(i==0){
-                JOptionPane.showMessageDialog(null, "Nessun appuntamento disponibile");
-            }
-            
-       }
-          catch(HeadlessException | SQLException e){
-           JOptionPane.showMessageDialog(null, "Errore caricamento appuntamento");
-
-                  }
-    }
-    
- 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -331,7 +301,7 @@ public final  class Saldi extends javax.swing.JFrame {
      Double c= 0.0;
      String cell = null;
     try {
-        String sql = "select nome,cognome,datanascita,cell FROM  pazienti where stato = '"+terminato+"'";
+        String sql = "select nome,cognome,datanascita,id FROM  pazienti where stato = '"+terminato+"'";
         String sql2 = "select * from prestazione_cliente where cliente = ? and resto != ? and cell =?";
         String sql3 ="select  (SUM(CAST(prezzo as DECIMAL(10,2)))) as prezzo,(SUM(CAST(resto as DECIMAL(10,2)))) as resto,(SUM(CAST(acconto as DECIMAL(10,2)))) as acconto from prestazione_cliente where cliente = ? and cell = ?" ;
         psts = conn.prepareStatement(sql);
@@ -348,8 +318,10 @@ public final  class Saldi extends javax.swing.JFrame {
                    nome = recApp.getString("nome");
                     cognome = recApp.getString("cognome");
                     nascita = recApp.getString("datanascita");
-                    cell = recApp.getString("cell");
-                     concat = nome.toUpperCase()+" "+cognome.toUpperCase();
+                    cell = recApp.getString("id");
+                     concat = nome+" "+cognome;
+                     System.out.println("Concat estratto da Saldi: "+concat);
+                     System.out.println("Id estratto da Saldi: "+cell);
                model.addRow(new Object[0]);
 
                 model.setValueAt(false, row, 0); // Checkbox
@@ -357,13 +329,13 @@ public final  class Saldi extends javax.swing.JFrame {
                 model.setValueAt(concat, row, 1);
                 
                  model.setValueAt(nascita, row, 2);
-                psts2.setString(1, concat.toUpperCase());
+                psts2.setString(1, concat);
                 psts2.setString(2, resto);
                 psts2.setString(3, cell);
                
                  ResultSet recApp2 = psts2.executeQuery();
                   
-               psts3.setString(1, concat.toUpperCase());
+               psts3.setString(1, concat);
                 psts3.setString(2, cell);
               ResultSet recApp3 = psts3.executeQuery();
                 

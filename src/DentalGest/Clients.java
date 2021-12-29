@@ -330,8 +330,8 @@ txt_anticipo.setText("");
 
        
    
-   String n = txt_n.getText().toUpperCase();
-         String c = txt_c.getText().toUpperCase();
+   String n = txt_n.getText();
+         String c = txt_c.getText();
           comb = n+""+c;
         System.out.println("Nome da List: "+n+" "+c);
         combo_cliente.setText(comb);
@@ -413,8 +413,8 @@ txt_costo.setText("");
 txt_anticipo.setText("");
         
          try{
-        String n = txt_n.getText().toUpperCase();
-         String c = txt_c.getText().toUpperCase();
+        String n = txt_n.getText();
+         String c = txt_c.getText();
           comb = n+" "+c;
           String cell = txt_d.getText();
         System.out.println("Nome da List: "+n+" "+c);

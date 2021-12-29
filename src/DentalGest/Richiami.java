@@ -725,7 +725,7 @@ public final  class Richiami extends javax.swing.JFrame {
 
         int row = tb1.getSelectedRow();
         
-         t = tb1.getValueAt(row, 0).toString().toUpperCase();
+         t = tb1.getValueAt(row, 0).toString();
 
         Clients.getObj().combo_cliente.setText(t);
 

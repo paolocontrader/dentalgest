@@ -20,9 +20,9 @@ public class Db {
   
 //Connessione di test    
 
-//String dburl = "jdbc:derby://localhost:1527/dentalsoft";
+String dburl = "jdbc:derby://localhost:1527/dentalsoft";
 //Connessione al server locale
-String dburl = "jdbc:derby:/Database/bin/dentalsoft";
+//String dburl = "jdbc:derby:/Database/bin/dentalsoft";
     String userName = "dentalsoft";
     String passWord = "5y*Ym0HsbWyO";
      
