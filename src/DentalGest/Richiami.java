@@ -395,7 +395,7 @@ public final  class Richiami extends javax.swing.JFrame {
 
         model.addColumn("Cliente");
 
-        model.addColumn("Data di nascita");
+        model.addColumn("Recapito");
 
         model.addColumn("Data");
 
@@ -813,13 +813,13 @@ Date date=new Date(millis);
 
                     String cliente = tb1.getValueAt(row, 0).toString();
                   
-                    String datanascita = tb1.getValueAt(row, 1).toString();
+                    String cell = tb1.getValueAt(row, 1).toString();
                   
                     String dataA = tb1.getValueAt(row, 2).toString();
-                    System.out.println("datanascita "+datanascita);
+                    System.out.println("cell "+cell);
                     System.out.println("stato "+stato);
                     System.out.print("qui arrivo\n");
-                    String sql="update richiami set data = ? ,intervento='"+stato+"' where cliente='"+cliente+"' and datanascita='"+datanascita+"'";
+                    String sql="update richiami set data = ? ,intervento='"+stato+"' where cliente='"+cliente+"' and datanascita='"+cell+"'";
                     PreparedStatement pstUpdStato = connUpdStato.prepareStatement(sql);
                     
                     pstUpdStato.setDate(1, sqlDate);
@@ -910,7 +910,7 @@ Date date=new Date(millis);
         
         model.addColumn("Cliente");
 
-        model.addColumn("Data di Nascita");
+        model.addColumn("Recapito");
 
         model.addColumn("Data");
 
@@ -1062,7 +1062,7 @@ Date newDate = calendar.getDate();
      
          model.addColumn("Cliente");
         
-        model.addColumn("Data di nascita");
+        model.addColumn("Recapito");
 
         model.addColumn("Data");
         
@@ -1228,7 +1228,7 @@ String sql = "SELECT * FROM  richiami  where data <= '"+sqlDate+"' AND intervent
      
          model.addColumn("Cliente");
         
-        model.addColumn("Data di nascita");
+        model.addColumn("Recapito");
 
         model.addColumn("Data");
         

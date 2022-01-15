@@ -110,7 +110,7 @@ public class MemoDialog extends JDialog implements ActionListener {
         super(parent, true);
         startPoint = 1;
         colorSelect = 0;
-        setBounds(0, 1, 1000, 600);
+        setBounds(0, 1, 1000, 1000);
         getContentPane().setLayout(new BorderLayout());
         pnDayView.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(pnDayView, BorderLayout.CENTER);
@@ -1277,9 +1277,9 @@ public class MemoDialog extends JDialog implements ActionListener {
 
                         readTodo();
                         list = new JList<ToDo>(listModel);
-                        list.setFont(new Font("TimesRoman", Font.PLAIN, 16));
+                        list.setFont(new Font("TimesRoman", Font.PLAIN, 14));
                         list.setBorder(BorderFactory.createLineBorder(Color.black));
-                        list.setPreferredSize(new Dimension(1000, 600));
+                        list.setPreferredSize(new Dimension(1000, 800));
                         pnEvents.setBorder(BorderFactory.createLineBorder(Color.black));
                         pnEvents.add(list, BorderLayout.WEST);
                     }

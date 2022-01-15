@@ -351,15 +351,15 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
             {
                 int row = tb1.getSelectedRow();
                 String tbclick =(tb1.getModel().getValueAt(row, 1).toString());
-                String sql = "SELECT * FROM pazienti WHERE nome = ?";
+                String sql = "SELECT * FROM pazienti WHERE cognome = ?";
                 psclick = connClick.prepareStatement(sql);
                 psclick.setString(1, tbclick);
                 rsclick = psclick.executeQuery();
                 if(rsclick.next())
                 {
-                    String add1 = rsclick.getString("nome");
+                    String add1 = rsclick.getString("cognome");
                    
-                    String add2 = rsclick.getString("cognome");
+                    String add2 = rsclick.getString("nome");
                     
                     
                    msg1 = add1+" "+add2;
@@ -419,25 +419,25 @@ int row = tb1.getSelectedRow();
 String cliente = tb1.getValueAt(row, 1)
         .toString()+" "+tb1.getValueAt(row, 0)
                 .toString();
-String datanascita = tb1.getValueAt(row, 3).toString();
+String cell = tb1.getValueAt(row, 2).toString();
 String intervento = "Da chiamare";
 
 
 
-System.out.println("Cliens cliente: "+cliente);
+System.out.println("Cliens cliente: "+msg1);
 int x = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler aggiugere il seguente richiamo?", "Aggiungi richiamo", JOptionPane.YES_NO_OPTION);
 if (x == 0) {
     try {
         
         String sql = "insert into richiami (cliente,datanascita,intervento,data) values (?,?,?,?)";
         PreparedStatement pst = conn.prepareStatement(sql);
-        pst.setString(1, cliente);
-        pst.setString(2, datanascita);
+        pst.setString(1, msg1);
+        pst.setString(2, cell);
         pst.setString(3,  intervento);
         pst.setDate(4, sqlDate);
         
         pst.execute();
-        System.out.println("VALORI INSERIMENT PAZIENTE: " + cliente + " | " + intervento + " | " + sqlDate + " | " + datanascita+ "");
+        System.out.println("VALORI INSERIMENT PAZIENTE: " + cliente + " | " + intervento + " | " + sqlDate + " | " + cell+ "");
        // Richiami.getObj().PopulateData();
         JOptionPane.showMessageDialog(null, "Richiamo aggiunto correttamente");
         
@@ -524,9 +524,9 @@ if (x == 0) {
 // Add Column
         model.addColumn("");
 
-        model.addColumn("Nome");
-
         model.addColumn("Cognome");
+
+        model.addColumn("Nome");
 
         model.addColumn("Recapito");
         
@@ -553,9 +553,9 @@ if (x == 0) {
 
                 model.setValueAt(false, row, 0); // Checkbox
 
-                model.setValueAt(rsPop.getString("nome"), row, 1);
+                model.setValueAt(rsPop.getString("cognome"), row, 1);
 
-                model.setValueAt(rsPop.getString("cognome"), row, 2);
+                model.setValueAt(rsPop.getString("nome"), row, 2);
 
                 model.setValueAt(rsPop.getString("cell"), row, 3);
                 
@@ -650,9 +650,9 @@ if (x == 0) {
 // Add Column
         model.addColumn("");
 
-        model.addColumn("Nome");
-
         model.addColumn("Cognome");
+
+        model.addColumn("Nome");
 
         model.addColumn("Recapito");
         
@@ -669,7 +669,7 @@ if (x == 0) {
           rsSearch = pstSearch.executeQuery();
         // PopulateData();
      }
-     else{ sql = "SELECT * FROM  pazienti WHERE nome LIKE ? or cognome LIKE ? ORDER BY nome ASC";
+     else{ sql = "SELECT * FROM  pazienti WHERE nome LIKE ? or cognome LIKE ? ORDER BY cognome ASC";
         pstSearch = connSearch.prepareStatement(sql);
             pstSearch.setString(1, cerca + "%");
              pstSearch.setString(2, cerca + "%");
@@ -685,9 +685,9 @@ if (x == 0) {
 
                 model.setValueAt(false, row, 0); // Checkbox
 
-                model.setValueAt(rsSearch.getString("nome"), row, 1);
+                model.setValueAt(rsSearch.getString("cognome"), row, 1);
 
-                model.setValueAt(rsSearch.getString("cognome"), row, 2);
+                model.setValueAt(rsSearch.getString("nome"), row, 2);
 
                 model.setValueAt(rsSearch.getString("cell"), row, 3);
                 

@@ -959,7 +959,7 @@ tb1.getColumnModel().getColumn(6).setMaxWidth(0);
 
        
 
-     String cerca = txt_cerca.getText().toLowerCase();
+     String cerca = txt_cerca.getText();
      if(cerca.equals(""))
      {
          PopulateData();
