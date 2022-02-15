@@ -21,6 +21,7 @@ import java.util.Date;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.apache.commons.io.FileUtils;
+import datelook199.DateLook;
 
 /**
  *
@@ -223,8 +224,13 @@ public class controlPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
 //        AppList.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
 //         AppList.getObj().setVisible(true);
+
         
-        new CalendarGUI();
+        //new CalendarGUI();
+        datelook199.DateLook dl = new datelook199.DateLook();
+        dl.setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png"));
+        dl.setVisible(true);
+        
 
     }//GEN-LAST:event_jButton2ActionPerformed
 

@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Sat Jan 15 13:19:20 CET 2022:
-Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): istanza a816c00e-017e-5dad-853e-00000696a560
+Tue Feb 15 09:42:24 CET 2022:
+Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): istanza a816c00e-017e-fc8c-0e94-00000e25bcb0
 sulla directory di database C:\Database\bin\dentalsoft con caricatore classi sun.misc.Launcher$AppClassLoader@5e481248 
-Caricato da file:/C:/Users/niuzz/Documents/dentalgest/dentalgest/src/lib/derby.jar
+Caricato da file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_231-b11
-user.dir=C:\Users\niuzz\Documents\dentalgest\dentalgest
+java.runtime.version=1.8.0_202-b08
+user.dir=C:\Users\niuzz0\Documents\Dg\dentalgest
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0

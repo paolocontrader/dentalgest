@@ -443,9 +443,9 @@ public final  class ClientiListApp extends javax.swing.JFrame {
 // Add Column
         model.addColumn("");
 
-        model.addColumn("Nome");
-
         model.addColumn("Cognome");
+
+        model.addColumn("Nome");
 
         model.addColumn("Recapito");
         
@@ -468,9 +468,9 @@ public final  class ClientiListApp extends javax.swing.JFrame {
 
                 model.setValueAt(false, row, 0); // Checkbox
 
-                model.setValueAt(rsPop.getString("nome"), row, 1);
+                model.setValueAt(rsPop.getString("cognome"), row, 1);
 
-                model.setValueAt(rsPop.getString("cognome"), row, 2);
+                model.setValueAt(rsPop.getString("nome"), row, 2);
 
                 model.setValueAt(rsPop.getString("cell"), row, 3);
                 
@@ -565,9 +565,9 @@ public final  class ClientiListApp extends javax.swing.JFrame {
 // Add Column
         model.addColumn("");
 
-        model.addColumn("Nome");
-
         model.addColumn("Cognome");
+
+        model.addColumn("Nome");
 
         model.addColumn("Recapito");
         
@@ -575,7 +575,7 @@ public final  class ClientiListApp extends javax.swing.JFrame {
 
        
          String sql = null;
-     String cerca = txt_cerca.getText().toLowerCase();
+     String cerca = txt_cerca.getText();
      if(cerca.equals(""))
      {
           sql = "SELECT * FROM  pazienti ORDER BY nome ASC";
@@ -599,9 +599,9 @@ public final  class ClientiListApp extends javax.swing.JFrame {
 
                 model.setValueAt(false, row, 0); // Checkbox
 
-                model.setValueAt(rsSearch.getString("nome"), row, 1);
+                model.setValueAt(rsSearch.getString("cognome"), row, 1);
 
-                model.setValueAt(rsSearch.getString("cognome"), row, 2);
+                model.setValueAt(rsSearch.getString("nome"), row, 2);
 
                 model.setValueAt(rsSearch.getString("cell"), row, 3);
                 
