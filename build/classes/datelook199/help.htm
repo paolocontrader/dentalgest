@@ -27,944 +27,405 @@
     </h2>
     <ul>
       <li>
-        <a href="#Introduction">1. Introduction</a>
+        <a href="#Introduction">1. Introduzione</a>
       </li>
       <li>
-        <a href="#How_to_use">2. How to use</a>
+        <a href="#How_to_use">2. Come si usa</a>
       </li>
         <ul>
           <li>
-            <a href="#Creating_a_new_event">2.1 Creating a new event</a>
+            <a href="#Creating_a_new_event">2.1 Creare un nuovo appuntamento</a>
           </li>
           <li>
-            <a href="#Editing_a_event">2.2 Editing or Printing an event</a>
+            <a href="#Editing_a_event">2.2 Modificare e stampare appuntamento</a>
           </li>
           <li>
-            <a href="#Deleting_events">2.3 Deleting events</a>
+            <a href="#Deleting_events">2.3 Cancellare appuntamenti</a>
           </li>
           <li>
-            <a href="#Alarm">2.4 Alarm</a>
+            <a href="#Alarm">2.4 Allarme</a>
           </li>
           <li>
-            <a href="#Searching_for_events">2.5 Searching for events</a>
+            <a href="#Searching_for_events">2.5 Cercare un appuntamento</a>
           </li>
           <li>
-            <a href="#Predefined_colours">2.6 Predefined Colours</a>
+            <a href="#Predefined_colours">2.6 Definire l'operatore</a>
           </li>
           <li>
-            <a href="#Export_and_Import">2.7 Export and Import events to/from file</a>
+            <a href="#Export_and_Import">2.7 Esportare o importare appuntamenti in/da file</a>
           </li>
           <li>
-            <a href="#Synchronisation">2.8 Synchronisation</a>
-          </li>
-          <li>
-            <a href="#Keyboard">2.9 Using the Keyboard</a>
+            <a href="#Synchronisation">2.8 Sincronizzare</a>
           </li>
         </ul>
       <li>
         <a href="#Files">3. Files</a>
       </li>
       <li>
-        <a href="#License">4. License</a>
+        <a href="#License">4. Licensa</a>
       </li>
     </ul>
     <a name="Introduction"></a> 
     <h2>
-      1. Introduction
+      1. Introduzione
     </h2>
     <p>
-      DateLook is a free electronic date book that features alarms, the ability
-      to handle cyclic events, supports printing and is fully
-      mouse-driven. It has an import/export-function (vCalendar V 1.0-format)
-      and is able to synchronise its local database with a database in the net.
-      The synchronisation can use FTP via TCP/IP or any net file system.
-      Therefore it is suitable for multi-user-operation. DateLook provides an
-      unconventional graphical user interface. It is written in Java and
-      requires a Java runtime environment 1.4.0 or later.
+      DG Calendar è un databook elettronico che presenta allarmi, l'abilità
+      per gestire eventi ciclici, supporta la stampa ed è completamente
+      guidato dal mouse. Ha una funzione di importazione/esportazione (formato vCalendar V 1.0)
+      ed è in grado di sincronizzare il suo database locale con un database in rete.
+      La sincronizzazione può utilizzare FTP tramite TCP/IP o qualsiasi file system di rete.
+      Pertanto è adatto per il funzionamento multiutente. DateLook fornisce un
+      interfaccia utente grafica non convenzionale. È scritto in Java e
+      richiede un ambiente di runtime Java 1.4.0 o successivo.
     </p>
     <p>
       <a href="#top">[top]</a>
     </p>
     <a name="How_to_use"></a> 
     <h2>
-      2. How to use
+      2. Come si usa
     </h2>
     <p>
-      The <b>Main</b>-window is split into the upper part with a calendar and the
-      lower part, the "events display", to show your events as
-      coloured rectangles. When the mouse is over a rectangle, then a summary
-      of this event appears. The "events display" has five rows
-      used to group the events as you like (e.g. row 1: family; row 2:
-      work ...) and to prevent overlapping.
+      La finestra <b>Principale</b> è suddivisa nella parte superiore con un calendario e il
+      parte inferiore, la "visualizzazione eventi", per mostrare i tuoi eventi come
+      rettangoli colorati. Quando il mouse si trova su un rettangolo, viene visualizzato un riepilogo
+      di questo evento appare. La "visualizzazione appuntamenti" ha cinque righe
+      utilizzate per raggruppare gli appuntamenti a piacere (es. riga 1: Dott. Famiglietti; riga 2:
+      Dott. ssa Calabrese...) e per evitare sovrapposizioni.
     </p>
     <p>
-      Dragging with left-mouse-button or rotating the mouse-wheel shifts the 
-      visible space of time. Dragging with right-mouse-button in the calendar or 
-      rotating the mouse-wheel while holding the shift-key zooms the visible space
-      of time.  If you use the wheel, then the shift or zoom speed depends on 
-      where the mouse-pointer is: fast in the year-bar, medium in the month-bar 
-      or slow in the rest.
+      Trascinando con il tasto sinistro del mouse o ruotando la rotellina del mouse si sposta
+      spazio di tempo visibile. Trascinando con il tasto destro del mouse nel calendario o
+      ruotando la rotellina del mouse tenendo premuto il tasto Maiusc si ingrandisce lo spazio visibile
+      di tempo. Se si utilizza la rotellina, dipende dalla velocità di spostamento o zoom
+      dove si trova il puntatore del mouse: veloce nella barra dell'anno, medio nella barra del mese
+      o lento nel resto.
     </p>
     <p>
-      A click with the right-mouse-button on an empty place of the "events display" or
-      pressing control-m opens a pop-up-menu with the options:
+      Un clic con il tasto destro del mouse su un punto vuoto della "visualizzazione appuntamenti" o
+      premendo control-m si apre un menu a comparsa con le opzioni:
     </p>
     <p>
-      <b>Extended View</b>, <b>Goto</b>, <b>EventManager</b>, <b>Print</b>,
-      <b>Predef Colours</b>, <b>Help</b>, <b>Save Pos & Zoom</b>, 
-      <b>Revert &amp; Exit</b> and <b>Exit</b>:
+      <b>Visuale estesa</b>, <b>Vai al giorno...</b>, <b>Lista Appuntamenti</b>, <b>Print</b>,
+     <b>Aiuto</b>, <b>Ignora &amp; Esci</b> and <b>Esci</b>:
     </p>
-    <p>
     <ul>
     <li>
-      In the <b>Extended View</b>-mode the <b>Main</b>-window is enlarged and contains
-      additionally in its lower part the "summaries display". The "summaries
-      display" shows the summaries of all visible events. 
+     Nella modalità <b>Visuale estesa</b> la finestra <b>Principale</b> viene ingrandita e contiene
+      inoltre nella sua parte inferiore la "visualizzazione dei riepiloghi". La "Lista
+      APPUNTAMENTI" mostra la lista di tutti gli appuntamenti visibili. 
     </li>
     <li>
-      The <b>GoTo</b>-window allows quick changes of the shown space of time. 
+     La finestra <b>Vai al giorno...</b> consente di modificare rapidamente lo spazio di tempo mostrato.
     </li>
     <li>      
-      The <b>EventManager</b>-window gives a quick overview of all stored
-      events and provides the possibilities to search for or to delete
-      groups of events, to import/export events from/to a file in
-      "vCalendar V 1.0"-format or to synchronise the local database with a
-      database in the net on a FTP- or any other file-server.
+      La finestra <b>Lista Appuntamenti</b> offre una rapida panoramica di tutto ciò che è memorizzato
+     e offre la possibilità di cercare o eliminare
+      gruppi di apputamenti, per importare/esportare appuntamenti da/in un file in
+      "vCalendar V 1.0" o per sincronizzare il database locale con a
+      database in rete su un server FTP o qualsiasi altro file server.
     </li>
     <li>
-      The <b>Print</b>-option allows to print the shown <b>Main</b>-window in the 
-      Extended View.
+      L'opzione <b>Stampa</b> permette di stampare la finestra <b>Principale</b> mostrata nella
+      Visuale estesa.
     </li>
     <li>
-      The <b>Predef Colours</b>-option opens the window to 
-      edit predefined colours. For details see <a href="#Predefined_colours">
-      chapter 2.6</a>.
+     L'opzione <b>Aiuto</b> apre questo Manuale dell'utente. 
     </li>
     <li>
-      The <b>Help</b>-option opens this User Manual. 
+      Con <b>Ripristina &amp; Esci</b> DG Calendar può essere lasciato ma viene ripristinato
+      al vecchio database all'inizio. Qui tutte le modifiche apportate in locale
+      database sono persi. Questo è adatto ad es. se hai eliminato accidentalmente degli eventi.
+      I database remoti modificati non sono interessati. Rimangono cambiati.
     </li>
     <li>
-      The <b>Save Pos & Zoom</b>-option stores the position, size and the zoom-state of the
-      <b>Main</b>-window for the next start of DateLook. 
-    </li>
-    <li>
-      With <b>Revert &amp; Exit</b> DateLook can be left but it reverts 
-      to the old database at start-time. Here all changes made in the local 
-      database are lost. This is suitable e.g. if you accidentally deleted events.
-      Changed remote databases are not affected. They remain changed.
-    </li>
-    <li>
-      With <b>Exit</b> all changes remain stored and DateLook is left.
+      Con <b>Esci</b> tutte le modifiche rimangono memorizzate e DateLook viene lasciato.
     </li>
     </ul>
-    </p>
     <p>
-      Remark that pressing the F1-key opens the <b>Help</b>-window from each
-      other window. Furthermore many functions can be controlled by keyboard.
-      For details see <a href="#Keyboard">chapter 2.9</a>.
-    </p>
-    <p>
-      Note for Mac OSX users: To emulate the right mouse button (unfortunately 
-      absent on Mac Computers) press the command-key additionally before pressing 
-      the only mouse button.
+      Nota che premendo il tasto F1 si apre la finestra della <b>Aiuto</b> di ciascuno
+      altra finestra. Inoltre molte funzioni possono essere controllate da tastiera.
+      Per i dettagli, vedere il <a href="#Keyboard">capitolo 2.9</a>.
     </p>
     <p>
       <a href="#top">[top]</a>
     </p>
     <a name="Creating_a_new_event"></a> 
     <h2>
-      2.1 Creating a new event
+      2.1 Creazione nuovo appuntamento
     </h2>
     <p>
-      Press the left-mouse-button into the "events display" at the place
-      where your event begins and in the row of your choice. Drag to
-      right to the place where the event ends and release the mouse
-      button. Automatically the <b>Editor</b>-window appears. If you like
-      to create a whole-day-event (0 - 24:00 e.g. a birthday) press 
-      additionally the shift-key while dragging.
+      Premi il pulsante sinistro del mouse nella "visualizzazione eventi" sul posto
+      dove inizia il tuo evento e nella riga di tua scelta. Trascina su
+      fino al punto in cui finisce l'evento e rilascia il mouse
+      pulsante. Appare automaticamente la finestra <b>Editor</b>. Se ti piace
+      per creare un apputamento di un'intera giornata (0 - 24:00 ad es. un compleanno) premere
+      inoltre il tasto Maiusc durante il trascinamento.
     </p>
     <p>
-      The <b>Editor</b>-window shows different entries:
+      La finestra <b>Editor</b> mostra diverse voci:
     </p>
     <ul>
       <li>
-        <b>Begin</b> - time when the event begins,
+        <b>Inizio</b> - ora di inizio dell'appuntamento,
       </li>
       <li>
-        <b>End</b> - time when the event ends,
+        <b>Fine</b>: ora in cui l'appuntamento termina,
       </li>
       <li>
-        <b>Alarm</b> - time when an alarm is given,
+        <b>Allarme</b> - ora in cui viene emessa un allarme,
       </li>
       <li>
-        <b>Cycle</b> - repetition cycle (e.g. "2 monthly" stands for every
-        other month), the number of repetitions (including the first) and the
-        day of last occurrence,
-      </li>
-      <li>
-        <b>Class</b> - "Public" or "Private" (see <a href="#Synchronisation">chapter 2.8</a>).
+        <b>Ciclo</b> - ciclo di ripetizione (ad es. "2 mensili" sta per ogni
+        altro mese), il numero di ripetizioni (compresa la prima) e il
+        giorno dell'ultima occorrenza,
       </li>
     </ul>
     <p>
-      A right-mouse-click increases, a left-mouse-click decreases the value of
-      an entry. For fast changes the mouse-wheel can be used too. Alarm can be
-      set <b>On</b> or <b>Off</b>. But there are three rules that must be
-      observed: Alarm (if On) must be equal or earlier than Begin, Begin must
-      be equal or earlier than End and for cyclic events it is not
-      allowed to overlap itself. If one of these rules is violated you can't
-      save the event but the wrong entry is highlighted red.
+      Un clic destro del mouse aumenta, un clic sinistro del mouse diminuisce il valore di
+      una voce. Per modifiche rapide è possibile utilizzare anche la rotellina del mouse. L'allarme può essere
+      imposta <b>On</b> o <b>Off</b>. Ma ci sono tre regole che devono essere
+      osservato: Alarm (se On) deve essere uguale o precedente a Begin, Begin deve
+      essere uguale o precedente a End e per eventi ciclici non lo è
+      permesso di sovrapporsi. Se una di queste regole viene violata non puoi
+      salva l'appuntamento ma la voce errata viene evidenziata in rosso.
     </p>
     <p>
-      Remark that there is no plausibility check for entered Begin-, End- and
-      Alarm-times and -dates. If you enter e.g. the 31st of February or 02.30 at 
-      the day when the day-light-saving-time is switched on the date or time would
-      silently corrected to the 3th of March or 03.30 o'clock.
+      Si noti che non esiste un controllo di plausibilità per Inizio-, Fine- e immessi
+      Orari e date della sveglia. Se inserisci ad es. il 31 febbraio o alle 02:30
+      il giorno in cui viene attivata l'ora legale sarebbe la data o l'ora
+      corretto silenziosamente al 3 marzo o alle 03:30.
     </p>
     <p>
-      DateLook handles cyclic events. For that you can choose in the
-      Cycle-entry a multiplier (range 1 to 9) followed by:
+      DateLook gestisce appuntamenti ciclici. Per questo puoi scegliere nel
+      Immettere un moltiplicatore (intervallo da 1 a 9) seguito da:
     </p>
     <p>
-      <b>daily, weekly, monthly</b> or <b>yearly.</b>
+      <b>giornaliero, settimanale, mensile</b> o <b>annuale.</b>
     </p>
     <p>
-      With the help of the multiplier cycles of e.g. 2 weeks or 3 months can be
-      chosen. Cyclic event occurs first like a non-cyclic event
-      according to its Alarm-, Begin- and End-time, but later on periodically
-      with the given cycle. Of course the number of occurrences (including the
-      first) can be chosen. The range is from 2 to 999. For your information
-      the day of the last occurrence is shown right of that number.
+      Con l'aiuto dei cicli moltiplicatori di ad es. 2 settimane o 3 mesi possono essere
+      scelti. L'appuntamento ciclico si verifica prima come un appuntamento non ciclico
+      in base all'ora di Sveglia, Inizio e Fine, ma in seguito periodicamente
+      con il ciclo dato. Naturalmente il numero di occorrenze (incluso il
+      primo) può essere scelto. L'intervallo va da 2 a 999. Per tua informazione
+      il giorno dell'ultima occorrenza viene mostrato a destra di quel numero.
     </p>
     <p>
-      An alarm (if On) is given for each occurrence. Note that the
-      <b>Editor</b>-window shows the Begin-, End- and Alarm-time always for the
-      FIRST occurrence of this event. The <b>EventManager</b>-window
-      shows cyclic events only once at its first occurrence.
+      Viene emesso un allarme (se attivo) per ogni occorrenza. Si noti che il
+      La finestra <b>Editor</b> mostra l'ora di inizio, fine e sveglia sempre per il
+      PRIMA occorrenza di questo appuntamento. La finestra <b>Lista appuntamenti</b>
+      mostra gli appuntamenti ciclici solo una volta alla prima occorrenza.
     </p>
     <p>
-      The summary of the event can be entered in the <b>text field</b>
-      using the keyboard.
+      Il riepilogo dell'appuntamento può essere inserito nel <b>campo di testo</b>
+      usando la tastiera.
     </p>
     <p>
-      If you want to store additional information attached to that event,
-      press the <b>Description</b>-button. The <b>Description Edtor</b>-window
-      appears now. Here a longer description can be entered. As long as the
-      <b>Description Edtor</b>-window is open the <b>Edtor</b>-window is
-      locked. Changes in the description are saved only with the <b>save</b>-button
-      in the <b>Edtor</b>-window.
+      Se desideri memorizzare informazioni aggiuntive allegate a quell'appuntamento,
+      premi il pulsante <b>Descrizione</b>. La finestra <b>Editor delle descrizioni</b>
+      appare ora. Qui è possibile inserire una descrizione più lunga. Finché il
+      La finestra <b>Descrizione Editor</b> è aperta la finestra <b>Editor</b> è aperta
+      bloccata. Le modifiche alla descrizione vengono salvate solo con il pulsante <b>salva</b>
+      nella finestra <b>Editor</b>.
     </p>
     <p>
-      Pressing the <b>save</b>-button saves the new event and closes the
-      <b>Editor</b>-window. Pressing the <b>cancel</b>-button discards the new
-      event and closes the <b>Editor</b>-window.
+      Premendo il pulsante <b>salva</b> si salva il nuovo appuntamento e si chiude la finestra
+      <b>Editor</b>. Premendo il pulsante <b>annulla</b> si elimina il nuovo
+      evento e chiude la finestra <b>Editor</b>.
     </p>
     <p>
       <a name="ColourChooser"></a>
-      You can individually choose the colour of an event by pressing the 
-      <b>colour</b>-button. If done the <b>ColourChooser</b>-window appears. 
-      As long as the <b>ColourChooser</b>-window is open the <b>Edtor</b>-window is
-      locked. The <b>ColourChooser</b>-window displays eight rows for eight different 
-      colours. Each row consists of a <b>Label-</b>entry, three <b>colour-values</b> 
-      for red-, green- and blue-part of the colour (RGB, range 0 to 255) and the 
-      <b>select</b>-button to choose that colour for the current event. In the 
-      first row the current colour of the event appears. This colour can be changed 
-      by mouse-click on the <b>colour-values</b>. Left click increases, right click 
-      decreases the <b>colour-value</b>. Mouse wheel works too.
-      In the following seven rows there are predefined colours and labels. They can 
-      not be changed here.
+      Puoi scegliere individualmente l'operatore di un appuntamento premendo il tasto
+      Pulsante <b>colore</b>. Se fatto, viene visualizzata la finestra <b>ColourChooser</b>.
+      Finché la finestra <b>ColourChooser</b> è aperta, la finestra <b>Editor</b> è
+      bloccato. La finestra <b>ColourChooser</b> mostra otto righe per otto diverse
+      colori. Ogni riga è composta da una voce <b>Etichetta</b>, e il
+      Pulsante <b>seleziona</b> per scegliere quel colore per l'evento corrente. Nella
+      prima riga appare il colore dell'operatore corrente dell'appuntamento. 
     </p>
     <p>
       <a href="#top">[top]</a>
     </p>
     <a name="Editing_a_event"></a> 
     <h2>
-      2.2 Editing or Printing an event
+      2.2 Modifica e stampa appuntamento
     </h2>
     <p>
-      A right-mouse-click on an event's rectangle or summary in the <b>Main</b>-window
-      opens the <b>Editor</b>-window for that event. Another
-      possibility is to open the <b>EventManager</b>-window as described above.
-      Here a right-mouse-click on an unhighlighted event's row opens the
-      <b>Editor</b>-window for that event. A right-mouse-click on a
-      highlighted event opens <b>Editor</b>-windows for all highlighted
-      events. Coming from the <b>EventManager</b>-window in the
-      <b>Editor</b>-window an additional <b>go to</b>-button appears to make
-      this event quickly visible on the <b>Main</b>-window. 
+      Un clic con il tasto destro del mouse sul rettangolo o sul riepilogo di un evento nella finestra <b>Principale</b>
+      apre la finestra <b>Editor</b> per quell'evento. Altro
+      la possibilità è aprire la finestra <b>EventManager</b> come descritto sopra.
+      Qui un clic con il tasto destro del mouse sulla riga di un evento non evidenziato apre il file
+      Finestra <b>Editor</b> per quell'evento. Un clic destro del mouse su a
+      l'evento evidenziato apre le finestre <b>Editor</b> per tutti gli eventi evidenziati
+      eventi. Proveniente dalla finestra <b>EventManager</b> nel file
+      <b>Editor</b>-finestra viene visualizzato un ulteriore pulsante <b>vai a</b>
+      questo evento è rapidamente visibile nella finestra <b>Principale</b>. 
     </p>
     <p>
-      In the <b>Editor</b>-window you can modify all entries. Furthermore here a
-      <b>delete</b>-button appears to delete this event completely. The
-      <b>cancel</b>-button discards changes and closes the window.
+      Nella finestra <b>Editor</b> puoi modificare tutte le voci. Inoltre qui ci sono
+      Il pulsante <b>elimina</b>  eliminare completamente questo appuntamento. Il
+      Il pulsante <b>annulla</b> annulla le modifiche e chiude la finestra.
     </p>
     <p>
-      Pressing the <b>Description</b>-button the <b>Description
-      Edtor</b>-window appears to edit the event's detailed description.
-      Changes in the description are saved with the <b>save</b>-button in the
-      <b>Edtor</b>-window.
+      Premendo il pulsante <b>Descrizione</b> si accede alla <b>Descrizione
+      Viene visualizzata la finestra Editor</b> per modificare la descrizione dettagliata dell'appuntamento.
+      Le modifiche alla descrizione vengono salvate con il pulsante <b>salva</b> nel file
+      Finestra <b>Editor</b>.
     </p>
     <p>
-      The <b>Print</b>-button opens a printer dialog to print this single
-      event including its detailed description.
+      Il pulsante <b>Stampa</b> apre una finestra di dialogo della stampante per stampare questo singolo
+      appuntamento inclusa la sua descrizione dettagliata.
     </p>
     <p>
-      In <b>Main</b>-window events can easily changed by drag-and-drop.
-      With left-mouse-button events can be shifted to another date or row.
-      Begin-, End- and Alarm-time are shifted by the same value.
-      If you want to shift the event exactly by one day or you want to 
-      change the row only without changing of time, then press the shift-key 
-      additionally while dragging. After drop the <b>Editor</b>-window appears 
-      automatically. To save the changes press the <b>save</b>-button or
-      to cancel the changes press the <b>cancel</b>-button.
+      Nella <b>finestra principale</b> gli appuntamenti possono essere facilmente modificati trascinandoli.
+      Con il pulsante sinistro del mouse gli eventi possono essere spostati su un'altra data o riga.
+      L'ora di inizio, fine e sveglia viene spostata dello stesso valore.
+      Se vuoi spostare l'evento esattamente di un giorno o lo desideri
+      cambia solo la riga senza cambiare l'ora, quindi premi il tasto Maiusc
+      inoltre durante il trascinamento. Dopo aver rilasciato viene visualizzata la finestra <b>Editor</b>
+      automaticamente. Per salvare le modifiche premere il pulsante <b>salva</b> o
+      per annullare le modifiche premere il pulsante <b>cancella</b>.
     </p>
     <p>
-      Pressing the cntrl-key while dragging makes a copy of the event.
+     Premendo il tasto cntrl durante il trascinamento viene eseguita una copia dell'evento.
     </p>
     <p>
       <a href="#top">[top]</a>
     </p>
     <a name="Deleting_events"></a> 
     <h2>
-      2.3 Deleting events
+      2.3 Cancellazione appuntamento
     </h2>
     <p>
-      Open the <b>Editor</b>-window by a right-mouse-click on an event's
-      rectangle in the <b>Main</b>-window or on the event's row in the
-      <b>EventManager</b>-window and press there the <b>delete</b>-button. If
-      you want to delete more than one event at once, then open the
-      <b>EventManager</b>-window select all events, you want to delete,
-      with the left-mouse-button and press the <b>delete</b>-button in the
-      upper part of the <b>EventManager</b>-window. The button text changes to
-      "sure?". If you are sure press the button again within the next three
-      seconds. Otherwise the button will return to "delete" and you must start
-      again. Note that the selection model is the same as for Windows(c). Use
-      the cntrl-key to add/remove a single event to/from an existing
-      selection; use the shift-key to select a whole area between an already
-      selected event and the event you click on.
+      Apri la finestra dell'<b>Editor</b> facendo clic con il pulsante destro del mouse su un appuntamento
+      rettangolo nella finestra <b>Principale</b> o nella riga dell'appuntamento nella
+      <b>Lista appuntamenti</b> e premi lì il pulsante <b>elimina</b>. Se
+      si desidera eliminare più di un appuntamento contemporaneamente, quindi aprire il file
+      <b>Lista appuntamenti</b> seleziona tutti gli appuntamenti che desideri eliminare,
+      con il tasto sinistro del mouse e premere il tasto <b>cancella</b> nel
+      parte superiore della finestra <b>Lista appuntamenti</b>. Il testo del pulsante cambia in
+      "Sicuro?". Se sei sicuro, premi di nuovo il pulsante entro i prossimi tre
+      secondi. In caso contrario il pulsante tornerà a "cancellare" e dovrai iniziare
+      ancora. Si noti che il modello di selezione è lo stesso di Windows(c). Uso
+      il tasto cntrl per aggiungere/rimuovere un singolo appuntamento a/da un esistente
+      selezione; utilizzare il tasto Maiusc per selezionare un'intera area tra un 
+      appuntamento selezionato e l'appuntamento su cui si fa clic.
     </p>
     <p>
       <a href="#top">[top]</a>
     </p>
     <a name="Alarm"></a> 
     <h2>
-      2.4 Alarm
+      2.4 Allarme
     </h2>
     <p>
-      If the Alarm-time of an event is reached or DateLook detects
-      events with pending alarms (at program-start), then for each of
-      these events an <b>Alarm</b>-window is opened accompanied by a beep. 
-      If the Alarm-time of an imported or newly created event is in the past, 
-      then no alarm is given.
+      Se viene raggiunta l'ora di sveglia di un appuntamento o se rileva DateLook
+      appuntamenti con allarmi in sospeso (all'avvio del programma), quindi per ciascuno di
+      questi appuntamenti si apre una finestra di <b>Allarme</b> accompagnata da un segnale acustico.
+      Se l'ora della sveglia di un appuntamento importato o appena creato è nel passato,
+      allora non viene dato nessun allarme.
     </p>
     <p>
       <a href="#top">[top]</a>
     </p>
     <a name="Searching_for_events"></a> 
     <h2>
-      2.5 Searching for events
+      2.5 Cercare un appuntamento
     </h2>
     <p>
-      First open the <b>EventManager</b>-window. Enter in the text field one
-      or more search strings seperated by blanks. A search string can consist
-      of alphabetic characters, numbers and special signs except of quotation
-      (<b>"</b>) or, if you like, of nothing (to quickly select all rows). If a
-      search string should include blanks it must be encapsulated by quotation
-      (<b>"</b>). Pressing the <b>search</b>-button starts searching. Searching is done
-      within the Date-, Time-, Class-, Cycle- and Summary-column of the table,
-      not in the descriptions of the events. (Remember that cyclic
-      events occur only once in the table.) As result all rows containing
-      ALL of the search strings are selected and the table scrolls to the first
-      hit. All other rows collapse to a small stripe. A left-mouse-click into
-      the table re-opens all rows.
-    </p>
-    <p>
-      <a href="#top">[top]</a>
-    </p>
-    <a name="Predefined_colours"></a> 
-    <h2>
-      2.6 Predefined Colours
-    </h2>
-    <p>
-      DateLook provides the possibility to predefine colours for specific topics
-      of events such as "family" or "sports" or what ever you want. The 
-      advantage is that you have a better overview of the kind of 
-      events in the <b>Main</b>-window.
-    </p>
-    <p>
-      The <b>PredefColourEditor</b>-window can be opened from <b>Main</b>-window 
-      by a right-mouse-click into the "events display" and choosing the
-      <b>Predef Colours</b>-option. 
-    </p>
-    <p>
-      This <b>PredefColourEditor</b>-window displays seven rows for seven predefined 
-      colours. Each row consists of a <b>Label-</b>entry, three <b>colour-values</b> 
-      for red-, green- and blue-part of the colour (RGB, range 0 to 255) and the 
-      <b>colour</b>-field to show how the colour looks like. Labels can be modified 
-      by keypad. First click into the field you want to modify and then edit the 
-      label text. The colours can be changed by mouse-click on the <b>colour-values</b>. 
-      Left click increases, right click decreases the <b>colour-value</b>. 
-      Mouse wheel works too. The <b>save</b>-button save the changes of the labels 
-      and colours and closes the window. The <b>cancel</b>-button closes the window 
-      too but without saving.
-    </p>
-    <p>
-      Remark that the events don't contain any information about labels. 
-      They only contain the colour. This means if you change the predefined colours 
-      later then all already stored events don't change its colour. Imported
-      events have the colour chosen by its creator independent of his
-      or your predefined colours and labels.
+      Per prima cosa apri la finestra <b>Lista appuntamenti</b>. Inserisci nel campo di testo uno
+      o più stringhe di ricerca separate da spazi vuoti. Una stringa di ricerca può consistere
+      di caratteri alfabetici, numeri e segni speciali escluse le virgolette
+      (<b>"</b>) o, se vuoi, di niente (per selezionare velocemente tutte le righe). Se a
+      la stringa di ricerca deve includere spazi vuoti deve essere racchiusa tra virgolette
+      (<b>"</b>). Premendo il pulsante <b>cerca</b> si avvia la ricerca. La ricerca è terminata
+      nella colonna Data, Ora, Classe, Ciclo e Riepilogo della tabella,
+      non nelle descrizioni degli appuntamenti. (Ricorda quel ciclico
+      gli eventi si verificano solo una volta nella tabella.) Di conseguenza tutte le righe contenenti
+      TUTTE le stringhe di ricerca vengono selezionate e la tabella scorre alla prima
+      colpo. Tutte le altre righe si riducono a una piccola striscia. Un clic sinistro del mouse in
+      la tabella riapre tutte le righe.
     </p>
     <p>
       <a href="#top">[top]</a>
     </p>
     <a name="Export_and_Import"></a> 
     <h2>
-      2.7 Export and Import events to/from file
+      2.7 Esportare e Importare appuntamenti in/da file
     </h2>
     <p>
-      DateLook can export selected events to a file in "vCalendar V
-      1.0"-format or events can be imported from a file in "vCalendar V
-      1.0"-format. This is suitable if you are using DateLook at different
-      computers e.g. at home and in the office or if you want to exchange
-      events with other programs that understand the "vCalendar V
-      1.0"-format.
+      DG Calendar può esportare appuntamenti selezionati in un file in "vCalendar V
+      1.0" o gli eventi possono essere importati da un file in "vCalendar V
+      Formato 1.0". Questo è adatto se si utilizza DateLook in modo diverso
+      computer ad es. a casa e in ufficio o se vuoi scambiare
+      eventi con altri programmi che comprendono il "vCalendar V
+      Formato 1.0".
     </p>
     <p>
-      To export events open the <b>EventManager</b>-window. Select the
-      events you want to export to a file with the left-mouse-button as
-      described in the <a href="#Deleting_events">chapter 2.3</a>. Then press the
-      <b>export</b>-button. A file chooser appears. Select a directory here,
-      enter any desired file name (file extension .vcs is recommended) and
-      press the <b>export</b>-button of the file chooser. That's all. Remark
-      that an already existing file will be overwritten without any warning.
-      You can use the "search"-function to select events to export.
+      Per esportare gli eventi, apri la finestra <b>Lista appuntamenti</b>. Seleziona l'appuntamento
+       che si desidera esportare in un file con il tasto sinistro del mouse come
+      descritto nel <a href="#Deleting_events">capitolo 2.3</a>. Quindi premere il
+      Pulsante <b>esporta</b>. Viene visualizzato un selettore di file. Seleziona una directory qui,
+      inserire il nome del file desiderato (si consiglia l'estensione .vcs) e
+      premi il pulsante <b>esporta</b> del selettore file. È tutto. Nota
+      che un file già esistente verrà sovrascritto senza alcun avviso.
+      Puoi usare la funzione "cerca" per selezionare gli appuntamenti da esportare.
     </p>
     <p>
-      To import events press the <b>import</b>-button in the
-      <b>EventManager</b>-window. Select a valid file in "vCalendar V
-      1.0"-format with the help of the appearing file chooser and press here
-      the <b>import</b>-button. After successful import the new events
-      are highlighted in the <b>EventManager</b>-window. All other
-      rows collapse to a small stripe. A left-mouse-click into the table
-      re-opens all rows. If you dislike the imported events, you can 
-      easily delete them all by pressing the <b>delete</b>-button 
-      as long as they are highlighted.
+      Per importare appuntamenti, premi il pulsante <b>import</b> nel file
+      <b>EventManager</b>-finestra. Seleziona un file valido in "vCalendar V
+      1.0"-formato con l'aiuto del selettore di file che appare e premere qui
+      il pulsante <b>importa</b>. Dopo aver importato con successo i nuovi appuntamenti
+      sono evidenziati nella finestra <b>EventManager</b>. Tutti gli altri
+      le righe si riducono a una piccola striscia. Un clic sinistro del mouse nella tabella
+      riapre tutte le righe. Se non ti piacciono gli appuntamenti importati, puoi farlo
+      eliminali facilmente tutti premendo il pulsante <b>elimina</b>
+      purché siano evidenziati.
     </p>
     <p>
-      The import feature follows the rule that each event with an unknown
-      or without an Unique IDentifier (UID) is taken over into the own (local)
-      database. Otherwise if there is an event with the same UID in the
-      local database, then the LAST-MODIFIED-property is compared and the
-      younger one is taken. If there is no LAST-MODIFIED-property in the
-      event in file, then this event is not taken. But all
-      events which are deleted during a DateLook-session (Start to Exit)
-      are stored internally till the end of session. During import,
-      events with same UID of a deleted event are not taken over
-      into the own (local) database, if the deletion took place later then the
-      last modification.
+      La funzione di importazione segue la regola che ogni evento con un sconosciuto
+      o senza un identificatore univoco (UID) viene acquisito nel proprio (locale)
+      Banca dati. In caso contrario, se è presente un evento con lo stesso UID nel file
+      database locale, quindi viene confrontata la proprietà LAST-MODIFIED e il file
+      quello più giovane viene preso. Se non c'è alcuna proprietà ULTIMA MODIFICA nel
+      evento nel file, questo evento non viene preso. Ma tutto
+      eventi che vengono eliminati durante una sessione DateLook (da inizio a fine)
+      vengono conservati internamente fino alla fine della sessione. Durante l'importazione,
+      gli eventi con lo stesso UID di un evento eliminato non vengono acquisiti
+      nel proprio database (locale), se l'eliminazione è avvenuta successivamente, il file
+      Ultima modifica.
     </p>
     <p>
-      Remark that the exchange of events with other programs than
-      DateLook can lead to the lost of some properties of an event.
-      Because not all programs can handle all properties. Especially some programs 
-      don't support cyclic events. Please, turn the special 
-      attention towards the exchange of events between hosts in different
-      time zones. E.g. an event starting at 08.00 will start at 07.00 after 
-      transfer from a host in Berlin to another one in London, because this is
-      exactly the same time if globally seen.
+      Si noti che lo scambio di eventi con altri programmi rispetto a
+      DateLook può portare alla perdita di alcune proprietà di un evento.
+      Perché non tutti i programmi possono gestire tutte le proprietà. Soprattutto alcuni programmi
+      non supportano gli eventi ciclici. Per favore, gira lo speciale
+      attenzione verso lo scambio di eventi tra host in diversi
+      Fusi orari. Per esempio. un evento che inizia alle 08:00 inizierà alle 07:00 dopo
+      trasferimento da un host a Berlino a un altro a Londra, perché questo è
+      esattamente allo stesso tempo se visto globalmente.
     </p>
     <p>
-      If DateLook imports events created on a computer using a different
-      character set, these events are displayed properly. But if such an
-      event is modified and saved then all characters only belonging to the
-      current character set (used on own computer) and not belonging to to origin 
-      character set are replaced by question marks.
+      Se DateLook importa gli eventi creati su un computer utilizzando un altro
+      set di caratteri, questi eventi vengono visualizzati correttamente. Ma se tale un
+      l'evento viene modificato e salvato quindi tutti i caratteri appartenenti solo al
+      set di caratteri corrente (utilizzato sul proprio computer) e non appartenente all'origine
+      set di caratteri sono sostituiti da punti interrogativi.
     </p>
-    <p>
-      <a href="#top">[top]</a>
-    </p>
-    <a name="Synchronisation"></a>
-    <h2>
-      2.8 Synchronisation
-    </h2>
-    <p>
-      DateLook can synchronise its local database with a remote database in the
-      net. The synchronisation uses FTP or any net file system. The remote
-      database is stored in a file on a FTP-server or a file-server. This file
-      is in "vCalendar V1.0"-format too. The synchronisation takes place in two
-      steps. First step is the import of events from the remote database
-      according to the same rules as described in <a href="#Export_and_Import">
-      chapter 2.7</a>and the second step is to overwrite the remote database with 
-      the updated local database. But here only events of the 
-      <b>Class "Public"</b> are written to the remote database. This is suitable 
-      for multi-user-operation to protect your "private" events from 
-      propagation into the remote (common) database.
-    </p>
-    <p>
-      All events which are deleted during a DateLook-session (Start to
-      Exit) are marked internally till the end of session. If after deletion a
-      synchronisation takes place, then events with same UID (Unified
-      IDentifier) of a deleted event are not taken over into the local
-      database and removed from remote database too, but only if the deletion
-      took place later then the a last modification from another party. The
-      remote database doesn't store any information about deleted events,
-      except of that these events are removed from here. Therefore the
-      remote database can not request the deletion of an event in the
-      local database. If you want to delete an event from all different
-      local databases, then it must be deleted from each local database
-      separately BEFORE synchronisation. This is suitable for safety reasons.
-    </p>
-    <p>
-      To perform a synchronisation open the <b>EventManager</b>-window and
-      press the <b>sync</b>-button. Now the <b>Synchroniser</b>-window appears.
-      Here you have the choice between FTP-server or file-server. To change
-      click on this text field. If you choose FTP-server and the FTP-server
-      needs authentication, please enter your user name ("UID") and your
-      password ("PW"). Otherwise leave both entries empty. Remark that the
-      password is stored unencrypted in a settings-file. In the entry "H/P" the
-      host name and the path of the remote database (e.g.
-      "ftp.blabla.de/datelook/database.vcs" or
-      "h:\blabla.de\datelook\database.vcs") is required. The file name of that
-      database is free. If it doesn't exist, it will be created during
-      synchronisation. Note that the chosen file (remote database) will be 
-      overwritten with the updated local database independent of its old content.
-    </p>
-    <p>
-      Press the <b>sync</b>-button in the <b>Synchroniser</b>-window to start
-      the synchronisation. If finished the <b>Synchroniser</b>-window
-      disappears and in the <b>EventManager</b>-window all updated and imported
-      events are highlighted. If an error occurred during
-      synchronisation, then the <b>Synchroniser</b>-window remains and shows an
-      error-message. To close the <b>Synchroniser</b>-window without
-      synchronisation press the <b>close</b>-button.
-    </p>
-    <p>
-      Remark that simultaneous synchronisation of different DateLook-users in
-      multi-user-operation can NOT lead to a lost of data (provided that FTP-
-      or file-server works well). But it can occur, that not all local
-      databases are really synchronised. Because there were a race condition
-      between to "Synchronisers". For that reason it is recommended to
-      synchronise the databases again if you recognise some unexpected delay.
-    </p>
-    <p>
-      <a href="#top">[top]</a>
-    </p>
-    <a name="Keyboard"></a> 
-    <h2>
-      2.9 Using the Keyboard
-    </h2>
-    <p>
-      The following table shows available shortcuts:
-      <br>
-    </p>
-    <table border="1">
-      <tr>
-        <th>
-          Window
-        </th>
-        <th>
-          Shortcut
-        </th>
-        <th>
-          Function
-        </th>
-      </tr>
-      <tr>
-        <td rowspan=10>
-          Main
-        </td>
-        <td>
-          Control-m
-        </td>
-        <td>
-          open menu
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-v
-        </td>
-        <td>
-          switch between Extended and Simple View
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-g
-        </td>
-        <td>
-          open Goto-Window
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-e
-        </td>
-        <td>
-          open EventManager
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-o
-        </td>
-        <td>
-          open PredefColourEditor
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-p
-        </td>
-        <td>
-          open Print-Dialog
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-q
-        </td>
-        <td>
-          Exit
-        </td>
-      </tr>
-      <tr>
-        <td>
-          left/right
-        </td>
-        <td>
-          shift visible space of time in small steps
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-left/right
-        </td>
-        <td>
-          shift visible space of time exactly one
-          window size
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Shift-left/right
-        </td>
-        <td>
-          changes the zoom state
-        </td>
-      </tr>
-      <tr>
-        <td rowspan=5>
-          Editor
-        </td>
-        <td>
-          Control-s, Control-q
-        </td>
-        <td>
-          save changes of the event and close window
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-c
-        </td>
-        <td>
-          discard changes and close window
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-d
-        </td>
-        <td>
-          open Description-Editor
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-o
-        </td>
-        <td>
-          open ColourChooser
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-p
-        </td>
-        <td>
-          open Print-Dialog
-        </td>
-      </tr>
-      
-      <tr>
-        <td rowspan=4>
-          Description Editor
-        </td>
-        <td>
-          Control-q
-        </td>
-        <td>
-          close window
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-c
-        </td>
-        <td>
-          copy selected text to clip board
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-x
-        </td>
-        <td>
-          cut selected text
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-v
-        </td>
-        <td>
-          paste from clipboard
-        </td>
-      </tr>
-      <tr>
-        <td rowspan=2>
-          ColourChooser
-        </td>
-        <td>
-          Control-q, Control-s
-        </td>
-        <td>
-          use changed current colour and close window
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-c
-        </td>
-        <td>
-          discard changes in current colour and close window
-        </td>
-      </tr>
-      <tr>
-        <td rowspan=2>
-          PredefColourEditor
-        </td>
-        <td>
-          Control-q, Control-s
-        </td>
-        <td>
-          save changed predefined colours/labels and close window
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-c
-        </td>
-        <td>
-          discard changes and close window
-        </td>
-      </tr>
-      <tr>
-        <td rowspan=4>
-          EventManager
-        </td>
-        <td>
-          Control-q, Control-c
-        </td>
-        <td>
-          close window
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-e
-        </td>
-        <td>
-          open Export-Dialog
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-i
-        </td>
-        <td>
-          open Import-Dialog
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-s
-        </td>
-        <td>
-          open Synchronisation-Dialog
-        </td>
-      </tr>
-      <tr>
-        <td rowspan=3>
-          Sync-Dialog
-        </td>
-        <td>
-          Control-q
-        </td>
-        <td>
-          close dialog and remember content of entries
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-c
-        </td>
-        <td>
-          close dialog and discard changes in entries
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-s
-        </td>
-        <td>
-          start synchronisation
-        </td>
-      </tr>
-      <tr>
-        <td rowspan=2>
-          Goto
-        </td>
-        <td>
-          Control-q, Control-c
-        </td>
-        <td>
-          close window
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-g
-        </td>
-        <td>
-          goto chosen date
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Help
-        </td>
-        <td>
-          Control-c, Control-q
-        </td>
-        <td>
-          close window
-        </td>
-      </tr>
-      <tr>
-        <td rowspan=2>
-          Alarm
-        </td>
-        <td>
-          Control-c, Control-q
-        </td>
-        <td>
-          close window
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Control-e
-        </td>
-        <td>
-          open Editor-Window
-        </td>
-      </tr>
-      <tr>
-        <td>
-          all
-        </td>
-        <td>
-          F1
-        </td>
-        <td>
-          open Help-Window
-        </td>
-      </tr>
-    </table>
-    <p>
-      <a href="#top">[top]</a>
-    </p>
-    <a name="Files"></a> 
-    <h2>
-      3. Files
-    </h2>
-    <p>
-      Linux, Windows: DateLook itself comes as a single JAR-file <b>datelookXXX.jar</b>. 
-      XXX stands for the version number. This file can be copied to a place where 
-      ever you want. Best places are e.g /usr/local/bin or C:/Programme/....
-    </p>
-    <p>
-      Mac OS X: The application and all needed files are located in the Folder
-      <b>DateLook.app</b>. This folder is part of the download-file datelookXXX.dmg.gz. 
-      If datelookXXX.dmg.gz is mounted you can copy this folder where ever you like. But
-      the Application-folder is recommended. Remark that the Finder hides the extension 
-      ".app". You only see "DateLook".
-    </p>
-    <p>      
-      For all OS the settings files and the database are generated automatically and stored
-      in the subdirectory <b>.datelook</b> of the user's default directory. These files are:
-    </p>
-    <ul>
-      <li>
-        <b>dates.vcs</b> - is an ASCII-file and stores the local database in
-        "vCalendar V1.0"-format.
-      </li>
-      <li>
-        <b>dates.bak</b> - is an ASCII-file and stores the backup of local database in
-        "vCalendar V1.0"-format.
-      </li>
-      <li>
-        <b>rc</b> - is created automatically, if the "save settings"-function
-        is performed. The position and size of the <b>Main</b>-window and the
-        zoom-state is stored.
-      </li>
-      <li>
-        <b>syncrc</b> - stores the synchronisation settings.
-      </li>
-      <li>
-        <b>colourrc</b> - stores the predefined colours and colour labels for the colour chooser.
-      </li>
-      </ul>
     <p>
       <a href="#top">[top]</a>
     </p>
     <a name="License"></a>
     <h2>
-      4. License
+      4. Licenza
     </h2>
     <p>
-      This program is free software; you can redistribute it and/or modify it
-      under the terms of the GNU General Public License as published by the
-      Free Software Foundation; either version 2 of the License, or (at your
-      option) any later version.
-    </p>
-    <p>
-      This program is distributed in the hope that it will be useful, but
-      WITHOUT ANY WARRANTY; without even the implied warranty of
-      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
-      Public License for more details. you should have received a copy of the
-      GNU General Public License along with this program; if not, write to the
-      Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+      Questo programma è distribuito da Mascommunication.org.
     </p>
     <p>
       <a href="#top">[top]</a>
-    </p>
-    <p>
-      For more information or support see http://www.rr-e.de/dl/.
-    </p>
-    <p>
-      Have a lot of fun.
     </p>
   </body>
 </html>

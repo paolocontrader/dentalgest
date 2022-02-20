@@ -1180,7 +1180,7 @@ public class MemoDialog extends JDialog implements ActionListener {
                     pn.add(newlbl, "2, " + (i * 2));
                     newlbl.setFont(new Font("TimesRoman", Font.PLAIN, 16));
                 }
-                pnDayView.add(spLeft);
+                //pnDayView.add(spLeft);
             }
 
             {

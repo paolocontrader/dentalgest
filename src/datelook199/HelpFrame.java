@@ -38,7 +38,7 @@ public class HelpFrame extends JFrame implements KeyListener {
         instance.help_pane = new JEditorPane();
         instance.setIconImage(Toolkit.getDefaultToolkit().createImage(HelpFrame.class.getResource("dl.png")));
         instance.setSize(new Dimension(550, 400));
-        instance.setTitle("DateLook Help");
+        instance.setTitle("DG Calendar Help");
 
         JScrollPane scrollPane = new JScrollPane();
 

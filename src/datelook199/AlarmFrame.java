@@ -81,10 +81,10 @@ public class AlarmFrame extends JFrame {
           0, 0, 0, 1, tt, "", 15, 340, 970, 60);
 
       // edit button
-      edit_button = new RButton(this, new Color(0, 50, 100), Color.orange, Color.red, "edit", 15, 730, 150, 40);
+      edit_button = new RButton(this, new Color(0, 50, 100), Color.orange, Color.red, "modifica", 15, 730, 150, 40);
 
       // close button
-      close_button = new RButton(this, new Color(0, 50, 100), Color.orange, Color.red, "close", 178, 730, 150, 40);
+      close_button = new RButton(this, new Color(0, 50, 100), Color.orange, Color.red, "chiudi", 178, 730, 150, 40);
     }
 
 
