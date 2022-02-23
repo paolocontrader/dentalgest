@@ -57,16 +57,24 @@ public class EventTableFrame extends JFrame {
       this.setTitle("EventManager");
       int h = DateLookPanel.slot_height;
       event_table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+      event_table.getColumnModel().getColumn(0).setHeaderValue("Giorno");
+      event_table.getColumnModel().getColumn(1).setHeaderValue("Ora");
+      event_table.getColumnModel().getColumn(3).setHeaderValue("Promemoria");
+      event_table.getColumnModel().getColumn(4).setHeaderValue("Data/Ora");
+      event_table.getColumnModel().getColumn(5).setHeaderValue("Descrizione");
       event_table.getColumnModel().getColumn(0).setPreferredWidth(h * 5);
       event_table.getColumnModel().getColumn(1).setPreferredWidth(h * 3);
-      event_table.getColumnModel().getColumn(2).setPreferredWidth(h * 3);
-      event_table.getColumnModel().getColumn(3).setPreferredWidth(h * 7 / 2);
-      event_table.getColumnModel().getColumn(4).setPreferredWidth(h * 2);
+      event_table.getColumnModel().getColumn(2).setMaxWidth(0);
+      event_table.getColumnModel().getColumn(2).setMinWidth(0);
+      event_table.getColumnModel().getColumn(2).setPreferredWidth(0);
+      event_table.getColumnModel().getColumn(3).setPreferredWidth(h * 8 );
+      event_table.getColumnModel().getColumn(4).setPreferredWidth(h * 8);
+      event_table.getColumnModel().getColumn(5).setPreferredWidth(h * 8);
       event_table.getColumnModel().getColumn(0).setMaxWidth(h * 8);
       event_table.getColumnModel().getColumn(1).setMaxWidth(h * 8);
-      event_table.getColumnModel().getColumn(2).setMaxWidth(h * 8);
       event_table.getColumnModel().getColumn(3).setMaxWidth(h * 8);
       event_table.getColumnModel().getColumn(4).setMaxWidth(h * 8);
+      event_table.getColumnModel().getColumn(5).setMaxWidth(h * 8);
       event_table.setRowHeight(h);
       event_table.setIntercellSpacing(new Dimension(h / 4, h / 4));
       event_table.setFont(new Font("SansSerif", Font.PLAIN, h * 2 / 3));
@@ -272,7 +280,7 @@ public class EventTableFrame extends JFrame {
       search_text_field = new JTextField();
       search_text_field.setBackground(Color.white);
       search_text_field.setEditable(true);
-      search_text_field.setToolTipText("mmettere una o più stringhe di ricerca separate da spazi o racchiuse tra virgolette.");
+      search_text_field.setToolTipText("immettere una o più stringhe di ricerca separate da spazi o racchiuse tra virgolette.");
       search_text_field.addKeyListener(this);
       search_text_field.addKeyListener(
         new KeyAdapter() {
