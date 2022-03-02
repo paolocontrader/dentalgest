@@ -351,9 +351,11 @@ public final  class ClientiListRichiamo extends javax.swing.JFrame {
             {
                 int row = tb1.getSelectedRow();
                 String tbclick =(tb1.getModel().getValueAt(row, 1).toString());
-                String sql = "SELECT * FROM pazienti WHERE cognome = ?";
+                String tbclick1 =(tb1.getModel().getValueAt(row, 2).toString());
+                String sql = "SELECT * FROM pazienti WHERE cognome = ? and nome = ?";
                 psclick = connClick.prepareStatement(sql);
                 psclick.setString(1, tbclick);
+                psclick.setString(2, tbclick1);
                 rsclick = psclick.executeQuery();
                 if(rsclick.next())
                 {

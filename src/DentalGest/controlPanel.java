@@ -96,7 +96,6 @@ public class controlPanel extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
         sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -208,14 +207,6 @@ public class controlPanel extends javax.swing.JFrame {
         });
         getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 110, -1, -1));
 
-        jButton10.setText("vecchio calendario");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, -1, -1));
-
         sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/main_800x400.png"))); // NOI18N
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 800, 420));
 
@@ -235,11 +226,12 @@ public class controlPanel extends javax.swing.JFrame {
 //         AppList.getObj().setVisible(true);
 
         
-        //new CalendarGUI();
-        datelook199.DateLook dl = new datelook199.DateLook();
+        new CalendarGUI();
+        /*datelook199.DateLook dl = new datelook199.DateLook();
         dl.setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png"));
         dl.setVisible(true);
-        
+        */
+         
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -283,7 +275,7 @@ public class controlPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         JFileChooser chooser = new JFileChooser();
-        chooser.setCurrentDirectory(new java.io.File("."));
+        //chooser.setCurrentDirectory(new java.io.File("."));
         chooser.setDialogTitle("Salva Database");
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         //
@@ -296,9 +288,17 @@ public class controlPanel extends javax.swing.JFrame {
                     + chooser.getCurrentDirectory());
             System.out.println("getSelectedFile() : "
                     + chooser.getSelectedFile());
+            
+             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                LocalDateTime now = LocalDateTime.now();
+                System.out.println(dtf.format(now));
+                long millis = System.currentTimeMillis();
+                Date date = new Date(millis);
+
+                String adesso = dtf.format(now);
 
             try {
-                File f = new File("BackUpDG");
+                File f = new File("BackUpDG-"+adesso);
 
                 // check if the directory can be created
                 // using the abstract path name
@@ -313,17 +313,11 @@ public class controlPanel extends javax.swing.JFrame {
                     System.out.println("Directory non creata");
                 }
 
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                LocalDateTime now = LocalDateTime.now();
-                System.out.println(dtf.format(now));
-                long millis = System.currentTimeMillis();
-                Date date = new Date(millis);
-
-                String adesso = dtf.format(now);
+               
                 File sourceDirectory = new File(lettera + ":/Database/bin/dentalsoft");
                 File sourceDirectoryD = new File(lettera + ":/Dentalgest");
-                File destinationDirectory = new File(chooser.getSelectedFile() + "/" + f + "/dentalgestdb-" + adesso);
-                File destinationDirectoryD = new File(chooser.getSelectedFile() + "/" + f + "/dentalgest");
+                File destinationDirectory = new File(chooser.getSelectedFile() + "/"+ f + "/Database/bin/dentalsoft");
+                File destinationDirectoryD = new File(chooser.getSelectedFile() + "/"+ f + "/dentalgest");
 
                 FileUtils.copyDirectory(sourceDirectoryD, destinationDirectoryD);
                 FileUtils.copyDirectory(sourceDirectory, destinationDirectory);
@@ -341,11 +335,6 @@ public class controlPanel extends javax.swing.JFrame {
          Operatori.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png"));
         Operatori.getObj().setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-          new CalendarGUI();
-    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -387,7 +376,6 @@ public class controlPanel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

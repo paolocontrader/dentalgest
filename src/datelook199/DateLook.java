@@ -97,7 +97,7 @@ public class DateLook extends JFrame {
     if (e.getID() == WindowEvent.WINDOW_CLOSING) {
 //      event_memory.save();
       super.processWindowEvent(e);
-      System.exit(0);
+     // System.exit(0);
     }
     else {
       super.processWindowEvent(e);
