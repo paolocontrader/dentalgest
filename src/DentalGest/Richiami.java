@@ -567,7 +567,6 @@ public final  class Richiami extends javax.swing.JFrame {
         txt_n.setBorder(null);
         txt_n.setEnabled(false);
         txt_n.setFocusable(false);
-        txt_n.setOpaque(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -616,6 +615,7 @@ public final  class Richiami extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 113;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(20, 49, 0, 0);
@@ -626,6 +626,7 @@ public final  class Richiami extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 22;
         gridBagConstraints.ipady = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -675,9 +676,8 @@ public final  class Richiami extends javax.swing.JFrame {
         getContentPane().add(jButton6, gridBagConstraints);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/headers/RICHIAMO_220_x_80.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        jLabel1.setMaximumSize(new java.awt.Dimension(295, 80));
-        jLabel1.setMinimumSize(new java.awt.Dimension(295, 80));
+        jLabel1.setMaximumSize(new java.awt.Dimension(365, 80));
+        jLabel1.setMinimumSize(new java.awt.Dimension(365, 80));
         jLabel1.setPreferredSize(new java.awt.Dimension(295, 80));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

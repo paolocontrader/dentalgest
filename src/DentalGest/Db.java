@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 public class Db {
     public static Connection db(){
     
-  
+ Connection conn =null; 
 //Connessione di test    
 
 //String dburl = "jdbc:derby://localhost:1527/dentalsoft";
@@ -25,14 +25,13 @@ public class Db {
 String dburl = "jdbc:derby:/Database/bin/dentalsoft";
     String userName = "dentalsoft";
     String passWord = "5y*Ym0HsbWyO";
-     
+   
    
       try{
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            Connection conn =null;
-            conn = DriverManager.getConnection(dburl, userName, passWord);
             
-            return conn;
+            conn = DriverManager.getConnection(dburl, userName, passWord);
+             return conn;
         }
     
     catch(ClassNotFoundException | SQLException e)

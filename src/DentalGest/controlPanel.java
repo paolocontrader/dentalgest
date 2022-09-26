@@ -21,7 +21,6 @@ import java.util.Date;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.apache.commons.io.FileUtils;
-import datelook199.DateLook;
 
 /**
  *
@@ -96,7 +95,7 @@ public class controlPanel extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        sfondo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dentalgest - Pannello di Controllo");
@@ -160,7 +159,6 @@ public class controlPanel extends javax.swing.JFrame {
         lettera_txt.setEditable(false);
         lettera_txt.setBorder(null);
         lettera_txt.setEnabled(false);
-        lettera_txt.setOpaque(false);
         getContentPane().add(lettera_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 0, -1));
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/contabilità_130x130.png"))); // NOI18N
@@ -207,8 +205,9 @@ public class controlPanel extends javax.swing.JFrame {
         });
         getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 110, -1, -1));
 
-        sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/main_800x400.png"))); // NOI18N
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 800, 420));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/main_800x400.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, -1));
 
         setSize(new java.awt.Dimension(800, 402));
         setLocationRelativeTo(null);
@@ -224,13 +223,11 @@ public class controlPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
 //        AppList.getObj().setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png")); 
 //         AppList.getObj().setVisible(true);
-
-        
-        new CalendarGUI();
+        CalendarGUI calendarGUI = new CalendarGUI();
         /*datelook199.DateLook dl = new datelook199.DateLook();
         dl.setIconImage(Toolkit.getDefaultToolkit().getImage("/dentalgest/icona.png"));
-        dl.setVisible(true);
-        */
+        dl.setVisible(true);*/
+        
          
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -298,7 +295,7 @@ public class controlPanel extends javax.swing.JFrame {
                 String adesso = dtf.format(now);
 
             try {
-                File f = new File("BackUpDG-"+adesso);
+                File f = new File(chooser.getSelectedFile()+"/BackUpDG-"+adesso);
 
                 // check if the directory can be created
                 // using the abstract path name
@@ -313,11 +310,10 @@ public class controlPanel extends javax.swing.JFrame {
                     System.out.println("Directory non creata");
                 }
 
-               
                 File sourceDirectory = new File(lettera + ":/Database/bin/dentalsoft");
                 File sourceDirectoryD = new File(lettera + ":/Dentalgest");
-                File destinationDirectory = new File(chooser.getSelectedFile() + "/"+ f + "/Database/bin/dentalsoft");
-                File destinationDirectoryD = new File(chooser.getSelectedFile() + "/"+ f + "/dentalgest");
+                File destinationDirectory = new File( f + "/Database/bin/dentalsoft");
+                File destinationDirectoryD = new File( f + "/dentalgest");
 
                 FileUtils.copyDirectory(sourceDirectoryD, destinationDirectoryD);
                 FileUtils.copyDirectory(sourceDirectory, destinationDirectory);
@@ -384,7 +380,7 @@ public class controlPanel extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
     public javax.swing.JTextField lettera_txt;
-    private javax.swing.JLabel sfondo;
     // End of variables declaration//GEN-END:variables
 }

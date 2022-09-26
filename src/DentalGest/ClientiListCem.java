@@ -274,7 +274,6 @@ public final  class ClientiListCem extends javax.swing.JFrame {
         nom.setBorder(null);
         nom.setEnabled(false);
         nom.setFocusable(false);
-        nom.setOpaque(false);
         nom.setRequestFocusEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -287,7 +286,6 @@ public final  class ClientiListCem extends javax.swing.JFrame {
         cogn.setBorder(null);
         cogn.setEnabled(false);
         cogn.setFocusable(false);
-        cogn.setOpaque(false);
         cogn.setRequestFocusEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -358,8 +356,8 @@ public final  class ClientiListCem extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/headers/ANAGRAFICA_PAZIENTE_220_x_80.png"))); // NOI18N
         jLabel2.setText("jLabel1");
-        jLabel2.setMaximumSize(new java.awt.Dimension(295, 80));
-        jLabel2.setMinimumSize(new java.awt.Dimension(295, 80));
+        jLabel2.setMaximumSize(new java.awt.Dimension(385, 80));
+        jLabel2.setMinimumSize(new java.awt.Dimension(385, 80));
         jLabel2.setPreferredSize(new java.awt.Dimension(295, 80));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

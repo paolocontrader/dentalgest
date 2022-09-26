@@ -28,7 +28,7 @@ public class DentalGest {
         try {
 			
 			Runtime.getRuntime().exec("cmd /C /MIN start C:/Database/bin/startNetworkServer.bat");
-		} catch (Exception ex) {
+		} catch (IOException ex) {
 		}
        
          controlPanel loa = new controlPanel();

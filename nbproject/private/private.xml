@@ -3,36 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/DateLook.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/DescriptionEditorFrame.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/.project</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/EventRenderer.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/RButton.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/RComponent.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/Synchronizer.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/Settings.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/Event.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/run.bat</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/RPanel.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/DateLookPanel.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/AlarmHandler.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/EditorFrame.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/DentalGest/DentalGest.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/EventTableFrame.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/GoToFrame.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/SyncSettings.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/Renderer.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/EventMemory.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/CalendarRenderer.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/.classpath</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/SyncDialog.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/DentalGest/controlPanel.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/HelpFrame.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/AlarmFrame.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/help.htm</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/Converter.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/EventPrinter.java</file>
-            <file>file:/C:/Users/niuzz0/Documents/Dg/dentalgest/src/datelook199/ColourFrame.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/ClientiListApp.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/Dentiera.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/Loading.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/Saldi.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/Cenentazione.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/ClientiListRichiamo.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/Clients.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/ClientiListCem.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/Prestazioni.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/Operatori.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/Db.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/Richiami.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/report.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/controlPanel.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/GUI/CalendarGUI.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/ClientiList.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/CartellaClinica.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/AppList.java</file>
+            <file>file:/C:/Users/niuzz/Documents/dentalgest/src/DentalGest/DentalGest.java</file>
         </group>
     </open-files>
 </project-private>

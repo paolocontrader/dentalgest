@@ -131,8 +131,10 @@ public final  class CartellaClinica extends javax.swing.JFrame {
  
     private void openFile(String path)
     {
+        controlPanel cp = new controlPanel();
+        String lettera = cp.lettera_txt.getText();
          try {
-                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + path);
+                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + lettera+":"+path);
                 } catch (IOException ex) {
                     Logger.getLogger(CartellaClinica.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -274,7 +276,6 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         open.setBorder(null);
         open.setEnabled(false);
         open.setFocusable(false);
-        open.setOpaque(false);
         open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openActionPerformed(evt);
@@ -309,7 +310,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
         jLabel3.setPreferredSize(new java.awt.Dimension(295, 80));
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, 218, -1));
 
-        setSize(new java.awt.Dimension(837, 516));
+        setSize(new java.awt.Dimension(856, 516));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -396,7 +397,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
               
       //Creating a folder using mkdirs() method  
       
-      File f = new File("/dentalgest/cartelle/"+paz+"-"+cell+"/");
+      File f = new File(lettera+":/dentalgest/cartelle/"+paz+"-"+cell+"/");
   
         // check if the directory can be created
         // using the abstract path name

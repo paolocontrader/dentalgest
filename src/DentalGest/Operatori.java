@@ -9,6 +9,7 @@ import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -150,6 +151,7 @@ combo_ser.addItem(rscd.getString("nome"));
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -306,14 +308,16 @@ combo_ser.addItem(rscd.getString("nome"));
                 }
                 else{
                     
-                    
+                     controlPanel cp = new controlPanel();
+                    String lettera = cp.lettera_txt.getText();
                     String sql="insert into operatori (nome) values (?)";
                     pst=conn.prepareStatement(sql);
                     pst.setString(1,txt_nome.getText());
                    
                     pst.execute();
                     JOptionPane.showMessageDialog(null,"Operatore aggiunto correttamente" );
-                    File f = new File("/dentalgest/TodoData/"+txt_nome.getText().replace(".", ""));
+                    File f = new File(
+                            "/dentalgest/TodoData/"+txt_nome.getText().replace(".", ""));
   
         // check if the directory can be created
         // using the abstract path name
@@ -392,39 +396,55 @@ combo_ser.addItem(rscd.getString("nome"));
     }//GEN-LAST:event_btn_modActionPerformed
 
     private void bt_elim1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_elim1ActionPerformed
-        // TODO add your handling code here:
-
-        String oper =combo_ser.getSelectedItem().toString();
-        int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler rimuovere il seguente operatore?","Elimina Operatore",JOptionPane.YES_NO_OPTION);
-        if(x==0){
-
-            try{
-                String sql = "delete from operatori where nome='"+oper+"'";
-
-                pst=conn.prepareStatement(sql);
-               
-                   
-                pst.execute();
-                Refresh();
-                combo_ser.setSelectedIndex(-1);
-               
-                txt_nome.setText("");
-                 
-                JOptionPane.showMessageDialog(null,"Operatore cancellato correttamente" );
+        try {
+            // TODO add your handling code here:
+            controlPanel cp = new controlPanel();
+            String lettera  = cp.lettera_txt.getText();
+            String oper =combo_ser.getSelectedItem().toString();
+            int x = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler rimuovere il seguente operatore?","Elimina Operatore",JOptionPane.YES_NO_OPTION);
+            if(x==0){
                 
-
-
-                
-                Refresh();
-                   
-                   
-
-            }catch(SQLException | HeadlessException e)
-            {
-                JOptionPane.showMessageDialog(null,"Errore eliminazione operatore " );
-            }}
+                try{
+                    String sql = "delete from operatori where nome='"+oper+"'";
+                    
+                    pst=conn.prepareStatement(sql);
+                    
+                    
+                    pst.execute();
+                    Refresh();
+                    combo_ser.setSelectedIndex(-1);  
+                    
+                    txt_nome.setText("");
+                    
+                    JOptionPane.showMessageDialog(null,"Operatore cancellato correttamente" );
+                    
+                    Refresh();
+                    
+                }catch(SQLException | HeadlessException e)
+                {
+                    JOptionPane.showMessageDialog(null,"Errore eliminazione operatore " );
+                }}
+            File f = new File(
+                    lettera+":/dentalgest/TodoData/"+oper);
+            deleteDirectory(f);
+        } catch (IOException ex) {
+            Logger.getLogger(Operatori.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_bt_elim1ActionPerformed
 
+void deleteDirectory(File file) throws IOException {
+  if (file.isDirectory()) {
+    File[] entries = file.listFiles();
+    if (entries != null) {
+      for (File entry : entries) {
+        deleteDirectory(entry);
+      }
+    }
+  }
+  if (!file.delete()) {
+    throw new IOException("Failed to delete " + file);
+  }
+}
     /**
      * @param args the command line arguments
      */

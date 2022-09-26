@@ -437,41 +437,39 @@ public final  class Cenentazione extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tb1);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 15;
+        gridBagConstraints.gridwidth = 10;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 753;
-        gridBagConstraints.ipady = 185;
+        gridBagConstraints.ipadx = 871;
+        gridBagConstraints.ipady = 199;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(15, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 0);
         getContentPane().add(jScrollPane2, gridBagConstraints);
 
         Tipologia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Tipologia.setText("Paziente:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 13;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 150, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(4, 55, 0, 0);
         getContentPane().add(Tipologia, gridBagConstraints);
 
         txt_n.setEditable(false);
         txt_n.setBorder(null);
         txt_n.setEnabled(false);
         txt_n.setFocusable(false);
-        txt_n.setOpaque(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = -16;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         getContentPane().add(txt_n, gridBagConstraints);
 
         jButton6.setText("Modifica stato");
@@ -482,12 +480,12 @@ public final  class Cenentazione extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 49;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 40;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(25, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
         getContentPane().add(jButton6, gridBagConstraints);
 
         combo_stato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Provvisoria", "Definitiva" }));
@@ -521,8 +519,6 @@ public final  class Cenentazione extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = -155;
         gridBagConstraints.ipady = -1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -552,10 +548,10 @@ public final  class Cenentazione extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 17;
+        gridBagConstraints.gridx = 18;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 8);
+        gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 0);
         getContentPane().add(jButton3, gridBagConstraints);
 
         txtpaz.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tutti", "Provvisoria", "Definitiva" }));
@@ -579,8 +575,9 @@ public final  class Cenentazione extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridwidth = 11;
         gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 71;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         getContentPane().add(txtpaz, gridBagConstraints);
@@ -588,22 +585,24 @@ public final  class Cenentazione extends javax.swing.JFrame {
         Tipologia1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Tipologia1.setText("Tipologia:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 9;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 150, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 55, 0, 0);
         getContentPane().add(Tipologia1, gridBagConstraints);
 
         txtcerca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridwidth = 12;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 194;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
         getContentPane().add(txtcerca, gridBagConstraints);
 
         bt_cerca1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -624,11 +623,11 @@ public final  class Cenentazione extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 14;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridx = 21;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 4, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(15, 4, 0, 0);
         getContentPane().add(bt_cerca1, gridBagConstraints);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/pulsanti/apri-scheda-cliente_150x40.png"))); // NOI18N
@@ -644,24 +643,23 @@ public final  class Cenentazione extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(15, 20, 0, 0);
         getContentPane().add(jButton2, gridBagConstraints);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DentalGest/images/headers/CEMENTAZIONE_220_x_80.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        jLabel1.setMaximumSize(new java.awt.Dimension(295, 80));
-        jLabel1.setMinimumSize(new java.awt.Dimension(295, 80));
+        jLabel1.setMaximumSize(new java.awt.Dimension(365, 80));
+        jLabel1.setMinimumSize(new java.awt.Dimension(365, 80));
         jLabel1.setPreferredSize(new java.awt.Dimension(295, 80));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 6;
-        gridBagConstraints.ipadx = -77;
+        gridBagConstraints.gridheight = 7;
+        gridBagConstraints.ipadx = -71;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         getContentPane().add(jLabel1, gridBagConstraints);
 
         nota_txt.setColumns(5);
@@ -670,16 +668,16 @@ public final  class Cenentazione extends javax.swing.JFrame {
         jScrollPane1.setViewportView(nota_txt);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 14;
-        gridBagConstraints.gridwidth = 16;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 10;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 763;
-        gridBagConstraints.ipady = 53;
+        gridBagConstraints.ipadx = 871;
+        gridBagConstraints.ipady = 67;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(9, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(9, 0, 0, 0);
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         jButton7.setText("Aggiorna");
@@ -690,14 +688,14 @@ public final  class Cenentazione extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 15;
-        gridBagConstraints.ipadx = 77;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 13;
+        gridBagConstraints.ipadx = 68;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 8, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 8, 0);
         getContentPane().add(jButton7, gridBagConstraints);
 
-        setSize(new java.awt.Dimension(836, 510));
+        setSize(new java.awt.Dimension(900, 484));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
