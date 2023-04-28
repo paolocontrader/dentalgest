@@ -429,6 +429,8 @@ combo_ser.addItem(rscd.getString("nome"));
             deleteDirectory(f);
         } catch (IOException ex) {
             Logger.getLogger(Operatori.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Operatori.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_bt_elim1ActionPerformed
 

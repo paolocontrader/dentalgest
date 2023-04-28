@@ -14,12 +14,19 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -31,24 +38,107 @@ public class controlPanel extends javax.swing.JFrame {
     /**
      * Creates new form controlPanel
      */
-    Connection conn = null;
-    ResultSet rs = null;
-    PreparedStatement pst = null;
-    String value = oper.userN;
-    String lettera = null;
+   Connection conn;
+    ResultSet rs;
+    PreparedStatement pst;
+    String value;
+    String lettera;
+    Connection conn1;
+    
 
-    public controlPanel() {
+    public controlPanel() throws SQLException {
         super("controlPanel");
-        initComponents();
-        conn = Db.db();
-        AnimationStation();//movimento jframe undecorate
-        String directory = System.getProperty("user.dir");
-        String[] pathDir = directory.split(":");
-        lettera = pathDir[0];
-        System.out.println("Working Directory = " + lettera);
-        lettera_txt.setText(lettera);
-        System.out.println(lettera + ":/dentalgest/cartelle/");
-        System.out.println("Lettera: " + lettera_txt.getText());
+        this.conn = null;
+        this.rs = null;
+        this.pst = null;
+        this.value = oper.userN;
+        this.lettera = null;
+        this.conn1 = null;
+        this.initComponents();
+        this.conn = Db.db();
+        this.conn1 = Db.db();
+        this.AnimationStation();
+        final String directory = System.getProperty("user.dir");
+        final String[] pathDir = directory.split(":");
+        this.lettera = pathDir[0];
+        System.out.println("Working Directory = " + this.lettera);
+        this.lettera_txt.setText(this.lettera);
+        System.out.println(this.lettera + ":/dentalgest/cartelle/");
+        System.out.println("Lettera: " + this.lettera_txt.getText());
+        this.setupDb();
+    }
+    
+    private void setupDb() {
+        final String tb1 = "CREATE TABLE  CARTELLA (PAZIENTE VARCHAR(255) NOT NULL, PATH VARCHAR(255) NOT NULL, NOME VARCHAR(255) NOT NULL, CELL VARCHAR(255) NOT NULL)";
+        final String tb2 = "CREATE TABLE  CEMENTAZIONE (CLIENTE VARCHAR(255) NOT NULL, DATANASCITA VARCHAR(255) NOT NULL, TIPOLOGIA VARCHAR(255) NOT NULL, \"DATA\" DATE NOT NULL, NOTA LONG VARCHAR DEFAULT ''  NOT NULL)";
+        final String tb3 = "CREATE TABLE  OPERATORI (NOME VARCHAR(255) NOT NULL)";
+        final String tb4 = "CREATE TABLE  PAZIENTI (NOME VARCHAR(255) NOT NULL, COGNOME VARCHAR(255) NOT NULL, CODICE_FISCALE VARCHAR(255) NOT NULL, CELL VARCHAR(255) NOT NULL, DATANASCITA VARCHAR(25) DEFAULT ''  NOT NULL, STATO VARCHAR(25) DEFAULT ''  NOT NULL, ID VARCHAR(255) NOT NULL, TAG VARCHAR(6))";
+        final String tb5 = "CREATE TABLE  PRESTAZIONE_CLIENTE (ID VARCHAR(255) NOT NULL, NOME VARCHAR(255) NOT NULL, CLIENTE VARCHAR(255) NOT NULL, ACCONTO VARCHAR(255) NOT NULL, RESTO VARCHAR(255) NOT NULL, PREZZO VARCHAR(255) NOT NULL, DENTE INTEGER NOT NULL, DATAORA VARCHAR(255) NOT NULL, TIPO VARCHAR(255) NOT NULL, NOTA LONG VARCHAR NOT NULL, CELL VARCHAR(255) NOT NULL)";
+        final String tb6 = "CREATE TABLE  PRESTAZIONI (NOME VARCHAR(255) NOT NULL, PREZZO VARCHAR(10) NOT NULL, DENTE BOOLEAN NOT NULL)";
+        final String tb7 = "CREATE TABLE  RICHIAMI (CLIENTE VARCHAR(255) NOT NULL, DATANASCITA VARCHAR(255) NOT NULL, INTERVENTO VARCHAR(255) NOT NULL, \"DATA\" DATE NOT NULL)";
+        final String tb8 = "CREATE TABLE  STORICO_ACC (CLIENTE VARCHAR(255) NOT NULL, NOME VARCHAR(255) NOT NULL, DATAORA VARCHAR(255) NOT NULL, ACCONTO VARCHAR(255) NOT NULL, DENTE VARCHAR(255) NOT NULL, ID VARCHAR(255) NOT NULL, CELL VARCHAR(255) NOT NULL)";
+        try {
+            final Statement s = this.conn1.createStatement();
+            try {
+                s.execute(tb1);
+                System.out.println("Colonna CARTELLA aggiunta");
+            }
+            catch (SQLException ex) {
+                System.out.println("Colonne CARTELLA gi\u00e0 presente");
+            }
+            try {
+                s.execute(tb2);
+                System.out.println("Colonna CEMENTAZIONE aggiunta");
+            }
+            catch (SQLException ex) {
+                System.out.println("Colonne CEMENTAZIONE gi\u00e0 presente");
+            }
+            try {
+                s.execute(tb3);
+                System.out.println("Colonna OPERATORI aggiunta");
+            }
+            catch (SQLException ex) {
+                System.out.println("Colonne OPERATORI gi\u00e0 presente");
+            }
+            try {
+                s.execute(tb4);
+                System.out.println("Colonna PAZIENTI aggiunta");
+            }
+            catch (SQLException ex) {
+                System.out.println("Colonne PAZIENTI gi\u00e0 presente");
+            }
+            try {
+                s.execute(tb5);
+                System.out.println("Colonna PRESTAZIONE_CLIENTE aggiunta");
+            }
+            catch (SQLException ex) {
+                System.out.println("Colonne PRESTAZIONE_CLIENTE gi\u00e0 presente");
+            }
+            try {
+                s.execute(tb6);
+                System.out.println("Colonna PRESTAZIONI aggiunta");
+            }
+            catch (SQLException ex) {
+                System.out.println("Colonne PRESTAZIONI gi\u00e0 presente");
+            }
+            try {
+                s.execute(tb7);
+                System.out.println("Colonna RICHIAMI aggiunta");
+            }
+            catch (SQLException ex) {
+                System.out.println("Colonne RICHIAMI gi\u00e0 presente");
+            }
+            try {
+                s.execute(tb8);
+                System.out.println("Colonna STORICO_ACC aggiunta");
+            }
+            catch (SQLException ex) {
+                System.out.println("Colonne STORICO_ACC gi\u00e0 presente");
+            }
+        }
+        catch (SQLException ex) {
+            System.out.println("Colonne gi\u00e0 presente");
+        }
     }
 
     private void AnimationStation() {
@@ -72,9 +162,9 @@ public class controlPanel extends javax.swing.JFrame {
                 lastY = y;
             }
         };
-        addMouseListener(ma);
         addMouseMotionListener(ma);
     }
+       
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -364,7 +454,11 @@ public class controlPanel extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new controlPanel().setVisible(true);
+                try {
+                    new controlPanel().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(controlPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             }
         });

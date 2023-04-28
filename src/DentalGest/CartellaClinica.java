@@ -129,7 +129,7 @@ public final  class CartellaClinica extends javax.swing.JFrame {
     }
     
  
-    private void openFile(String path)
+    private void openFile(String path) throws SQLException
     {
         controlPanel cp = new controlPanel();
         String lettera = cp.lettera_txt.getText();
@@ -375,7 +375,12 @@ public final  class CartellaClinica extends javax.swing.JFrame {
          
         System.out.println("Dati: "+nom+" "+pat+" "+paz);
         String sql = "insert into cartella (paziente,path,nome,cell) values (?,?,?,?)";
-        controlPanel cp = new controlPanel();
+        controlPanel cp = null;
+        try {
+            cp = new controlPanel();
+        } catch (SQLException ex) {
+            Logger.getLogger(CartellaClinica.class.getName()).log(Level.SEVERE, null, ex);
+        }
        String lettera = cp.lettera_txt.getText();
        String extension = "";
 
@@ -492,7 +497,12 @@ public final  class CartellaClinica extends javax.swing.JFrame {
                     String nome = tb1.getValueAt(i, 1).toString();
                     File currDir = new File(System.getProperty("user.dir", "."));
                     String extension = "";
-       controlPanel cp = new controlPanel();
+       controlPanel cp = null;
+                    try {
+                        cp = new controlPanel();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(CartellaClinica.class.getName()).log(Level.SEVERE, null, ex);
+                    }
        String lettera = cp.lettera_txt.getText();
        int j = path.lastIndexOf('.');
         if (j > 0) {
@@ -525,8 +535,12 @@ public final  class CartellaClinica extends javax.swing.JFrame {
     }//GEN-LAST:event_openActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        openFile(open.getText());
+        try {
+            // TODO add your handling code here:
+            openFile(open.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(CartellaClinica.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     
